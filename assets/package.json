@@ -1,0 +1,14 @@
+{
+    "name": "kotkowo",
+    "description": "kotkowo JS depencencies",
+    "version": "1.0.0",
+    "author": "Maksymilian Jodłowski",
+    "license": "GPL-3.0",
+    "main": "js/app.js",
+    "scripts": {
+        "deploy": "cd .. && mix assets.deploy && rm -f _build/esbuild*"
+    },
+    "dependencies": {
+    },
+    "devDependencies": {}
+}
