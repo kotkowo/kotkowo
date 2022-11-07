@@ -3,12 +3,66 @@
 {nodeEnv, fetchurl, fetchgit, nix-gitignore, stdenv, lib, globalBuildInputs ? []}:
 
 let
-  sources = {};
+  sources = {
+    "@vue/reactivity-3.1.5" = {
+      name = "_at_vue_slash_reactivity";
+      packageName = "@vue/reactivity";
+      version = "3.1.5";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@vue/reactivity/-/reactivity-3.1.5.tgz";
+        sha512 = "1tdfLmNjWG6t/CsPldh+foumYFo3cpyCHgBYQ34ylaMsJ+SNHQ1kApMIa8jN+i593zQuaw3AdWH0nJTARzCFhg==";
+      };
+    };
+    "@vue/shared-3.1.5" = {
+      name = "_at_vue_slash_shared";
+      packageName = "@vue/shared";
+      version = "3.1.5";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@vue/shared/-/shared-3.1.5.tgz";
+        sha512 = "oJ4F3TnvpXaQwZJNF3ZK+kLPHKarDmJjJ6jyzVNDKH9md1dptjC7lWR//jrGuLdek/U6iltWxqAnYOu8gCiOvA==";
+      };
+    };
+    "alpinejs-3.10.5" = {
+      name = "alpinejs";
+      packageName = "alpinejs";
+      version = "3.10.5";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/alpinejs/-/alpinejs-3.10.5.tgz";
+        sha512 = "qlvnal44Gof2XVfm/lef8fYpXKxR9fjdSki7aFB/9THyFvbsRKZ6lM5SjxXpIs7B0faJt7bgpK2K25gzrraXJw==";
+      };
+    };
+    "phoenix-../deps/phoenix" = {
+      name = "phoenix";
+      packageName = "phoenix";
+      version = "1.6.4";
+      src = ../deps/phoenix;
+    };
+    "phoenix_html-../deps/phoenix_html" = {
+      name = "phoenix_html";
+      packageName = "phoenix_html";
+      version = "3.2.0";
+      src = ../deps/phoenix_html;
+    };
+    "phoenix_live_view-../deps/phoenix_live_view" = {
+      name = "phoenix_live_view";
+      packageName = "phoenix_live_view";
+      version = "0.18.3";
+      src = ../deps/phoenix_live_view;
+    };
+  };
   args = {
     name = "kotkowo";
     packageName = "kotkowo";
     version = "1.0.0";
     src = ./.;
+    dependencies = [
+      sources."@vue/reactivity-3.1.5"
+      sources."@vue/shared-3.1.5"
+      sources."alpinejs-3.10.5"
+      sources."phoenix-../deps/phoenix"
+      sources."phoenix_html-../deps/phoenix_html"
+      sources."phoenix_live_view-../deps/phoenix_live_view"
+    ];
     buildInputs = globalBuildInputs;
     meta = {
       description = "kotkowo JS depencencies";

@@ -3,3 +3,11 @@
 @import "tailwindcss/utilities";
 
 /* This file is for your main application CSS */
+@layer base {
+    a:hover {
+        @apply text-primary;
+    }
+}
+
+/* https://alpinejs.dev/directives/cloak */
+[x-cloak] { display: none !important; }
