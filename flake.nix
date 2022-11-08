@@ -47,7 +47,7 @@
                 export PATH=$PATH:$(pwd)/_build/pip_packages/bin
                 export ERL_AFLAGS="-kernel shell_history enabled"
 
-                if [ ! -f .nix-mix/rebar3 ]; then
+                if [ ! -f ./.nix-mix/elixir/1-14/rebar3 ]; then
                   echo "Setting up rebar3"
                   mix local.rebar rebar3 ${pkgs.rebar3}/bin/rebar3
                 fi
