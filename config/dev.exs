@@ -59,7 +59,8 @@ config :kotkowo, KotkowoWeb.Endpoint,
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/kotkowo_web/(live|views)/.*(ex)$",
-      ~r"lib/kotkowo_web/templates/.*(eex)$"
+      ~r"lib/kotkowo_web/templates/.*(eex)$",
+      ~r"lib/kotkowo_web/controllers/.*(eex)$"
     ]
   ]
 
