@@ -51,7 +51,8 @@ defmodule Kotkowo.MixProject do
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:gradient, github: "esl/gradient", only: [:dev], runtime: false}
+      {:gradient, github: "esl/gradient", only: [:dev], runtime: false},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
     ]
   end
 
