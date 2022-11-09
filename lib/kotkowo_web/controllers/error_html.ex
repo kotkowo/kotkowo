@@ -1,4 +1,5 @@
 defmodule KotkowoWeb.ErrorHTML do
+  @moduledoc false
   use KotkowoWeb, :html
 
   # If you want to customize your error pages,

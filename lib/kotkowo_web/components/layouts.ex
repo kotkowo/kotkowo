@@ -1,4 +1,5 @@
 defmodule KotkowoWeb.Layouts do
+  @moduledoc false
   use KotkowoWeb, :html
 
   @type nested_link :: {String.t(), String.t()}
