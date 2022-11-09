@@ -1,0 +1,15 @@
+{
+  "skip_files": [
+    "lib/kotkowo.ex",
+    "lib/kotkowo/application.ex",
+    "lib/kotkowo/repo.ex",
+    "lib/kotkowo/mailer.ex",
+    "lib/kotkowo_web.ex",
+    "lib/kotkowo_web/endpoint.ex",
+    "lib/kotkowo_web/gettext.ex",
+    "lib/kotkowo_web/router.ex",
+    "lib/kotkowo_web/telemetry.ex",
+    "test/support",
+    "lib/kotkowo_web/components"
+  ]
+}
