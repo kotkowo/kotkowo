@@ -9,7 +9,8 @@ defmodule Kotkowo.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      preferred_cli_env: [check: :test]
     ]
   end
 
@@ -51,7 +52,7 @@ defmodule Kotkowo.MixProject do
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:gradient, github: "esl/gradient", only: [:dev], runtime: false},
+      {:gradient, github: "esl/gradient", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
     ]
   end
@@ -68,7 +69,8 @@ defmodule Kotkowo.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"]
+      "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"],
+      check: ["format --check-formatted", "credo", "test", "gradient"]
     ]
   end
 end
