@@ -20,6 +20,9 @@ module.exports = {
       },
       fontFamily: {
         'sans': ['Inter', ...defaultTheme.fontFamily.sans]
+      },
+      spacing: {
+        '82': '21rem'
       }
     },
   },
