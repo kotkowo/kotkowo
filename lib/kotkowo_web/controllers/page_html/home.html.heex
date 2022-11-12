@@ -1,119 +1,63 @@
 <div class="flex flex-col relative xl:flex-row-reverse w-full space-y-9 mb-32 xl:mb-12">
   <img src={~p"/images/cat.png"} alt="Cat" class="m-0 p-0" />
+
   <div class="-bottom-32 translate-x-1/2 xl:translate-x-0 w-5/6 xl:w-auto right-1/2 xl:inset-0 absolute xl:relative bg-white xl:bg-transparent rounded-3xl xl:rounded-none flex flex-col space-y-6 xl:m-auto p-6 xl:p-0 xl:pt-12">
-    <h1 class="max-w-lg xl:max-w-2xl xl:m-0 text-3xl xl:text-6xl font-bold text-primary">
-      Adoptuj kociaka z fundacji Kotkowo
+    <h1 class="line-clamp-3 max-w-lg xl:max-w-2xl xl:m-0 text-3xl xl:text-6xl font-bold text-primary">
+      <%= gettext("Adoptuj kociaka z fundacji Kotkowo") %>
     </h1>
-    <h3 class="xl:m-0 text-lg xl:text-xl max-w-sm xl:max-w-xl">
-      Od 2007 r. opiekujemy się bezdomnymi kotami, m.in. znajdujemy domy zwierzakom z Białegostoku i okolic.
+    <h3 class="line-clamp-4 xl:m-0 text-lg xl:text-xl max-w-sm xl:max-w-xl">
+      <%= gettext(
+        "Od 2007 r. opiekujemy się bezdomnymi kotami, m.in. znajdujemy domy zwierzakom z Białegostoku i okolic."
+      ) %>
     </h3>
-    <a
-      href="#"
-      class="rounded-full bg-primary py-4 px-10 font-bold text-white text-center w-max hover:text-white hover:bg-primary-lighter transition-colors ease-in-out duration-150"
-    >
-      Zobacz koty do adopcji
-    </a>
+    <.button href="#"><%= gettext("Zobacz koty do adopcji") %></.button>
   </div>
 </div>
 
-<div class="flex flex-col py-16 bg-primary-light px-5">
-  <h2 class="mx-auto mb-10 text-primary font-bold text-4xl">Pilnie szukają domu</h2>
+<div class="flex flex-col px-2">
+  <h2 class="mx-auto mb-10 text-primary font-bold text-4xl">
+    <%= gettext("Pilnie szukają domu") %>
+  </h2>
 
-  <div class="flex flex-row space-x-8 justify-center">
-    <div style="width: 345px;">
-      <img
-        src={~p"/images/puszek.jpg"}
-        alt="Puszek"
-        style="height: 194px;"
-        class="border border-1 rounded-t-2xl w-full object-cover"
+  <div
+    class="overflow-x-auto snap-x xl:snap-none xl:overflow-hidden xl:mx-auto"
+    x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
+  >
+    <div class="flex flex-row space-x-8 m-auto mb-10">
+      <.cat_card
+        name="Puszek"
+        share_href="#"
+        src={~p"/images/puszek.png"}
+        sex={:male}
+        seniority={:junior}
+        health_status={:examined_and_vaccinated}
+        castrated={false}
+        tags={[gettext("Mruczek"), gettext("Wielbiciel kolan")]}
       />
 
-      <div class="bg-white rounded-3xl w-auto px-5 py-3 flex flex-col gap-y-3 pb-6 relative -mt-5 border border-1">
-        <div class="flex justify-between">
-          <h3 class="font-bold text-3xl">Puszek</h3>
-          <img src={~p"/images/male.svg"} alt="" class="h-6 my-auto" />
-        </div>
-
-        <div>
-          <img src={~p"/images/paw.svg"} alt="" class="inline mr-2" /> Junior
-        </div>
-        <div>
-          <img src={~p"/images/sthetoscope.svg"} alt="" class="inline mr-2" />
-          Przebadany i zaszczepiony
-        </div>
-        <div>
-          <img src={~p"/images/scissors.svg"} alt="" class="inline mr-2" /> Przed kastracją
-        </div>
-
-        <div class="mt-3">
-          <span class="border border-2 rounded-3xl p-3">Mruczek</span>
-          <span class="border border-2 rounded-3xl p-3">Wielbiciel kolan</span>
-        </div>
-      </div>
-    </div>
-
-    <div style="width: 345px;">
-      <img
-        src={~p"/images/puszek.jpg"}
-        alt="Puszek"
-        style="height: 194px;"
-        class="border border-1 rounded-t-2xl w-full object-cover"
+      <.cat_card
+        name="Bonifacy"
+        share_href="#"
+        src={~p"/images/bonifacy.png"}
+        sex={:male}
+        seniority={:adult}
+        health_status={:examined_and_vaccinated}
+        castrated={true}
+        tags={[gettext("Spokojny"), gettext("Śpioch")]}
       />
 
-      <div class="bg-white rounded-3xl w-auto px-5 py-3 flex flex-col gap-y-3 pb-6 relative -mt-5 border border-1">
-        <div class="flex justify-between">
-          <h3 class="font-bold text-3xl">Puszek</h3>
-          <img src={~p"/images/male.svg"} alt="" class="h-6 my-auto" />
-        </div>
-
-        <div>
-          <img src={~p"/images/paw.svg"} alt="" class="inline mr-2" /> Junior
-        </div>
-        <div>
-          <img src={~p"/images/sthetoscope.svg"} alt="" class="inline mr-2" />
-          Przebadany i zaszczepiony
-        </div>
-        <div>
-          <img src={~p"/images/scissors.svg"} alt="" class="inline mr-2" /> Przed kastracją
-        </div>
-
-        <div class="mt-3">
-          <span class="border border-2 rounded-3xl p-3">Mruczek</span>
-          <span class="border border-2 rounded-3xl p-3">Wielbiciel kolan</span>
-        </div>
-      </div>
-    </div>
-
-    <div style="width: 345px;">
-      <img
-        src={~p"/images/puszek.jpg"}
-        alt="Puszek"
-        style="height: 194px;"
-        class="border border-1 rounded-t-2xl w-full object-cover"
+      <.cat_card
+        name="Elza"
+        share_href="#"
+        src={~p"/images/elza.png"}
+        sex={:female}
+        seniority={:junior}
+        health_status={:examined_and_vaccinated}
+        castrated={true}
+        tags={[gettext("Żywiołowy"), gettext("Lubi zabawę")]}
       />
-
-      <div class="bg-white rounded-3xl w-auto px-5 py-3 flex flex-col gap-y-3 pb-6 relative -mt-5 border border-1">
-        <div class="flex justify-between">
-          <h3 class="font-bold text-3xl">Puszek</h3>
-          <img src={~p"/images/male.svg"} alt="" class="h-6 my-auto" />
-        </div>
-
-        <div>
-          <img src={~p"/images/paw.svg"} alt="" class="inline mr-2" /> Junior
-        </div>
-        <div>
-          <img src={~p"/images/sthetoscope.svg"} alt="" class="inline mr-2" />
-          Przebadany i zaszczepiony
-        </div>
-        <div>
-          <img src={~p"/images/scissors.svg"} alt="" class="inline mr-2" /> Przed kastracją
-        </div>
-
-        <div class="mt-3">
-          <span class="border border-2 rounded-3xl p-3">Mruczek</span>
-          <span class="border border-2 rounded-3xl p-3">Wielbiciel kolan</span>
-        </div>
-      </div>
     </div>
   </div>
+
+  <.button href="#" type="outline" class="mx-auto"><%= gettext("Zobacz wszystkie") %></.button>
 </div>
