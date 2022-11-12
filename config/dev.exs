@@ -96,7 +96,7 @@ config :git_hooks,
     pre_push: [
       verbose: false,
       tasks: [
-        {:cmd, "mix --check-formatted"},
+        {:cmd, "mix format --check-formatted"},
         {:cmd, "mix credo"},
         {:cmd, "mix test --color"},
         {:cmd, "mix gradient"}
