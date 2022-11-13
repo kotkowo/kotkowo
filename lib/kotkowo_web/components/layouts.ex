@@ -2,12 +2,9 @@ defmodule KotkowoWeb.Layouts do
   @moduledoc false
   use KotkowoWeb, :html
 
-  @type nested_link :: {String.t(), String.t()}
-  @type css_classes :: [String.t()]
-  @type link :: {String.t(), String.t() | nil, [nested_link()], css_classes()}
   import KotkowoWeb.Components.Flashes
+  import KotkowoWeb.Components.Sections
 
-  @contact_email "kotkowo@email.com"
   @links [
     {"Aktualności", nil,
      [
@@ -47,11 +44,8 @@ defmodule KotkowoWeb.Layouts do
      ], []}
   ]
 
-  @spec links :: [link()]
+  @spec links :: [KotkowoWeb.Components.Sections.link()]
   def links, do: @links
-
-  @spec contact_email :: String.t()
-  def contact_email, do: @contact_email
 
   embed_templates "layouts/*"
 end
