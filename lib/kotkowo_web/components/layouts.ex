@@ -5,6 +5,7 @@ defmodule KotkowoWeb.Layouts do
   @type nested_link :: {String.t(), String.t()}
   @type css_classes :: [String.t()]
   @type link :: {String.t(), String.t() | nil, [nested_link()], css_classes()}
+  import KotkowoWeb.Components.Flashes
 
   @contact_email "kotkowo@email.com"
   @links [
