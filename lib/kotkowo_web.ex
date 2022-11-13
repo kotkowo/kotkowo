@@ -84,8 +84,6 @@ defmodule KotkowoWeb do
     quote do
       # HTML escaping functionality
       import Phoenix.HTML
-      # Core UI components and translation
-      import KotkowoWeb.CoreComponents
       import KotkowoWeb.Gettext
 
       # Shortcut for generating JS commands
