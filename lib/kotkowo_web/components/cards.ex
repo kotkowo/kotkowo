@@ -45,7 +45,7 @@ defmodule KotkowoWeb.Components.Cards do
 
       <div class="bg-white rounded-3xl w-auto px-5 py-3 flex flex-col gap-y-3 pb-6 relative -mt-5 border border-1">
         <div class="flex justify-between">
-          <h3 class="font-bold text-3xl"><%= @name %></h3>
+          <h3 class="font-manrope font-bold text-2xl"><%= @name %></h3>
           <%= if @sex == :male do %>
             <.icon_male class="h-6 my-auto" />
           <% else %>
@@ -68,7 +68,7 @@ defmodule KotkowoWeb.Components.Cards do
 
         <div :if={@tags != []} class="mt-3">
           <%= for tag <- @tags do %>
-            <span class="border border-2 rounded-3xl p-3"><%= tag %></span>
+            <span class="border border-2 rounded-3xl p-3 text-gray-500"><%= tag %></span>
           <% end %>
         </div>
       </div>
