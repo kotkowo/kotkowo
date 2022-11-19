@@ -2,7 +2,7 @@ defmodule KotkowoWeb.Components.Sections do
   @moduledoc """
   Provides sections UI components.
   """
-  use Phoenix.Component
+  use Phoenix.Component, global_prefixes: ~w(x-)
 
   import KotkowoWeb.Components.Icons
 
