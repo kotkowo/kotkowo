@@ -79,7 +79,13 @@ defmodule Kotkowo.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"],
-      check: ["format --check-formatted", "credo", "test", "gradient"]
+      check: [
+        "compile --warnings-as-errors --all-warnings",
+        "format --check-formatted",
+        "credo",
+        "test",
+        "gradient"
+      ]
     ]
   end
 end
