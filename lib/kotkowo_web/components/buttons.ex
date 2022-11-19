@@ -18,10 +18,11 @@ defmodule KotkowoWeb.Components.Buttons do
     <a
       href="#"
       class={[
-        @type == "primary" && "bg-primary text-white hover:text-white hover:bg-primary-lighter",
+        @type == "primary" &&
+          "py-3 bg-primary text-white hover:text-white hover:bg-primary-lighter px-6 xl:px-10",
         @type == "outline" &&
-          "border-2 border-primary text-primary hover:text-primary-lighter hover:border-primary-lighter box-border",
-        "rounded-full py-4 px-10 text-center",
+          "border-2 border-primary text-primary hover:text-primary-lighter hover:border-primary-lighter box-border px-6 xl:px-10 py-2 xl:py-2.5",
+        "rounded-full  text-center xl:text-lg font-medium",
         "w-max transition-colors ease-in-out duration-150",
         @class
       ]}
