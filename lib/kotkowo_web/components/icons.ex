@@ -14,7 +14,7 @@ defmodule KotkowoWeb.Components.Icons do
 
   attr :rest, :global
 
-  def icon_gender_male(assigns) do
+  def icon_male(assigns) do
     ~H"""
     <img src={~p"/images/male.svg"} alt={gettext("Male")} {@rest} />
     """
@@ -22,7 +22,7 @@ defmodule KotkowoWeb.Components.Icons do
 
   attr :rest, :global
 
-  def icon_gender_female(assigns) do
+  def icon_female(assigns) do
     ~H"""
     <img src={~p"/images/female.svg"} alt={gettext("Female")} {@rest} />
     """
@@ -57,6 +57,38 @@ defmodule KotkowoWeb.Components.Icons do
   def icon_share(assigns) do
     ~H"""
     <img src={~p"/images/share.svg"} alt={gettext("Share")} {@rest} />
+    """
+  end
+
+  attr :rest, :global
+
+  def icon_envelope(assigns) do
+    ~H"""
+    <img src={~p"/images/envelope.svg"} alt={gettext("Envelope")} {@rest} />
+    """
+  end
+
+  attr :rest, :global
+
+  def icon_facebook(assigns) do
+    ~H"""
+    <img src={~p"/images/facebook.svg"} alt={gettext("Envelope")} {@rest} />
+    """
+  end
+
+  attr :rest, :global
+
+  def icon_bars(assigns) do
+    ~H"""
+    <img src={~p"/images/bars.svg"} alt={gettext("Envelope")} {@rest} />
+    """
+  end
+
+  attr :rest, :global
+
+  def icon_messenger(assigns) do
+    ~H"""
+    <img src={~p"/images/messenger.svg"} alt={gettext("Messenger")} {@rest} />
     """
   end
 end
