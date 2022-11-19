@@ -67,7 +67,7 @@ defmodule KotkowoWeb.Components.Sections do
             </span>
             <.icon_bars
               class="text-primary cursor-pointer ml-auto w-8 h-8 inline xl:hidden"
-              @click="expanded = !expanded"
+              x-on:click="expanded = !expanded"
             />
           </div>
 
@@ -79,8 +79,8 @@ defmodule KotkowoWeb.Components.Sections do
             <%= for {title, href, nested_links, text_classes} <- @links do %>
               <div x-data="{expanded: false}" class="mx-4 xl:mx-0">
                 <a
-                  @click="expanded = !expanded"
-                  @click.outside="expanded = false"
+                  x-on:click="expanded = !expanded"
+                  x-on:click.outside="expanded = false"
                   class="static cursor-pointer py-4 border-b-2 border-primary xl:font-normal flex xl:block flex-row w-full xl:w-auto items-center justify-between xl:py-0 xl:border-none"
                   x-bind:class="!expanded || 'font-bold'"
                   href={href}
