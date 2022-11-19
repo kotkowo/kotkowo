@@ -68,7 +68,7 @@ defmodule KotkowoWeb.Components.Sections do
             </span>
             <.icon_bars
               class="text-primary cursor-pointer ml-auto w-8 h-8 inline xl:hidden"
-              @click="expanded = !expanded"
+              x-on:click="expanded = !expanded"
             />
           </div>
 
