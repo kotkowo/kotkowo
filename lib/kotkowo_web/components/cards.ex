@@ -47,9 +47,9 @@ defmodule KotkowoWeb.Components.Cards do
         <div class="flex justify-between">
           <h3 class="font-bold text-3xl"><%= @name %></h3>
           <%= if @sex == :male do %>
-            <.icon_gender_male class="h-6 my-auto" />
+            <.icon_male class="h-6 my-auto" />
           <% else %>
-            <.icon_gender_female class="h-6 my-auto" />
+            <.icon_female class="h-6 my-auto" />
           <% end %>
         </div>
 
