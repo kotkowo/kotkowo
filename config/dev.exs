@@ -96,6 +96,7 @@ config :git_hooks,
     pre_push: [
       verbose: false,
       tasks: [
+        {:cmd, "mix compile --warnings-as-errors --all-warnings"},
         {:cmd, "mix format --check-formatted"},
         {:cmd, "mix credo"},
         {:cmd, "mix test --color"},
