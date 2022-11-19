@@ -4,6 +4,8 @@ defmodule KotkowoWeb.Components.Sections do
   """
   use Phoenix.Component
 
+  import KotkowoWeb.Components.Icons
+
   @type nested_link :: {String.t(), String.t()}
   @type css_classes :: [String.t()]
   @type link :: {String.t(), String.t() | nil, [nested_link()], css_classes()}
@@ -42,31 +44,28 @@ defmodule KotkowoWeb.Components.Sections do
       <div class="px-10 gap-x-10 h-12 bg-primary text-white flex flex-row-reverse w-full hidden xl:flex">
         <div class="my-auto">
           <a href="#">
-            <img
-              class="invert"
-              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMGMtNi42MjcgMC0xMiA1LjM3My0xMiAxMnM1LjM3MyAxMiAxMiAxMiAxMi01LjM3MyAxMi0xMi01LjM3My0xMi0xMi0xMnptMyA4aC0xLjM1Yy0uNTM4IDAtLjY1LjIyMS0uNjUuNzc4djEuMjIyaDJsLS4yMDkgMmgtMS43OTF2N2gtM3YtN2gtMnYtMmgydi0yLjMwOGMwLTEuNzY5LjkzMS0yLjY5MiAzLjAyOS0yLjY5MmgxLjk3MXYzeiIvPjwvc3ZnPg=="
-            />
+            <.icon_facebook class="w-7" />
           </a>
         </div>
         <div class="my-auto">
-          <a href={"mailto:#{@contact_email}"} class="hover:text-black">
-            <Heroicons.envelope class="mb-0.5 w-5 h-5 inline" />
-            <span class="underline"><%= @contact_email %></span>
+          <a href={"mailto:#{@contact_email}"} class="hover:text-white">
+            <.icon_envelope class="mb-0.5 w-4 inline" />
+            <span class="underline font-bold"><%= @contact_email %></span>
           </a>
         </div>
       </div>
 
       <div
-        class="px-10 flex flex-col row w-full items-center xl:border-b-2 border-primary p-2"
+        class="px-10 flex flex-col row w-full items-center xl:border-b-2 border-primary p-2 pb-3 xl:pb-2"
         x-bind:class="expanded || 'border-b-2'"
       >
         <div class="h-full flex flex-col xl:flex-row items-center gap-x-10 w-full xl:w-auto">
           <div class="flex flex-row items-center w-full xl:w-auto pt-2 xl:pt-0 self-start xl:self-auto">
             <img src="https://via.placeholder.com/32" alt="logo" />
-            <span class="ml-4 font-bold text-primary xl:text-black">
+            <span class="ml-4 xl:font-manrope font-bold text-primary text-xl xl:text-black xl:mr-12">
               <%= render_slot(@inner_block) %>
             </span>
-            <Heroicons.bars_3
+            <.icon_bars
               class="text-primary cursor-pointer ml-auto w-8 h-8 inline xl:hidden"
               @click="expanded = !expanded"
             />
@@ -122,22 +121,16 @@ defmodule KotkowoWeb.Components.Sections do
             <div class="mt-5 border-b-2 border-primary pb-6 xl:hidden">
               <div class="text-black flex flex-col space-y-3 mx-4">
                 <h4>Kontakt:</h4>
-                <a href={"mailto:#{@contact_email}"}>
-                  <Heroicons.envelope class="mb-0.5 w-5 h-5 inline" />
+                <a href={"mailto:#{@contact_email}"} class="hover:text-black">
+                  <.icon_envelope class="mb-0.5 w-5 h-5 inline invert" />
                   <%= @contact_email %>
                 </a>
                 <div class="flex space-x-6">
                   <a href="#">
-                    <img
-                      class="w-10 h-10"
-                      src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMGMtNi42MjcgMC0xMiA1LjM3My0xMiAxMnM1LjM3MyAxMiAxMiAxMiAxMi01LjM3MyAxMi0xMi01LjM3My0xMi0xMi0xMnptMyA4aC0xLjM1Yy0uNTM4IDAtLjY1LjIyMS0uNjUuNzc4djEuMjIyaDJsLS4yMDkgMmgtMS43OTF2N2gtM3YtN2gtMnYtMmgydi0yLjMwOGMwLTEuNzY5LjkzMS0yLjY5MiAzLjAyOS0yLjY5MmgxLjk3MXYzeiIvPjwvc3ZnPg=="
-                    />
+                    <.icon_facebook class="w-10 invert" />
                   </a>
                   <a href="#">
-                    <img
-                      class="w-10 h-10"
-                      src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0xMiAwYy02LjYyNyAwLTEyIDQuOTc1LTEyIDExLjExMSAwIDMuNDk3IDEuNzQ1IDYuNjE2IDQuNDcyIDguNjUydjQuMjM3bDQuMDg2LTIuMjQyYzEuMDkuMzAxIDIuMjQ2LjQ2NCAzLjQ0Mi40NjQgNi42MjcgMCAxMi00Ljk3NCAxMi0xMS4xMTEgMC02LjEzNi01LjM3My0xMS4xMTEtMTItMTEuMTExem0xLjE5MyAxNC45NjNsLTMuMDU2LTMuMjU5LTUuOTYzIDMuMjU5IDYuNTU5LTYuOTYzIDMuMTMgMy4yNTkgNS44ODktMy4yNTktNi41NTkgNi45NjN6Ii8+PC9zdmc+"
-                    />
+                    <.icon_messenger class="w-10" />
                   </a>
                 </div>
               </div>
