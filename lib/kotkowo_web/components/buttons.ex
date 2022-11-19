@@ -21,7 +21,7 @@ defmodule KotkowoWeb.Components.Buttons do
         @type == "primary" && "bg-primary text-white hover:text-white hover:bg-primary-lighter",
         @type == "outline" &&
           "border-2 border-primary text-primary hover:text-primary-lighter hover:border-primary-lighter box-border",
-        "rounded-full py-4 px-10 text-center",
+        "rounded-full py-3 px-10 text-center text-lg font-medium",
         "w-max transition-colors ease-in-out duration-150",
         @class
       ]}
