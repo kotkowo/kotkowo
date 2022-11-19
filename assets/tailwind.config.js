@@ -19,7 +19,9 @@ module.exports = {
         'highlight': '#FEEC8F'
       },
       fontFamily: {
-        'sans': ['Inter', ...defaultTheme.fontFamily.sans]
+        'sans': ['Inter', ...defaultTheme.fontFamily.sans],
+        'inter': ['Inter'],
+        'manrope': ['Manrope']
       },
       spacing: {
         '82': '21rem'
