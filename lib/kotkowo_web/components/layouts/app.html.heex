@@ -1,19 +1,19 @@
 <.header contact_email="kotkowo@email.com" links={links()}>Kotkowo</.header>
-<main class="xl:px-8">
-  <div class="mx-auto max-w-3xl md:max-w-5xl lg:max-w-7xl">
-    <.flash kind={:info} title="Success!" flash={@flash} />
-    <.flash kind={:error} title="Error!" flash={@flash} />
-    <.flash
-      id="disconnected"
-      kind={:error}
-      title="We can't find the internet"
-      close={false}
-      autoshow={false}
-      phx-disconnected={show("#disconnected")}
-      phx-connected={hide("#disconnected")}
-    >
-      Attempting to reconnect <Heroicons.arrow_path class="ml-1 w-3 h-3 inline animate-spin" />
-    </.flash>
-    <%= @inner_content %>
-  </div>
+<div class="mx-auto max-w-3xl md:max-w-5xl lg:max-w-7xl">
+  <.flash kind={:info} title="Success!" flash={@flash} />
+  <.flash kind={:error} title="Error!" flash={@flash} />
+  <.flash
+    id="disconnected"
+    kind={:error}
+    title="We can't find the internet"
+    close={false}
+    autoshow={false}
+    phx-disconnected={show("#disconnected")}
+    phx-connected={hide("#disconnected")}
+  >
+    Attempting to reconnect <Heroicons.arrow_path class="ml-1 w-3 h-3 inline animate-spin" />
+  </.flash>
+</div>
+<main>
+  <%= @inner_content %>
 </main>

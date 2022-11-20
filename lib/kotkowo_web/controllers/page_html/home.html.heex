@@ -1,69 +1,73 @@
-<div class="flex flex-col relative xl:flex-row-reverse w-full space-y-9 mb-32 xl:mb-12">
-  <img src={~p"/images/cat.png"} alt="Cat" class="m-0 p-0" />
+<.section>
+  <div class="flex flex-col relative xl:flex-row-reverse w-full space-y-9 mb-32 xl:mb-12">
+    <img src={~p"/images/cat.png"} alt="Cat" class="m-0 p-0" />
 
-  <div class={[
-    "-bottom-32 translate-x-1/2 xl:translate-x-0 w-5/6 xl:w-auto right-1/2 xl:inset-0",
-    "absolute xl:relative bg-white xl:bg-transparent rounded-3xl xl:rounded-none",
-    "flex flex-col space-y-6 xl:m-auto p-6 xl:p-0 xl:pt-12"
-  ]}>
-    <h1 class="line-clamp-3 font-manrope xl:leading-snug font-bold xl:font-extrabold text-primary max-w-lg xl:max-w-2xl xl:m-0 text-3xl xl:text-6xl ">
-      <%= gettext("Adoptuj kociaka z fundacji Kotkowo") %>
-    </h1>
-    <h3 class="line-clamp-4 xl:m-0 text-lg xl:text-xl max-w-sm xl:max-w-xl">
-      <%= gettext(
-        "Od 2007 r. opiekujemy się bezdomnymi kotami, m.in. znajdujemy domy zwierzakom z Białegostoku i okolic."
-      ) %>
-    </h3>
-    <.button href="#"><%= gettext("Zobacz koty do adopcji") %></.button>
-  </div>
-</div>
-
-<div class="flex flex-col px-2">
-  <h2 class="mx-auto mb-10 text-primary font-manrope font-bold xl:font-extrabold text-2xl xl:text-4xl">
-    <%= gettext("Pilnie szukają domu") %>
-  </h2>
-
-  <div
-    class="overflow-x-auto snap-x lg:snap-none lg:overflow-hidden lg:mx-auto"
-    x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
-  >
-    <div class="flex flex-row space-x-4 xl:space-x-7 m-auto">
-      <.cat_card
-        name="Puszek"
-        share_href="#"
-        src={~p"/images/puszek.png"}
-        sex={:male}
-        seniority={:junior}
-        health_status={:examined_and_vaccinated}
-        castrated={false}
-        tags={[gettext("Mruczek"), gettext("Wielbiciel kolan")]}
-      />
-
-      <.cat_card
-        name="Bonifacy"
-        share_href="#"
-        src={~p"/images/bonifacy.png"}
-        sex={:male}
-        seniority={:adult}
-        health_status={:examined_and_vaccinated}
-        castrated={true}
-        tags={[gettext("Spokojny"), gettext("Śpioch")]}
-      />
-
-      <.cat_card
-        name="Elza"
-        share_href="#"
-        src={~p"/images/elza.png"}
-        sex={:female}
-        seniority={:junior}
-        health_status={:examined_and_vaccinated}
-        castrated={true}
-        tags={[gettext("Żywiołowy"), gettext("Lubi zabawę")]}
-      />
+    <div class={[
+      "-bottom-32 translate-x-1/2 xl:translate-x-0 w-5/6 xl:w-auto right-1/2 xl:inset-0",
+      "absolute xl:relative bg-white xl:bg-transparent rounded-3xl xl:rounded-none",
+      "flex flex-col space-y-6 xl:m-auto p-6 xl:p-0 xl:pt-12"
+    ]}>
+      <h1 class="line-clamp-3 font-manrope xl:leading-snug font-bold xl:font-extrabold text-primary max-w-lg xl:max-w-2xl xl:m-0 text-3xl xl:text-6xl ">
+        <%= gettext("Adoptuj kociaka z fundacji Kotkowo") %>
+      </h1>
+      <h3 class="line-clamp-4 xl:m-0 text-lg xl:text-xl max-w-sm xl:max-w-xl">
+        <%= gettext(
+          "Od 2007 r. opiekujemy się bezdomnymi kotami, m.in. znajdujemy domy zwierzakom z Białegostoku i okolic."
+        ) %>
+      </h3>
+      <.button href="#"><%= gettext("Zobacz koty do adopcji") %></.button>
     </div>
   </div>
+</.section>
 
-  <.button href="#" type="outline" class="mx-auto mt-10">
-    <%= gettext("Zobacz wszystkie") %>
-  </.button>
-</div>
+<.section>
+  <div class="flex flex-col px-2">
+    <h2 class="mx-auto mb-10 text-primary font-manrope font-bold xl:font-extrabold text-2xl xl:text-4xl">
+      <%= gettext("Pilnie szukają domu") %>
+    </h2>
+
+    <div
+      class="overflow-x-auto snap-x lg:snap-none lg:overflow-hidden lg:mx-auto"
+      x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
+    >
+      <div class="flex flex-row space-x-4 xl:space-x-7 m-auto">
+        <.cat_card
+          name="Puszek"
+          share_href="#"
+          src={~p"/images/puszek.png"}
+          sex={:male}
+          seniority={:junior}
+          health_status={:examined_and_vaccinated}
+          castrated={false}
+          tags={[gettext("Mruczek"), gettext("Wielbiciel kolan")]}
+        />
+
+        <.cat_card
+          name="Bonifacy"
+          share_href="#"
+          src={~p"/images/bonifacy.png"}
+          sex={:male}
+          seniority={:adult}
+          health_status={:examined_and_vaccinated}
+          castrated={true}
+          tags={[gettext("Spokojny"), gettext("Śpioch")]}
+        />
+
+        <.cat_card
+          name="Elza"
+          share_href="#"
+          src={~p"/images/elza.png"}
+          sex={:female}
+          seniority={:junior}
+          health_status={:examined_and_vaccinated}
+          castrated={true}
+          tags={[gettext("Żywiołowy"), gettext("Lubi zabawę")]}
+        />
+      </div>
+    </div>
+
+    <.button href="#" type="outline" class="mx-auto mt-10">
+      <%= gettext("Zobacz wszystkie") %>
+    </.button>
+  </div>
+</.section>

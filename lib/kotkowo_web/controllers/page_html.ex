@@ -4,6 +4,7 @@ defmodule KotkowoWeb.PageHTML do
 
   import KotkowoWeb.Components.Cards
   import KotkowoWeb.Components.Buttons
+  import KotkowoWeb.Components.Sections
 
   embed_templates "page_html/*"
 end
