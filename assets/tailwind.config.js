@@ -24,7 +24,8 @@ module.exports = {
         'manrope': ['Manrope']
       },
       spacing: {
-        '82': '21rem'
+        '5.5': '1.375rem',
+        '82': '21.5rem'
       }
     },
   },
