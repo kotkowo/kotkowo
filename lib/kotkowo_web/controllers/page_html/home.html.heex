@@ -71,3 +71,26 @@
     </.button>
   </div>
 </.section>
+
+<.section>
+  <div class="xl:flex mx-6 xl:mx-24 xl:justify-between xl:items-stretch">
+    <div class="xl:flex xl:flex-col xl:w-3/5 xl:space-y-8 mb-6 xl:mb-0">
+      <h2 class="mb-3 xl:mb-0 text-primary font-manrope font-bold xl:font-extrabold text-2xl xl:text-4xl">
+        <%= gettext("Adopcja wirtualna") %>
+      </h2>
+      <div class="xl:text-lg mb-6 xl:mb-0">
+        No cóż, nie zawsze można mieć kotka. Wyjazdy, praca, „mama nie pozwala”. A i nie każdy kotek może znaleźć dom – są kotki ciężko chore, stare, nieadopcyjne, które przebywają w domach naszych wolontariuszy „na dożywociu”. Wiadomo, głaskanie kotka przez komputer to „nie to samo”, ale poczucie, że uratowało się jakiegoś stwora, jest bezcenne.
+        Dlatego mamy dla Was kotki do adopcji wirtualnej.
+      </div>
+      <.button type="outline" href="#">Dowiedz się więcej</.button>
+    </div>
+    <.virtual_adoption_card
+      name="Rudzik"
+      action_href="#"
+      share_href="#"
+      src={~p"/images/rudzik.png"}
+      sex={:male}
+      tags={[gettext("Mruczek"), gettext("Wielbiciel kolan")]}
+    />
+  </div>
+</.section>
