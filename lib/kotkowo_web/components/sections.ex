@@ -45,12 +45,12 @@ defmodule KotkowoWeb.Components.Sections do
       <div class="px-10 gap-x-10 h-12 bg-primary text-white flex flex-row-reverse w-full hidden xl:flex">
         <div class="my-auto">
           <a href="#">
-            <.icon_facebook class="w-7" />
+            <.icon name="facebook" class="w-7" />
           </a>
         </div>
         <div class="my-auto">
           <a href={"mailto:#{@contact_email}"} class="hover:text-white">
-            <.icon_envelope class="mb-0.5 w-4 inline" />
+            <.icon name="envelope" class="mb-0.5 w-4 inline" />
             <span class="underline font-bold"><%= @contact_email %></span>
           </a>
         </div>
@@ -66,7 +66,8 @@ defmodule KotkowoWeb.Components.Sections do
             <span class="ml-4 xl:font-manrope font-bold text-primary text-lg xl:text-2xl xl:text-black xl:mr-12">
               <%= render_slot(@inner_block) %>
             </span>
-            <.icon_bars
+            <.icon
+              name="bars"
               class="text-primary cursor-pointer ml-auto w-8 h-8 inline xl:hidden"
               x-on:click="expanded = !expanded"
             />
@@ -92,8 +93,8 @@ defmodule KotkowoWeb.Components.Sections do
                   <span class={text_classes}><%= title %></span>
 
                   <%= if nested_links != [] do %>
-                    <.icon_chevron_down class="w-5 inline xl:hidden" x-show="!expanded" />
-                    <.icon_chevron_up class="w-5 inline xl:hidden" x-show="expanded" />
+                    <.icon name="chevron_down" class="w-5 inline xl:hidden" x-show="!expanded" />
+                    <.icon name="chevron_up" class="w-5 inline xl:hidden" x-show="expanded" />
                   <% end %>
                   <div
                     :if={nested_links != []}
@@ -126,15 +127,15 @@ defmodule KotkowoWeb.Components.Sections do
               <div class="text-black flex flex-col space-y-4 mx-4">
                 <h4 class="text-lg"><%= gettext("Kontakt:") %></h4>
                 <a href={"mailto:#{@contact_email}"} class="hover:text-black">
-                  <.icon_envelope class="mb-0.5 w-5 h-5 inline invert" />
+                  <.icon name="envelope" class="mb-0.5 w-5 h-5 inline invert" />
                   <%= @contact_email %>
                 </a>
                 <div class="flex space-x-6">
                   <a href="#">
-                    <.icon_facebook class="w-10 invert" />
+                    <.icon name="facebook" class="w-10 invert" />
                   </a>
                   <a href="#">
-                    <.icon_messenger class="w-10" />
+                    <.icon name="messenger" class="w-10" />
                   </a>
                 </div>
               </div>
