@@ -55,7 +55,11 @@ defmodule KotkowoWeb.Components.Cards do
           ]}>
             <%= render_slot(title) %>
           </h3>
-          <.icon name={title.icon} class="w-5 lg:w-5.5 h-5 lg:h-5.5 my-auto" />
+          <.icon
+            :if={Map.has_key?(title, :icon)}
+            name={title.icon}
+            class="w-5 lg:w-5.5 h-5 lg:h-5.5 my-auto"
+          />
         </div>
 
         <%= render_slot(@attributes) %>
