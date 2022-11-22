@@ -23,6 +23,7 @@ defmodule KotkowoWeb.Components.Cards do
     default: [],
     doc: "Tags",
     examples: [["Mruczek", "Wielbiciel kolan"], ["Meowy", "Loves laps"]]
+  attr :body_class, :string, default: ""
 
   slot :title do
     attr :icon, :string, values: icons_all()
@@ -48,6 +49,10 @@ defmodule KotkowoWeb.Components.Cards do
       <div class="bg-white rounded-3xl w-auto px-3 lg:px-5 py-2 lg:py-3 flex flex-col gap-y-3 pb-3 lg:pb-6 relative -mt-5 border border-1">
         <div :for={title <- @title} class="flex justify-between">
           <h3 class="lg:font-manrope font-semibold lg:font-bold text-lg lg:text-2xl">
+          <h3 class={[
+            "lg:font-manrope font-semibold lg:font-bold text-lg lg:text-2xl",
+            Map.get(title, :class)
+          ]}>
             <%= render_slot(title) %>
           </h3>
           <.icon name={title.icon} class="w-5 lg:w-5.5 h-5 lg:h-5.5 my-auto" />
