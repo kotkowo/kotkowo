@@ -131,3 +131,44 @@
     </.button>
   </div>
 </.section>
+
+<.section>
+  <div class="flex flex-col px-2">
+    <h2 class="ml-6 xl:mx-auto mb-10 text-primary font-manrope font-bold xl:font-extrabold text-2xl xl:text-4xl">
+      <%= gettext("Jak zgłosić nam zaginięcie/znalezienie kota?") %>
+    </h2>
+
+    <.steps>
+      <.step>
+        Sprawdź, czy kot ma obrożę z adresem. Popytaj okolicznych mieszkańców, czy go nie znają.
+      </.step>
+      <.step>
+        Zrób zdjęcie kota, ewentualnie nagraj filmik. Zanotuj, jakie ma cechy charakterystyczne.
+      </.step>
+      <.step>
+        Zapisz lokalizację i adres kota. Jeśli to możliwe, zabierz go do domu.
+        <:actions>
+          <.button type="outline" href="#">Stwórz dom tymczasowy</.button>
+        </:actions>
+      </.step>
+      <.step>
+        Skontaktuj się z nami mailowo lub na Facebooku. Prześlij wszystkie informacje o kocie.
+        <:actions>
+          <a href="#" class="flex">
+            <.icon name="envelope" class="w-6 h-6 my-auto mr-2 inline invert" />
+            <span class="underline">
+              kotkowo@email.com
+            </span>
+          </a>
+
+          <a href="#" class="flex mt-7">
+            <.icon name="facebook" class="w-6 h-6 my-auto mr-2 inline invert" />
+            <span class="underline my-auto">
+              facebook.com/kotkowo
+            </span>
+          </a>
+        </:actions>
+      </.step>
+    </.steps>
+  </div>
+</.section>
