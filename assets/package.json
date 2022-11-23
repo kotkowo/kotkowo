@@ -15,6 +15,7 @@
     "alpinejs": "3.10.5"
   },
   "devDependencies": {
-    "@tailwindcss/line-clamp": "^0.4.2"
+    "@tailwindcss/line-clamp": "^0.4.2",
+    "tailwindcss-counter": "^1.1.3"
   }
 }
