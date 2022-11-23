@@ -83,24 +83,26 @@ defmodule KotkowoWeb.Components.Cards do
     """
   end
 
-  attr :name, :string, required: true, doc: "Cat's name"
-  attr :src, :string, required: true, doc: "Cat's image"
-  attr :seniority, :atom, required: true, values: Seniority.all(), doc: "Cat's seniority"
+  attr(:name, :string, required: true, doc: "Cat's name")
+  attr(:src, :string, required: true, doc: "Cat's image")
+  attr(:seniority, :atom, required: true, values: Seniority.all(), doc: "Cat's seniority")
 
-  attr :health_status, :atom,
+  attr(:health_status, :atom,
     required: true,
     values: HealthStatus.all(),
     doc: "Cat's health status"
+  )
 
-  attr :castrated, :boolean, required: true, doc: "Whether cat was castrated"
+  attr(:castrated, :boolean, required: true, doc: "Whether cat was castrated")
 
-  attr :tags, :list,
+  attr(:tags, :list,
     default: [],
     doc: "Cat's tags",
     examples: [["Mruczek", "Wielbiciel kolan"], ["Meowy", "Loves laps"]]
+  )
 
-  attr :sex, :atom, values: Sex.all(), required: true, doc: "Cat's sex"
-  attr :share_href, :string, required: true, doc: "Cat's share link"
+  attr(:sex, :atom, values: Sex.all(), required: true, doc: "Cat's sex")
+  attr(:share_href, :string, required: true, doc: "Cat's share link")
 
   def cat_card(assigns) do
     ~H"""
@@ -123,11 +125,11 @@ defmodule KotkowoWeb.Components.Cards do
     """
   end
 
-  attr :icon, :string, required: true, values: icons_all()
+  attr(:icon, :string, required: true, values: icons_all())
 
-  attr :rest, :global
+  attr(:rest, :global)
 
-  slot :inner_block, required: true
+  slot(:inner_block, required: true)
 
   def card_attribute(assigns) do
     ~H"""
@@ -140,7 +142,7 @@ defmodule KotkowoWeb.Components.Cards do
     """
   end
 
-  slot :inner_block, required: true
+  slot(:inner_block, required: true)
 
   def card_tag(assigns) do
     ~H"""
@@ -150,16 +152,17 @@ defmodule KotkowoWeb.Components.Cards do
     """
   end
 
-  attr :name, :string, required: true, doc: "Cat's name"
-  attr :src, :string, required: true, doc: "Cat's image"
-  attr :sex, :atom, values: Sex.all(), required: true, doc: "Cat's sex"
-  attr :share_href, :string, required: true, doc: "Cat's share link"
-  attr :action_href, :string, required: true, doc: "Cat's adopt href"
+  attr(:name, :string, required: true, doc: "Cat's name")
+  attr(:src, :string, required: true, doc: "Cat's image")
+  attr(:sex, :atom, values: Sex.all(), required: true, doc: "Cat's sex")
+  attr(:share_href, :string, required: true, doc: "Cat's share link")
+  attr(:action_href, :string, required: true, doc: "Cat's adopt href")
 
-  attr :tags, :list,
+  attr(:tags, :list,
     default: [],
     doc: "Cat's tags",
     examples: [["Mruczek", "Wielbiciel kolan"], ["Meowy", "Loves laps"]]
+  )
 
   def virtual_adoption_card(assigns) do
     ~H"""
