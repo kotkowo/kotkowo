@@ -178,4 +178,23 @@ defmodule KotkowoWeb.Components.Cards do
     </.card>
     """
   end
+
+  attr(:title, :string, required: true, doc: "News' title")
+  attr(:src, :string, required: true, doc: "News' image")
+
+  attr(:tags, :list,
+    default: [],
+    doc: "News' tags",
+    examples: [["Zbiórka", "Przedszkole"], ["Akcja", "Kastracja"]]
+  )
+
+  def news_card(assigns) do
+    ~H"""
+    <.card src={@src} alt={@title} tags={@tags} body_class="rounded-t-none">
+      <:title class="lg:!text-xl">
+        <%= @title %>
+      </:title>
+    </.card>
+    """
+  end
 end
