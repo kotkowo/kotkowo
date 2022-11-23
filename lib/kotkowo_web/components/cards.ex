@@ -15,26 +15,29 @@ defmodule KotkowoWeb.Components.Cards do
   alias Kotkowo.Attributes.HealthStatus
   alias Kotkowo.Attributes.Sex
 
-  attr :src, :string, required: true, doc: "Image"
-  attr :alt, :string, required: true, doc: "Image's alt"
-  attr :share_href, :string, default: nil, doc: "Share link"
+  attr(:src, :string, required: true, doc: "Image")
+  attr(:alt, :string, required: true, doc: "Image's alt")
+  attr(:share_href, :string, default: nil, doc: "Share link")
 
-  attr :tags, :list,
+  attr(:tags, :list,
     default: [],
     doc: "Tags",
     examples: [["Mruczek", "Wielbiciel kolan"], ["Meowy", "Loves laps"]]
+  )
+
   attr :body_class, :string, default: ""
 
   slot :title do
     attr :icon, :string, values: icons_all()
+    attr :class, :string
   end
 
-  slot :attributes
-  slot :actions
+  slot(:attributes)
+  slot(:actions)
 
   def card(assigns) do
     ~H"""
-    <div class="w-60 lg:w-82 shrink-0 snap-center lg:snap-none">
+    <div class="w-60 lg:w-82 shrink-0 snap-center lg:snap-none flex flex-col">
       <div class="relative">
         <a
           :if={@share_href != nil}
@@ -46,9 +49,12 @@ defmodule KotkowoWeb.Components.Cards do
         <img src={@src} alt={@alt} class="border border-1 rounded-t-2xl w-full object-cover h-48" />
       </div>
 
-      <div class="bg-white rounded-3xl w-auto px-3 lg:px-5 py-2 lg:py-3 flex flex-col gap-y-3 pb-3 lg:pb-6 relative -mt-5 border border-1">
-        <div :for={title <- @title} class="flex justify-between">
-          <h3 class="lg:font-manrope font-semibold lg:font-bold text-lg lg:text-2xl">
+      <div class={[
+        "bg-white rounded-3xl w-auto px-3 lg:px-5 py-2 lg:py-3 flex flex-col",
+        "gap-y-3 pb-3 lg:pb-6 relative -mt-5 border border-1 flex-1",
+        @body_class
+      ]}>
+        <div :for={title <- @title} class="flex justify-between flex-1">
           <h3 class={[
             "lg:font-manrope font-semibold lg:font-bold text-lg lg:text-2xl",
             Map.get(title, :class)
