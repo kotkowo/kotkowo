@@ -94,3 +94,40 @@
     />
   </div>
 </.section>
+
+<.section>
+  <div class="flex flex-col px-2">
+    <h2 class="mx-auto mb-10 text-primary font-manrope font-bold xl:font-extrabold text-2xl xl:text-4xl">
+      <%= gettext("Aktualności") %>
+    </h2>
+
+    <div
+      class="overflow-x-auto snap-x lg:snap-none lg:overflow-hidden lg:mx-auto"
+      x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
+    >
+      <div class="flex flex-row space-x-4 xl:space-x-7 m-auto">
+        <.news_card
+          title={gettext("Zbiórka karmy dla kotów w przedszkolu na ul. Wesołej")}
+          src={~p"/images/cat_food.png"}
+          tags={["Zbiórka", "Przedszkole"]}
+        />
+
+        <.news_card
+          title={gettext("W gminie Sokółka od września wykastrujesz kota za darmo")}
+          src={~p"/images/nature_cat.png"}
+          tags={["Akcja", "Kastracja"]}
+        />
+
+        <.news_card
+          title={gettext("Potrzebujemy 3000zł na operację ratującej życie Tosi po wypadku")}
+          src={~p"/images/fuzzy_cat.png"}
+          tags={["Zbiórka", "Leczenie"]}
+        />
+      </div>
+    </div>
+
+    <.button href="#" type="outline" class="mx-auto mt-10">
+      <%= gettext("Zobacz wszystkie") %>
+    </.button>
+  </div>
+</.section>
