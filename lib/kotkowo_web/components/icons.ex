@@ -10,7 +10,7 @@ defmodule KotkowoWeb.Components.Icons do
     router: KotkowoWeb.Router,
     statics: ~w(images)
 
-  @all ~w(male female paw sthetoscope scissors share envelope facebook bars messenger chevron_up chevron_down)
+  @all ~w(male female paw sthetoscope scissors share envelope facebook bars messenger chevron_up chevron_down city_scraper envelope2 messenger_black)
 
   attr :name, :string, values: @all
 
