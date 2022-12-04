@@ -197,4 +197,22 @@ defmodule KotkowoWeb.Components.Cards do
     </.card>
     """
   end
+
+  attr :href, :string, required: true
+  attr :src, :string, required: true
+  attr :alt, :string, required: true
+
+  slot :inner_block, required: true, doc: "Card's text"
+
+  def help_card(assigns) do
+    ~H"""
+    <a href="#">
+      <div class="w-60 flex flex-col bg-white rounded-2xl border border-2">
+        <img src={@src} alt={@alt} class="border border-1 rounded-t-2xl w-full object-cover h-40" />
+
+        <p class="py-5 px-14 text-center font-manrope font-bold"><%= render_slot(@inner_block) %></p>
+      </div>
+    </a>
+    """
+  end
 end
