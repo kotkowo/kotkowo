@@ -4,6 +4,10 @@ defmodule KotkowoWeb.Components.Sections do
   """
   use Phoenix.Component, global_prefixes: ~w(x-)
 
+  use Phoenix.VerifiedRoutes,
+    endpoint: KotkowoWeb.Endpoint,
+    router: KotkowoWeb.Router
+
   import KotkowoWeb.Components.Icons
   import KotkowoWeb.Components.Buttons
   import KotkowoWeb.Gettext
@@ -214,7 +218,7 @@ defmodule KotkowoWeb.Components.Sections do
           <.footer_section title="Mapa strony">
             <.footer_link href="#">Aktualności</.footer_link>
             <.footer_link href="#">Adopcja</.footer_link>
-            <.footer_link href="#">Jak pomóc?</.footer_link>
+            <.footer_link href={~p"/pomoc"}>Jak pomóc?</.footer_link>
             <.footer_link href="#">Porady</.footer_link>
             <.footer_link href="#">O fundacji</.footer_link>
             <.footer_link href="#">Znalezione koty</.footer_link>
