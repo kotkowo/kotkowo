@@ -326,4 +326,17 @@ defmodule KotkowoWeb.Components.Sections do
       Enum.reverse([self | breadcrumb_reflect(site_meta.parent.(), routes, result)])
     end
   end
+
+  attr :title, :string, required: true
+
+  slot :inner_block, required: true
+
+  def text_article(assigns) do
+    ~H"""
+    <article class="flex flex-col space-y-3">
+      <h4 class="text-base xl:text-lg text-primary font-bold"><%= @title %></h4>
+      <p class="text-sm xl:text-lg"><%= render_slot(@inner_block) %></p>
+    </article>
+    """
+  end
 end
