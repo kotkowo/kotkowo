@@ -286,4 +286,44 @@ defmodule KotkowoWeb.Components.Sections do
     </div>
     """
   end
+
+  def breadcrumb(%{meta: %{parent: nil}} = assigns), do: ~H""
+
+  def breadcrumb(assigns) do
+    ~H"""
+    <div class="w-full">
+      <div class={["mx-auto max-w-3xl md:max-w-5xl lg:max-w-7xl"]}>
+        <ul class="my-8 ml-7">
+          <%= for {title, route} <- breadcrumb_reflect(@meta) do %>
+            <li class="inline last:font-bold last:pointer-events-none after:content-['>'] after:last:hidden after:mx-1">
+              <.link href={route}><%= title %></.link>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    """
+  end
+
+  defp breadcrumb_reflect(site_meta, routes \\ nil, result \\ [])
+
+  defp breadcrumb_reflect(site_meta, nil, result) do
+    routes = KotkowoWeb.Router.__routes__()
+    breadcrumb_reflect(site_meta, routes, result)
+  end
+
+  defp breadcrumb_reflect(site_meta, routes, result) do
+    route =
+      Enum.find(routes, %{path: "#"}, fn route ->
+        route.plug == site_meta.controller && route.plug_opts == site_meta.method
+      end)
+
+    self = {site_meta.title, route.path}
+
+    if site_meta.parent == nil do
+      [self | result]
+    else
+      Enum.reverse([self | breadcrumb_reflect(site_meta.parent.(), routes, result)])
+    end
+  end
 end
