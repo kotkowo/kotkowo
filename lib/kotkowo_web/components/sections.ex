@@ -291,9 +291,9 @@ defmodule KotkowoWeb.Components.Sections do
 
   def breadcrumb(assigns) do
     ~H"""
-    <div class="w-full">
-      <div class={["mx-auto max-w-3xl md:max-w-5xl lg:max-w-7xl"]}>
-        <ul class="my-8 ml-7">
+    <div class="w-full hidden xl:block">
+      <div class="mx-auto max-w-3xl md:max-w-5xl lg:max-w-7xl">
+        <ul class="my-8 mx-1">
           <%= for {title, route} <- breadcrumb_reflect(@meta) do %>
             <li class="inline last:font-bold last:pointer-events-none after:content-['>'] after:last:hidden after:mx-1">
               <.link href={route}><%= title %></.link>
