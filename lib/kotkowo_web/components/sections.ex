@@ -313,7 +313,7 @@ defmodule KotkowoWeb.Components.Sections do
 
   defp breadcrumb_reflect(site_meta, nil, result) do
     routes = KotkowoWeb.Router.__routes__()
-    breadcrumb_reflect(site_meta, routes, result)
+    Enum.reverse(breadcrumb_reflect(site_meta, routes, result))
   end
 
   defp breadcrumb_reflect(site_meta, routes, result) do
@@ -327,7 +327,7 @@ defmodule KotkowoWeb.Components.Sections do
     if site_meta.parent == nil do
       [self | result]
     else
-      Enum.reverse([self | breadcrumb_reflect(site_meta.parent.(), routes, result)])
+      [self | breadcrumb_reflect(site_meta.parent.(), routes, result)]
     end
   end
 

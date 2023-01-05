@@ -25,11 +25,13 @@ defmodule KotkowoWeb.Components.Steps do
     """
   end
 
+  attr :class, :string, default: nil
+
   slot :inner_block, required: true
 
   def steps(assigns) do
     ~H"""
-    <div class="grid xl:grid-flow-col auto-cols-fr gap-x-4 gap-y-10 counter-reset">
+    <div class={["grid xl:grid-flow-col auto-cols-fr gap-x-4 gap-y-10 counter-reset", @class]}>
       <%= render_slot(@inner_block) %>
     </div>
     """

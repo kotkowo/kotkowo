@@ -18,7 +18,11 @@ defmodule KotkowoWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
-    get "/pomoc", PageController, :help
+
+    scope "/pomoc" do
+      get "/", PageController, :help
+      get "/przekaz-rzeczy-dla-kotkow", PageController, :item_donation
+    end
   end
 
   # Other scopes may use custom stacks.
