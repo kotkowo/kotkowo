@@ -207,10 +207,10 @@ defmodule KotkowoWeb.Components.Cards do
   def help_card(assigns) do
     ~H"""
     <a href="#">
-      <div class="w-60 flex flex-col bg-white rounded-2xl border border-2">
+      <div class="w-56 flex flex-col bg-white rounded-2xl border border-2 snap-center lg:snap-none">
         <img src={@src} alt={@alt} class="border border-1 rounded-t-2xl w-full object-cover h-40" />
 
-        <p class="py-5 px-14 text-center font-manrope font-bold"><%= render_slot(@inner_block) %></p>
+        <p class="py-5 px-10 text-center font-manrope font-bold"><%= render_slot(@inner_block) %></p>
       </div>
     </a>
     """
