@@ -7,6 +7,7 @@ defmodule KotkowoWeb.PageHTML do
   import KotkowoWeb.Components.Sections
   import KotkowoWeb.Components.Steps
   import KotkowoWeb.Components.Icons
+  import KotkowoWeb.Components.Static.HowYouCanHelpSection
 
   embed_templates "page_html/*"
 end
