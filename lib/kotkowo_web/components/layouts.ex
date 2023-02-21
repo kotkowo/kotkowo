@@ -1,7 +1,6 @@
 defmodule KotkowoWeb.Layouts do
   @moduledoc false
   use KotkowoWeb, :html
-  use Phoenix.VerifiedRoutes, endpoint: KotkowoWeb.Endpoint, router: KotkowoWeb.Router
 
   import KotkowoWeb.Components.Flashes
   import KotkowoWeb.Components.Sections

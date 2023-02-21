@@ -2,11 +2,9 @@ defmodule KotkowoWeb.Components.Sections do
   @moduledoc """
   Provides sections UI components.
   """
-  use Phoenix.Component, global_prefixes: ~w(x-)
 
-  use Phoenix.VerifiedRoutes,
-    endpoint: KotkowoWeb.Endpoint,
-    router: KotkowoWeb.Router
+  use KotkowoWeb, :verified_routes
+  use Phoenix.Component, global_prefixes: ~w(x-)
 
   import KotkowoWeb.Components.Icons
   import KotkowoWeb.Components.Buttons

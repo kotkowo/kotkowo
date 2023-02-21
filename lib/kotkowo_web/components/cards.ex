@@ -3,8 +3,8 @@ defmodule KotkowoWeb.Components.Cards do
   Provides card UI components.
   """
 
+  use KotkowoWeb, :verified_routes
   use Phoenix.Component
-  use Phoenix.VerifiedRoutes, endpoint: KotkowoWeb.Endpoint, router: KotkowoWeb.Router
 
   import KotkowoWeb.Gettext
 

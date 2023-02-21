@@ -1,6 +1,8 @@
 defmodule KotkowoWeb.Components.Static.HowYouCanHelpSection do
+  @moduledoc false
+
   use Phoenix.Component
-  use Phoenix.VerifiedRoutes, endpoint: KotkowoWeb.Endpoint, router: KotkowoWeb.Router
+  use KotkowoWeb, :verified_routes
 
   import KotkowoWeb.Components.Cards
   import KotkowoWeb.Components.Sections
