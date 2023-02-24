@@ -13,8 +13,6 @@
         pkgs = import nixpkgs {
           inherit system;
         };
-
-        nodeDependencies = (pkgs.callPackage ./assets/default.nix {}).nodeDependencies;
       in
       {
           devShell = pkgs.mkShell
@@ -30,8 +28,6 @@
                 inotify-tools
                 # needed for emacs to unzip elixir-ls
                 unzip
-                # used to manage js using nix
-                node2nix
               ]);
 
               shellHook = ''
@@ -46,10 +42,6 @@
                 export LANG=en_US.UTF-8
                 export PATH=$PATH:$(pwd)/_build/pip_packages/bin
                 export ERL_AFLAGS="-kernel shell_history enabled"
-
-                echo "Setting up node_modules"
-                unlink ./assets/node_modules
-                ln -sf ${nodeDependencies}/lib/node_modules ./assets/node_modules
             '';
           };
       }
