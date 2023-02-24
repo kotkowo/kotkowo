@@ -66,9 +66,12 @@ defmodule KotkowoWeb.Components.Sections do
         <div class="h-full flex flex-col xl:flex-row items-center gap-x-10 w-full xl:w-auto">
           <div class="flex flex-row items-center w-full xl:w-auto pt-2 xl:pt-0 self-start xl:self-auto">
             <img src="https://via.placeholder.com/32" alt="logo" />
-            <span class="ml-4 xl:font-manrope font-bold text-primary text-lg xl:text-2xl xl:text-black xl:mr-12">
+            <a
+              class="ml-4 xl:font-manrope font-bold text-primary text-lg xl:text-2xl xl:text-black xl:mr-12"
+              href="/"
+            >
               <%= render_slot(@inner_block) %>
-            </span>
+            </a>
             <.icon
               name="bars"
               class="text-primary cursor-pointer ml-auto w-8 h-8 inline xl:hidden"
@@ -82,18 +85,18 @@ defmodule KotkowoWeb.Components.Sections do
             x-cloak
           >
             <%= for {title, href, nested_links, text_classes} <- @links do %>
-              <div x-data="{expanded: false}" class="mx-4 xl:mx-0">
-                <a
-                  x-on:click="expanded = !expanded"
-                  x-on:click.outside="expanded = false"
-                  class={[
-                    "text-lg static cursor-pointer py-4 border-b-2 border-primary xl:font-normal",
-                    "flex xl:block flex-row w-full xl:w-auto items-center justify-between xl:py-0 xl:border-none"
-                  ]}
-                  x-bind:class="!expanded || 'font-bold'"
-                  href={href}
-                >
-                  <span class={text_classes}><%= title %></span>
+              <div
+                x-data="{expanded: false}"
+                class="mx-4 xl:mx-0"
+                x-on:mouseover="if($isBreakpoint('lg+')) expanded = true"
+                x-on:mouseleave="if($isBreakpoint('lg+')) expanded = false"
+                x-on:click="if($isBreakpoint('lg-')) expanded = !expanded"
+              >
+                <div class={[
+                  "text-lg static cursor-pointer py-4 border-b-2 border-primary",
+                  "flex xl:block flex-row w-full xl:w-auto items-center justify-between xl:py-0 xl:border-none"
+                ]}>
+                  <a href={IO.inspect(href)} class={text_classes}><%= title %></a>
 
                   <%= if nested_links != [] do %>
                     <.icon name="chevron_down" class="w-5 inline xl:hidden" x-show="!expanded" />
@@ -113,7 +116,7 @@ defmodule KotkowoWeb.Components.Sections do
                       </a>
                     <% end %>
                   </div>
-                </a>
+                </div>
                 <ul
                   :if={nested_links != []}
                   x-show="expanded"

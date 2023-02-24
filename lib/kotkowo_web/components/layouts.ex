@@ -21,7 +21,7 @@ defmodule KotkowoWeb.Layouts do
          {"Adoptuj wirtualnie kota", "#"}
        ], []},
       {"Zaginione/znalezione", "#zaginione-znalezione", [], []},
-      {"Jak pomóc", nil,
+      {"Jak pomóc", ~p"/pomoc",
        [
          {"Przekaż nam 1% podatku", "#"},
          {"Wesprzyj nas finansowo", "#"},
