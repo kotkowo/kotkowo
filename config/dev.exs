@@ -79,28 +79,3 @@ config :phoenix, :plug_init_mode, :runtime
 
 # Disable swoosh api client as it is only required for production adapters.
 config :swoosh, :api_client, false
-
-config :git_hooks,
-  auto_install: true,
-  verbose: true,
-  branches: [
-    whitelist: ["feature-.*"],
-    blacklist: ["master"]
-  ],
-  hooks: [
-    pre_commit: [
-      tasks: [
-        {:cmd, "mix format --check-formatted"}
-      ]
-    ],
-    pre_push: [
-      verbose: false,
-      tasks: [
-        {:cmd, "mix compile --warnings-as-errors --all-warnings"},
-        {:cmd, "mix format --check-formatted"},
-        {:cmd, "mix credo"},
-        {:cmd, "mix test --color"},
-        {:cmd, "mix gradient"}
-      ]
-    ]
-  ]
