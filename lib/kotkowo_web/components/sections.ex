@@ -96,7 +96,7 @@ defmodule KotkowoWeb.Components.Sections do
                   "text-lg static cursor-pointer py-4 border-b-2 border-primary",
                   "flex xl:block flex-row w-full xl:w-auto items-center justify-between xl:py-0 xl:border-none"
                 ]}>
-                  <a href={IO.inspect(href)} class={text_classes}><%= title %></a>
+                  <a href={href} class={text_classes}><%= title %></a>
 
                   <%= if nested_links != [] do %>
                     <.icon name="chevron_down" class="w-5 inline xl:hidden" x-show="!expanded" />
