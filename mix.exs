@@ -61,7 +61,7 @@ defmodule Kotkowo.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:gradient, github: "esl/gradient", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
-      {:git_hooks, "~> 0.7.0", only: [:dev], runtime: false},
+      {:git_hooks, "~> 0.8.0-pre0", only: [:dev], runtime: false},
       {:excoveralls, "~> 0.10", only: :test}
     ]
   end
