@@ -2,6 +2,22 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+/* Breakpoints for https://github.com/wrsdesign/alpinejs-breakpoints */
+
+:root { --breakpoint: 'unset';}
+@media screen and (min-width: 567px) {
+  :root { --breakpoint: 'sm'; }
+}
+@media screen and (min-width: 900px) {
+  :root { --breakpoint: 'md'; }
+}
+@media screen and (min-width: 1200px) {
+  :root { --breakpoint: 'lg'; }
+}
+@media screen and (min-width: 1600px) {
+  :root { --breakpoint: '2xl'; }
+}
+
 /* This file is for your main application CSS */
 @layer base {
     a:hover {
