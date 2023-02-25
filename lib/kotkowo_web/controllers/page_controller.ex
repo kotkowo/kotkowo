@@ -24,9 +24,23 @@ defmodule KotkowoWeb.PageController do
     title: "Przekaż rzeczy dla kotków",
     parent: &__MODULE__.help_meta/0,
     controller: __MODULE__,
-    method: :help
+    method: :item_donation
   }
+  def item_donation_meta, do: @item_donation_meta
+
   def item_donation(conn, _params) do
     render(conn, :item_donation, meta: @item_donation_meta)
+  end
+
+  @collection_meta %{
+    title: "Zorganizuj zbiórkę rzeczową",
+    parent: &__MODULE__.help_meta/0,
+    controller: __MODULE__,
+    method: :collection
+  }
+  def collection_meta, do: @collection_meta
+
+  def collection(conn, _params) do
+    render(conn, :collection, meta: @collection_meta)
   end
 end
