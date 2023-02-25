@@ -17,7 +17,7 @@ defmodule KotkowoWeb.Components.Static.HowYouCanHelpSection do
   defp container(assigns) do
     ~H"""
     <%= if @fold do %>
-      <div class="flex w-full mx-2">
+      <div class="flex w-full px-2">
         <div
           class="overflow-x-auto snap-x lg:snap-none lg:mx-auto"
           x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
