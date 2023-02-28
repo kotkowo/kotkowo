@@ -163,13 +163,14 @@ defmodule KotkowoWeb.Components.Sections do
   """
 
   attr :class, :string, default: nil
+  attr :parent_class, :string, default: nil
   attr :rest, :global
 
   slot :inner_block, required: true, doc: "Inner content"
 
   def section(assigns) do
     ~H"""
-    <div class="w-full even:bg-primary-light first:pt-0 py-10 xl:py-16">
+    <div class={["w-full even:bg-primary-light first:pt-0 py-10 xl:py-16", @parent_class]}>
       <section class={["mx-auto max-w-3xl md:max-w-5xl lg:max-w-7xl", @class]} {@rest}>
         <%= render_slot(@inner_block) %>
       </section>
