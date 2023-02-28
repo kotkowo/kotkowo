@@ -162,8 +162,8 @@ defmodule KotkowoWeb.Components.Sections do
   Renders a section
   """
 
-  attr :class, :string, default: nil
-  attr :parent_class, :string, default: nil
+  attr :class, :any, default: nil
+  attr :parent_class, :any, default: nil
   attr :rest, :global
 
   slot :inner_block, required: true, doc: "Inner content"

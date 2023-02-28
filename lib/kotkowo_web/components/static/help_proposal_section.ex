@@ -8,8 +8,8 @@ defmodule KotkowoWeb.Components.Static.HelpProposalSection do
   import KotkowoWeb.Components.Buttons
   import KotkowoWeb.Components.Sections
 
-  attr :parent_class, :string, default: nil
-  attr :class, :string, default: nil
+  attr :parent_class, :any, default: nil
+  attr :class, :any, default: nil
 
   def help_proposal_section(assigns) do
     ~H"""
