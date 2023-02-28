@@ -43,4 +43,16 @@ defmodule KotkowoWeb.PageController do
   def collection(conn, _params) do
     render(conn, :collection, meta: @collection_meta)
   end
+
+  @temporary_home_meta %{
+    title: "Stwórz dom tymczasowy",
+    parent: &__MODULE__.help_meta/0,
+    controller: __MODULE__,
+    method: :temporary_home
+  }
+  def temporary_home_meta, do: @temporary_home_meta
+
+  def temporary_home(conn, _params) do
+    render(conn, :temporary_home, meta: @temporary_home_meta)
+  end
 end
