@@ -55,4 +55,16 @@ defmodule KotkowoWeb.PageController do
   def temporary_home(conn, _params) do
     render(conn, :temporary_home, meta: @temporary_home_meta)
   end
+
+  @volunteer_meta %{
+    title: "Zapisz się na wolontariat",
+    parent: &__MODULE__.help_meta/0,
+    controller: __MODULE__,
+    method: :volunteer
+  }
+  def volunteer_meta, do: @volunteer_meta
+
+  def volunteer(conn, _params) do
+    render(conn, :volunteer, meta: @volunteer_meta)
+  end
 end

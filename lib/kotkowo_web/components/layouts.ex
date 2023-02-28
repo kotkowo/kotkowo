@@ -28,7 +28,7 @@ defmodule KotkowoWeb.Layouts do
          {"Przekaż rzeczy dla kotów", ~p"/pomoc/przekaz-rzeczy-dla-kotkow"},
          {"Zorganizuj zbiórkę", ~p"/pomoc/zorganizuj-zbiorke-rzeczowa"},
          {"Załóż dom tymczasowy", ~p"/pomoc/stworz-dom-tymczasowy"},
-         {"Zapisz się na wolontariat", "#"}
+         {"Zapisz się na wolontariat", ~p"/pomoc/zapisz-sie-na-wolontariat"}
        ], ["p-2", "bg-highlight"]},
       {"Porady", nil,
        [

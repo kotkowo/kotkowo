@@ -1,0 +1,78 @@
+<.section class="mt-6 xl:mt-0 px-6 xl:px-0">
+  <div class="flex flex-col xl:flex-row space-x-0 xl:space-x-28 space-y-6 xl:space-y-0 xl:justify-between">
+    <div class="flex flex-col space-y-6 xl:text-lg">
+      <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl">
+        Na czym polega wolontariat?
+      </h1>
+      <p>
+        Chcesz dołączyć do zespołu Kotkowa?
+        Masz przynajmniej 18 lat i nie boisz się wyzwań?
+        W takim razie wolontariat jest dla Ciebie!
+        Do obowiązków wolontariuszy najczęściej należy:
+      </p>
+
+      <ul class="flex flex-col space-y-3">
+        <%= for n <- 1..4 do %>
+          <li class="flex">
+            <.icon name="paw" class="w-3 h-3 mr-3 my-auto" />
+            <span class="my-auto xl:text-lg">
+              wolontariat <%= n %>
+            </span>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <img
+      src={~p"/images/hand_stack.png"}
+      alt="Hand stack"
+      class="rounded-2xl self-center object-contain"
+    />
+  </div>
+</.section>
+
+<.section class="px-6 xl:px-0">
+  <div class="flex flex-col-reverse space-y-reverse xl:flex-row space-x-0 xl:space-x-28 space-y-6 xl:space-y-0 xl:justify-between">
+    <img
+      src={~p"/images/paper_heart_hands.png"}
+      alt="White house"
+      class="rounded-2xl self-center object-contain"
+    />
+
+    <div class="flex flex-col space-y-6 xl:text-lg self-center">
+      <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl">
+        Jak zapisać się na wolontariat?
+      </h1>
+
+      <p class="font-bold">
+        Zostanie wolontariuszem czy wolontariuszką  jest bardzo proste! Wystarczy, że wypełnisz formularz, w którym dasz znać, w jaki sposób chcesz nam pomóc.
+      </p>
+      <.button href="#" type="outline" class="!px-6 !py-3">Wypełnij formularz</.button>
+    </div>
+  </div>
+</.section>
+
+<.help_proposal_section parent_class="!pb-0" />
+<!-- Using odd/even CSS here and need 2 sections with same color -->
+<span class="hidden"></span>
+
+<.section class="px-6 xl:px-0">
+  <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl mb-10">
+    Najczęściej zadawane pytania
+  </h1>
+
+  <div class="flex flex-col gap-y-6">
+    <%= for n <- 1..4 do %>
+      <.drawer title={"Pytanie #{n}"}>
+        <p>
+          Nisl tincidunt eget nullam non nisi est, sit amet facilisis magna etiam.
+          In tellus integer feugiat scelerisque varius morbi enim nunc, faucibus a pellentesque sit amet,
+          porttitor eget dolor morbi non arcu risus, quis varius quam quisque id diam vel quam elementum?
+          Sit amet mauris commodo quis imperdiet massa tincidunt.
+        </p>
+      </.drawer>
+    <% end %>
+  </div>
+</.section>
+
+<.how_you_can_help />
