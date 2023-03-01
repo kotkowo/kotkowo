@@ -24,6 +24,28 @@ import topbar from "../vendor/topbar"
 import Alpine from 'alpinejs'
 import breakpoint from 'alpinejs-breakpoints'
 
+function toast(){
+  return {
+    percentage: 0,
+    show(){
+      this.percentage = 100
+      if (this.interval !== undefined)
+        clearInterval(this.interval)
+
+      this.interval = setInterval(async () => {
+        await this.$nextTick()
+        this.percentage -= 1
+        if (this.percentage <= 0){
+        clearInterval(this.interval)
+        this.percentage = 0
+        }
+      }, 10)
+    },
+  }
+}
+
+Alpine.data("toast", toast)
+
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 
 window.Alpine = Alpine
