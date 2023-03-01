@@ -1,0 +1,106 @@
+<.section class="mt-6 xl:mt-0 px-6 xl:px-0">
+  <div class="flex flex-col xl:flex-row space-x-0 xl:space-x-28 space-y-6 xl:space-y-0 xl:justify-between">
+    <div class="flex flex-col space-y-6 xl:text-lg shrink">
+      <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl">
+        Kotki proszą o 1,5% Twojego podatku!
+      </h1>
+
+      <p>
+        <.toast message="Skopiowane!" event="copied-to-clipboard" icon="clipboard_done" />
+
+        <b>Fundacja Kotkowo posiada status Organizacji Pożytku Publicznego</b>.
+        Od 2023 r. możesz przekazać nam <b>1,5% swojego podatku</b>.
+        W tym celu edytuj swoje zeznanie podatkowe, dostępne od 15 lutego na stronie <a
+          href="https://podatki.gov.pl"
+          class="underline"
+        >podatki.gov.pl</a>.
+        Wskaż naszą organizację online w Twoim e-Picie lub wypełnij druk PIT ręcznie i podaj nasz numer <a
+          href="#"
+          class="font-bold text-primary"
+          x-data
+          x-on:click="navigator.clipboard.writeText('000345319'); $dispatch('copied-to-clipboard');"
+        >
+          KRS: 000345319
+        </a>.
+        Zebrane <b>środki przeznaczymy w całości na rzecz kotów</b>
+        znajdujących się pod naszą opieką.
+      </p>
+    </div>
+
+    <div class="flex flex-row shrink-0 self-center">
+      <img
+        src={~p"/images/one_point_five_percent.svg"}
+        alt="One point five percent"
+        class="rounded-2xl object-fit self-center xl:mr-28"
+      />
+
+      <img
+        src={~p"/images/opp.png"}
+        alt="Organizacja Pożytku Publicznego logo"
+        class="rounded-2xl object-fit self-center"
+      />
+    </div>
+  </div>
+</.section>
+
+<.section>
+  <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl mb-10 xl:mb-12 xl:text-center mx-6">
+    Jak przekazać nam 1,5% podatku?
+  </h1>
+
+  <.steps class="!gap-x-5">
+    <.step>
+      Wejdź na <a href="https://podatki.gov.pl" class="underline">podatki.gov.pl</a>
+      i wybierz e-Urząd Skarbowy.
+    </.step>
+    <.step>
+      Zaloguj się przez profil zaufany, e-dowód, bankowość elektroniczną, aplikację mObywatel albo podając PESEL lub NIP i kwoty przychodu.
+    </.step>
+    <.step>
+      W „Twój e-PIT” edytuj „Wybierz organizację”. Usuń wskazaną nazwę i wpisz lub wybierz z listy „Kotkowo”.
+    </.step>
+    <.step>
+      <div class="flex flex-col items-center space-y-7">
+        <p class="max-w-sm text-lg">
+          Na koniec zatwierdź zmiany.
+        </p>
+        <div>
+          <a href="#" class="flex">
+            <.icon name="envelope2" class="w-6 h-6 my-auto mr-2 inline invert" />
+            <span class="underline">
+              kotkowo@email.com
+            </span>
+          </a>
+          <a href="#" class="flex mt-7">
+            <.icon name="facebook" class="w-6 h-6 my-auto mr-2 inline invert" />
+            <span class="underline my-auto">
+              facebook.com/kotkowo
+            </span>
+          </a>
+        </div>
+      </div>
+    </.step>
+  </.steps>
+</.section>
+
+<.section class="px-6 xl:px-0">
+  <div class="flex flex-col-reverse space-y-reverse xl:flex-row space-x-0 xl:space-x-28 space-y-6 xl:space-y-0 xl:justify-between">
+    <img
+      src={~p"/images/sleepy_cat.png"}
+      alt="Sleepy cat"
+      class="rounded-2xl object-fit self-center"
+    />
+
+    <div class="flex flex-col space-y-6 xl:text-lg">
+      <h1 class="text-primary font-manrope font-bold xl:font-extrabold xl:text-4xl text-2xl">
+        Dziękujemy za wsparcie!
+      </h1>
+
+      <p class="font-bold xl:font-extrabold font-manrope text-xl xl:text-3xl">
+        Już teraz kotki serdecznie dziękują za każdą, nawet najmniejszą kwotę!
+      </p>
+    </div>
+  </div>
+</.section>
+
+<.how_you_can_help />

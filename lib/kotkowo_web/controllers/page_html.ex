@@ -8,6 +8,7 @@ defmodule KotkowoWeb.PageHTML do
   import KotkowoWeb.Components.Steps
   import KotkowoWeb.Components.Icons
   import KotkowoWeb.Components.Drawers
+  import KotkowoWeb.Components.Notifiers
 
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
   import KotkowoWeb.Components.Static.HelpProposalSection

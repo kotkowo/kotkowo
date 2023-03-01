@@ -67,4 +67,16 @@ defmodule KotkowoWeb.PageController do
   def volunteer(conn, _params) do
     render(conn, :volunteer, meta: @volunteer_meta)
   end
+
+  @tax_donation_meta %{
+    title: "Przekaż nam 1,5% podatku",
+    parent: &__MODULE__.help_meta/0,
+    controller: __MODULE__,
+    method: :volunteer
+  }
+  def tax_donation_meta, do: @volunteer_meta
+
+  def tax_donation(conn, _params) do
+    render(conn, :tax_donation, meta: @tax_donation_meta)
+  end
 end

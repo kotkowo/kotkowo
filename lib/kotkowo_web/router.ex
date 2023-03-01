@@ -25,6 +25,7 @@ defmodule KotkowoWeb.Router do
       get "/zorganizuj-zbiorke-rzeczowa", PageController, :collection
       get "/stworz-dom-tymczasowy", PageController, :temporary_home
       get "/zapisz-sie-na-wolontariat", PageController, :volunteer
+      get "/przekaz-nam-podatek", PageController, :tax_donation
     end
   end
 

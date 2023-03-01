@@ -23,7 +23,7 @@ defmodule KotkowoWeb.Layouts do
       {"Zaginione/znalezione", "#zaginione-znalezione", [], []},
       {"Jak pomóc", ~p"/pomoc",
        [
-         {"Przekaż nam 1% podatku", "#"},
+         {"Przekaż nam 1,5% podatku", "/pomoc/przekaz-nam-podatek"},
          {"Wesprzyj nas finansowo", "#"},
          {"Przekaż rzeczy dla kotów", ~p"/pomoc/przekaz-rzeczy-dla-kotkow"},
          {"Zorganizuj zbiórkę", ~p"/pomoc/zorganizuj-zbiorke-rzeczowa"},
