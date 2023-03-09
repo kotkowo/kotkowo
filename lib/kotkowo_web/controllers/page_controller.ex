@@ -79,4 +79,16 @@ defmodule KotkowoWeb.PageController do
   def tax_donation(conn, _params) do
     render(conn, :tax_donation, meta: @tax_donation_meta)
   end
+
+  @financial_aid_meta %{
+    title: "Wsparcie finansowe",
+    parent: &__MODULE__.help_meta/0,
+    controller: __MODULE__,
+    method: :financial_aid
+  }
+  def financial_aid_meta, do: @financial_aid_meta
+
+  def financial_aid(conn, _params) do
+    render(conn, :financial_aid, meta: @financial_aid_meta)
+  end
 end

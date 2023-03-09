@@ -26,6 +26,7 @@ defmodule KotkowoWeb.Router do
       get "/stworz-dom-tymczasowy", PageController, :temporary_home
       get "/zapisz-sie-na-wolontariat", PageController, :volunteer
       get "/przekaz-nam-podatek", PageController, :tax_donation
+      get "/wsparcie-finansowe", PageController, :financial_aid
     end
   end
 

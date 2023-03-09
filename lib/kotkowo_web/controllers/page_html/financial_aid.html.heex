@@ -1,0 +1,283 @@
+<.section class="mt-6 xl:mt-0 px-6 xl:px-0">
+  <div class="flex flex-col xl:flex-row space-x-0 xl:space-x-28 space-y-6 xl:space-y-0 xl:justify-between">
+    <div class="flex flex-col space-y-6 xl:text-lg">
+      <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl">
+        Na co przekażemy darowiznę?
+      </h1>
+      <p>
+        Nasze koty przebywają w domach tymczasowych, pod opieką wolontariuszy.
+        Potrzebujemy środków na ich utrzymanie.
+        Trafiają do nas zwierzęta z interwencji ulicznych – bezpańskie i porzucone.
+        Zapewniamy im wyżywienie, a często również transport, opiekę, kastrację lub sterylizację i leczenie.
+        Twoje środki przeznaczymy na:
+      </p>
+      <ul class="flex flex-col space-y-3">
+        <%= for text <- \
+          [ "opiekę nad kotami wolno żyjącymi" \
+          , "zakup karmy, żwirku, leków i suplementów dla kotów" \
+          , "sterylizację i kastrację kotów wolno żyjących" \
+          , "szczepienie, odrobaczanie, badanie i leczenie kotów do adopcji" \
+          , "usługi weterynaryjne" \
+          ] do %>
+          <li class="flex">
+            <.icon name="paw" class="w-3 h-3 mr-3 my-auto" />
+            <span class="my-auto xl:text-lg">
+              <%= text %>
+            </span>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <img
+      src={~p"/images/hand_stack.png"}
+      alt="Hand stack"
+      class="rounded-2xl self-center xl:self-auto object-contain xl:object-fill"
+    />
+  </div>
+</.section>
+
+<.section>
+  <h1 class="text-primary mb-8 font-manrope font-extrabold xl:text-4xl text-2xl text-center">
+    Jak możesz wesprzeć nas finansowo?
+  </h1>
+
+  <div class="flex w-full px-2">
+    <div
+      class="overflow-x-auto snap-x lg:snap-none lg:mx-auto"
+      x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
+    >
+      <div class="flex flex-row space-x-4 xl:space-x-7 m-auto">
+        <.help_card href="#" src={~p"/images/heart_lend.png"} alt="Heart lending">
+          Wpłać darowiznę przez PayPal
+        </.help_card>
+
+        <.help_card href="#" src={~p"/images/piggy_bank.png"} alt="Piggy bank">
+          Zrób tradycyjny przelew
+        </.help_card>
+
+        <.help_card href="#" src={~p"/images/spices.png"} alt="Food">
+          Wesprzyj nasze zbiórkl internetowe
+        </.help_card>
+
+        <.help_card href="#" src={~p"/images/cat_on_couch.png"} alt="Cat on couch">
+          Korzystaj z wtyczki faniMani
+        </.help_card>
+
+        <.help_card href="#" src={~p"/images/cat_food.png"} alt="Cat food">
+          Wrzuć pieniądze do skarbonki
+        </.help_card>
+      </div>
+    </div>
+  </div>
+</.section>
+
+<.section class="px-6 xl:px-0 !pb-0">
+  <div class="flex flex-col flex-col-reverse space-y-reverse xl:flex-row space-x-0 xl:space-x-24 space-y-12 xl:space-y-0 xl:justify-between">
+    <img
+      x-data="{'isDesktop': $isBreakpoint('lg+')}"
+      x-on:resize.window="isDesktop = $isBreakpoint('lg+')"
+      src={~p"/images/bonifacy_wide.png"}
+      alt="Kot Bonifacy"
+      class="rounded-2xl object-fit self-center"
+      x-bind:src={"isDesktop ? '#{~p"/images/bonifacy_wide.png"}' : '#{~p"/images/bonifacy_wide_mobile.png"}'"}
+    />
+
+    <div class="flex flex-col space-y-6 xl:text-lg">
+      <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl">
+        Wpłać darowiznę przez PayPal
+      </h1>
+      <p>
+        Dzięki PayPal szybko i wygodnie możesz wesprzeć naszych podopiecznych.
+        Zachęcamy do ustawienia płatności cyklicznych, które zapewniają nam stabilność finansową,
+        czyli pewność, że kocie brzuszki będą zawsze pełne.
+      </p>
+      <.button href="#">
+        Wpłać przez PayPal
+      </.button>
+    </div>
+  </div>
+</.section>
+<!-- Using odd/even CSS here and need 2 sections with same color -->
+<span class="hidden"></span>
+
+<.section class="px-6 xl:px-0">
+  <div class="flex flex-col xl:flex-row space-x-0 xl:space-x-24 space-y-12 xl:space-y-0 xl:justify-between">
+    <div class="flex flex-col space-y-6 xl:text-lg">
+      <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl">
+        Dane do przelewu tradycyjnego
+      </h1>
+      <div class="flex flex-col space-y-1 xl:space-y-2 xl:text-lg">
+        <p>FUNDACJA KOTKOWO</p>
+        <p>Bank: BOŚ SA O. w Bialymstoku</p>
+        <b class="font-bold font-manrope xl:text-2xl">
+          Nr konta: 87 1540 1216 2054 4458 2306 0001
+        </b>
+        <div class="flex flex-col xl:flex-row xl:space-x-2">
+          <h3 class="text-primary font-bold text-lg">W tytule przelewu prosimy podać:</h3>
+          <span>“darowizna na cele statutowe”</span>
+        </div>
+        <p>
+          KRS: 0000345319 <br /> NIP: 9662018446 <br /> REGON: 20032337500000
+        </p>
+
+        <h3 class="text-primary font-bold text-lg">Adres do korespondencji:</h3>
+
+        <p>
+          al. Piłsudskiego 26/31 <br /> 15-446 Białystok
+        </p>
+
+        <h3 class="text-primary font-bold text-lg">
+          Dla przelewów zagranicznych
+        </h3>
+
+        <p>
+          SWIFT/BIC: EBOSPLPWXXX <br /> IBAN: PL 87 1540 1216 2054 4458 2306 0001
+        </p>
+      </div>
+    </div>
+
+    <img
+      src={~p"/images/white_cat.png"}
+      alt="Biały kot"
+      class="rounded-2xl object-fit self-center"
+    />
+  </div>
+</.section>
+
+<.section>
+  <h1 class="text-primary mb-8 font-manrope font-extrabold xl:text-4xl text-2xl text-center">
+    Wesprzyj nasze zbiórki internetowe
+  </h1>
+  <div class="flex w-full px-2">
+    <div class="overflow-x-auto snap-x lg:snap-none lg:mx-auto">
+      <div class="flex flex-row space-x-4 xl:space-x-7 m-auto">
+        <.external_site_help_card src="/images/pomagam_pl.svg" alt="pomagam.pl logo" href="#">
+          pomagam.pl
+        </.external_site_help_card>
+
+        <.external_site_help_card
+          src="/images/ratujemy_zwierzaki_pl.png"
+          alt="pomagam.pl logo"
+          href="#"
+        >
+          ratujemy zwierzaki.pl
+        </.external_site_help_card>
+
+        <.external_site_help_card src="/images/facebook_logo.png" alt="pomagam.pl logo" href="#">
+          Facebook
+        </.external_site_help_card>
+
+        <.external_site_help_card src="/images/zrzutka_pl.svg" alt="pomagam.pl logo" href="#">
+          zrzutka.pl
+        </.external_site_help_card>
+      </div>
+    </div>
+  </div>
+</.section>
+
+<.section class="flex flex-col space-y-8">
+  <div class="flex justify-center">
+    <div class="flex items-center xl:flex-row flex-col xl:space-x-4 space-y-4 xl:space-y-0">
+      <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl text-center">
+        Jak korzystać z wtyczki FaniMani?
+      </h1>
+
+      <img src={~p"/images/fanimani_pl.svg"} alt="fanimani.pl logo" />
+    </div>
+  </div>
+
+  <.steps>
+    <.step>
+      Pobierz rozszerzenie FaniMani na Google Chrome i pomagaj innym, nie wydając ani złotówki.
+    </.step>
+    <.step>
+      Podczas zakupów online w jednym ze sklepów partnerskich wtyczka przypomni Ci o przekazaniu datku.
+    </.step>
+    <.step>
+      Nic nie płacisz. Darowizna zostanie przekazana z zysku sklepu, w którym robisz zakupy.
+    </.step>
+    <.step>
+      Wskaż organizację, którą chcesz wesprzeć i zatwierdź swój wybór. Gotowe!
+    </.step>
+  </.steps>
+
+  <.button href="#" class="mx-auto">
+    Zainstaluj wtyczkę FaniMani
+  </.button>
+</.section>
+
+<.section class="px-6 xl:px-0">
+  <div class="xl:w-1/2 flex flex-col space-y-8">
+    <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl">
+      Wrzuć pieniądze do puszki
+    </h1>
+    <p class="font-bold xl:text-lg">
+      Poniżej znajduje się lista naszych zaprzyjaźnionych punktów w Białymstoku. Zanim przywieziesz darowiznę, upewnij się wcześniej, że przyjęcie jej w danym miejscu na pewno będzie możliwe.
+    </p>
+    <ul class="flex flex-col space-y-3">
+      <%= for text <- \
+        [ "Lecznica Weterynaryja MED-VET, ul. Berlinga 17A" \
+        , "Gabinet Weterynaryjny PLUSZAK  R. Borysewicz, ul. Witosa 34" \
+        , "Centrum Weterynaryjne Boliłapka, ul Rodzinna 16" \
+        , "Gabinet Weterynaryjny „Animed”, ul. Armii Krajowej 23 lok.1" \
+        , "Sklep zoologiczny Aquael, Galeria Zielone Wzgórza" \
+        , "Amicus Przychodnia Weterynaryjna lek. wet. Ł. Kachniarz, ul. Antoniuk Fabryczny 55 lok. 1" \
+        , "Sklep zoologiczny KAKADU - Galeria Auchan, ul. Hetmańska" \
+        ] do %>
+        <li class="flex">
+          <.icon name="paw" class="w-3 h-3 mr-3 my-auto" />
+          <span class="my-auto xl:text-lg">
+            <%= text %>
+          </span>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</.section>
+
+<.section class="px-6 xl:px-0">
+  <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl mb-10">
+    Najczęściej zadawane pytania
+  </h1>
+
+  <div class="flex flex-col gap-y-6">
+    <.drawer title="Czy mogę skorzystać z szybkich płatności?">
+      <p>
+        Pusto (屮｀∀´)屮
+      </p>
+    </.drawer>
+
+    <.drawer title="Czy mogę płacić BLIKIEM?">
+      <p>
+        Pusto (屮｀∀´)屮
+      </p>
+    </.drawer>
+
+    <.drawer title="Czy mogę ustawić płatności cykliczne?">
+      <p>
+        Pusto (屮｀∀´)屮
+      </p>
+    </.drawer>
+
+    <.drawer title="Czy mogę ustawić płatności cykliczne?">
+      <p>
+        Pusto (屮｀∀´)屮
+      </p>
+    </.drawer>
+
+    <.drawer title="Na czym polega wirtualna adopcja?">
+      <p>
+        Pusto (屮｀∀´)屮
+      </p>
+    </.drawer>
+
+    <.drawer title="Czy mogę samodzielnie zorganizować zbiórkę?">
+      <p>
+        Pusto (屮｀∀´)屮
+      </p>
+    </.drawer>
+  </div>
+</.section>
+
+<.how_you_can_help meta={@meta} />
