@@ -4,6 +4,8 @@ defmodule KotkowoWeb.Components.Static.HowYouCanHelpSection do
   use Phoenix.Component
   use KotkowoWeb, :verified_routes
 
+  import KotkowoWeb.Gettext
+
   import KotkowoWeb.Components.Cards
   import KotkowoWeb.Components.Sections
 
@@ -37,10 +39,66 @@ defmodule KotkowoWeb.Components.Static.HowYouCanHelpSection do
     """
   end
 
+  def help_cards do
+    [
+      %{
+        src: ~p"/images/heart_lend.png",
+        alt: gettext("Heart lending"),
+        text: gettext("Przekaż nam 1,5% podatku"),
+        href: ~p"/pomoc/przekaz-nam-podatek"
+      },
+      %{
+        src: ~p"/images/piggy_bank.png",
+        alt: gettext("Piggy bank"),
+        text: gettext("Wesprzyj nas finansowo"),
+        href: ~p"/pomoc/wsparcie-finansowe"
+      },
+      %{
+        src: ~p"/images/spices.png",
+        alt: gettext("Food"),
+        text: gettext("Przekaż rzeczy dla kotków"),
+        href: ~p"/pomoc/przekaz-rzeczy-dla-kotkow"
+      },
+      %{
+        src: ~p"/images/cat_on_couch.png",
+        alt: gettext("Cat on couch"),
+        text: gettext("Stwórz dom tymczasowy"),
+        href: ~p"/pomoc/stworz-dom-tymczasowy"
+      },
+      %{
+        src: ~p"/images/cat_food.png",
+        alt: gettext("Cat food"),
+        text: gettext("Zorganizuj zbiórkę"),
+        href: ~p"/pomoc/zorganizuj-zbiorke-rzeczowa"
+      }
+    ]
+  end
+
+  def path_from_meta(meta) do
+    routes = KotkowoWeb.Router.__routes__()
+
+    current_route =
+      Enum.find(routes, %{path: "#"}, fn route ->
+        route.plug == meta.controller && route.plug_opts == meta.method
+      end)
+
+    current_route.path
+  end
+
+  def help_cards_without_current(meta) do
+    cards = help_cards()
+    current_path = path_from_meta(meta)
+    current = Enum.find(cards, fn %{href: href} -> href == current_path end)
+
+    List.delete(cards, current)
+  end
+
   attr(:fold, :boolean,
     default: true,
     doc: "Whether should fold into horizontaly scrollable"
   )
+
+  attr(:meta, :any, default: nil, doc: "Page metadata used to adapt links")
 
   def how_you_can_help(assigns) do
     ~H"""
@@ -50,25 +108,11 @@ defmodule KotkowoWeb.Components.Static.HowYouCanHelpSection do
       </h1>
 
       <.container fold={@fold}>
-        <.help_card href="#" src={~p"/images/heart_lend.png"} alt="Heart lending">
-          Przekaż nam 1% podatku
-        </.help_card>
-
-        <.help_card href="#" src={~p"/images/piggy_bank.png"} alt="Piggy bank">
-          Wesprzyj nas finansowo
-        </.help_card>
-
-        <.help_card href="#" src={~p"/images/spices.png"} alt="Food">
-          Przekaż rzeczy dla kotków
-        </.help_card>
-
-        <.help_card href="#" src={~p"/images/cat_on_couch.png"} alt="Cat on couch">
-          Stwórz dom tymczasowy
-        </.help_card>
-
-        <.help_card href="#" src={~p"/images/cat_food.png"} alt="Cat food">
-          Zorganizuj zbiórkę
-        </.help_card>
+        <%= for card <- help_cards() do %>
+          <.help_card href={card.href} src={card.src} alt={card.alt}>
+            <%= card.text %>
+          </.help_card>
+        <% end %>
       </.container>
     </.section>
     """
