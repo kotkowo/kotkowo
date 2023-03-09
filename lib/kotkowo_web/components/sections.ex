@@ -246,7 +246,9 @@ defmodule KotkowoWeb.Components.Sections do
               <.footer_definition term="IBAN" description="PL 87 1540 1216 2054 4458 2306 0001" />
             </dl>
 
-            <.button href="#" type="secondary" class="!mt-8">Wesprzyj nas</.button>
+            <.button href={~p"/pomoc/wsparcie-finansowe"} type="secondary" class="!mt-8">
+              Wesprzyj nas
+            </.button>
           </.footer_section>
         </div>
       </footer>

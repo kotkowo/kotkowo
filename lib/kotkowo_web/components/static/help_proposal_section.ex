@@ -41,7 +41,7 @@ defmodule KotkowoWeb.Components.Static.HelpProposalSection do
         <.button type="outline" href="#" class="!px-6">Zostań wolontariuszem</.button>
       </div>
 
-      <img src={~p"/images/cats_hugging.png"} alt="Cats hugging" />
+      <img src={~p"/images/cats_hugging.png"} alt="Cats hugging" class="self-center" />
     </.section>
     """
   end
