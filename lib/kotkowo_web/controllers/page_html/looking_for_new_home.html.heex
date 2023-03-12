@@ -1,0 +1,216 @@
+<.section class="mt-6 xl:mt-0 px-6 xl:px-0">
+  <div class="flex flex-col xl:flex-row space-x-0 xl:space-x-52 space-y-6 xl:space-y-0 xl:justify-between">
+    <div class="flex flex-col space-y-6 xl:text-lg">
+      <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl">
+        Adoptuj kota z fundacji Kotkowo
+      </h1>
+
+      <ul class="flex flex-col space-y-3">
+        <%= for text <- \
+                     [ "Wszystkie nasze kotki mieszkają w Białymstoku, ale mogą także podróżować do innych części Polski" \
+                     , "Są zaszczepione, odpchlone, odrobaczone i nauczone czystości" \
+                     , "Znajdują sie pod opieką lekarza weterynarii" \
+                     ] do %>
+          <li class="flex">
+            <.icon name="paw" class="w-3 h-3 mr-3 my-auto" />
+            <span class="my-auto xl:text-lg">
+              <%= text %>
+            </span>
+          </li>
+        <% end %>
+
+        <li class="flex">
+          <.icon name="paw" class="w-3 h-3 mr-3 my-auto" />
+          <span class="my-auto xl:text-lg">
+            Interesuje cię adopcja? Wypełnij
+            <a href="#" class="text-primary font-bold underline underline-offset-4">
+              ankietę adopcyjną
+            </a>
+          </span>
+        </li>
+
+        <li class="flex">
+          <.icon name="paw" class="w-3 h-3 mr-3 my-auto" />
+          <span class="my-auto xl:text-lg">
+            Przy oddawaniu kotka podpisujemy
+            <a href="#" class="text-primary font-bold underline underline-offset-4">
+              umowę adopcyjną
+            </a>
+          </span>
+        </li>
+      </ul>
+
+      <p>
+        Pamiętaj, że kotek jest żywą, czującą istotą.
+        Największą krzywdą staje się dla niego utrata opiekuna, którego pokochał.
+        Nie bierz kotka dla zabawy, na święta, na prezent.
+        Przygarnij go tylko wtedy, gdy czujesz, że jesteś w stanie go kochać przez następnych kilka – kilkanaście lat…
+      </p>
+
+      <.button href="#" type="outline" class="!px-8 !py-3">Poznaj zasady adopcji</.button>
+    </div>
+
+    <img
+      src={~p"/images/light_brown_cat_white_bg.png"}
+      alt="Cat on a doorstep"
+      class="rounded-2xl self-center"
+    />
+  </div>
+</.section>
+
+<.section class="xl:mt-0 px-6 xl:px-0 flex">
+  <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl mx-auto">
+    Szukają domu (6 kotów)
+  </h1>
+</.section>
+
+<.section class="mt-6 xl:mt-0 px-6 xl:px-0 flex flex-col xl:flex-row xl:space-x-32 space-y-10 xl:space-y-0">
+  <div class="xl:w-80 border border-gray rounded-2xl p-6 flex flex-col space-y-6 h-min">
+    <h2 class="font-manrope font-bold text-primary text-xl">Filtruj według</h2>
+
+    <div class="flex flex-col space-y-4">
+      <h3 class="font-bold text-primary text-sm">Imię</h3>
+      <input
+        type="text"
+        placeholder="Wpisz imię kota"
+        class="border border-gray rounded-lg text-sm"
+      />
+    </div>
+
+    <div class="flex flex-col space-y-4">
+      <h3 class="font-bold text-primary text-sm">Tagi</h3>
+      <input
+        type="text"
+        placeholder="Wpisz cechę kota"
+        class="border border-gray rounded-lg text-sm"
+      />
+    </div>
+
+    <div class="flex flex-col space-y-4">
+      <h3 class="font-bold text-primary text-sm">Kastracja / sterylizacja</h3>
+      <div class="flex flex-col space-y-6">
+        <div>
+          <input type="checkbox" class="mr-3.5 border-gray rounded" />
+          <label class="text-sm">po zabiegu</label>
+        </div>
+
+        <div>
+          <input type="checkbox" class="mr-3.5 border-gray rounded" />
+          <label class="text-sm">przed zabiegiem</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col space-y-4">
+      <h3 class="font-bold text-primary text-sm">Wiek</h3>
+      <div class="flex flex-col space-y-6">
+        <div>
+          <input type="checkbox" class="mr-3.5 border-gray rounded" />
+          <label class="text-sm">junior</label>
+        </div>
+
+        <div>
+          <input type="checkbox" class="mr-3.5 border-gray rounded" />
+          <label class="text-sm">dorosły</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col space-y-4">
+      <h3 class="font-bold text-primary text-sm">Płeć</h3>
+      <div class="flex flex-col space-y-6">
+        <div>
+          <input type="checkbox" class="mr-3.5 border-gray rounded" />
+          <label class="text-sm">kotka</label>
+        </div>
+
+        <div>
+          <input type="checkbox" class="mr-3.5 border-gray rounded" />
+          <label class="text-sm">kocur</label>
+        </div>
+      </div>
+    </div>
+
+    <.button href="#" class="xl:text-base"><%= gettext("Szukaj kotków") %></.button>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 xl:gap-x-16 xl:gap-y-10 gap-y-4">
+    <div class="mx-auto">
+        <.cat_card
+        name="Puszek"
+        share_href="#"
+        src={~p"/images/puszek.png"}
+        sex={:male}
+        seniority={:junior}
+        health_status={:examined_and_vaccinated}
+        castrated={false}
+        tags={[gettext("Mruczek"), gettext("Wielbiciel kolan")]}
+        />
+    </div>
+
+    <div class="mx-auto">
+    <.cat_card
+      name="Bonifacy"
+      share_href="#"
+      src={~p"/images/bonifacy.png"}
+      sex={:male}
+      seniority={:adult}
+      health_status={:examined_and_vaccinated}
+      castrated={true}
+      tags={[gettext("Spokojny"), gettext("Śpioch")]}
+    />
+    </div>
+
+    <div class="mx-auto">
+    <.cat_card
+      name="Elza"
+      share_href="#"
+      src={~p"/images/elza.png"}
+      sex={:female}
+      seniority={:junior}
+      health_status={:examined_and_vaccinated}
+      castrated={true}
+      tags={[gettext("Żywiołowy"), gettext("Lubi zabawę")]}
+    />
+    </div>
+
+    <div class="mx-auto">
+    <.cat_card
+      name="Puszek"
+      share_href="#"
+      src={~p"/images/puszek.png"}
+      sex={:male}
+      seniority={:junior}
+      health_status={:examined_and_vaccinated}
+      castrated={false}
+      tags={[gettext("Mruczek"), gettext("Wielbiciel kolan")]}
+    />
+    </div>
+
+    <div class="mx-auto">
+    <.cat_card
+      name="Bonifacy"
+      share_href="#"
+      src={~p"/images/bonifacy.png"}
+      sex={:male}
+      seniority={:adult}
+      health_status={:examined_and_vaccinated}
+      castrated={true}
+      tags={[gettext("Spokojny"), gettext("Śpioch")]}
+    />
+    </div>
+
+    <div class="mx-auto">
+    <.cat_card
+      name="Elza"
+      share_href="#"
+      src={~p"/images/elza.png"}
+      sex={:female}
+      seniority={:junior}
+      health_status={:examined_and_vaccinated}
+      castrated={true}
+      tags={[gettext("Żywiołowy"), gettext("Lubi zabawę")]}
+    />
+    </div>
+  </div>
+</.section>

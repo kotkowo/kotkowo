@@ -91,4 +91,25 @@ defmodule KotkowoWeb.PageController do
   def financial_aid(conn, _params) do
     render(conn, :financial_aid, meta: @financial_aid_meta)
   end
+
+  @adoption_meta %{
+    title: "Adopcja",
+    parent: &__MODULE__.home_meta/0,
+    controller: __MODULE__,
+    method: nil
+  }
+
+  def adoption_meta, do: @adoption_meta
+
+  @looking_for_new_home_meta %{
+    title: "Szukają domu",
+    parent: &__MODULE__.adoption_meta/0,
+    controller: __MODULE__,
+    method: :looking_for_new_home
+  }
+  def looking_for_new_home_meta, do: @looking_for_new_home_meta
+
+  def looking_for_new_home(conn, _params) do
+    render(conn, :looking_for_new_home, meta: @looking_for_new_home_meta)
+  end
 end

@@ -28,6 +28,10 @@ defmodule KotkowoWeb.Router do
       get "/przekaz-nam-podatek", PageController, :tax_donation
       get "/wsparcie-finansowe", PageController, :financial_aid
     end
+
+    scope "/adopcja" do
+      get "/szukaja-domu", PageController, :looking_for_new_home
+    end
   end
 
   # Other scopes may use custom stacks.
