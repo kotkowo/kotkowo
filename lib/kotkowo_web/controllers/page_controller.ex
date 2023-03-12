@@ -112,4 +112,16 @@ defmodule KotkowoWeb.PageController do
   def looking_for_new_home(conn, _params) do
     render(conn, :looking_for_new_home, meta: @looking_for_new_home_meta)
   end
+
+  @cat_adoption_meta %{
+    title: ":cat-name:",
+    parent: &__MODULE__.looking_for_new_home_meta/0,
+    controller: __MODULE__,
+    method: :cat_adoption
+  }
+  def cat_adoption_meta, do: @cat_adoption_meta
+
+  def cat_adoption(conn, _params) do
+    render(conn, :cat_adoption, meta: @cat_adoption_meta)
+  end
 end
