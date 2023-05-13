@@ -18,8 +18,7 @@ in
 
   packages = with pkgs; [
     elixir_ls
-    inotify-tools
-  ];
+  ] ++ lib.optionals pkgs.stdenv.isLinux (with pkgs; [ inotify-tools ]);
 
   languages.elixir = {
     enable = true;
