@@ -36,3 +36,8 @@ npm-debug.log
 /.nix-mix/
 /.direnv/
 /.nix-hex/
+
+# Devenv
+.devenv*
+devenv.local.nix
+
