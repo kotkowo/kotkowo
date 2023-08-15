@@ -40,4 +40,5 @@ npm-debug.log
 # Devenv
 .devenv*
 devenv.local.nix
+.elixir-tools
 
