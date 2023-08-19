@@ -14,8 +14,6 @@ defmodule Kotkowo.Application do
       Kotkowo.Repo,
       # Start the PubSub system
       {Phoenix.PubSub, name: Kotkowo.PubSub},
-      # Start Finch
-      {Finch, name: Kotkowo.Finch},
       # Start the Endpoint (http/https)
       KotkowoWeb.Endpoint
       # Start a worker by calling: Kotkowo.Worker.start_link(arg)
