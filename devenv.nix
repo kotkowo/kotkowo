@@ -1,12 +1,8 @@
-{ pkgs, ... }:
-
-
-let
+{pkgs, ...}: let
   erlang = pkgs.beam.packages.erlangR25;
-in
-{
-  env.LANG="en_US.UTF-8";
-  env.ERL_AFLAGS="-kernel shell_history enabled";
+in {
+  env.LANG = "en_US.UTF-8";
+  env.ERL_AFLAGS = "-kernel shell_history enabled";
 
   enterShell = ''
     export MIX_HOME=$PWD/.nix-mix
@@ -16,9 +12,11 @@ in
     export PATH=$PATH:$(pwd)/_build/pip_packages/bin
   '';
 
-  packages = with pkgs; [
-    elixir_ls
-  ] ++ lib.optionals pkgs.stdenv.isLinux (with pkgs; [ inotify-tools ]);
+  packages = with pkgs;
+    [
+      elixir_ls
+    ]
+    ++ lib.optionals pkgs.stdenv.isLinux (with pkgs; [inotify-tools]);
 
   languages.elixir = {
     enable = true;
@@ -26,14 +24,8 @@ in
   };
 
   languages.javascript.enable = true;
-
-  services.postgres = {
+  languages.rust = {
     enable = true;
-    initialDatabases = [
-      { name = "kotkowo_dev"; }
-    ];
-    initialScript = ''
-      CREATE ROLE postgres WITH LOGIN SUPERUSER PASSWORD 'postgres';
-    '';
+    channel = "nightly";
   };
 }
