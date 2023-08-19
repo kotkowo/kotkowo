@@ -16,9 +16,6 @@ config :kotkowo, KotkowoWeb.Endpoint,
 
 config :kotkowo, Kotkowo.Repo, url: System.get_env("DATABASE_URL")
 
-# Configures Swoosh API Client
-config :swoosh, :api_client, Swoosh.ApiClient.Finch
-
 # Do not print debug messages in production
 config :logger, level: :info
 
