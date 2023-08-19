@@ -45,6 +45,7 @@ defmodule Kotkowo.MixProject do
       {:phoenix_live_reload, "~> 1.4.1", only: :dev},
       {:phoenix_live_view, "~> 0.19.5"},
       {:phoenix_live_dashboard, "~> 0.8.1"},
+      {:rustler, "~> 0.29.1"},
       {:heroicons, "~> 0.5"},
       {:esbuild, "~> 0.7.1", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.2.1", runtime: Mix.env() == :dev},
