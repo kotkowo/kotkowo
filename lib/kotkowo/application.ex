@@ -10,8 +10,6 @@ defmodule Kotkowo.Application do
     children = [
       # Start the Telemetry supervisor
       KotkowoWeb.Telemetry,
-      # Start the Ecto repository
-      Kotkowo.Repo,
       # Start the PubSub system
       {Phoenix.PubSub, name: Kotkowo.PubSub},
       # Start the Endpoint (http/https)

@@ -14,8 +14,6 @@ config :kotkowo, KotkowoWeb.Endpoint,
   url: [host: System.get_env("HOSTNAME"), port: 80],
   secret_key_base: System.get_env("SECRET_KEY_BASE")
 
-config :kotkowo, Kotkowo.Repo, url: System.get_env("DATABASE_URL")
-
 # Do not print debug messages in production
 config :logger, level: :info
 
