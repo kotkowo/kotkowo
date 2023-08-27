@@ -1,4 +1,5 @@
 defmodule Kotkowo.GalleryImage do
+  @moduledoc false
   defstruct [:hash, :ext, :name, :alternative_text]
 
   @type t :: %__MODULE__{

@@ -1,11 +1,11 @@
 defmodule KotkowoWeb.AdoptionLive.Show do
+  @moduledoc false
   use KotkowoWeb, :live_view
 
   import KotkowoWeb.Components.Images
 
-  alias Kotkowo.StrapiClient
-
   alias Kotkowo.Cat
+  alias Kotkowo.StrapiClient
 
   def mount(%{"slug" => slug}, _session, socket) do
     with {:ok, %Cat{} = cat} <- StrapiClient.get_cat(slug) do
@@ -23,7 +23,7 @@ defmodule KotkowoWeb.AdoptionLive.Show do
 
   def handle_params(params, url, socket) do
     current_image =
-      case Map.get(params, "image", "0") |> Integer.parse() do
+      case params |> Map.get("image", "0") |> Integer.parse() do
         {n, _} ->
           last = length(socket.assigns.images) - 1
 

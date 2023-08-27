@@ -6,13 +6,12 @@ defmodule KotkowoWeb.Components.Cards do
   use KotkowoWeb, :verified_routes
   use Phoenix.Component
 
+  import KotkowoWeb.Components.Buttons
+  import KotkowoWeb.Components.Icons
   import KotkowoWeb.Gettext
 
-  import KotkowoWeb.Components.Icons
-  import KotkowoWeb.Components.Buttons
-
-  alias Kotkowo.Attributes.Seniority
   alias Kotkowo.Attributes.HealthStatus
+  alias Kotkowo.Attributes.Seniority
   alias Kotkowo.Attributes.Sex
 
   attr(:src, :string, required: true, doc: "Image")

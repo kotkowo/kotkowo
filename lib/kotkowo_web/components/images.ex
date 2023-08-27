@@ -9,9 +9,7 @@ defmodule KotkowoWeb.Components.Images do
   attr :image, :any, doc: "GalleryImage.t()"
 
   def gallery_image(assigns) do
-    assigns =
-      assigns
-      |> assign(:image_default, GalleryImage.url(assigns.image))
+    assigns = assign(assigns, :image_default, GalleryImage.url(assigns.image))
 
     ~H"""
     <picture>
@@ -36,9 +34,7 @@ defmodule KotkowoWeb.Components.Images do
   attr :image, :any, doc: "GalleryImage.t()"
 
   def gallery_thumbnail(assigns) do
-    assigns =
-      assigns
-      |> assign(:thumbnail, GalleryImage.url(assigns.image, :thumbnail))
+    assigns = assign(assigns, :thumbnail, GalleryImage.url(assigns.image, :thumbnail))
 
     ~H"""
     <img class="w-[80px] h-[45px] object-cover" src={@thumbnail} />

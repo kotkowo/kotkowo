@@ -4,10 +4,9 @@ defmodule KotkowoWeb.Components.Static.HowYouCanHelpSection do
   use Phoenix.Component
   use KotkowoWeb, :verified_routes
 
-  import KotkowoWeb.Gettext
-
   import KotkowoWeb.Components.Cards
   import KotkowoWeb.Components.Sections
+  import KotkowoWeb.Gettext
 
   attr(:fold, :boolean,
     default: true,

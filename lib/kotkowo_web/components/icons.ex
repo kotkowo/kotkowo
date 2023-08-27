@@ -18,5 +18,5 @@ defmodule KotkowoWeb.Components.Icons do
     """
   end
 
-  def icons_all(), do: @all
+  def icons_all, do: @all
 end

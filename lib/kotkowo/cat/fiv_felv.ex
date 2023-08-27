@@ -1,4 +1,5 @@
 defmodule Kotkowo.Cat.FivFelv do
+  @moduledoc false
   defstruct [:value]
 
   @type fiv_felv :: :positive | :negative
