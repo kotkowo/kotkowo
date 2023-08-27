@@ -40,4 +40,6 @@ npm-debug.log
 # Devenv
 .devenv*
 devenv.local.nix
+.env
+/priv/native/
 
