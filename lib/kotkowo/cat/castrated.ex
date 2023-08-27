@@ -1,4 +1,5 @@
 defmodule Kotkowo.Cat.Castrated do
+  @moduledoc false
   defstruct [:value]
 
   @type t :: %__MODULE__{value: boolean()}

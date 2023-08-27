@@ -1,4 +1,5 @@
 defmodule Kotkowo.Cat.MedicalStatus do
+  @moduledoc false
   defstruct [:value]
 
   @type medical_status :: :tested_and_vaccinated

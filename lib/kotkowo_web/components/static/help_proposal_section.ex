@@ -4,8 +4,8 @@ defmodule KotkowoWeb.Components.Static.HelpProposalSection do
   use Phoenix.Component
   use KotkowoWeb, :verified_routes
 
-  import KotkowoWeb.Components.Icons
   import KotkowoWeb.Components.Buttons
+  import KotkowoWeb.Components.Icons
   import KotkowoWeb.Components.Sections
 
   attr :parent_class, :any, default: nil

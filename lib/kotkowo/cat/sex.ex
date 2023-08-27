@@ -1,4 +1,5 @@
 defmodule Kotkowo.Cat.Sex do
+  @moduledoc false
   defstruct [:value]
 
   @type sex :: :male | :female

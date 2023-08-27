@@ -6,8 +6,8 @@ defmodule KotkowoWeb.Components.Sections do
   use KotkowoWeb, :verified_routes
   use Phoenix.Component, global_prefixes: ~w(x-)
 
-  import KotkowoWeb.Components.Icons
   import KotkowoWeb.Components.Buttons
+  import KotkowoWeb.Components.Icons
   import KotkowoWeb.Gettext
 
   @type nested_link :: {String.t(), String.t()}

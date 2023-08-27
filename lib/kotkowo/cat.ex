@@ -1,4 +1,5 @@
 defmodule Kotkowo.Cat do
+  @moduledoc false
   defstruct [
     :id,
     :slug,

@@ -24,9 +24,9 @@ defmodule KotkowoWeb do
       use Phoenix.Router, helpers: false
 
       # Import common connection and controller functions to use in pipelines
-      import Plug.Conn
       import Phoenix.Controller
       import Phoenix.LiveView.Router
+      import Plug.Conn
     end
   end
 
@@ -43,8 +43,8 @@ defmodule KotkowoWeb do
         formats: [:html, :json],
         layouts: [html: KotkowoWeb.Layouts]
 
-      import Plug.Conn
       import KotkowoWeb.Gettext
+      import Plug.Conn
 
       unquote(verified_routes())
     end
@@ -83,16 +83,16 @@ defmodule KotkowoWeb do
   defp html_helpers do
     quote do
       # HTML escaping functionality
-      import Phoenix.HTML
-      import KotkowoWeb.Gettext
 
       # Shortcut for generating JS commands
-      alias Phoenix.LiveView.JS
-
       import KotkowoWeb.Components.Buttons
       import KotkowoWeb.Components.Cards
       import KotkowoWeb.Components.Icons
       import KotkowoWeb.Components.Sections
+      import KotkowoWeb.Gettext
+      import Phoenix.HTML
+
+      alias Phoenix.LiveView.JS
 
       # Routes generation with the ~p sigil
       unquote(verified_routes())

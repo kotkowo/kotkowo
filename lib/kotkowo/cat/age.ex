@@ -1,4 +1,5 @@
 defmodule Kotkowo.Cat.Age do
+  @moduledoc false
   defstruct [:value]
 
   @type age :: :junior | :adult | :senior

@@ -3,7 +3,7 @@ defmodule Kotkowo.Attributes.Seniority do
 
   import KotkowoWeb.Gettext
 
-  def all(), do: [:senior, :adult, :junior]
+  def all, do: [:senior, :adult, :junior]
 
   def to_string(:senior), do: gettext("Senior")
   def to_string(:adult), do: gettext("Dorosły")
