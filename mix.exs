@@ -53,6 +53,7 @@ defmodule Kotkowo.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.20"},
       {:plug_cowboy, "~> 2.5"},
+      {:styler, "~> 0.8", only: [:dev, :test], runtime: false},
       {:gradient, github: "esl/gradient", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.10", only: :test}
