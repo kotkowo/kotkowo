@@ -89,6 +89,11 @@ defmodule KotkowoWeb do
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
 
+      import KotkowoWeb.Components.Buttons
+      import KotkowoWeb.Components.Cards
+      import KotkowoWeb.Components.Icons
+      import KotkowoWeb.Components.Sections
+
       # Routes generation with the ~p sigil
       unquote(verified_routes())
     end
