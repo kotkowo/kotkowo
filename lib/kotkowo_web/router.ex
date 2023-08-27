@@ -19,19 +19,8 @@ defmodule KotkowoWeb.Router do
 
     get "/", PageController, :home
 
-    scope "/pomoc" do
-      get "/", PageController, :help
-      get "/przekaz-rzeczy-dla-kotkow", PageController, :item_donation
-      get "/zorganizuj-zbiorke-rzeczowa", PageController, :collection
-      get "/stworz-dom-tymczasowy", PageController, :temporary_home
-      get "/zapisz-sie-na-wolontariat", PageController, :volunteer
-      get "/przekaz-nam-podatek", PageController, :tax_donation
-      get "/wsparcie-finansowe", PageController, :financial_aid
-    end
-
     scope "/adopcja" do
-      get "/szukaja-domu", PageController, :looking_for_new_home
-      get "/szukaja-domu/:id", PageController, :cat_adoption
+      live "/szukaja-domu/:slug", AdoptionLive.Show
     end
   end
 
