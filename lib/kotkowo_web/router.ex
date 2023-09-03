@@ -23,6 +23,10 @@ defmodule KotkowoWeb.Router do
       live "/szukaja-domu", AdoptionLive.Index
       live "/szukaja-domu/:slug", AdoptionLive.Show
     end
+
+    scope "/aktualnosci" do
+      live "/", NewsLive.Index
+    end
   end
 
   # Other scopes may use custom stacks.

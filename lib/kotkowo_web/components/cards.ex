@@ -59,7 +59,7 @@ defmodule KotkowoWeb.Components.Cards do
 
       <div class={[
         "bg-white rounded-3xl w-auto px-3 lg:px-5 py-2 lg:py-3 flex flex-col",
-        "gap-y-3 pb-3 lg:pb-6 relative -mt-5 border border-1 ",
+        "gap-y-3 pb-3 lg:pb-6 relative -mt-5 border border-1",
         @body_class
       ]}>
         <div :for={title <- @title} class="flex justify-between flex-1">
