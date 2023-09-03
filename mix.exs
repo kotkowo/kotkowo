@@ -49,6 +49,7 @@ defmodule Kotkowo.MixProject do
       {:heroicons, "~> 0.5"},
       {:esbuild, "~> 0.7.1", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.2.1", runtime: Mix.env() == :dev},
+      {:tails, "~> 0.1.7"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.20"},
