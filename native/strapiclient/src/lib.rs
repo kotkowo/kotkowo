@@ -5,6 +5,12 @@ mod query;
 
 use crate::error::{Error, Result};
 use crate::model::cat::Cat;
+use crate::query::get_cat::{
+    CatGetQuery, ResponseData as CatGetResponseData, Variables as CatGetVariables,
+};
+use crate::query::list_cat::{
+    CatListQuery, ResponseData as CatListResponseData, Variables as CatListVariables,
+};
 /* use crate::query::cat::{cat_get_query, cat_list_query, CatGetQuery, CatListQuery}; */
 use graphql_client::{GraphQLQuery, Response};
 use std::env;
@@ -34,21 +40,16 @@ fn run_query<QB: serde::Serialize, R: for<'a> serde::Deserialize<'a>>(
 
 #[rustler::nif]
 fn list_cats() -> Result<Vec<Cat>> {
-    /*
-    let query = CatListQuery::build_query(cat_list_query::Variables);
-    let response: Response<cat_list_query::ResponseData> = run_query(&query)?;
-
-    let cats: Vec<Cat> = match response.data {
-        Some(cat_list_query::ResponseData { cats: Some(a), .. }) => a.try_into()?,
+    let query = CatListQuery::build_query(CatListVariables);
+    let cat: Vec<Cat> = match run_query(&query)?.data {
+        Some(CatListResponseData {
+            cats: Some(cats), ..
+        }) => cats.try_into()?,
         _ => Err(Error::MissingData)?,
-    }; */
+    };
 
-    Ok(vec![])
+    Ok(cat)
 }
-
-use crate::query::get_cat::{
-    CatGetQuery, ResponseData as CatGetResponseData, Variables as CatGetVariables,
-};
 
 #[rustler::nif]
 fn get_cat(slug: &str) -> Result<Cat> {
