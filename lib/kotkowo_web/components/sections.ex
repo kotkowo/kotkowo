@@ -9,6 +9,7 @@ defmodule KotkowoWeb.Components.Sections do
   import KotkowoWeb.Components.Buttons
   import KotkowoWeb.Components.Icons
   import KotkowoWeb.Gettext
+  import Tails
 
   @type nested_link :: {String.t(), String.t()}
   @type css_classes :: [String.t()]
@@ -172,7 +173,7 @@ defmodule KotkowoWeb.Components.Sections do
 
   def section(assigns) do
     ~H"""
-    <div class={["w-full even:bg-primary-light first:pt-0 py-10 xl:py-16", @parent_class]}>
+    <div class={classes(["w-full even:bg-primary-light first:pt-0 py-10 xl:py-16", @parent_class])}>
       <section class={["mx-auto max-w-3xl md:max-w-5xl lg:max-w-7xl", @class]} {@rest}>
         <%= render_slot(@inner_block) %>
       </section>
