@@ -20,6 +20,7 @@ defmodule KotkowoWeb.Router do
     get "/", PageController, :home
 
     scope "/adopcja" do
+      live "/szukaja-domu", AdoptionLive.Index
       live "/szukaja-domu/:slug", AdoptionLive.Show
     end
   end
