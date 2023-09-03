@@ -1,0 +1,105 @@
+<.section parent_class="mt-6 xl:mt-0 px-6 xl:py-6 py-6">
+  <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-3xl">
+    Aktualności
+  </h1>
+</.section>
+<.section class=" flex justify-center" parent_class="py-4 xl:py-8">
+  <h1 class="text-primary font-manrope font-extrabold xl:text-3xl text-2xl ">
+    Z ostatniej chwili
+  </h1>
+</.section>
+<.section class="flex flex-col gap-y-10 items-center" parent_class="py-8 xl:py-10">
+  <div class="flex w-full px-2">
+    <div
+      class="overflow-x-auto snap-x lg:snap-none lg:mx-auto"
+      x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
+    >
+      <div class="flex flex-row space-x-4 xl:space-x-7 m-auto">
+        <div :for={news <- @news}>
+          <.news title={news.title} tags={news.tags} img={news.image} />
+        </div>
+      </div>
+    </div>
+  </div>
+  <.button type="outline" href="">Zobacz wszystkie</.button>
+</.section>
+
+<.section class=" flex justify-center" parent_class="py-4 xl:py-8">
+  <h1 class="text-primary font-manrope font-extrabold xl:text-3xl text-2xl ">
+    Znalazły dom
+  </h1>
+</.section>
+<.section class="flex flex-col gap-y-10 items-center" parent_class="py-8 xl:py-10">
+  <div class="flex w-full px-2">
+    <div
+      class="overflow-x-auto snap-x lg:snap-none lg:mx-auto"
+      x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
+    >
+      <div class="flex flex-row space-x-4 xl:space-x-7 m-auto">
+        <.cat_card
+          name="Bonifacy"
+          share_href="#"
+          src={~p"/images/bonifacy.png"}
+          sex={:male}
+          tags={[gettext("Spokojny"), gettext("Śpioch")]}
+        />
+        <.cat_card
+          name="Bonifacy"
+          share_href="#"
+          src={~p"/images/bonifacy.png"}
+          sex={:male}
+          tags={[gettext("Spokojny"), gettext("Śpioch")]}
+        />
+        <.cat_card
+          name="Bonifacy"
+          share_href="#"
+          src={~p"/images/bonifacy.png"}
+          sex={:male}
+          tags={[gettext("Spokojny"), gettext("Śpioch")]}
+        />
+      </div>
+    </div>
+  </div>
+  <.button type="outline" href="">Zobacz wszystkie</.button>
+</.section>
+<.section class=" flex justify-center" parent_class="py-4 xl:py-8">
+  <h1 class="text-primary font-manrope font-extrabold xl:text-3xl text-2xl ">
+    Za tęczowym mostem
+  </h1>
+</.section>
+<.section class="flex flex-col gap-y-10 items-center" parent_class="py-8 xl:py-10">
+  <div class="flex w-full px-2">
+    <div
+      class="overflow-x-auto snap-x lg:snap-none lg:mx-auto"
+      x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
+    >
+      <div class="flex flex-row space-x-4 xl:space-x-7 m-auto">
+        <.cat_card
+          name="Bonifacy"
+          share_href="#"
+          dead={true}
+          src={~p"/images/bonifacy.png"}
+          sex={:male}
+          tags={[gettext("Spokojny"), gettext("Śpioch")]}
+        />
+        <.cat_card
+          name="Bonifacy"
+          share_href="#"
+          dead={true}
+          src={~p"/images/bonifacy.png"}
+          sex={:male}
+          tags={[gettext("Spokojny"), gettext("Śpioch")]}
+        />
+        <.cat_card
+          name="Bonifacy"
+          share_href="#"
+          dead={true}
+          src={~p"/images/bonifacy.png"}
+          sex={:male}
+          tags={[gettext("Spokojny"), gettext("Śpioch")]}
+        />
+      </div>
+    </div>
+  </div>
+  <.button type="outline" href="">Zobacz wszystkie</.button>
+</.section>

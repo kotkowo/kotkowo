@@ -221,7 +221,7 @@ defmodule KotkowoWeb.Components.Sections do
           </.footer_section>
 
           <.footer_section title="Mapa strony">
-            <.footer_link href="#">Aktualności</.footer_link>
+            <.footer_link href={~p"/aktualnosci"}>Aktualności</.footer_link>
             <.footer_link href="#">Adopcja</.footer_link>
             <.footer_link href={~p"/pomoc"}>Jak pomóc?</.footer_link>
             <.footer_link href="#">Porady</.footer_link>
