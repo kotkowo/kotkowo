@@ -8,7 +8,7 @@ defmodule KotkowoWeb.Layouts do
   @spec links :: [KotkowoWeb.Components.Sections.link()]
   def links do
     [
-      {"Aktualności", nil,
+      {"Aktualności", "/aktualnosci",
        [
          {"Z ostatniej chwili", "#"},
          {"Znalazły dom", "#"},

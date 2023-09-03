@@ -34,6 +34,10 @@ defmodule KotkowoWeb.Router do
       live "/szukaja-domu/:slug", AdoptionLive.Show
       live "/szukaja-domu", AdoptionLive.LookingForNewHome
     end
+
+    scope "/aktualnosci" do
+      live "/", NewsLive.Index
+    end
   end
 
   if Application.compile_env(:kotkowo, :dev_routes) do
