@@ -9,6 +9,7 @@ defmodule KotkowoWeb.Components.Cards do
   import KotkowoWeb.Components.Buttons
   import KotkowoWeb.Components.Icons
   import KotkowoWeb.Gettext
+  import Tails
 
   alias Kotkowo.Attributes.HealthStatus
   alias Kotkowo.Attributes.Seniority
@@ -25,6 +26,7 @@ defmodule KotkowoWeb.Components.Cards do
   )
 
   attr :body_class, :string, default: ""
+  attr(:grayscale, :boolean, default: false)
 
   slot :title do
     attr :icon, :string, values: icons_all()
@@ -38,6 +40,14 @@ defmodule KotkowoWeb.Components.Cards do
     ~H"""
     <div class="w-60 lg:w-82 shrink-0 snap-center lg:snap-none flex flex-col">
       <div class="relative">
+        <img
+          src={@src}
+          alt={@alt}
+          class={[
+            "border border-1 rounded-t-2xl w-full object-cover h-48",
+            @grayscale && "grayscale"
+          ]}
+        />
         <a
           :if={@share_href != nil}
           href={@share_href}
@@ -45,12 +55,11 @@ defmodule KotkowoWeb.Components.Cards do
         >
           <.icon name="share" class="w-3 lg:w-5 h-3 lg:h-5 m-auto" />
         </a>
-        <img src={@src} alt={@alt} class="border border-1 rounded-t-2xl w-full object-cover h-48" />
       </div>
 
       <div class={[
         "bg-white rounded-3xl w-auto px-3 lg:px-5 py-2 lg:py-3 flex flex-col",
-        "gap-y-3 pb-3 lg:pb-6 relative -mt-5 border border-1 flex-1",
+        "gap-y-3 pb-3 lg:pb-6 relative -mt-5 border border-1 ",
         @body_class
       ]}>
         <div :for={title <- @title} class="flex justify-between flex-1">
@@ -84,15 +93,15 @@ defmodule KotkowoWeb.Components.Cards do
 
   attr(:name, :string, required: true, doc: "Cat's name")
   attr(:src, :string, required: true, doc: "Cat's image")
-  attr(:seniority, :atom, required: true, values: Seniority.all(), doc: "Cat's seniority")
+  attr(:seniority, :atom, default: nil, values: Seniority.all() ++ [nil], doc: "Cat's seniority")
 
   attr(:health_status, :atom,
-    required: true,
-    values: HealthStatus.all(),
+    default: nil,
+    values: HealthStatus.all() ++ [nil],
     doc: "Cat's health status"
   )
 
-  attr(:castrated, :boolean, required: true, doc: "Whether cat was castrated")
+  attr(:castrated, :boolean, default: nil, doc: "Whether cat was castrated")
 
   attr(:tags, :list,
     default: [],
@@ -102,21 +111,22 @@ defmodule KotkowoWeb.Components.Cards do
 
   attr(:sex, :atom, values: Sex.all(), required: true, doc: "Cat's sex")
   attr(:share_href, :string, required: true, doc: "Cat's share link")
+  attr(:dead, :boolean, default: false)
 
   def cat_card(assigns) do
     ~H"""
-    <.card share_href={@share_href} src={@src} alt={@name} tags={@tags}>
+    <.card share_href={@share_href} grayscale={@dead} src={@src} alt={@name} tags={@tags}>
       <:title icon={to_string(@sex)}>
         <%= @name %>
       </:title>
       <:attributes>
-        <.card_attribute icon="paw">
+        <.card_attribute :if={@seniority != nil} icon="paw">
           <%= Seniority.to_string(@seniority) %>
         </.card_attribute>
-        <.card_attribute icon="sthetoscope">
+        <.card_attribute :if={@health_status != nil} icon="sthetoscope">
           <%= HealthStatus.to_string(@health_status) %>
         </.card_attribute>
-        <.card_attribute icon="scissors">
+        <.card_attribute :if={@castrated != nil} icon="scissors">
           <%= (@castrated && gettext("Po kastracji")) || gettext("Przed kastracją") %>
         </.card_attribute>
       </:attributes>
