@@ -4,9 +4,13 @@ mod primitives;
 mod query;
 
 use crate::error::{Error, Result};
-use crate::model::cat::Cat;
+use crate::model::{Announcement, Cat};
 use crate::query::get_cat::{
     CatGetQuery, ResponseData as CatGetResponseData, Variables as CatGetVariables,
+};
+use crate::query::list_announcement::{
+    ListAnnouncementQuery, ResponseData as ListAnnouncementResponseData,
+    Variables as ListAnnouncementVariables,
 };
 use crate::query::list_cat::{
     CatListQuery, ResponseData as CatListResponseData, Variables as CatListVariables,
@@ -52,6 +56,20 @@ fn list_cats() -> Result<Vec<Cat>> {
 }
 
 #[rustler::nif]
+fn list_announcements() -> Result<Vec<Announcement>> {
+    let query = ListAnnouncementQuery::build_query(ListAnnouncementVariables);
+    let announcements: Vec<Announcement> = match run_query(&query)?.data {
+        Some(ListAnnouncementResponseData {
+            announcements: Some(announcements),
+            ..
+        }) => announcements.try_into()?,
+        _ => Err(Error::MissingData)?,
+    };
+
+    Ok(announcements)
+}
+
+#[rustler::nif]
 fn get_cat(slug: &str) -> Result<Cat> {
     let slug = Some(slug.to_owned());
     let query = CatGetQuery::build_query(CatGetVariables { slug });
@@ -65,4 +83,7 @@ fn get_cat(slug: &str) -> Result<Cat> {
     Ok(cat)
 }
 
-rustler::init!("Elixir.Kotkowo.StrapiClient", [list_cats, get_cat]);
+rustler::init!(
+    "Elixir.Kotkowo.StrapiClient",
+    [list_cats, get_cat, list_announcements]
+);
