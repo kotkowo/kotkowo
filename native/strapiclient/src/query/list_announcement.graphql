@@ -1,0 +1,28 @@
+query ListAnnouncementQuery{
+	announcements {
+    data {
+      id,
+      attributes{
+        image {
+          data {
+            attributes {
+             name
+              alternativeText
+              ext
+              hash
+
+            }
+          }
+        },
+        title,
+        announcement_tags {
+          data {
+            attributes {
+              text
+            }
+          }
+        },
+      }
+    }
+  }
+}
