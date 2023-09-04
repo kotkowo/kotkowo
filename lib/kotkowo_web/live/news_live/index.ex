@@ -6,18 +6,24 @@ defmodule KotkowoWeb.NewsLive.Index do
   alias Kotkowo.StrapiClient
 
   @impl true
-  def mount(params, session, socket) do
+  def mount(_params, _session, socket) do
     {:ok, news} = StrapiClient.list_announcements()
     socket = assign(socket, :news, news)
 
     {:ok, socket}
   end
 
+  @spec news(map()) :: Phoenix.LiveView.Rendered.t()
   defp news(assigns) do
-    image = GalleryImage.url(assigns.img)
+    assigns = assign(assigns, :image, GalleryImage.url(assigns.img))
 
     ~H"""
-    <.card alt="" src={image} tags={@tags} body_class="h-40 lg:h-48 rounded-t-none xl:-mt-1">
+    <.card
+      alt="News image"
+      src={@image}
+      tags={@tags}
+      body_class="h-40 lg:h-48 rounded-t-none xl:-mt-1"
+    >
       <:title class="lg:text-xl"><%= @title %></:title>
     </.card>
     """
