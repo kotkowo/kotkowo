@@ -20,6 +20,7 @@ in {
 
   packages = with pkgs;
     [
+      docker
       node
       elixir_ls
       openssl

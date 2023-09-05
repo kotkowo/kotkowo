@@ -1,42 +1,22 @@
-# Find eligible builder and runner images on Docker Hub. We use Ubuntu/Debian
-# instead of Alpine to avoid DNS resolution issues in production.
-#
-# https://hub.docker.com/r/hexpm/elixir/tags?page=1&name=ubuntu
-# https://hub.docker.com/_/ubuntu?tab=tags
-#
-# This file is based on these images:
-#
-#   - https://hub.docker.com/r/hexpm/elixir/tags - for the build image
-#   - https://hub.docker.com/_/debian?tab=tags&page=1&name=bullseye-20230612-slim - for the release image
-#   - https://pkgs.org/ - resource for finding needed packages
-#   - Ex: hexpm/elixir:1.14.5-erlang-25.3.2.5-debian-bullseye-20230612-slim
-#
 ARG ELIXIR_VERSION=1.15.5
 ARG OTP_VERSION=26.0.2
 ARG DEBIAN_VERSION=bullseye-20230612-slim
 
-ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
-ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
+ARG BUILDER_IMAGE="hexpm/elixir-${BUILDARCH}:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
+ARG RUNNER_IMAGE="arm64v8/debian:${DEBIAN_VERSION}"
 
-FROM rustlang/rust:nightly-bullseye-slim as rust_nightly
+FROM --platform=$BUILDPLATFORM arm64v8/rust:1.72 as rust_nightly
 
-FROM node:20.5.1-bullseye as build-node
+FROM --platform=$BUILDPLATFORM arm64v8/node:20.6-buster-slim as build-node
 
-# prepare build dir
-RUN mkdir -p /app/assets
-WORKDIR /app
-
-# set build ENV
-ENV NODE_ENV=prod
-
-# install npm dependencies
-COPY assets assets
-RUN cd assets && npm install
+ADD assets /app/assets
+WORKDIR /app/assets
+RUN npm install
 
 FROM ${BUILDER_IMAGE} as builder
 
 # install build dependencies
-RUN apt-get update -y && apt-get install -y build-essential git libssl-dev pkg-config \
+RUN dpkg --add-architecture arm64 && apt-get update -y && apt-get install -y build-essential git libssl-dev pkg-config musl libc6 libc6:arm64 \
     && apt-get clean && rm -f /var/lib/apt/lists/*_*
 
 # prepare build dir
@@ -57,6 +37,7 @@ RUN mkdir config
 # copy rust deps
 COPY --from=rust_nightly /usr/local/cargo /usr/local/cargo
 COPY --from=rust_nightly /usr/local/rustup /usr/local/rustup
+
 ENV PATH="/usr/local/cargo/bin:${PATH}"
 
 # copy compile-time config files before we compile dependencies
@@ -87,7 +68,7 @@ RUN mix release
 
 # start a new build stage so that the final image will only contain
 # the compiled release and other runtime necessities
-FROM ${RUNNER_IMAGE}
+FROM --platform=$BUILDPLATFORM ${RUNNER_IMAGE}
 
 RUN apt-get update -y && apt-get install -y libstdc++6 openssl libncurses5 locales \
   && apt-get clean && rm -f /var/lib/apt/lists/*_*
