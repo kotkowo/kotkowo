@@ -54,10 +54,12 @@ fn list_cats() -> Result<Vec<Cat>> {
 
     Ok(cat)
 }
-
 #[rustler::nif]
-fn list_announcements() -> Result<Vec<Announcement>> {
-    let query = ListAnnouncementQuery::build_query(ListAnnouncementVariables);
+fn list_announcements(num_items: Option<i64>, offset: Option<i64>) -> Result<Vec<Announcement>> {
+    let query = ListAnnouncementQuery::build_query(ListAnnouncementVariables {
+        limit: num_items,
+        offset,
+    });
     let announcements: Vec<Announcement> = match run_query(&query)?.data {
         Some(ListAnnouncementResponseData {
             announcements: Some(announcements),
@@ -65,7 +67,6 @@ fn list_announcements() -> Result<Vec<Announcement>> {
         }) => announcements.try_into()?,
         _ => Err(Error::MissingData)?,
     };
-
     Ok(announcements)
 }
 
