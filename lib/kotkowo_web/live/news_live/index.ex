@@ -1,5 +1,6 @@
 defmodule KotkowoWeb.NewsLive.Index do
   @moduledoc false
+
   use KotkowoWeb, :live_view
 
   alias Kotkowo.GalleryImage
@@ -7,13 +8,13 @@ defmodule KotkowoWeb.NewsLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, news} = StrapiClient.list_announcements()
+    {:ok, news} = StrapiClient.list_announcements(3)
     socket = assign(socket, :news, news)
 
     {:ok, socket}
   end
 
-  @spec news(map()) :: Phoenix.LiveView.Rendered.t()
+  @spec news(assigns :: map()) :: Phoenix.LiveView.Rendered.t()
   defp news(assigns) do
     assigns = assign(assigns, :image, GalleryImage.url(assigns.img))
 
