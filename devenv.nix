@@ -1,5 +1,8 @@
 {pkgs, ...}: let
-  erlang = pkgs.beam.packages.erlangR25;
+  erlang = pkgs.beam.packages.erlangR26;
+  elixir = erlang.elixir_1_15;
+  node = pkgs.nodejs_20;
+  elixir-ls = erlang.elixir-ls.override {elixir = elixir;};
 in {
   env.LANG = "en_US.UTF-8";
   env.ERL_AFLAGS = "-kernel shell_history enabled";
@@ -17,6 +20,7 @@ in {
 
   packages = with pkgs;
     [
+      node
       elixir_ls
       openssl
       graphql-client
@@ -25,7 +29,7 @@ in {
 
   languages.elixir = {
     enable = true;
-    package = erlang.elixir_1_14;
+    package = elixir;
   };
 
   languages.javascript.enable = true;
