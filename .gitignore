@@ -43,3 +43,8 @@ devenv.local.nix
 .env
 /priv/native/
 
+priv/static/images
+priv/static/robots*
+priv/static/favicon*
+
+
