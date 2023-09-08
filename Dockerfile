@@ -6,7 +6,7 @@ COPY assets assets
 
 RUN npm --prefix /app/assets install
 
-FROM elixir:1.15.4-otp-25-alpine as builder
+FROM hexpm/elixir:1.15.5-erlang-25.3.2.6-alpine-3.18.2 as builder
 
 # elixir expects utf8.
 ENV ELIXIR_VERSION="v1.15.4" \
