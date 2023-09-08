@@ -1,4 +1,4 @@
-FROM erlang:26-alpine as builder
+FROM elixir:1.15.4-otp-25-alpine as builder
 
 # elixir expects utf8.
 ENV ELIXIR_VERSION="v1.15.4" \
@@ -27,18 +27,7 @@ RUN apk add --no-cache \
 		
 
 RUN set -xe \
-	&& ELIXIR_DOWNLOAD_URL="https://github.com/elixir-lang/elixir/archive/${ELIXIR_VERSION}.tar.gz" \
-	&& ELIXIR_DOWNLOAD_SHA256="302bf8065ab792a88f6c3a0c01a6bb58737be3e4fc2564c8afd418bf9792501c" \
-	&& apkArch="$(apk --print-arch)" \
-	&& curl -fSL -o elixir-src.tar.gz $ELIXIR_DOWNLOAD_URL \
-	&& echo "$ELIXIR_DOWNLOAD_SHA256  elixir-src.tar.gz" | sha256sum -c - \
-	&& mkdir -p /usr/local/src/elixir \
-	&& tar -xzC /usr/local/src/elixir --strip-components=1 -f elixir-src.tar.gz \
-	&& rm elixir-src.tar.gz \
-	&& cd /usr/local/src/elixir \
-	&& make install clean \
-	&& find /usr/local/src/elixir/ -type f -not -regex "/usr/local/src/elixir/lib/[^\/]*/lib.*" -exec rm -rf {} + \
-	&& find /usr/local/src/elixir/ -type d -depth -empty -delete; \
+	&& apkArch="$(apk --print-arch)"; \
     case "$apkArch" in \
         x86_64) rustArch='x86_64-unknown-linux-musl'; rustupSha256='7aa9e2a380a9958fc1fc426a3323209b2c86181c6816640979580f62ff7d48d4' ;; \
         aarch64) rustArch='aarch64-unknown-linux-musl'; rustupSha256='b1962dfc18e1fd47d01341e6897cace67cddfabf547ef394e8883939bd6e002e' ;; \
