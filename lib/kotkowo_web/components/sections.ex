@@ -29,7 +29,7 @@ defmodule KotkowoWeb.Components.Sections do
       [
         {"Aktualności", nil,
          [
-           {"Z ostatniej chwili", "#"},
+           {"Z ostatniej chwili", "/aktualnosci/z-ostatniej-chwili"},
            {"Znalazły dom", "#"}
          ], []},
         {"Zaginione/znalezione", "#zaginione-znalezione", [], []},

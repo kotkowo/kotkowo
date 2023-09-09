@@ -15,13 +15,17 @@
       x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
     >
       <div class="flex flex-row space-x-4 xl:space-x-7 m-auto">
-        <div :for={news <- @news}>
-          <.news title={news.title} tags={news.tags} img={news.image} />
-        </div>
+        <.news_card
+          :for={news <- @news}
+          title={news.title}
+          tags={news.tags}
+          src={Kotkowo.GalleryImage.url(news.image)}
+          class="lg:w-82"
+        />
       </div>
     </div>
   </div>
-  <.button type="outline" href="">Zobacz wszystkie</.button>
+  <.button type="outline" href="/aktualnosci/z-ostatniej-chwili">Zobacz wszystkie</.button>
 </.section>
 
 <.section class=" flex justify-center" parent_class="py-4 xl:py-8">

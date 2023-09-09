@@ -10,7 +10,7 @@ defmodule KotkowoWeb.Layouts do
     [
       {"Aktualności", "/aktualnosci",
        [
-         {"Z ostatniej chwili", "#"},
+         {"Z ostatniej chwili", "/aktualnosci/z-ostatniej-chwili"},
          {"Znalazły dom", "#"},
          {"Za tęczowym mostem", "#"}
        ], []},
