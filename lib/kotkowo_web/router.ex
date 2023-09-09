@@ -37,6 +37,8 @@ defmodule KotkowoWeb.Router do
 
     scope "/aktualnosci" do
       live "/", NewsLive.Index
+      live "/z-ostatniej-chwili", NewsLive.LatestNews
+      live "/z-ostatniej-chwili/wszystkie", NewsLive.AllNews
     end
   end
 
