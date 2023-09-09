@@ -14,6 +14,7 @@ defmodule KotkowoWeb.Components.Cards do
   alias Kotkowo.Attributes.HealthStatus
   alias Kotkowo.Attributes.Seniority
   alias Kotkowo.Attributes.Sex
+  alias Kotkowo.GalleryImage
 
   attr(:src, :string, required: true, doc: "Image")
   attr(:alt, :string, required: true, doc: "Image's alt")
@@ -25,12 +26,13 @@ defmodule KotkowoWeb.Components.Cards do
     examples: [["Mruczek", "Wielbiciel kolan"], ["Meowy", "Loves laps"]]
   )
 
-  attr :body_class, :string, default: ""
+  attr(:class, :string, default: "")
+  attr(:body_class, :string, default: "")
   attr(:grayscale, :boolean, default: false)
 
   slot :title do
-    attr :icon, :string, values: icons_all()
-    attr :class, :string
+    attr(:icon, :string, values: icons_all())
+    attr(:class, :string)
   end
 
   slot(:attributes)
@@ -38,7 +40,7 @@ defmodule KotkowoWeb.Components.Cards do
 
   def card(assigns) do
     ~H"""
-    <div class="w-60 lg:w-82 shrink-0 snap-center lg:snap-none flex flex-col">
+    <div class={classes(["w-60 lg:w-82 shrink-0 snap-center lg:snap-none flex flex-col", @class])}>
       <div class="relative">
         <img
           src={@src}
@@ -57,11 +59,13 @@ defmodule KotkowoWeb.Components.Cards do
         </a>
       </div>
 
-      <div class={[
-        "bg-white rounded-3xl w-auto px-3 lg:px-5 py-2 lg:py-3 flex flex-col",
-        "gap-y-3 pb-3 lg:pb-6 relative -mt-5 border border-1",
-        @body_class
-      ]}>
+      <div class={
+        classes([
+          "bg-white rounded-3xl w-auto px-3 lg:px-5 py-2 lg:py-3 flex flex-col",
+          "gap-y-3 pb-3 lg:pb-6 relative -mt-5 border border-1",
+          @body_class
+        ])
+      }>
         <div :for={title <- @title} class="flex justify-between flex-1">
           <h3 class={[
             "lg:font-manrope font-semibold lg:font-bold text-lg lg:text-2xl",
@@ -197,21 +201,10 @@ defmodule KotkowoWeb.Components.Cards do
     examples: [["Zbiórka", "Przedszkole"], ["Akcja", "Kastracja"]]
   )
 
-  def news_card(assigns) do
-    ~H"""
-    <.card src={@src} alt={@title} tags={@tags} body_class="rounded-t-none">
-      <:title class="lg:!text-xl">
-        <%= @title %>
-      </:title>
-    </.card>
-    """
-  end
+  attr(:href, :string, required: true)
+  attr(:alt, :string, required: true)
 
-  attr :href, :string, required: true
-  attr :src, :string, required: true
-  attr :alt, :string, required: true
-
-  slot :inner_block, required: true, doc: "Card's text"
+  slot(:inner_block, required: true, doc: "Card's text")
 
   def help_card(assigns) do
     ~H"""
@@ -227,11 +220,11 @@ defmodule KotkowoWeb.Components.Cards do
     """
   end
 
-  attr :href, :string, required: true
-  attr :src, :string, required: true
-  attr :alt, :string, required: true
+  attr(:href, :string, required: true)
+  attr(:src, :string, required: true)
+  attr(:alt, :string, required: true)
 
-  slot :inner_block, required: true, doc: "Card's text"
+  slot(:inner_block, required: true, doc: "Card's text")
 
   def external_site_help_card(assigns) do
     ~H"""
@@ -244,6 +237,59 @@ defmodule KotkowoWeb.Components.Cards do
         </p>
       </div>
     </a>
+    """
+  end
+
+  attr(:class, :string, default: "")
+  attr(:src, :string, required: true)
+  attr(:title, :string, required: true)
+
+  attr(:tags, :list,
+    default: [],
+    doc: "Tags",
+    examples: [["Mruczek", "Wielbiciel kolan"], ["Meowy", "Loves laps"]]
+  )
+
+  @spec news_card(assigns :: map()) :: Phoenix.LiveView.Rendered.t()
+  def news_card(assigns) do
+    ~H"""
+    <.card
+      src={@src}
+      alt={@title}
+      tags={Enum.take(@tags, 2)}
+      body_class="rounded-t-none grow "
+      class={classes(["grow lg:w-[345px]", @class])}
+    >
+      <:title class="lg:text-xl grow"><%= @title %></:title>
+    </.card>
+    """
+  end
+
+  def header_news_card(assigns) do
+    assigns = assign(assigns, :image, GalleryImage.url(assigns.image))
+
+    ~H"""
+    <div class="w-full flex flex-col lg:flex-row justify-between border border-1 border rounded-2xl items-start h-full lg:h-[322px] pt-6 lg:pt-0">
+      <div class="flex flex-col pl-6 lg:py-6 max-w-xl h-full">
+        <div class="text-2xl font-semibold leading-10">
+          <%= @title %>
+        </div>
+        <p class="py-2 text-lg leading-10 grow line-clamp-6 lg:line-clamp-4 px-2 lg:px-0">
+          Dzieci z Przedszkola Samorządowego nr 35 w Białymstoku zbierają pyszności dla kotków. Zbiórka rozpoczeła się 01.01.2023 i potrwa jeszcze przez 2 miesiące. Zapraszamy d...
+        </p>
+        <div
+          :if={@tags != []}
+          class="lg:mt-3 overflow-y-auto flex spacing space-x-1 whitespace-nowrap"
+        >
+          <.card_tag :for={tag <- @tags}><%= tag %></.card_tag>
+        </div>
+      </div>
+      <img
+        class="w-full mt-5 lg:mt-0 lg:w-[535px] h-[169px]  lg:h-full object-cover rounded-xl  lg:rounded-l-none lg:rounded-y-none"
+        src={@image}
+        alt="Latest news image"
+      />
+    </div>
     """
   end
 end
