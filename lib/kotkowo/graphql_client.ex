@@ -7,4 +7,5 @@ defmodule Kotkowo.StrapiClient do
   def list_cats, do: :erlang.nif_error(:nif_not_loaded)
   def list_announcements(_number \\ nil, _offset \\ nil), do: :erlang.nif_error(:nif_not_loaded)
   def get_cat(_slug), do: :erlang.nif_error(:nif_not_loaded)
+  def get_article(_announcement_id), do: :erlang.nif_error(:nif_not_loaded)
 end
