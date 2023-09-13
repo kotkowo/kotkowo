@@ -243,6 +243,7 @@ defmodule KotkowoWeb.Components.Cards do
   attr(:class, :string, default: "")
   attr(:src, :string, required: true)
   attr(:title, :string, required: true)
+  attr(:news_id, :string, required: true)
 
   attr(:tags, :list,
     default: [],
@@ -253,29 +254,32 @@ defmodule KotkowoWeb.Components.Cards do
   @spec news_card(assigns :: map()) :: Phoenix.LiveView.Rendered.t()
   def news_card(assigns) do
     ~H"""
-    <.card
-      src={@src}
-      alt={@title}
-      tags={Enum.take(@tags, 2)}
-      body_class="rounded-t-none grow "
-      class={classes(["grow lg:w-[345px]", @class])}
-    >
-      <:title class="lg:text-xl grow"><%= @title %></:title>
-    </.card>
+    <a href={~p"/aktualnosci/z-ostatniej-chwili/#{@news_id}"}>
+      <.card
+        src={@src}
+        alt={@title}
+        tags={Enum.take(@tags, 2)}
+        body_class="rounded-t-none grow py-4"
+        class={classes(["grow lg:w-[345px] h-full", @class])}
+      >
+        <:title class="lg:text-xl grow line-clamp-3"><%= @title %></:title>
+      </.card>
+    </a>
     """
   end
 
   def header_news_card(assigns) do
-    assigns = assign(assigns, :image, GalleryImage.url(assigns.image))
-
     ~H"""
-    <div class="w-full flex flex-col lg:flex-row justify-between border border-1 border rounded-2xl items-start h-full lg:h-[322px] pt-6 lg:pt-0">
+    <a
+      href={~p"/aktualnosci/z-ostatniej-chwili/#{assigns.news_id}"}
+      class="w-full flex flex-col lg:flex-row justify-between border border-1 border rounded-2xl items-start h-full lg:h-[322px] pt-6 lg:pt-0"
+    >
       <div class="flex flex-col pl-6 lg:py-6 max-w-xl h-full">
-        <div class="text-2xl font-semibold leading-10">
+        <div class="text-2xl font-semibold leading-10 line-clamp-2">
           <%= @title %>
         </div>
         <p class="py-2 text-lg leading-10 grow line-clamp-6 lg:line-clamp-4 px-2 lg:px-0">
-          Dzieci z Przedszkola Samorządowego nr 35 w Białymstoku zbierają pyszności dla kotków. Zbiórka rozpoczeła się 01.01.2023 i potrwa jeszcze przez 2 miesiące. Zapraszamy d...
+          <%= @introduction %>
         </p>
         <div
           :if={@tags != []}
@@ -289,7 +293,7 @@ defmodule KotkowoWeb.Components.Cards do
         src={@image}
         alt="Latest news image"
       />
-    </div>
+    </a>
     """
   end
 end
