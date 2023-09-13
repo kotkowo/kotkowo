@@ -7,6 +7,7 @@
       :for={news <- @news}
       class="lg:w-[313px] w-full"
       title={news.title}
+      news_id={news.id}
       tags={news.tags}
       src={Kotkowo.GalleryImage.url(news.image)}
     />
