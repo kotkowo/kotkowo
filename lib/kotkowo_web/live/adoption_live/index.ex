@@ -7,7 +7,6 @@ defmodule KotkowoWeb.AdoptionLive.Index do
 
   def mount(params, _session, socket) do
     {:ok, cats} = StrapiClient.list_cats()
-    IO.inspect(cats)
 
     socket =
       socket
