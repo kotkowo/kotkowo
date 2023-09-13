@@ -272,7 +272,7 @@ defmodule KotkowoWeb.Components.Cards do
     ~H"""
     <a
       href={~p"/aktualnosci/z-ostatniej-chwili/#{assigns.news_id}"}
-      class="w-full flex flex-col lg:flex-row justify-between border border-1 border rounded-2xl items-start h-full lg:h-[322px] pt-6 lg:pt-0"
+      class="lg:w-[1312px] flex flex-col lg:flex-row justify-between border border-1 border rounded-2xl items-start h-full lg:h-[322px] pt-6 lg:pt-0"
     >
       <div class="flex flex-col pl-6 lg:py-6 max-w-xl h-full">
         <div class="text-2xl font-semibold leading-10 line-clamp-2">
