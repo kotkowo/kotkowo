@@ -31,6 +31,27 @@ impl TryFrom<AnnouncementArticleQueryAnnouncement> for Article {
                     .to_string(),
             )
         })?;
+        let title: String = {
+            attributes
+                .announcement
+                .ok_or_else(|| {
+                    Error::AttributeMissing(
+                        "AnnouncementArticleQuery.data.[n].attributes.article.data.announcement"
+                            .to_string(),
+                    )
+                })?
+                .data.ok_or_else(|| {
+                    Error::AttributeMissing(
+                        "AnnouncementArticleQuery.data.[n].attributes.article.data.announcement.data"
+                            .to_string(),
+                    )
+                })?.attributes.ok_or_else(|| {
+                    Error::AttributeMissing(
+                        "AnnouncementArticleQuery.data.[n].attributes.article.data.announcement.data.attributes"
+                            .to_string(),
+                    )
+                })?.title
+        };
         let image: Result<GalleryImage> = {
             let inner_attr = attributes
                 .image
@@ -56,6 +77,7 @@ impl TryFrom<AnnouncementArticleQueryAnnouncement> for Article {
             })
         };
         Ok(Article {
+            title,
             image: image?,
             introduction: attributes.introduction,
             content: attributes.content,

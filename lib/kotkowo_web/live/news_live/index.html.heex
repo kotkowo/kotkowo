@@ -18,6 +18,7 @@
         <.news_card
           :for={news <- @news}
           title={news.title}
+          news_id={news.id}
           tags={news.tags}
           src={Kotkowo.GalleryImage.url(news.image)}
           class="lg:w-82"
