@@ -6,17 +6,20 @@
     <.header_news_card
       :for={header <- @header_news}
       title={header.title}
-      image={header.image}
+      image={GalleryImage.url(header.image)}
       tags={header.tags}
+      news_id={header.id}
+      introduction={@article.introduction}
     >
     </.header_news_card>
     <div class="lg:flex-row flex-col flex lg:gap-y-0 gap-y-5 lg:gap-x-5">
       <.news_card
         :for={popular_news <- @popular_news}
-        class="w-full"
+        class="lg:w-[313px] w-full"
+        news_id={popular_news.id}
         title={popular_news.title}
         tags={popular_news.tags}
-        src={Kotkowo.GalleryImage.url(popular_news.image)}
+        src={GalleryImage.url(popular_news.image)}
       />
       <div class="lg:w-[646px] text-center lg:text-justify w-full lg:order-none order-first flex flex-col gap-y-6 lg:pl-8 pb-20">
         <h1 class="text-primary font-manrope text-center lg:text-justify font-extrabold xl:text-3xl text-2xl">
@@ -26,7 +29,7 @@
         <a
           :for={titles <- @popular_titles}
           href="/"
-          class="text-2xl font-manrope font-bold text-gray-800 pr-0 lg:pr-2"
+          class="text-2xl line-clamp-2 font-manrope font-bold text-gray-800 pr-0 lg:pr-2"
         >
           <%= titles.title %>
         </a>
@@ -35,10 +38,11 @@
     <div class="flex flex-col lg:flex-row gap-y-5 lg:gap-y-0 lg:gap-x-5">
       <.news_card
         :for={news <- @news}
-        class="lg:w-[265px] w-full"
+        class="lg:w-[313px] w-full"
         title={news.title}
+        news_id={news.id}
         tags={news.tags}
-        src={Kotkowo.GalleryImage.url(news.image)}
+        src={GalleryImage.url(news.image)}
       />
     </div>
 
