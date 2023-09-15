@@ -313,27 +313,7 @@ defmodule KotkowoWeb.Components.Sections do
     """
   end
 
-  defp breadcrumb_reflect(site_meta, routes \\ nil, result \\ [])
-
-  defp breadcrumb_reflect(site_meta, nil, result) do
-    routes = KotkowoWeb.Router.__routes__()
-    Enum.reverse(breadcrumb_reflect(site_meta, routes, result))
-  end
-
-  defp breadcrumb_reflect(site_meta, routes, result) do
-    route =
-      Enum.find(routes, %{path: "#"}, fn route ->
-        route.plug == site_meta.controller && route.plug_opts == site_meta.method
-      end)
-
-    self = {site_meta.title, route.path}
-
-    if site_meta.parent == nil do
-      [self | result]
-    else
-      [self | breadcrumb_reflect(site_meta.parent.(), routes, result)]
-    end
-  end
+  defp breadcrumb_reflect(_), do: []
 
   attr :title, :string, required: true
 

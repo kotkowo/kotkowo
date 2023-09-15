@@ -21,6 +21,8 @@ in {
     ]
     ++ lib.optionals pkgs.stdenv.isLinux (with pkgs; [inotify-tools]);
 
+  dotenv.enable = true;
+
   languages.elixir = {
     enable = true;
     package = elixir;

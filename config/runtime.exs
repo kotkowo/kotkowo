@@ -20,6 +20,20 @@ if System.get_env("PHX_SERVER") do
   config :kotkowo, KotkowoWeb.Endpoint, server: true
 end
 
+strapi_endpoint =
+  System.get_env("STRAPI_ENDPOINT") ||
+    raise """
+    environment variable STRAPI_ENDPOINT is missing.
+    """
+
+strapi_key =
+  System.get_env("STRAPI_KEY") ||
+    raise """
+    environment variable STRAPI_KEY is missing.
+    """
+
+config :kotkowo, :strapi, api_key: strapi_key, endpoint: strapi_endpoint
+
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||

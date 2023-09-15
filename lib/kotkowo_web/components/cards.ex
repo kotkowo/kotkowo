@@ -85,11 +85,16 @@ defmodule KotkowoWeb.Components.Cards do
 
   attr(:name, :string, required: true, doc: "Cat's name")
   attr(:src, :string, required: true, doc: "Cat's image")
-  attr(:seniority, :atom, required: true, values: Seniority.all(), doc: "Cat's seniority")
+
+  attr(:seniority, :atom,
+    required: true,
+    values: [:junior, :senior, :adult],
+    doc: "Cat's seniority"
+  )
 
   attr(:health_status, :atom,
     required: true,
-    values: HealthStatus.all(),
+    values: [:healthy, :unhealthy],
     doc: "Cat's health status"
   )
 
@@ -101,7 +106,7 @@ defmodule KotkowoWeb.Components.Cards do
     examples: [["Mruczek", "Wielbiciel kolan"], ["Meowy", "Loves laps"]]
   )
 
-  attr(:sex, :atom, values: Sex.all(), required: true, doc: "Cat's sex")
+  attr(:sex, :atom, values: [:male, :female], required: true, doc: "Cat's sex")
   attr(:share_href, :string, required: true, doc: "Cat's share link")
 
   def cat_card(assigns) do
@@ -154,7 +159,7 @@ defmodule KotkowoWeb.Components.Cards do
 
   attr(:name, :string, required: true, doc: "Cat's name")
   attr(:src, :string, required: true, doc: "Cat's image")
-  attr(:sex, :atom, values: Sex.all(), required: true, doc: "Cat's sex")
+  attr(:sex, :atom, values: [:male, :female], required: true, doc: "Cat's sex")
   attr(:share_href, :string, required: true, doc: "Cat's share link")
   attr(:action_href, :string, required: true, doc: "Cat's adopt href")
 
