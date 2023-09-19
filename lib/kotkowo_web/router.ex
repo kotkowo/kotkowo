@@ -22,6 +22,7 @@ defmodule KotkowoWeb.Router do
     scope "/pomoc" do
       live "/", HelpLive.Index
       live "/przekaz-nam-podatek", HelpLive.TaxDonation
+      live "/przekaz-rzeczy-dla-kotkow", HelpLive.ItemDonation
     end
 
     scope "/adopcja" do
