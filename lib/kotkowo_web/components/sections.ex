@@ -17,12 +17,13 @@ defmodule KotkowoWeb.Components.Sections do
   @doc """
   Renders a header with title.
   """
-  attr :contact_email, :string,
+  attr(:contact_email, :string,
     required: true,
     examples: ["kotkowo@email.com"],
     doc: "Organization's contact email"
+  )
 
-  attr :links, :list,
+  attr(:links, :list,
     required: true,
     examples: [
       [
@@ -39,8 +40,9 @@ defmodule KotkowoWeb.Components.Sections do
       ]
     ],
     doc: "A list of links with type t:link/0"
+  )
 
-  slot :inner_block, required: true, doc: "Header title"
+  slot(:inner_block, required: true, doc: "Header title")
 
   def header(assigns) do
     ~H"""
@@ -66,12 +68,12 @@ defmodule KotkowoWeb.Components.Sections do
         <div class="h-full flex flex-col xl:flex-row items-center gap-x-10 w-full xl:w-auto">
           <div class="flex flex-row items-center w-full xl:w-auto pt-2 xl:pt-0 self-start xl:self-auto">
             <img src="https://via.placeholder.com/32" alt="logo" />
-            <a
+            <.link
               class="ml-4 xl:font-manrope font-bold text-primary text-lg xl:text-2xl xl:text-black xl:mr-12"
-              href="/"
+              navigate={~p"/"}
             >
               <%= render_slot(@inner_block) %>
-            </a>
+            </.link>
             <.icon
               name="bars"
               class="text-primary cursor-pointer ml-auto w-8 h-8 inline xl:hidden"
@@ -96,7 +98,7 @@ defmodule KotkowoWeb.Components.Sections do
                   "text-lg static cursor-pointer py-4 border-b-2 border-primary",
                   "flex xl:block flex-row w-full xl:w-auto items-center justify-between xl:py-0 xl:border-none"
                 ]}>
-                  <a href={href} class={text_classes}><%= title %></a>
+                  <.link navigate={href} class={text_classes}><%= title %></.link>
 
                   <%= if nested_links != [] do %>
                     <.icon name="chevron_down" class="w-5 inline xl:hidden" x-show="!expanded" />
@@ -108,12 +110,12 @@ defmodule KotkowoWeb.Components.Sections do
                     x-show="expanded"
                   >
                     <%= for {title, href} <- nested_links do %>
-                      <a
-                        href={href}
+                      <.link
+                        navigate={href}
                         class="py-3 px-5 text-lg hover:bg-primary-light hover:text-primary"
                       >
                         <%= title %>
-                      </a>
+                      </.link>
                     <% end %>
                   </div>
                 </div>
@@ -123,7 +125,7 @@ defmodule KotkowoWeb.Components.Sections do
                   class="space-y-4 mt-4 xl:hidden pb-4 border-b-2 border-primary"
                 >
                   <%= for {title, href} <- nested_links do %>
-                    <li><a href={href}><%= title %></a></li>
+                    <li><.link navigate={href}><%= title %></.link></li>
                   <% end %>
                 </ul>
               </div>
@@ -162,11 +164,11 @@ defmodule KotkowoWeb.Components.Sections do
   Renders a section
   """
 
-  attr :class, :any, default: nil
-  attr :parent_class, :any, default: nil
-  attr :rest, :global
+  attr(:class, :any, default: nil)
+  attr(:parent_class, :any, default: nil)
+  attr(:rest, :global)
 
-  slot :inner_block, required: true, doc: "Inner content"
+  slot(:inner_block, required: true, doc: "Inner content")
 
   def section(assigns) do
     ~H"""
@@ -178,8 +180,8 @@ defmodule KotkowoWeb.Components.Sections do
     """
   end
 
-  attr :class, :string, default: nil
-  attr :rest, :global
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
 
   def footer(assigns) do
     ~H"""
@@ -256,12 +258,12 @@ defmodule KotkowoWeb.Components.Sections do
     """
   end
 
-  attr :href, :string, required: true
-  attr :class, :string, default: nil
+  attr(:href, :string, required: true)
+  attr(:class, :string, default: nil)
 
-  attr :rest, :global
+  attr(:rest, :global)
 
-  slot :inner_block, required: true
+  slot(:inner_block, required: true)
 
   defp footer_link(assigns) do
     ~H"""
@@ -269,8 +271,8 @@ defmodule KotkowoWeb.Components.Sections do
     """
   end
 
-  attr :title, :string, default: nil
-  slot :inner_block, required: true
+  attr(:title, :string, default: nil)
+  slot(:inner_block, required: true)
 
   defp footer_section(assigns) do
     ~H"""
@@ -283,8 +285,8 @@ defmodule KotkowoWeb.Components.Sections do
     """
   end
 
-  attr :term, :string, required: true
-  attr :description, :string, required: true
+  attr(:term, :string, required: true)
+  attr(:description, :string, required: true)
 
   defp footer_definition(assigns) do
     ~H"""
@@ -295,9 +297,9 @@ defmodule KotkowoWeb.Components.Sections do
     """
   end
 
-  attr :title, :string, required: true
+  attr(:title, :string, required: true)
 
-  slot :inner_block, required: true
+  slot(:inner_block, required: true)
 
   def text_article(assigns) do
     ~H"""
