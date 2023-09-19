@@ -19,6 +19,10 @@ defmodule KotkowoWeb.Router do
 
     live "/", HomeLive.Index
 
+    scope "/pomoc" do
+      live "/", HelpLive.Index
+    end
+
     scope "/adopcja" do
       live "/szukaja-domu/:slug", AdoptionLive.Show
     end
