@@ -31,6 +31,7 @@ defmodule KotkowoWeb.Router do
 
     scope "/adopcja" do
       live "/szukaja-domu/:slug", AdoptionLive.Show
+      live "/szukaja-domu", AdoptionLive.LookingForNewHome
     end
   end
 
