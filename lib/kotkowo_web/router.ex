@@ -25,6 +25,7 @@ defmodule KotkowoWeb.Router do
       live "/przekaz-rzeczy-dla-kotkow", HelpLive.ItemDonation
       live "/wsparcie-finansowe", HelpLive.FinancialAid
       live "/zorganizuj-zbiorke-rzeczowa", HelpLive.Collection
+      live "/stworz-dom-tymczasowy", HelpLive.TemporaryHome
     end
 
     scope "/adopcja" do
