@@ -249,7 +249,6 @@ defmodule KotkowoWeb.Components.Cards do
     examples: [["Mruczek", "Wielbiciel kolan"], ["Meowy", "Loves laps"]]
   )
 
-  @spec news_card(assigns :: map()) :: Phoenix.LiveView.Rendered.t()
   def news_card(assigns) do
     ~H"""
     <a href={~p"/aktualnosci/z-ostatniej-chwili/#{@news_id}"}>
