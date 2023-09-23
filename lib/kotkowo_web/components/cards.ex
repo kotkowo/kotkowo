@@ -15,23 +15,22 @@ defmodule KotkowoWeb.Components.Cards do
   alias Kotkowo.Attributes.Seniority
   alias Kotkowo.Attributes.Sex
 
-  attr(:src, :string, required: true, doc: "Image")
-  attr(:alt, :string, required: true, doc: "Image's alt")
-  attr(:share_href, :string, default: nil, doc: "Share link")
+  attr :src, :string, required: true, doc: "Image"
+  attr :alt, :string, required: true, doc: "Image's alt"
+  attr :share_href, :string, default: nil, doc: "Share link"
 
-  attr(:tags, :list,
+  attr :tags, :list,
     default: [],
     doc: "Tags",
     examples: [["Mruczek", "Wielbiciel kolan"], ["Meowy", "Loves laps"]]
-  )
 
-  attr(:class, :string, default: "")
-  attr(:body_class, :string, default: "")
-  attr(:grayscale, :boolean, default: false)
+  attr :class, :string, default: ""
+  attr :body_class, :string, default: ""
+  attr :grayscale, :boolean, default: false
 
   slot :title do
-    attr(:icon, :string, values: icons_all())
-    attr(:class, :string)
+    attr :icon, :string, values: icons_all()
+    attr :class, :string
   end
 
   slot(:attributes)
@@ -94,27 +93,25 @@ defmodule KotkowoWeb.Components.Cards do
     """
   end
 
-  attr(:name, :string, required: true, doc: "Cat's name")
-  attr(:src, :string, required: true, doc: "Cat's image")
-  attr(:seniority, :atom, default: nil, values: Seniority.all() ++ [nil], doc: "Cat's seniority")
+  attr :name, :string, required: true, doc: "Cat's name"
+  attr :src, :string, required: true, doc: "Cat's image"
+  attr :seniority, :atom, default: nil, values: Seniority.all() ++ [nil], doc: "Cat's seniority"
 
-  attr(:health_status, :atom,
+  attr :health_status, :atom,
     default: nil,
     values: HealthStatus.all() ++ [nil],
     doc: "Cat's health status"
-  )
 
-  attr(:castrated, :boolean, default: nil, doc: "Whether cat was castrated")
+  attr :castrated, :boolean, default: nil, doc: "Whether cat was castrated"
 
-  attr(:tags, :list,
+  attr :tags, :list,
     default: [],
     doc: "Cat's tags",
     examples: [["Mruczek", "Wielbiciel kolan"], ["Meowy", "Loves laps"]]
-  )
 
-  attr(:sex, :atom, values: Sex.all(), required: true, doc: "Cat's sex")
-  attr(:share_href, :string, required: true, doc: "Cat's share link")
-  attr(:dead, :boolean, default: false)
+  attr :sex, :atom, values: Sex.all(), required: true, doc: "Cat's sex"
+  attr :share_href, :string, required: true, doc: "Cat's share link"
+  attr :dead, :boolean, default: false
 
   def cat_card(assigns) do
     ~H"""
@@ -137,9 +134,9 @@ defmodule KotkowoWeb.Components.Cards do
     """
   end
 
-  attr(:icon, :string, required: true, values: icons_all())
+  attr :icon, :string, required: true, values: icons_all()
 
-  attr(:rest, :global)
+  attr :rest, :global
 
   slot(:inner_block, required: true)
 
@@ -164,17 +161,16 @@ defmodule KotkowoWeb.Components.Cards do
     """
   end
 
-  attr(:name, :string, required: true, doc: "Cat's name")
-  attr(:src, :string, required: true, doc: "Cat's image")
-  attr(:sex, :atom, values: Sex.all(), required: true, doc: "Cat's sex")
-  attr(:share_href, :string, required: true, doc: "Cat's share link")
-  attr(:action_href, :string, required: true, doc: "Cat's adopt href")
+  attr :name, :string, required: true, doc: "Cat's name"
+  attr :src, :string, required: true, doc: "Cat's image"
+  attr :sex, :atom, values: Sex.all(), required: true, doc: "Cat's sex"
+  attr :share_href, :string, required: true, doc: "Cat's share link"
+  attr :action_href, :string, required: true, doc: "Cat's adopt href"
 
-  attr(:tags, :list,
+  attr :tags, :list,
     default: [],
     doc: "Cat's tags",
     examples: [["Mruczek", "Wielbiciel kolan"], ["Meowy", "Loves laps"]]
-  )
 
   def virtual_adoption_card(assigns) do
     ~H"""
@@ -191,16 +187,15 @@ defmodule KotkowoWeb.Components.Cards do
     """
   end
 
-  attr(:src, :string, required: true, doc: "News' image")
+  attr :src, :string, required: true, doc: "News' image"
 
-  attr(:tags, :list,
+  attr :tags, :list,
     default: [],
     doc: "News' tags",
     examples: [["Zbiórka", "Przedszkole"], ["Akcja", "Kastracja"]]
-  )
 
-  attr(:href, :string, required: true)
-  attr(:alt, :string, required: true)
+  attr :href, :string, required: true
+  attr :alt, :string, required: true
 
   slot(:inner_block, required: true, doc: "Card's text")
 
@@ -218,9 +213,9 @@ defmodule KotkowoWeb.Components.Cards do
     """
   end
 
-  attr(:href, :string, required: true)
-  attr(:src, :string, required: true)
-  attr(:alt, :string, required: true)
+  attr :href, :string, required: true
+  attr :src, :string, required: true
+  attr :alt, :string, required: true
 
   slot(:inner_block, required: true, doc: "Card's text")
 
@@ -238,16 +233,15 @@ defmodule KotkowoWeb.Components.Cards do
     """
   end
 
-  attr(:class, :string, default: "")
-  attr(:src, :string, required: true)
-  attr(:title, :string, required: true)
-  attr(:news_id, :string, required: true)
+  attr :class, :string, default: ""
+  attr :src, :string, required: true
+  attr :title, :string, required: true
+  attr :news_id, :string, required: true
 
-  attr(:tags, :list,
+  attr :tags, :list,
     default: [],
     doc: "Tags",
     examples: [["Mruczek", "Wielbiciel kolan"], ["Meowy", "Loves laps"]]
-  )
 
   def news_card(assigns) do
     ~H"""

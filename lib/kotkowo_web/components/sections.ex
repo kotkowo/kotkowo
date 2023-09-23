@@ -18,13 +18,12 @@ defmodule KotkowoWeb.Components.Sections do
   @doc """
   Renders a header with title.
   """
-  attr(:contact_email, :string,
+  attr :contact_email, :string,
     required: true,
     examples: ["kotkowo@email.com"],
     doc: "Organization's contact email"
-  )
 
-  attr(:links, :list,
+  attr :links, :list,
     required: true,
     examples: [
       [
@@ -41,7 +40,6 @@ defmodule KotkowoWeb.Components.Sections do
       ]
     ],
     doc: "A list of links with type t:link/0"
-  )
 
   slot(:inner_block, required: true, doc: "Header title")
 
@@ -165,9 +163,9 @@ defmodule KotkowoWeb.Components.Sections do
   Renders a section
   """
 
-  attr(:class, :any, default: nil)
-  attr(:parent_class, :any, default: nil)
-  attr(:rest, :global)
+  attr :class, :any, default: nil
+  attr :parent_class, :any, default: nil
+  attr :rest, :global
 
   slot(:inner_block, required: true, doc: "Inner content")
 
@@ -181,8 +179,8 @@ defmodule KotkowoWeb.Components.Sections do
     """
   end
 
-  attr(:class, :string, default: nil)
-  attr(:rest, :global)
+  attr :class, :string, default: nil
+  attr :rest, :global
 
   def footer(assigns) do
     ~H"""
@@ -259,10 +257,10 @@ defmodule KotkowoWeb.Components.Sections do
     """
   end
 
-  attr(:href, :string, required: true)
-  attr(:class, :string, default: nil)
+  attr :href, :string, required: true
+  attr :class, :string, default: nil
 
-  attr(:rest, :global)
+  attr :rest, :global
 
   slot(:inner_block, required: true)
 
@@ -272,7 +270,7 @@ defmodule KotkowoWeb.Components.Sections do
     """
   end
 
-  attr(:title, :string, default: nil)
+  attr :title, :string, default: nil
   slot(:inner_block, required: true)
 
   defp footer_section(assigns) do
@@ -286,8 +284,8 @@ defmodule KotkowoWeb.Components.Sections do
     """
   end
 
-  attr(:term, :string, required: true)
-  attr(:description, :string, required: true)
+  attr :term, :string, required: true
+  attr :description, :string, required: true
 
   defp footer_definition(assigns) do
     ~H"""
@@ -298,7 +296,7 @@ defmodule KotkowoWeb.Components.Sections do
     """
   end
 
-  attr(:title, :string, required: true)
+  attr :title, :string, required: true
 
   slot(:inner_block, required: true)
 

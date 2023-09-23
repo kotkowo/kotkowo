@@ -3,8 +3,8 @@ defmodule KotkowoWeb.Components.PaginationBar do
 
   use Phoenix.Component
 
-  attr(:selected_page, :integer, required: true)
-  attr(:last_page, :integer, required: true)
+  attr :selected_page, :integer, required: true
+  attr :last_page, :integer, required: true
 
   def pagination_bar(assigns) do
     assigns =
