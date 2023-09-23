@@ -1,53 +1,132 @@
-on: push
+name: Elixir CI
+
+on:
+  workflow_call:
+    inputs:
+      elixir:
+        required: true
+        type: string
+      otp:
+        required: true
+        type: string
+
+env:
+  MIX_ENV: test
+
+concurrency:
+  group: ${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
 
 jobs:
-  test:
+  deps:
+    name: Dependencies
     runs-on: ubuntu-latest
-    name: OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
-    strategy:
-      matrix:
-        otp: [24.3.4.6]
-        elixir: [1.14.1]
-    services:
-      db:
-        image: postgres:latest
-        ports: ['5432:5432']
-        env:
-          POSTGRES_PASSWORD: postgres
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     env:
       MIX_ENV: test
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v1.0.0
-      - uses: erlef/setup-beam@v1
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
-          otp-version: ${{matrix.otp}}
-          elixir-version: ${{matrix.elixir}}
-      - name: Retrieve Cache
-        uses: actions/cache@v2
+          fetch-depth: 0
+
+      - name: Setup
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{inputs.otp}}
+          elixir-version: ${{inputs.elixir}}
+
+      - name: Retrieve Cached Dependencies
+        uses: actions/cache@v3
         id: mix-cache
         with:
           path: |
             deps
             _build
             priv/plts
-          key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
-      - name: Fetch deps
-        run: mix deps.get
+          key: ${{ runner.os }}-${{ inputs.otp }}-${{ inputs.elixir }}-${{ hashFiles('mix.lock') }}
+
+      - name: Install Dependencies
+        if: steps.mix-cache.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p priv/plts
+          mix local.rebar --force
+          mix local.hex --force
+          mix deps.get
+
+      - name: Compile
+        if: steps.mix-cache.outputs.cache-hit != 'true'
+        run: |
+          mix deps.compile
+
+      - name: Check Unused Dependencies
+        run: |
+          mix deps.unlock --check-unused
+
       - name: Audit Dependencies
-        run: mix hex.audit
-      - name: Check unused dependencies
-        run: mix deps.unlock --check-unused
-      - name: Check formatted
+        run: |
+          mix hex.audit
+
+  static_code_analysis:
+    name: Static Code Analysis
+    needs: deps
+    runs-on: ubuntu-latest
+    env:
+      MIX_ENV: test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{inputs.otp}}
+          elixir-version: ${{inputs.elixir}}
+
+      - name: Retrieve Cached Dependencies
+        uses: actions/cache@v3
+        id: mix-cache
+        with:
+          path: |
+            deps
+            _build
+            priv/plts
+          key: ${{ runner.os }}-${{ inputs.otp }}-${{ inputs.elixir }}-${{ hashFiles('mix.lock') }}
+
+      - name: Check Code Format
         run: mix format --check-formatted
-      - name: Run credo
+
+      - name: Run Credo
         run: mix credo
-      - name: Compile with warnings
+
+      - name: Run Sobelow
+        run: mix sobelow --config
+
+      - name: Check compile warnings
         run: mix compile --warnings-as-errors
+
       - name: Run gradient
         run: mix gradient
-      - name: Run tests
-        run: mix test
-      - name: Run coveralls
-        run: mix coveralls.github
+
+  eslint:
+    name: "ESLint check"
+    runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    steps:
+      - name: Retrieve Cached Dependencies
+        uses: actions/cache@v3
+        id: node-cache
+        with:
+          path: |
+            assets/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('assets/package-lock.json') }}
+      - uses: actions/checkout@v3
+      - name: Install modules
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        working-directory: ./assets
+        run: npm install
+      - name: Run ESLint
+        working-directory: ./assets
+        run: npx eslint .
