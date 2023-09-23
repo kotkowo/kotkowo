@@ -8,10 +8,9 @@ defmodule KotkowoWeb.Components.Static.HowYouCanHelpSection do
   import KotkowoWeb.Components.Sections
   import KotkowoWeb.Gettext
 
-  attr(:fold, :boolean,
+  attr :fold, :boolean,
     default: true,
     doc: "Whether should fold into horizontaly scrollable"
-  )
 
   slot :inner_block, required: true
 
@@ -92,12 +91,11 @@ defmodule KotkowoWeb.Components.Static.HowYouCanHelpSection do
     List.delete(cards, current)
   end
 
-  attr(:fold, :boolean,
+  attr :fold, :boolean,
     default: true,
     doc: "Whether should fold into horizontaly scrollable"
-  )
 
-  attr(:meta, :any, default: nil, doc: "Page metadata used to adapt links")
+  attr :meta, :any, default: nil, doc: "Page metadata used to adapt links"
 
   def how_you_can_help(assigns) do
     ~H"""
