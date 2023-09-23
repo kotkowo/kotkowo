@@ -1,28 +1,40 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 /* Breakpoints for https://github.com/wrsdesign/alpinejs-breakpoints */
 
-:root { --breakpoint: 'unset';}
+:root {
+  --breakpoint: 'unset';
+}
 @media screen and (min-width: 567px) {
-  :root { --breakpoint: 'sm'; }
+  :root {
+    --breakpoint: 'sm';
+  }
 }
 @media screen and (min-width: 900px) {
-  :root { --breakpoint: 'md'; }
+  :root {
+    --breakpoint: 'md';
+  }
 }
 @media screen and (min-width: 1200px) {
-  :root { --breakpoint: 'lg'; }
+  :root {
+    --breakpoint: 'lg';
+  }
 }
 @media screen and (min-width: 1600px) {
-  :root { --breakpoint: '2xl'; }
+  :root {
+    --breakpoint: '2xl';
+  }
 }
 
 /* This file is for your main application CSS */
 @layer base {
-    a:hover {
-        @apply text-primary;
-    }
+  a:hover {
+    @apply text-primary;
+  }
 }
 /* https://alpinejs.dev/directives/cloak */
-[x-cloak] { display: none !important; }
+[x-cloak] {
+  display: none !important;
+}

@@ -1,0 +1,11 @@
+{
+  "include": ["**/*", ".eslintrc.cjs"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./js/*"]
+    },
+	"strict": true,
+	"allowJs": true
+  }
+}
