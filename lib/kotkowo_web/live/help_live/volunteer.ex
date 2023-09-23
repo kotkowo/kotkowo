@@ -6,5 +6,4 @@ defmodule KotkowoWeb.HelpLive.Volunteer do
   import KotkowoWeb.Components.Drawers
   import KotkowoWeb.Components.Static.HelpProposalSection
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
-  import KotkowoWeb.Components.Steps
 end

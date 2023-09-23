@@ -5,5 +5,4 @@ defmodule KotkowoWeb.HelpLive.TemporaryHome do
 
   import KotkowoWeb.Components.Drawers
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
-  import KotkowoWeb.Components.Steps
 end
