@@ -56,7 +56,7 @@ defmodule Kotkowo.MixProject do
       {:styler, "~> 0.8", only: [:dev, :test], runtime: false},
       {:gradient, github: "esl/gradient", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
-      {:excoveralls, "~> 0.10", only: :test}
+      {:sobelow, "~> 0.13", only: [:dev, :test], runtime: false}
     ]
   end
 
