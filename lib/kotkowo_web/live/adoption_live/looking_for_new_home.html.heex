@@ -70,11 +70,16 @@
 
     <div class="flex flex-col space-y-4">
       <h3 class="font-bold text-primary text-sm">Imię</h3>
-      <input
-        type="text"
-        placeholder="Wpisz imię kota"
-        class="border border-gray rounded-lg text-sm"
-      />
+      <form phx-change="cat_search">
+        <input
+          id="catSearch"
+          phx-debounce="200"
+          name="cat_search"
+          type="text"
+          placeholder="Wpisz imię kota"
+          class="border border-gray rounded-lg text-sm"
+        />
+      </form>
     </div>
 
     <div class="flex flex-col space-y-4">
@@ -135,81 +140,16 @@
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 xl:gap-x-16 xl:gap-y-10 gap-y-4">
-    <div class="mx-auto">
+    <div :for={cat <- @filtered_cats} class="mx-auto">
       <.cat_card
-        name="Puszek"
+        name={cat.name}
         share_href="#"
         src={~p"/images/puszek.png"}
-        sex={:male}
-        seniority={:junior}
+        sex={cat.sex.value}
+        seniority={cat.age.value}
         health_status={:examined_and_vaccinated}
         castrated={false}
         tags={[gettext("Mruczek"), gettext("Wielbiciel kolan")]}
-      />
-    </div>
-
-    <div class="mx-auto">
-      <.cat_card
-        name="Bonifacy"
-        share_href="#"
-        src={~p"/images/bonifacy.png"}
-        sex={:male}
-        seniority={:adult}
-        health_status={:examined_and_vaccinated}
-        castrated={true}
-        tags={[gettext("Spokojny"), gettext("Śpioch")]}
-      />
-    </div>
-
-    <div class="mx-auto">
-      <.cat_card
-        name="Elza"
-        share_href="#"
-        src={~p"/images/elza.png"}
-        sex={:female}
-        seniority={:junior}
-        health_status={:examined_and_vaccinated}
-        castrated={true}
-        tags={[gettext("Żywiołowy"), gettext("Lubi zabawę")]}
-      />
-    </div>
-
-    <div class="mx-auto">
-      <.cat_card
-        name="Puszek"
-        share_href="#"
-        src={~p"/images/puszek.png"}
-        sex={:male}
-        seniority={:junior}
-        health_status={:examined_and_vaccinated}
-        castrated={false}
-        tags={[gettext("Mruczek"), gettext("Wielbiciel kolan")]}
-      />
-    </div>
-
-    <div class="mx-auto">
-      <.cat_card
-        name="Bonifacy"
-        share_href="#"
-        src={~p"/images/bonifacy.png"}
-        sex={:male}
-        seniority={:adult}
-        health_status={:examined_and_vaccinated}
-        castrated={true}
-        tags={[gettext("Spokojny"), gettext("Śpioch")]}
-      />
-    </div>
-
-    <div class="mx-auto">
-      <.cat_card
-        name="Elza"
-        share_href="#"
-        src={~p"/images/elza.png"}
-        sex={:female}
-        seniority={:junior}
-        health_status={:examined_and_vaccinated}
-        castrated={true}
-        tags={[gettext("Żywiołowy"), gettext("Lubi zabawę")]}
       />
     </div>
   </div>

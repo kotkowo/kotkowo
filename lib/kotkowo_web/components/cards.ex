@@ -14,7 +14,6 @@ defmodule KotkowoWeb.Components.Cards do
   alias Kotkowo.Attributes.HealthStatus
   alias Kotkowo.Attributes.Seniority
   alias Kotkowo.Attributes.Sex
-  alias Kotkowo.GalleryImage
 
   attr(:src, :string, required: true, doc: "Image")
   attr(:alt, :string, required: true, doc: "Image's alt")
@@ -192,7 +191,6 @@ defmodule KotkowoWeb.Components.Cards do
     """
   end
 
-  attr(:title, :string, required: true, doc: "News' title")
   attr(:src, :string, required: true, doc: "News' image")
 
   attr(:tags, :list,
