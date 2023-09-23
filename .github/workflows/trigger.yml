@@ -1,0 +1,19 @@
+name: Elixir Matrix
+
+on:
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  version-matrix:
+    strategy:
+      fail-fast: false
+      matrix:
+        elixir: [1.15.5]
+        otp: [26]
+    uses: ./.github/workflows/checks.yml
+    with:
+      elixir: ${{ matrix.elixir }}
+      otp: ${{ matrix.otp }}
+    secrets: inherit
+
