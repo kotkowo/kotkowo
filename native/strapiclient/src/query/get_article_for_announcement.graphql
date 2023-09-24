@@ -1,0 +1,33 @@
+query AnnouncementArticleQuery($announcement_id: ID) {
+  announcement(id: $announcement_id) {
+    data {
+      attributes {
+        article {
+          data {
+            attributes {
+              Introduction
+              image {
+                data {
+                  attributes {
+                    name
+                    alternativeText
+                    ext
+                    hash
+                  }
+                }
+              }
+              content
+              announcement {
+                data {
+                  attributes {
+                    title
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

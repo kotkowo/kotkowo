@@ -1,10 +1,10 @@
-query CatListQuery{
-  cats{
-  data {
+query CatListQuery {
+  cats {
+    data {
       id
       attributes {
         slug
-		images {
+        images {
           data {
             attributes {
               image {
@@ -20,7 +20,7 @@ query CatListQuery{
             }
           }
         }
-		cat_tags {
+        cat_tags {
           data {
             attributes {
               text
@@ -28,14 +28,14 @@ query CatListQuery{
           }
         }
         name
-		sex
+        sex
         age
         medical_status
         fiv_felv
         castrated
         healthy
-		description_heading
-		description
+        description_heading
+        description
         createdAt
         updatedAt
         publishedAt

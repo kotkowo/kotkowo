@@ -78,7 +78,6 @@ impl TryFrom<ListAnnouncementQueryAnnouncements> for Vec<Announcement> {
 
                 let image = image?;
                 let tags = tags?;
-
                 Ok(Announcement {
                     id,
                     title: attributes.title,
@@ -87,7 +86,7 @@ impl TryFrom<ListAnnouncementQueryAnnouncements> for Vec<Announcement> {
                 })
             })
             .collect();
+
         Ok(announcements?)
-        //let announcements: Result<Vec<Announcement>> = value.data.into_iter()
     }
 }

@@ -5,7 +5,7 @@ mod query;
 
 use crate::error::{Error, Result};
 use crate::model::{Announcement, Article, Cat};
-use crate::query::get_article::{
+use crate::query::get_article_for_announcement::{
     AnnouncementArticleQuery, ResponseData as ArticleResponseData, Variables as ArticleGetVariables,
 };
 use crate::query::get_cat::{
@@ -57,6 +57,23 @@ fn list_cats() -> Result<Vec<Cat>> {
 
     Ok(cat)
 }
+
+#[rustler::nif]
+fn get_announcement_list_pages(num_items: Option<i64>, offset: Option<i64>) -> Result<i64> {
+    let query = ListAnnouncementQuery::build_query(ListAnnouncementVariables {
+        limit: num_items,
+        offset,
+    });
+    let pages: i64 = match run_query(&query)?.data {
+        Some(ListAnnouncementResponseData {
+            announcements: Some(announcements),
+            ..
+        }) => announcements.meta.pagination.page_count,
+        _ => Err(Error::MissingData)?,
+    };
+    Ok(pages)
+}
+
 #[rustler::nif]
 fn list_announcements(num_items: Option<i64>, offset: Option<i64>) -> Result<Vec<Announcement>> {
     let query = ListAnnouncementQuery::build_query(ListAnnouncementVariables {
@@ -74,7 +91,7 @@ fn list_announcements(num_items: Option<i64>, offset: Option<i64>) -> Result<Vec
 }
 
 #[rustler::nif]
-fn get_article(announcement_id: Option<String>) -> Result<Article> {
+fn get_article_for_announcement(announcement_id: Option<String>) -> Result<Article> {
     let query = AnnouncementArticleQuery::build_query(ArticleGetVariables { announcement_id });
     let article: Article = match run_query(&query)?.data {
         Some(ArticleResponseData {
@@ -101,5 +118,11 @@ fn get_cat(slug: &str) -> Result<Cat> {
 
 rustler::init!(
     "Elixir.Kotkowo.StrapiClient",
-    [list_cats, get_cat, list_announcements, get_article]
+    [
+        list_cats,
+        get_cat,
+        list_announcements,
+        get_article_for_announcement,
+        get_announcement_list_pages
+    ]
 );
