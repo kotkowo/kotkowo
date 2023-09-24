@@ -9,7 +9,7 @@ use graphql_client::GraphQLQuery;
 #[derive(GraphQLQuery)]
 #[graphql(
     schema_path = "src/query/schema.json",
-    query_path = "src/query/get_article.graphql",
+    query_path = "src/query/get_article_for_announcement.graphql",
     response_derives = "Debug,Clone"
 )]
 pub struct AnnouncementArticleQuery;

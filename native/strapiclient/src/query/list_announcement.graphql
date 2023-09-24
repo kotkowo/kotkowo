@@ -1,28 +1,34 @@
-query ListAnnouncementQuery($limit: Int, $offset: Int){
-
-	announcements (pagination: {limit: $limit, start: $offset}, sort:"updatedAt:desc") {
+query ListAnnouncementQuery($limit: Int, $offset: Int) {
+  announcements(
+    pagination: { limit: $limit, start: $offset }
+    sort: "updatedAt:desc"
+  ) {
     data {
-      id,
-      attributes{
+      id
+      attributes {
         image {
           data {
             attributes {
-             name
+              name
               alternativeText
               ext
               hash
-
             }
           }
-        },
-        title,
+        }
+        title
         announcement_tags {
           data {
             attributes {
               text
             }
           }
-        },
+        }
+      }
+    }
+    meta {
+      pagination {
+        pageCount
       }
     }
   }
