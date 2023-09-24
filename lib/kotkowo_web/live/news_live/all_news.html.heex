@@ -14,17 +14,18 @@
   </div>
   <div class="flex flex-col lg:flex-row justify-center relative">
     <div class="lg:mt-0 mt-10 self-center">
-      <.pagination_bar selected_page={@page} last_page={10} />
+      <.pagination_bar selected_page={@page} last_page={@max_page} />
     </div>
     <div class="lg:absolute right-0 -order-1 self-center">
       <form phx-change="items_amount" class="">
         <label class="font-inter mr-5 text-md">Pokaż na stronie</label>
         <select name="items_per_page" class="rounded-lg">
-          <option value="30" selected={@limit == 30}>30</option>
-          <option value="60" selected={@limit == 60}>60</option>
-          <option value="90" selected={@limit == 90}>90</option>
+          <option :for={option <- items_per_page()} value={option} selected={@limit == option}>
+            <%= option %>
+          </option>
         </select>
       </form>
     </div>
   </div>
 </.section>
+<.how_you_can_help />
