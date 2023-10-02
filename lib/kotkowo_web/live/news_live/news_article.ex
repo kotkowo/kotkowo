@@ -19,8 +19,6 @@ defmodule KotkowoWeb.NewsLive.NewsArticle do
         |> assign(:popular_news, popular_news)
 
       {:ok, socket}
-    else
-      _ -> {:ok, socket}
     end
   end
 end

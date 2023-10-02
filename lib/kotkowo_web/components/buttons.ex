@@ -3,9 +3,8 @@ defmodule KotkowoWeb.Components.Buttons do
   Provides button UI components.
   """
 
-  use Phoenix.Component
-
-  attr :href, :string, required: true, doc: "Button's link"
+  use Phoenix.Component,
+    global_prefixes: ~w(x-)
 
   attr :type, :string,
     values: ~w(primary secondary outline),
@@ -13,14 +12,13 @@ defmodule KotkowoWeb.Components.Buttons do
     doc: "Button's type"
 
   attr :class, :string, default: ""
-  attr :rest, :global
+  attr :rest, :global, include: ~w(href navigate)
 
   slot :inner_block, required: true, doc: "Button's content"
 
   def button(assigns) do
     ~H"""
-    <a
-      href={@href}
+    <.link
       class={[
         @type == "primary" &&
           "py-3 bg-primary text-white hover:text-white hover:bg-primary-lighter px-6 xl:px-10",
@@ -35,7 +33,7 @@ defmodule KotkowoWeb.Components.Buttons do
       {@rest}
     >
       <%= render_slot(@inner_block) %>
-    </a>
+    </.link>
     """
   end
 end
