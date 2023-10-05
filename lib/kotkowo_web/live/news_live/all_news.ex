@@ -80,14 +80,19 @@ defmodule KotkowoWeb.NewsLive.AllNews do
 
     ~H"""
     <div class="flex flex-row text-xl gap-x-4 text-lg">
-      <button :if={@selected_page != @first_page} phx-click="select_page" class="p-4" value={@selected_page - 1}>
+      <button
+        :if={@selected_page != @first_page}
+        phx-click="select_page"
+        class="p-4"
+        value={@selected_page - 1}
+      >
         <.icon class=" rotate-90 brightness-0" name="chevron_down" />
       </button>
-      
-        <.icon  :if={@selected_page == @first_page} class="rotate-90 p-4 grayscale" name="chevron_down" />
+
+      <.icon :if={@selected_page == @first_page} class="rotate-90 p-4 grayscale" name="chevron_down" />
       <div class="self-center gap-4 hidden lg:inline">
         <button :if={@selected_page > 2} class="w-14 h-14" phx-click="select_page" value={@first_page}>
-          <%=@first_page%>
+          <%= @first_page %>
         </button>
         <span :if={@selected_page > 2} class="w-14 h-14">...</span>
         <button
@@ -125,8 +130,7 @@ defmodule KotkowoWeb.NewsLive.AllNews do
         <span>z</span>
         <span><%= @last_page %></span>
       </div>
-              <.icon :if={@selected_page == @last_page}  class="rotate-90 p-4 grayscale" name="chevron_up" />
-
+      <.icon :if={@selected_page == @last_page} class="rotate-90 p-4 grayscale" name="chevron_up" />
 
       <button
         :if={@selected_page != @last_page}
@@ -134,8 +138,7 @@ defmodule KotkowoWeb.NewsLive.AllNews do
         phx-click="select_page"
         value={@selected_page + 1}
       >
-              <.icon class="rotate-90 brightness-0" name="chevron_up" />
-
+        <.icon class="rotate-90 brightness-0" name="chevron_up" />
       </button>
     </div>
     """
