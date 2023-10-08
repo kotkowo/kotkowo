@@ -43,7 +43,7 @@ defmodule Kotkowo.MixProject do
       {:phoenix, "~> 1.7.7"},
       {:phoenix_html, "~> 3.3.2"},
       {:phoenix_live_reload, "~> 1.4.1", only: :dev},
-      {:phoenix_live_view, "~> 0.19.5"},
+      {:phoenix_live_view, "~> 0.20.0", override: true},
       {:phoenix_live_dashboard, "~> 0.8.1"},
       {:rustler, "~> 0.29.1"},
       {:heroicons, "~> 0.5"},
