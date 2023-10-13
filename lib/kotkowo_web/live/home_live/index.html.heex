@@ -100,8 +100,21 @@
     <h2 class="mx-auto mb-10 text-primary font-manrope font-bold xl:font-extrabold text-2xl xl:text-4xl">
       <%= gettext("Aktualności") %>
     </h2>
-
+    <div :if={@news == :error}>
+      <h3>Wystąpił błąd podczas ładowania wiadomości</h3>
+      <h4>
+        Skontaktuj się z nami:
+        <a
+          class="text-primary font-extrabold uppercase"
+          target="_blank"
+          href="https://github.com/kotkowo/kotkowo"
+        >
+          Github
+        </a>
+      </h4>
+    </div>
     <div
+      :if={@news != :error}
       class="overflow-x-auto snap-x lg:snap-none lg:overflow-hidden lg:mx-auto"
       x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
     >
