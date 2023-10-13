@@ -50,10 +50,24 @@ defmodule KotkowoWeb do
     end
   end
 
+  def component do
+    quote do
+      use Phoenix.Component
+
+      unquote(html_helpers())
+    end
+  end
+
   def live_view do
     quote do
       use Phoenix.LiveView,
         layout: {KotkowoWeb.Layouts, :app}
+
+      import KotkowoWeb.Components.Breadcrumb
+      import KotkowoWeb.Components.Buttons
+      import KotkowoWeb.Components.Cards
+      import KotkowoWeb.Components.Icons
+      import KotkowoWeb.Components.Sections
 
       unquote(html_helpers())
     end
@@ -82,19 +96,11 @@ defmodule KotkowoWeb do
 
   defp html_helpers do
     quote do
-      # HTML escaping functionality
-
-      # Shortcut for generating JS commands
-      import KotkowoWeb.Components.Buttons
-      import KotkowoWeb.Components.Cards
-      import KotkowoWeb.Components.Icons
-      import KotkowoWeb.Components.Sections
       import KotkowoWeb.Gettext
       import Phoenix.HTML
 
       alias Phoenix.LiveView.JS
 
-      # Routes generation with the ~p sigil
       unquote(verified_routes())
     end
   end
