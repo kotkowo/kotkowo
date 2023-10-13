@@ -7,9 +7,20 @@ defmodule KotkowoWeb.HomeLive.Index do
 
   alias Kotkowo.StrapiClient
 
+  require Logger
+
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, news} = StrapiClient.list_announcements(3)
+    news =
+      case StrapiClient.list_announcements(3) do
+        {:ok, news} ->
+          news
+
+        {:error, {_reason, message}} ->
+          Logger.error(message)
+          :error
+      end
+
     socket = assign(socket, :news, news)
 
     {:ok, socket}
