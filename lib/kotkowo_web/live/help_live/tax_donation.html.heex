@@ -1,4 +1,12 @@
 <.section class="mt-6 xl:mt-0 px-6 xl:px-0">
+  <.breadcrumb>
+    <:crumb navigate={~p"/pomoc"}>
+      Jak pomóc
+    </:crumb>
+    <:crumb navigate={~p"/pomoc/przekaz-nam-podatek"} active>
+      Przekaż nam 1,5% podatku
+    </:crumb>
+  </.breadcrumb>
   <div class="flex flex-col xl:flex-row xl:space-x-28 space-y-6 xl:space-y-0">
     <div class="flex flex-col space-y-6 xl:text-lg xl:w-8/12">
       <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl">
