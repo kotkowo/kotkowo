@@ -4,6 +4,7 @@
   </h1>
   <div class="flex flex-col mx-4 lg:mt-6 mt-8 gap-y-10">
     <.header_news_card
+      :if={@header_news != nil}
       title={@header_news.title}
       image={GalleryImage.url(@header_news.image)}
       tags={@header_news.tags}
@@ -26,8 +27,9 @@
         </h1>
 
         <a
+          :if={@header_news != nil}
           :for={titles <- @popular_titles}
-          href="/"
+          href={~p"/aktualnosci/z-ostatniej-chwili/#{titles.id}"}
           class="text-2xl text-justify line-clamp-2 font-manrope font-bold text-gray-800 pr-0 lg:pr-2"
         >
           <%= titles.title %>

@@ -1,7 +1,6 @@
 defmodule KotkowoWeb.NewsLive.AllNews do
   @moduledoc false
   use KotkowoWeb, :live_view
-
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
 
   alias Kotkowo.StrapiClient
@@ -14,7 +13,10 @@ defmodule KotkowoWeb.NewsLive.AllNews do
     limit = params |> Map.get("limit", Integer.to_string(@default_limit)) |> String.to_integer()
 
     {:ok, max_page} = StrapiClient.get_announcement_list_pages(limit)
-
+    max_page = case max_page do
+      0 -> 1
+      _ -> max_page
+    end
     socket =
       assign(socket, :max_page, max_page)
 
