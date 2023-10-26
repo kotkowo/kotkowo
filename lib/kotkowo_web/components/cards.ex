@@ -245,7 +245,7 @@ defmodule KotkowoWeb.Components.Cards do
 
   def news_card(assigns) do
     ~H"""
-    <a href={~p"/aktualnosci/z-ostatniej-chwili/#{@news_id}"}>
+    <.link navigate={~p"/aktualnosci/z-ostatniej-chwili/#{@news_id}"}>
       <.card
         src={@src}
         alt={@title}
@@ -255,14 +255,14 @@ defmodule KotkowoWeb.Components.Cards do
       >
         <:title class="lg:text-xl grow line-clamp-3"><%= @title %></:title>
       </.card>
-    </a>
+    </.link>
     """
   end
 
   def header_news_card(assigns) do
     ~H"""
-    <a
-      href={~p"/aktualnosci/z-ostatniej-chwili/#{assigns.news_id}"}
+    <.link
+      navigate={~p"/aktualnosci/z-ostatniej-chwili/#{assigns.news_id}"}
       class="lg:w-[1312px] flex flex-col lg:flex-row justify-between border border-1 border rounded-2xl items-start h-full lg:h-[322px] pt-6 lg:pt-0"
     >
       <div class="flex flex-col pl-6 lg:py-6 max-w-xl h-full">
@@ -284,7 +284,7 @@ defmodule KotkowoWeb.Components.Cards do
         src={@image}
         alt="Latest news image"
       />
-    </a>
+    </.link>
     """
   end
 end
