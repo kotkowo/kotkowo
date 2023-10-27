@@ -6,40 +6,24 @@ defmodule KotkowoWeb.NewsLive.LatestNews do
 
   alias Kotkowo.GalleryImage
   alias Kotkowo.StrapiClient
-
+  alias Kotkowo.Announcement
+  alias Kotkowo.Article
   @impl true
   def mount(_params, _session, socket) do
     {:ok, news} = StrapiClient.list_announcements(7)
 
-    [header_news, tail] =
-      case length(news) do
-        0 -> [nil, []]
-        1 -> [hd(news), []]
-        _ -> news
-      end
-
-    popular_news = Enum.take(tail, 2)
+    {header_news, news} = List.pop_at(news, 0)
+    {popular_news, news} = Enum.split(news, 2)
+    popular_news = Enum.take(news, 2)
 
     news =
-      tail
-      |> Enum.drop(2)
+      news
       |> Enum.take(4)
 
-    socket =
-      if header_news != nil do
-        {:ok, article} =
-          header_news
-          |> Map.get(:id)
-          |> Integer.to_string()
-          |> StrapiClient.get_article_for_announcement()
-
-        assign(socket, :article, article)
-      else
-        socket
-      end
-
+    article = get_article(header_news) 
     socket =
       socket
+      |> assign(:article, article)
       |> assign(:news, news)
       |> assign(:header_news, header_news)
       |> assign(:popular_news, popular_news)
@@ -47,4 +31,10 @@ defmodule KotkowoWeb.NewsLive.LatestNews do
 
     {:ok, socket}
   end
+  defp get_article(%Announcement{} = news) do
+   case StrapiClient.get_article_for_announcement(Integer.to_string(news.id)) do
+      {:ok, %Article{} = article} -> article
+      _ -> nil
+   end
+end
 end
