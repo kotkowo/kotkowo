@@ -38,9 +38,9 @@ defmodule KotkowoWeb.Router do
       live "/", NewsLive.Index
 
       scope "/z-ostatniej-chwili" do
-        live "/", NewsLive.LatestNews
-        live "/wszystkie", NewsLive.AllNews
-        live "/:article_id", NewsLive.NewsArticle
+        live "/", NewsLive.Announcements.LatestNews
+        live "/wszystkie", NewsLive.Announcements.AllNews
+        live "/:article_id", NewsLive.Announcements.NewsArticle
       end
     end
   end
