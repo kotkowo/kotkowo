@@ -15,6 +15,7 @@ defmodule KotkowoWeb.NewsLive.LatestNews do
 
     {header_news, news} = List.pop_at(news, 0)
     {popular_news, news} = Enum.split(news, 2)
+
     news =
       Enum.take(news, 4)
 
