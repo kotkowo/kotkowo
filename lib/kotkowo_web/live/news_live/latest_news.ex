@@ -4,10 +4,11 @@ defmodule KotkowoWeb.NewsLive.LatestNews do
 
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
 
-  alias Kotkowo.GalleryImage
-  alias Kotkowo.StrapiClient
   alias Kotkowo.Announcement
   alias Kotkowo.Article
+  alias Kotkowo.GalleryImage
+  alias Kotkowo.StrapiClient
+
   @impl true
   def mount(_params, _session, socket) do
     {:ok, news} = StrapiClient.list_announcements(7)
@@ -17,10 +18,10 @@ defmodule KotkowoWeb.NewsLive.LatestNews do
     popular_news = Enum.take(news, 2)
 
     news =
-      news
-      |> Enum.take(4)
+      Enum.take(news, 4)
 
-    article = get_article(header_news) 
+    article = get_article(header_news)
+
     socket =
       socket
       |> assign(:article, article)
@@ -31,10 +32,11 @@ defmodule KotkowoWeb.NewsLive.LatestNews do
 
     {:ok, socket}
   end
+
   defp get_article(%Announcement{} = news) do
-   case StrapiClient.get_article_for_announcement(Integer.to_string(news.id)) do
+    case StrapiClient.get_article_for_announcement(Integer.to_string(news.id)) do
       {:ok, %Article{} = article} -> article
       _ -> nil
-   end
-end
+    end
+  end
 end

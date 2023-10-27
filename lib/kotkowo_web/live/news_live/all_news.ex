@@ -15,7 +15,7 @@ defmodule KotkowoWeb.NewsLive.AllNews do
 
     {:ok, max_page} = StrapiClient.get_announcement_list_pages(limit)
     max_page = max(1, max_page)
-  
+
     socket =
       assign(socket, :max_page, max_page)
 
