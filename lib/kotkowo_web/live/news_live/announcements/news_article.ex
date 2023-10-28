@@ -15,6 +15,7 @@ defmodule KotkowoWeb.NewsLive.Announcements.NewsArticle do
 
       socket =
         socket
+        |> assign(:article_id, article_id)
         |> assign(:article, article)
         |> assign(:popular_news, popular_news)
 
