@@ -1,0 +1,56 @@
+query AdoptedCatListQuery($limit:Int, $offset:Int) {
+  adoptedCats ( pagination: { limit: $limit, start: $offset }
+    sort: "updatedAt:desc"
+){
+    data{
+     id
+      attributes {
+        adoption_date
+        cat {
+      		    data {
+      id
+      attributes {
+        slug
+        images {
+          data {
+            attributes {
+              image {
+                data {
+                  attributes {
+                    name
+                    alternativeText
+                    ext
+                    hash
+                  }
+                }
+              }
+            }
+          }
+        }
+        cat_tags {
+          data {
+            attributes {
+              text
+            }
+          }
+        }
+        name
+        sex
+        age
+        medical_status
+        fiv_felv
+        castrated
+        healthy
+        description_heading
+        description
+        createdAt
+        updatedAt
+        publishedAt
+      }
+    }
+
+        }
+      }
+    }
+  }
+}
