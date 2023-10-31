@@ -4,10 +4,15 @@ mod primitives;
 mod query;
 
 use crate::error::{Error, Result};
-use crate::model::{Announcement, Article, Cat};
+use crate::model::{AdoptedCat, Announcement, Article, Cat};
 use crate::query::get_article_for_announcement::{
     AnnouncementArticleQuery, ResponseData as ArticleResponseData, Variables as ArticleGetVariables,
 };
+use crate::query::list_adopted_cat::{
+    AdoptedCatListQuery, ResponseData as AdoptedCatResponseData,
+    Variables as AdoptedCatListVariables,
+};
+
 use crate::query::get_cat::{
     CatGetQuery, ResponseData as CatGetResponseData, Variables as CatGetVariables,
 };
@@ -57,7 +62,19 @@ fn list_cats() -> Result<Vec<Cat>> {
 
     Ok(cat)
 }
+#[rustler::nif]
+fn list_adopted_cats(limit: Option<i64>, offset: Option<i64>) -> Result<Vec<AdoptedCat>> {
+    let query = AdoptedCatListQuery::build_query(AdoptedCatListVariables { limit, offset });
+    let cat: Vec<AdoptedCat> = match run_query(&query)?.data {
+        Some(AdoptedCatResponseData {
+            adopted_cats: Some(adopted_cats),
+            ..
+        }) => adopted_cats.try_into()?,
+        _ => Err(Error::MissingData)?,
+    };
 
+    Ok(cat)
+}
 #[rustler::nif]
 fn get_announcement_list_pages(num_items: Option<i64>, offset: Option<i64>) -> Result<i64> {
     let query = ListAnnouncementQuery::build_query(ListAnnouncementVariables {
@@ -119,6 +136,7 @@ fn get_cat(slug: &str) -> Result<Cat> {
 rustler::init!(
     "Elixir.Kotkowo.StrapiClient",
     [
+        list_adopted_cats,
         list_cats,
         get_cat,
         list_announcements,

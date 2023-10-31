@@ -1,5 +1,7 @@
+pub mod adopted_cat;
 pub mod announcement;
 pub mod article;
+pub use adopted_cat::*;
 pub mod cat;
 pub mod gallery_image;
 pub use announcement::*;
