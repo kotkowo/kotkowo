@@ -1,13 +1,13 @@
 <.section>
-    <.breadcrumb>
+  <.breadcrumb>
     <:crumb navigate={~p"/aktualnosci"}>
       Aktualności
     </:crumb>
     <:crumb navigate={~p"/aktualnosci/z-ostatniej-chwili"}>
       Z ostatniej chwili
     </:crumb>
-     <:crumb navigate={~p"/aktualnosci/z-ostatniej-chwili/#{@article_id}"} active>
-      <%= @article.title%>
+    <:crumb navigate={~p"/aktualnosci/z-ostatniej-chwili/#{@article_id}"} active>
+      <%= @article.title %>
     </:crumb>
   </.breadcrumb>
   <div class="flex flex-col lg:flex-row justify-between px-5">
