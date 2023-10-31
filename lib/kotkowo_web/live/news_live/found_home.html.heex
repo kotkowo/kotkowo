@@ -1,5 +1,5 @@
 <.section>
-    <.breadcrumb>
+  <.breadcrumb>
     <:crumb navigate={~p"/aktualnosci"}>
       Aktualnosci
     </:crumb>
@@ -7,84 +7,84 @@
       Znalazły dom
     </:crumb>
   </.breadcrumb>
-<h1 class="text-primary text-justify lg:mt-0 mb-6 font-manrope font-extrabold xl:text-4xl text-3xl">
-  Znalazły dom
+  <h1 class="text-primary text-justify lg:mt-0 mb-6 font-manrope font-extrabold xl:text-4xl text-3xl">
+    Znalazły dom
   </h1>
-    <h2 class="font-manrope font-bold text-base lg:text-xl">Poznaj kotki, które znalazły już nowych opiekunów.</h2>
-<div class="flex flex-row">
- <div class="flex flex-col">
-    <div class="flex flex-col space-y-4">
-      <h3 class="font-bold text-primary text-sm">Imię</h3>
-      <form phx-change="cat_search">
+  <h2 class="font-manrope font-bold text-base lg:text-xl">
+    Poznaj kotki, które znalazły już nowych opiekunów.
+  </h2>
+  <div class="flex flex-row">
+    <div class="flex flex-col">
+      <div class="flex flex-col space-y-4">
+        <h3 class="font-bold text-primary text-sm">Imię</h3>
+        <form phx-change="cat_search">
+          <input
+            id="catSearch"
+            phx-debounce="200"
+            name="cat_search"
+            type="text"
+            placeholder="Wpisz imię kota"
+            class="border border-gray rounded-lg text-sm"
+          />
+        </form>
+      </div>
+
+      <div class="flex flex-col space-y-4">
+        <h3 class="font-bold text-primary text-sm">Tagi</h3>
         <input
-          id="catSearch"
-          phx-debounce="200"
-          name="cat_search"
           type="text"
-          placeholder="Wpisz imię kota"
+          placeholder="Wpisz cechę kota"
           class="border border-gray rounded-lg text-sm"
         />
-      </form>
-    </div>
+      </div>
 
-    <div class="flex flex-col space-y-4">
-      <h3 class="font-bold text-primary text-sm">Tagi</h3>
-      <input
-        type="text"
-        placeholder="Wpisz cechę kota"
-        class="border border-gray rounded-lg text-sm"
-      />
-    </div>
+      <div class="flex flex-col space-y-4">
+        <h3 class="font-bold text-primary text-sm">Kastracja / sterylizacja</h3>
+        <div class="flex flex-col space-y-6">
+          <div>
+            <input type="checkbox" class="mr-3.5 border-gray rounded" />
+            <label class="text-sm">po zabiegu</label>
+          </div>
 
-    <div class="flex flex-col space-y-4">
-      <h3 class="font-bold text-primary text-sm">Kastracja / sterylizacja</h3>
-      <div class="flex flex-col space-y-6">
-        <div>
-          <input type="checkbox" class="mr-3.5 border-gray rounded" />
-          <label class="text-sm">po zabiegu</label>
-        </div>
-
-        <div>
-          <input type="checkbox" class="mr-3.5 border-gray rounded" />
-          <label class="text-sm">przed zabiegiem</label>
+          <div>
+            <input type="checkbox" class="mr-3.5 border-gray rounded" />
+            <label class="text-sm">przed zabiegiem</label>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="flex flex-col space-y-4">
-      <h3 class="font-bold text-primary text-sm">Wiek</h3>
-      <div class="flex flex-col space-y-6">
-        <div>
-          <input type="checkbox" class="mr-3.5 border-gray rounded" />
-          <label class="text-sm">junior</label>
-        </div>
+      <div class="flex flex-col space-y-4">
+        <h3 class="font-bold text-primary text-sm">Wiek</h3>
+        <div class="flex flex-col space-y-6">
+          <div>
+            <input type="checkbox" class="mr-3.5 border-gray rounded" />
+            <label class="text-sm">junior</label>
+          </div>
 
-        <div>
-          <input type="checkbox" class="mr-3.5 border-gray rounded" />
-          <label class="text-sm">dorosły</label>
-        </div>
-      </div>
-    </div>
-
-    <div class="flex flex-col space-y-4">
-      <h3 class="font-bold text-primary text-sm">Płeć</h3>
-      <div class="flex flex-col space-y-6">
-        <div>
-          <input type="checkbox" class="mr-3.5 border-gray rounded" />
-          <label class="text-sm">kotka</label>
-        </div>
-
-        <div>
-          <input type="checkbox" class="mr-3.5 border-gray rounded" />
-          <label class="text-sm">kocur</label>
+          <div>
+            <input type="checkbox" class="mr-3.5 border-gray rounded" />
+            <label class="text-sm">dorosły</label>
+          </div>
         </div>
       </div>
+
+      <div class="flex flex-col space-y-4">
+        <h3 class="font-bold text-primary text-sm">Płeć</h3>
+        <div class="flex flex-col space-y-6">
+          <div>
+            <input type="checkbox" class="mr-3.5 border-gray rounded" />
+            <label class="text-sm">kotka</label>
+          </div>
+
+          <div>
+            <input type="checkbox" class="mr-3.5 border-gray rounded" />
+            <label class="text-sm">kocur</label>
+          </div>
+        </div>
+      </div>
+
+      <.button href="#" class="xl:text-base"><%= gettext("Szukaj kotków") %></.button>
     </div>
-
-    <.button href="#" class="xl:text-base"><%= gettext("Szukaj kotków") %></.button>
-  </div>
-
-
   </div>
 </.section>
-<.how_you_can_help/>
+<.how_you_can_help />
