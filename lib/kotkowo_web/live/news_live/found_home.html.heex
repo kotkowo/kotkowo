@@ -13,8 +13,8 @@
   <h2 class="font-manrope font-bold text-base lg:text-xl">
     Poznaj kotki, które znalazły już nowych opiekunów.
   </h2>
-  <div class="flex flex-row">
-    <div class="flex flex-col">
+  <div class="flex flex-row gap-x-32 mt-20">
+    <div class="xl:w-80 border border-gray rounded-2xl p-6 flex flex-col space-y-6 h-min">
       <div class="flex flex-col space-y-4">
         <h3 class="font-bold text-primary text-sm">Imię</h3>
         <form phx-change="cat_search">
@@ -85,6 +85,10 @@
 
       <.button href="#" class="xl:text-base"><%= gettext("Szukaj kotków") %></.button>
     </div>
+    <div class="gap-x-16 gap-y-10 flex flex-wrap">
+      <.cat_card :for={cat <- @adopted_cats} title={cat.cat.name} share_href="#" src={cat.cat.gallery |> hd |> GalleryImage.url} sex={cat.cat.sex.value} tags={cat.cat.tags} name={cat.cat.name}  />
+      
+  </div>
   </div>
 </.section>
 <.how_you_can_help />
