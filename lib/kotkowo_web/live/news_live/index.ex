@@ -4,12 +4,18 @@ defmodule KotkowoWeb.NewsLive.Index do
 
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
 
+  alias Kotkowo.GalleryImage
   alias Kotkowo.StrapiClient
 
   @impl true
   def mount(_params, _session, socket) do
     {:ok, news} = StrapiClient.list_announcements(3)
-    socket = assign(socket, :news, news)
+    {:ok, found_home} = StrapiClient.list_adopted_cats(3)
+
+    socket =
+      socket
+      |> assign(:news, news)
+      |> assign(:found_home, found_home)
 
     {:ok, socket}
   end

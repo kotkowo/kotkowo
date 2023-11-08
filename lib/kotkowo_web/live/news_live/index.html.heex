@@ -50,25 +50,12 @@
     >
       <div class="flex flex-row space-x-4 xl:space-x-7 m-auto">
         <.cat_card
-          name="Bonifacy"
+          :for={cat <- @found_home}
           share_href="#"
-          src={~p"/images/bonifacy.png"}
-          sex={:male}
-          tags={[gettext("Spokojny"), gettext("Śpioch")]}
-        />
-        <.cat_card
-          name="Bonifacy"
-          share_href="#"
-          src={~p"/images/bonifacy.png"}
-          sex={:male}
-          tags={[gettext("Spokojny"), gettext("Śpioch")]}
-        />
-        <.cat_card
-          name="Bonifacy"
-          share_href="#"
-          src={~p"/images/bonifacy.png"}
-          sex={:male}
-          tags={[gettext("Spokojny"), gettext("Śpioch")]}
+          src={cat.cat.gallery |> hd |> GalleryImage.url()}
+          sex={cat.cat.sex.value}
+          tags={cat.cat.tags}
+          name={cat.cat.name}
         />
       </div>
     </div>
