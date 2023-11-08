@@ -2,8 +2,15 @@ query AdoptedCatListQuery($limit:Int, $offset:Int) {
   adoptedCats ( pagination: { limit: $limit, start: $offset }
     sort: "updatedAt:desc"
 ){
+meta {
+      pagination {
+        pageCount
+      }
+    }
+
+
     data{
-     id
+      id
       attributes {
         adoption_date
         cat {

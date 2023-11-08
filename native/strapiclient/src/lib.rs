@@ -75,6 +75,20 @@ fn list_adopted_cats(limit: Option<i64>, offset: Option<i64>) -> Result<Vec<Adop
 
     Ok(cat)
 }
+
+#[rustler::nif]
+fn list_adopted_cats_pages(limit: Option<i64>, offset: Option<i64>) -> Result<i64> {
+    let query = AdoptedCatListQuery::build_query(AdoptedCatListVariables { limit, offset });
+    let pages: i64 = match run_query(&query)?.data {
+        Some(AdoptedCatResponseData {
+            adopted_cats: Some(adopted_cats),
+            ..
+        }) => adopted_cats.meta.pagination.page_count,
+        _ => Err(Error::MissingData)?,
+    };
+
+    Ok(pages)
+}
 #[rustler::nif]
 fn get_announcement_list_pages(num_items: Option<i64>, offset: Option<i64>) -> Result<i64> {
     let query = ListAnnouncementQuery::build_query(ListAnnouncementVariables {
