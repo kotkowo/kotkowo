@@ -14,81 +14,115 @@
     Poznaj kotki, które znalazły już nowych opiekunów.
   </h2>
   <div class="flex flex-row gap-x-32 mt-20">
-    <div class="xl:w-80 border border-gray rounded-2xl p-6 flex flex-col space-y-6 h-min">
-      <div class="flex flex-col space-y-4">
-        <h3 class="font-bold text-primary text-sm">Imię</h3>
-        <form phx-change="cat_search">
+    <div class="xl:w-80 border border-gray rounded-2xl flex flex-col space-y-6 h-min ">
+      <form phx-change="filter_cats" class="p-6 flex flex-col space-y-6 h-min xl:w-80">
+        <div class="flex flex-col space-y-4">
+          <h3 class="font-bold text-primary text-sm">Imię</h3>
           <input
             id="catSearch"
-            phx-debounce="200"
+            phx-debounce="100"
             name="cat_search"
             type="text"
+            value={@name}
             placeholder="Wpisz imię kota"
             class="border border-gray rounded-lg text-sm"
           />
-        </form>
-      </div>
+        </div>
 
-      <div class="flex flex-col space-y-4">
-        <h3 class="font-bold text-primary text-sm">Tagi</h3>
-        <input
-          type="text"
-          placeholder="Wpisz cechę kota"
-          class="border border-gray rounded-lg text-sm"
-        />
-      </div>
+        <div class="flex flex-col space-y-4">
+          <h3 class="font-bold text-primary text-sm">Tagi</h3>
+          <input
+            type="text"
+            value={@tag}
+            name="tag_search"
+            phx-debounce="100"
+            id="tagSearch"
+            placeholder="Wpisz cechę kota"
+            class="border border-gray rounded-lg text-sm"
+          />
+        </div>
 
-      <div class="flex flex-col space-y-4">
-        <h3 class="font-bold text-primary text-sm">Kastracja / sterylizacja</h3>
-        <div class="flex flex-col space-y-6">
+        <div class="flex flex-col space-y-4">
+          <h3 class="font-bold text-primary text-sm">Kastracja / sterylizacja</h3>
           <div>
-            <input type="checkbox" class="mr-3.5 border-gray rounded" />
+            <input
+              name="is_castrated"
+              checked={@castrated == true}
+              type="checkbox"
+              class="mr-3.5 border-gray rounded"
+            />
             <label class="text-sm">po zabiegu</label>
           </div>
-
           <div>
-            <input type="checkbox" class="mr-3.5 border-gray rounded" />
+            <input
+              type="checkbox"
+              checked={@castrated == false}
+              name="not_castrated"
+              class="mr-3.5 border-gray rounded"
+            />
             <label class="text-sm">przed zabiegiem</label>
           </div>
         </div>
-      </div>
-
-      <div class="flex flex-col space-y-4">
-        <h3 class="font-bold text-primary text-sm">Wiek</h3>
-        <div class="flex flex-col space-y-6">
-          <div>
-            <input type="checkbox" class="mr-3.5 border-gray rounded" />
-            <label class="text-sm">junior</label>
-          </div>
-
-          <div>
-            <input type="checkbox" class="mr-3.5 border-gray rounded" />
-            <label class="text-sm">dorosły</label>
-          </div>
-        </div>
-      </div>
-
-      <div class="flex flex-col space-y-4">
-        <h3 class="font-bold text-primary text-sm">Płeć</h3>
-        <div class="flex flex-col space-y-6">
-          <div>
-            <input type="checkbox" class="mr-3.5 border-gray rounded" />
-            <label class="text-sm">kotka</label>
-          </div>
-
-          <div>
-            <input type="checkbox" class="mr-3.5 border-gray rounded" />
-            <label class="text-sm">kocur</label>
+        <div class="flex flex-col space-y-4">
+          <h3 class="font-bold text-primary text-sm">Wiek</h3>
+          <div class="flex flex-col space-y-6">
+            <div :for={age <- Seniority.all()}>
+              <input
+                type="checkbox"
+                name={age |> Atom.to_string() |> String.downcase()}
+                checked={String.downcase(age |> Atom.to_string()) in @ages}
+                class="mr-3.5 border-gray rounded"
+              />
+              <label class="text-sm"><%= Seniority.to_string(age) %></label>
+            </div>
           </div>
         </div>
-      </div>
 
-      <.button href="#" class="xl:text-base"><%= gettext("Szukaj kotków") %></.button>
+        <div class="flex flex-col space-y-4">
+          <h3 class="font-bold text-primary text-sm">Płeć</h3>
+          <div class="flex flex-col space-y-6">
+            <div :for={sex <- Sex.all()}>
+              <input
+                type="checkbox"
+                name={sex |> Atom.to_string() |> String.downcase()}
+                checked={String.downcase(sex |> Atom.to_string()) in @genders}
+                class="mr-3.5 border-gray rounded"
+              />
+              <label class="text-sm"><%= Sex.to_string(sex) %></label>
+            </div>
+          </div>
+        </div>
+        <div class="flex-col flex space-y-4">
+          <h3 class="font-bold text-primary">Data</h3>
+          <div class=" text-gray-500 text-center w-full space-y-6">
+            <input
+              class="border-gray rounded-lg border w-28"
+              name="date_from"
+              value={@date_from}
+              type="date"
+            /> -
+            <input
+              class="border-gray rounded-lg border w-28"
+              name="date_to"
+              value={@date_to}
+              type="date"
+            />
+          </div>
+        </div>
+
+        <.button href="#" class="xl:text-base"><%= gettext("Szukaj kotków") %></.button>
+      </form>
     </div>
-    <div class="gap-x-16 gap-y-10 flex flex-wrap">
-      <.cat_card :for={cat <- @adopted_cats} title={cat.cat.name} share_href="#" src={cat.cat.gallery |> hd |> GalleryImage.url} sex={cat.cat.sex.value} tags={cat.cat.tags} name={cat.cat.name}  />
-      
-  </div>
+    <div class="gap-x-16 gap-y-10 flex flex-wrap h-min">
+      <.cat_card
+        :for={cat <- @filtered_cats}
+        share_href="#"
+        src={cat.cat.gallery |> hd |> GalleryImage.url()}
+        sex={cat.cat.sex.value}
+        tags={cat.cat.tags}
+        name={cat.cat.name}
+      />
+    </div>
   </div>
 </.section>
 <.how_you_can_help />
