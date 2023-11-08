@@ -1,4 +1,4 @@
-use crate::model::{Cat, GalleryImage};
+use crate::model::Cat;
 use rustler::NifStruct;
 
 use crate::primitives::DateTime;
