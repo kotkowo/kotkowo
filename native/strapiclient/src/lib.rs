@@ -155,6 +155,7 @@ rustler::init!(
         get_cat,
         list_announcements,
         get_article_for_announcement,
-        get_announcement_list_pages
+        get_announcement_list_pages,
+        list_adopted_cats_pages
     ]
 );
