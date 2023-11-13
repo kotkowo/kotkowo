@@ -11,14 +11,27 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
 
   @first_page 1
   @default_limit 30
-
   @impl true
   def mount(params, _session, socket) do
+    limit = params |> Map.get("limit", Integer.to_string(@default_limit)) |> String.to_integer()
+    {:ok, max_page} = StrapiClient.list_adopted_cats_pages(limit)
+    max_page = max(1, max_page)
+
+    socket =
+      assign(socket, :max_page, max_page)
+
+    {:ok, socket}
+  end
+
+  @impl true
+  def handle_params(params, _uri, socket) do
     {:ok, adopted_cats} = StrapiClient.list_adopted_cats()
+
+    limit = params |> Map.get("limit", Integer.to_string(@default_limit)) |> String.to_integer()
+    page = params |> Map.get("page", Integer.to_string(@first_page)) |> String.to_integer()
+
     name = params |> Map.get("name", "") |> String.downcase()
-
     ages = Map.get(params, "ages", [])
-
     genders = Map.get(params, "genders", [])
     castrated = params |> Map.get("castrated", nil) |> query_to_bool()
     tag = params |> Map.get("tag", "") |> String.downcase()
@@ -34,23 +47,16 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
       |> filter_genders(genders)
       |> filter_dates(date_from, date_to)
 
-    socket =
-      socket
-      |> assign(:adopted_cats, adopted_cats)
-      |> assign(:filtered_cats, filtered_cats)
+    max_page = max(@first_page, ceil(length(filtered_cats) / limit))
 
-    {:ok, socket}
-  end
+    page =
+      cond do
+        page < @first_page -> @first_page
+        page > max_page -> max_page
+        true -> page
+      end
 
-  @impl true
-  def handle_params(params, _uri, socket) do
-    name = params |> Map.get("name", "") |> String.downcase()
-    castrated = params |> Map.get("castrated", nil) |> query_to_bool()
-    date_to = Map.get(params, "date_to", "")
-    date_from = Map.get(params, "date_from", "")
-    tag = params |> Map.get("tag", "") |> String.downcase()
-    ages = Map.get(params, "ages", [])
-    genders = Map.get(params, "genders", [])
+    offset = (page - 1) * limit
 
     socket =
       socket
@@ -61,6 +67,11 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
       |> assign(:genders, genders)
       |> assign(:date_from, date_from)
       |> assign(:date_to, date_to)
+      |> assign(:limit, limit)
+      |> assign(:page, page)
+      |> assign(:adopted_cats, adopted_cats)
+      |> assign(:filtered_cats, Enum.slice(filtered_cats, offset, limit))
+      |> assign(:max_page, max_page)
 
     {:noreply, socket}
   end
@@ -79,6 +90,9 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
       ) do
     cats = socket.assigns.adopted_cats
 
+    limit = Map.get(socket.assigns, :limit, Integer.to_string(@default_limit))
+    page = Map.get(socket.assigns, :page, Integer.to_string(@first_page))
+
     not_castrated = params |> Map.get("not_castrated", nil) |> query_to_bool()
 
     is_castrated =
@@ -87,29 +101,15 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
       |> query_to_bool()
       |> castrated_switch(not_castrated, event)
 
-    age_keys = Seniority.all()
-
     ages =
-      for key <- age_keys,
+      for key <- Seniority.all(),
           true == params |> Map.get(Atom.to_string(key), false) |> query_to_bool(),
           do: key
-
-    sex_keys = Sex.all()
 
     genders =
-      for key <- sex_keys,
+      for key <- Sex.all(),
           true == params |> Map.get(Atom.to_string(key), false) |> query_to_bool(),
           do: key
-
-    query_params = %{
-      name: name_query,
-      tag: tag_query,
-      castrated: is_castrated,
-      ages: ages,
-      genders: genders,
-      date_from: date_from,
-      date_to: date_to
-    }
 
     filtered_cats =
       cats
@@ -120,13 +120,77 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
       |> filter_genders(genders)
       |> filter_dates(date_from, date_to)
 
-    IO.inspect(params)
+    max_page = max(@first_page, ceil(length(filtered_cats) / limit))
+
+    page =
+      cond do
+        page < @first_page -> @first_page
+        page > max_page -> max_page
+        true -> page
+      end
+
+    query_params = %{
+      name: name_query,
+      tag: tag_query,
+      castrated: is_castrated,
+      ages: ages,
+      genders: genders,
+      date_from: date_from,
+      date_to: date_to,
+      page: page,
+      limit: limit
+    }
+
+    offset = (page - 1) * limit
 
     socket =
       socket
-      |> assign(:filtered_cats, filtered_cats)
+      |> assign(:filtered_cats, Enum.slice(filtered_cats, offset, limit))
       |> push_patch(to: ~p"/aktualnosci/znalazly-dom?#{query_params}")
 
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("items_amount", %{"items_per_page" => amount}, socket) do
+    limit = String.to_integer(amount)
+    max_page = max(@first_page, socket.assigns.filtered_cats |> length() |> div(limit))
+
+    query_params = %{
+      name: socket.assigns.name,
+      tag: socket.assigns.tag,
+      castrated: socket.assigns.castrated,
+      ages: socket.assigns.ages,
+      genders: socket.assigns.genders,
+      date_from: socket.assigns.date_from,
+      date_to: socket.assigns.date_to,
+      page: socket.assigns.page,
+      limit: limit
+    }
+
+    socket =
+      socket
+      |> assign(:max_page, max_page)
+      |> push_patch(to: ~p"/aktualnosci/znalazly-dom?#{query_params}")
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("select_page", %{"value" => page}, socket) do
+    query_params = %{
+      name: socket.assigns.name,
+      tag: socket.assigns.tag,
+      castrated: socket.assigns.castrated,
+      ages: socket.assigns.ages,
+      genders: socket.assigns.genders,
+      date_from: socket.assigns.date_from,
+      date_to: socket.assigns.date_to,
+      page: page,
+      limit: socket.assigns.limit
+    }
+
+    socket = push_patch(socket, to: ~p"/aktualnosci/znalazly-dom?#{query_params}")
     {:noreply, socket}
   end
 
@@ -212,7 +276,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
       cats
     else
       Enum.filter(cats, fn adopted_cat ->
-        adopted_cat.cat.sex.value in genders
+        Atom.to_string(adopted_cat.cat.sex.value) in genders
       end)
     end
   end
@@ -222,7 +286,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
       cats
     else
       Enum.filter(cats, fn adopted_cat ->
-        adopted_cat.cat.age.value in ages
+        Atom.to_string(adopted_cat.cat.age.value) in ages
       end)
     end
   end
@@ -273,5 +337,80 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
       true ->
         nil
     end
+  end
+
+  defp items_per_page, do: [1, 2, 3]
+
+  def pagination_bar(assigns) do
+    assigns =
+      assigns
+      |> assign(:previous_page, assigns.selected_page - 1)
+      |> assign(:next_page, assigns.selected_page + 1)
+      |> assign(:first_page, @first_page)
+
+    ~H"""
+    <div class="flex flex-row text-xl gap-x-4">
+      <button
+        :if={@selected_page != @first_page}
+        phx-click="select_page"
+        class="p-4"
+        value={@selected_page - 1}
+      >
+        <.icon class=" rotate-90 brightness-0" name="chevron_down" />
+      </button>
+
+      <.icon :if={@selected_page == @first_page} class="rotate-90 p-4 grayscale" name="chevron_down" />
+      <div class="self-center gap-4 hidden lg:inline">
+        <button :if={@selected_page > 2} class="w-14 h-14" phx-click="select_page" value={@first_page}>
+          <%= @first_page %>
+        </button>
+        <span :if={@selected_page > 2} class="w-14 h-14">...</span>
+        <button
+          :if={@selected_page != @first_page}
+          class="w-14 h-14"
+          phx-click="select_page"
+          value={@previous_page}
+        >
+          <%= @previous_page %>
+        </button>
+        <button class="font-bold w-14 h-14">
+          <%= @selected_page %>
+        </button>
+        <button
+          :if={@selected_page != @last_page}
+          class="w-14 h-14"
+          phx-click="select_page"
+          value={@next_page}
+        >
+          <%= @next_page %>
+        </button>
+        <span :if={@selected_page < @last_page - 1} class="w-14 h-14">...</span>
+
+        <button
+          :if={@selected_page < @last_page - 1}
+          class="w-14 h-14"
+          phx-click="select_page"
+          value={@last_page}
+        >
+          <%= @last_page %>
+        </button>
+      </div>
+      <div class="self-center flex flex-row lg:hidden gap-4">
+        <span><%= @selected_page %></span>
+        <span>z</span>
+        <span><%= @last_page %></span>
+      </div>
+      <.icon :if={@selected_page == @last_page} class="rotate-90 p-4 grayscale" name="chevron_up" />
+
+      <button
+        :if={@selected_page != @last_page}
+        class="p-4"
+        phx-click="select_page"
+        value={@selected_page + 1}
+      >
+        <.icon class="rotate-90 brightness-0" name="chevron_up" />
+      </button>
+    </div>
+    """
   end
 end
