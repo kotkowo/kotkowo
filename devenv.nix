@@ -22,7 +22,10 @@ in {
     [
       docker
       node
-      elixir_ls
+
+    nodePackages."@tailwindcss/language-server"
+nodePackages.vscode-html-languageserver-bin
+elixir_ls
       openssl
       graphql-client
     ]
