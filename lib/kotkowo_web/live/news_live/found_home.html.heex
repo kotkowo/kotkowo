@@ -1,4 +1,4 @@
-<.section>
+<.section class="space-y-10">
   <.breadcrumb>
     <:crumb navigate={~p"/aktualnosci"}>
       Aktualnosci
@@ -7,122 +7,139 @@
       Znalazły dom
     </:crumb>
   </.breadcrumb>
-  <h1 class="text-primary text-justify lg:mt-0 mb-6 font-manrope font-extrabold xl:text-4xl text-3xl">
-    Znalazły dom
-  </h1>
-  <h2 class="font-manrope font-bold text-base lg:text-xl">
-    Poznaj kotki, które znalazły już nowych opiekunów.
-  </h2>
-  <div class="flex flex-row gap-x-32 mt-20">
-    <div class="xl:w-80 border border-gray rounded-2xl flex flex-col space-y-6 h-min ">
-      <form phx-change="filter_cats" class="p-6 flex flex-col space-y-6 h-min xl:w-80">
-        <div class="flex flex-col space-y-4">
-          <h3 class="font-bold text-primary text-sm">Imię</h3>
-          <input
-            id="catSearch"
-            phx-debounce="100"
-            name="cat_search"
-            type="text"
-            value={@name}
-            placeholder="Wpisz imię kota"
-            class="border border-gray rounded-lg text-sm"
-          />
-        </div>
+  <div class="mx-6 lg:mx-0">
+    <h1 class="text-primary mt-6 lg:mt-0 text-justify lg:mt-0 mb-6 font-manrope font-extrabold xl:text-4xl text-3xl">
+      Znalazły dom
+    </h1>
+    <h2 class="font-manrope font-bold text-2xl lg:text-base lg:text-xl">
+      Poznaj kotki, które znalazły już nowych opiekunów.
+    </h2>
 
-        <div class="flex flex-col space-y-4">
-          <h3 class="font-bold text-primary text-sm">Tagi</h3>
-          <input
-            type="text"
-            value={@tag}
-            name="tag_search"
-            phx-debounce="100"
-            id="tagSearch"
-            placeholder="Wpisz cechę kota"
-            class="border border-gray rounded-lg text-sm"
-          />
-        </div>
+    <div class="flex flex-col lg:flex-row gap-x-32 mt-10 lg:mt-20 gap-y-10">
+      <div class="xl:w-80 border border-gray rounded-2xl flex flex-col space-y-6 h-min ">
+        <form phx-change="filter_cats" class="p-6 flex flex-col space-y-6 h-min xl:w-80">
+          <div class="flex flex-col space-y-4">
+            <h3 class="font-bold text-primary text-sm">Imię</h3>
+            <input
+              id="catSearch"
+              phx-debounce="100"
+              name="cat_search"
+              type="text"
+              value={@name}
+              placeholder="Wpisz imię kota"
+              class="border border-gray rounded-lg text-sm"
+            />
+          </div>
 
-        <div class="flex flex-col space-y-4">
-          <h3 class="font-bold text-primary text-sm">Kastracja / sterylizacja</h3>
-          <div>
+          <div class="flex flex-col space-y-4">
+            <h3 class="font-bold text-primary text-sm">Tagi</h3>
             <input
-              name="is_castrated"
-              checked={@castrated == true}
-              type="checkbox"
-              class="mr-3.5 border-gray rounded"
+              type="text"
+              value={@tag}
+              name="tag_search"
+              phx-debounce="100"
+              id="tagSearch"
+              placeholder="Wpisz cechę kota"
+              class="border border-gray rounded-lg text-sm"
             />
-            <label class="text-sm">po zabiegu</label>
           </div>
-          <div>
-            <input
-              type="checkbox"
-              checked={@castrated == false}
-              name="not_castrated"
-              class="mr-3.5 border-gray rounded"
-            />
-            <label class="text-sm">przed zabiegiem</label>
-          </div>
-        </div>
-        <div class="flex flex-col space-y-4">
-          <h3 class="font-bold text-primary text-sm">Wiek</h3>
-          <div class="flex flex-col space-y-6">
-            <div :for={age <- Seniority.all()}>
+
+          <div class="flex flex-col space-y-4">
+            <h3 class="font-bold text-primary text-sm">Kastracja / sterylizacja</h3>
+            <div>
               <input
+                name="is_castrated"
+                checked={@castrated == true}
                 type="checkbox"
-                name={age |> Atom.to_string() |> String.downcase()}
-                checked={String.downcase(age |> Atom.to_string()) in @ages}
                 class="mr-3.5 border-gray rounded"
               />
-              <label class="text-sm"><%= Seniority.to_string(age) %></label>
+              <label class="text-sm">po zabiegu</label>
             </div>
-          </div>
-        </div>
-
-        <div class="flex flex-col space-y-4">
-          <h3 class="font-bold text-primary text-sm">Płeć</h3>
-          <div class="flex flex-col space-y-6">
-            <div :for={sex <- Sex.all()}>
+            <div>
               <input
                 type="checkbox"
-                name={sex |> Atom.to_string() |> String.downcase()}
-                checked={String.downcase(sex |> Atom.to_string()) in @genders}
+                checked={@castrated == false}
+                name="not_castrated"
                 class="mr-3.5 border-gray rounded"
               />
-              <label class="text-sm"><%= Sex.to_string(sex) %></label>
+              <label class="text-sm">przed zabiegiem</label>
             </div>
           </div>
-        </div>
-        <div class="flex-col flex space-y-4">
-          <h3 class="font-bold text-primary">Data</h3>
-          <div class=" text-gray-500 text-center w-full space-y-6">
-            <input
-              class="border-gray rounded-lg border w-28"
-              name="date_from"
-              value={@date_from}
-              type="date"
-            /> -
-            <input
-              class="border-gray rounded-lg border w-28"
-              name="date_to"
-              value={@date_to}
-              type="date"
-            />
+          <div class="flex flex-col space-y-4">
+            <h3 class="font-bold text-primary text-sm">Wiek</h3>
+            <div class="flex flex-col space-y-6">
+              <div :for={age <- Seniority.all()}>
+                <input
+                  type="checkbox"
+                  name={age |> Atom.to_string() |> String.downcase()}
+                  checked={String.downcase(age |> Atom.to_string()) in @ages}
+                  class="mr-3.5 border-gray rounded"
+                />
+                <label class="text-sm"><%= Seniority.to_string(age) %></label>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <.button href="#" class="xl:text-base"><%= gettext("Szukaj kotków") %></.button>
-      </form>
+          <div class="flex flex-col space-y-4">
+            <h3 class="font-bold text-primary text-sm">Płeć</h3>
+            <div class="flex flex-col space-y-6">
+              <div :for={sex <- Sex.all()}>
+                <input
+                  type="checkbox"
+                  name={sex |> Atom.to_string() |> String.downcase()}
+                  checked={String.downcase(sex |> Atom.to_string()) in @genders}
+                  class="mr-3.5 border-gray rounded"
+                />
+                <label class="text-sm"><%= Sex.to_string(sex) %></label>
+              </div>
+            </div>
+          </div>
+          <div class="flex-col flex space-y-4">
+            <h3 class="font-bold text-primary">Data</h3>
+            <div class=" text-gray-500 text-center w-full space-y-6">
+              <input
+                class="border-gray rounded-lg border w-28"
+                name="date_from"
+                value={@date_from}
+                type="date"
+              /> -
+              <input
+                class="border-gray rounded-lg border w-28"
+                name="date_to"
+                value={@date_to}
+                type="date"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="gap-x-16 gap-y-10 flex flex-wrap h-min">
+        <.cat_card
+          :for={cat <- @filtered_cats}
+          share_href="#"
+          src={cat.cat.gallery |> hd |> GalleryImage.url()}
+          sex={cat.cat.sex.value}
+          tags={cat.cat.tags}
+          name={cat.cat.name}
+        />
+      </div>
     </div>
-    <div class="gap-x-16 gap-y-10 flex flex-wrap h-min">
-      <.cat_card
-        :for={cat <- @filtered_cats}
-        share_href="#"
-        src={cat.cat.gallery |> hd |> GalleryImage.url()}
-        sex={cat.cat.sex.value}
-        tags={cat.cat.tags}
-        name={cat.cat.name}
-      />
+  </div>
+  <div class="flex flex-col lg:flex-row justify-center items-center relative">
+    <div class="mt-10 lg:mt-0">
+      <.pagination_bar selected_page={@page} last_page={@max_page} />
+    </div>
+    <div class="lg:absolute right-0 -order-1 self-center">
+      <form phx-change="items_amount" class="">
+        <label class="font-inter mr-5 text-md">Pokaż na stronie</label>
+        <select name="items_per_page" class="rounded-lg">
+          <option :for={option <- items_per_page()} value={option} selected={@limit == option}>
+            <%= option %>
+          </option>
+        </select>
+      </form>
     </div>
   </div>
 </.section>
+
 <.how_you_can_help />
