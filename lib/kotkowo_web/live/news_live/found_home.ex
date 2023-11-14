@@ -13,7 +13,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
   @default_limit 30
   @impl true
   def mount(params, _session, socket) do
-    limit = params |> Map.get("limit", Integer.to_string(@default_limit)) |> String.to_integer()
+    limit = params |> Map.get("limit", Integer.to_string(@default_limit)) |> String.to_integer() |> abs()
     {:ok, adopted_cats} = StrapiClient.list_adopted_cats()
     {:ok, max_page} = StrapiClient.list_adopted_cats_pages(limit)
     max_page = max(1, max_page)
@@ -28,7 +28,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
 
   @impl true
   def handle_params(params, _uri, socket) do
-    limit = params |> Map.get("limit", Integer.to_string(@default_limit)) |> String.to_integer()
+    limit = params |> Map.get("limit", Integer.to_string(@default_limit)) |> String.to_integer() |> abs()
     page = params |> Map.get("page", Integer.to_string(@first_page)) |> String.to_integer()
 
     name = params |> Map.get("name", "") |> String.downcase()
@@ -88,7 +88,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
         } = params,
         socket
       ) do
-    limit = Map.get(socket.assigns, :limit, Integer.to_string(@default_limit))
+    limit = socket.assigns |> Map.get(:limit, Integer.to_string(@default_limit)) |> abs()
     page = Map.get(socket.assigns, :page, Integer.to_string(@first_page))
 
     not_castrated = params |> Map.get("not_castrated", nil) |> query_to_bool()
@@ -129,7 +129,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
 
   @impl true
   def handle_event("items_amount", %{"items_per_page" => amount}, socket) do
-    limit = String.to_integer(amount)
+    limit = amount |> String.to_integer() |> abs()
     max_page = max(@first_page, socket.assigns.filtered_cats |> length() |> div(limit))
 
     query_params = %{
