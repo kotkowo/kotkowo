@@ -14,19 +14,20 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
   @impl true
   def mount(params, _session, socket) do
     limit = params |> Map.get("limit", Integer.to_string(@default_limit)) |> String.to_integer()
+    {:ok, adopted_cats} = StrapiClient.list_adopted_cats()
     {:ok, max_page} = StrapiClient.list_adopted_cats_pages(limit)
     max_page = max(1, max_page)
 
     socket =
-      assign(socket, :max_page, max_page)
+      socket
+      |> assign(:max_page, max_page)
+      |> assign(:adopted_cats, adopted_cats)
 
     {:ok, socket}
   end
 
   @impl true
   def handle_params(params, _uri, socket) do
-    {:ok, adopted_cats} = StrapiClient.list_adopted_cats()
-
     limit = params |> Map.get("limit", Integer.to_string(@default_limit)) |> String.to_integer()
     page = params |> Map.get("page", Integer.to_string(@first_page)) |> String.to_integer()
 
@@ -39,7 +40,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
     date_from = Map.get(params, "date_from", "")
 
     filtered_cats =
-      adopted_cats
+      socket.assigns.adopted_cats
       |> search_tags(tag)
       |> search_names(name)
       |> filter_castrated(castrated)
@@ -69,7 +70,6 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
       |> assign(:date_to, date_to)
       |> assign(:limit, limit)
       |> assign(:page, page)
-      |> assign(:adopted_cats, adopted_cats)
       |> assign(:filtered_cats, Enum.slice(filtered_cats, offset, limit))
       |> assign(:max_page, max_page)
 
@@ -88,8 +88,6 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
         } = params,
         socket
       ) do
-    cats = socket.assigns.adopted_cats
-
     limit = Map.get(socket.assigns, :limit, Integer.to_string(@default_limit))
     page = Map.get(socket.assigns, :page, Integer.to_string(@first_page))
 
@@ -111,24 +109,6 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
           true == params |> Map.get(Atom.to_string(key), false) |> query_to_bool(),
           do: key
 
-    filtered_cats =
-      cats
-      |> search_tags(tag_query)
-      |> search_names(name_query)
-      |> filter_castrated(is_castrated)
-      |> filter_ages(ages)
-      |> filter_genders(genders)
-      |> filter_dates(date_from, date_to)
-
-    max_page = max(@first_page, ceil(length(filtered_cats) / limit))
-
-    page =
-      cond do
-        page < @first_page -> @first_page
-        page > max_page -> max_page
-        true -> page
-      end
-
     query_params = %{
       name: name_query,
       tag: tag_query,
@@ -141,12 +121,8 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
       limit: limit
     }
 
-    offset = (page - 1) * limit
-
     socket =
-      socket
-      |> assign(:filtered_cats, Enum.slice(filtered_cats, offset, limit))
-      |> push_patch(to: ~p"/aktualnosci/znalazly-dom?#{query_params}")
+      push_patch(socket, to: ~p"/aktualnosci/znalazly-dom?#{query_params}")
 
     {:noreply, socket}
   end
@@ -211,7 +187,9 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
       Enum.filter(cats, fn adopted_cat ->
         search = String.downcase(search)
 
-        Enum.any?(adopted_cat.cat.tags, fn tag -> tag |> String.downcase() |> String.contains?(search) end)
+        adopted_cat.cat.tags
+        |> Enum.map(&String.downcase/1)
+        |> Enum.any?(&String.contains?(&1, search))
       end)
     end
   end
@@ -227,52 +205,25 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
     Date.new!(year, month, day)
   end
 
+  defp filter_dates(cats, "", ""), do: cats
+
   defp filter_dates(cats, from, to) do
-    if from == "" and to == "" do
-      cats
-    else
-      from = parse_date(from)
-      to = parse_date(to)
+    from = parse_date(from)
+    to = parse_date(to)
 
-      Enum.filter(cats, fn adopted_cat ->
-        adoption_date = DateTime.to_date(adopted_cat.adoption_date)
+    Enum.filter(cats, fn adopted_cat ->
+      adoption_date = DateTime.to_date(adopted_cat.adoption_date)
 
-        case {from, to} do
-          {nil, nil} ->
-            true
+      within_range =
+        (from == nil or Date.compare(adoption_date, from) in [:gt, :eq]) and
+          (to == nil or Date.compare(adoption_date, to) in [:lt, :eq])
 
-          {nil, _} ->
-            case Date.compare(adoption_date, to) do
-              :lt -> true
-              :eq -> true
-              _ -> false
-            end
-
-          {_, nil} ->
-            case Date.compare(adoption_date, from) do
-              :gt -> true
-              :eq -> true
-              _ -> false
-            end
-
-          {_, _} ->
-            case Date.compare(adoption_date, to) do
-              :lt -> true
-              :eq -> true
-              _ -> false
-            end and
-              case Date.compare(adoption_date, from) do
-                :gt -> true
-                :eq -> true
-                _ -> false
-              end
-        end
-      end)
-    end
+      true in [within_range]
+    end)
   end
 
   defp filter_genders(cats, genders) do
-    if length(genders) == 0 do
+    if Enum.empty?(genders) do
       cats
     else
       Enum.filter(cats, fn adopted_cat ->
@@ -282,7 +233,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
   end
 
   defp filter_ages(cats, ages) do
-    if length(ages) == 0 do
+    if Enum.empty?(ages) do
       cats
     else
       Enum.filter(cats, fn adopted_cat ->
@@ -339,7 +290,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
     end
   end
 
-  defp items_per_page, do: [1, 2, 3]
+  defp items_per_page, do: [30, 60, 90]
 
   def pagination_bar(assigns) do
     assigns =
