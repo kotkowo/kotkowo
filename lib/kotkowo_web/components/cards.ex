@@ -38,7 +38,9 @@ defmodule KotkowoWeb.Components.Cards do
 
   def card(assigns) do
     ~H"""
-    <div class={classes(["lg:w-82 shrink-0 snap-center w-full lg:snap-none flex flex-col", @class])}>
+    <div class={
+      classes(["lg:w-82 shrink-0 snap-center w-full max-w-xs lg:snap-none flex flex-col", @class])
+    }>
       <div class="relative">
         <img
           src={@src}
@@ -82,7 +84,7 @@ defmodule KotkowoWeb.Components.Cards do
 
         <div
           :if={@tags != []}
-          class="lg:mt-3 overflow-y-auto flex spacing space-x-1 whitespace-nowrap"
+          class="lg:mt-3 overflow-y-hidden overflow-x-hidden flex spacing space-x-1 whitespace-nowrap"
         >
           <.card_tag :for={tag <- @tags}><%= tag %></.card_tag>
         </div>
@@ -112,10 +114,18 @@ defmodule KotkowoWeb.Components.Cards do
   attr :sex, :atom, values: Sex.all(), required: true, doc: "Cat's sex"
   attr :share_href, :string, required: true, doc: "Cat's share link"
   attr :dead, :boolean, default: false
+  attr :card_class, :string, default: ""
 
   def cat_card(assigns) do
     ~H"""
-    <.card share_href={@share_href} grayscale={@dead} src={@src} alt={@name} tags={@tags}>
+    <.card
+      share_href={@share_href}
+      class={@card_class}
+      grayscale={@dead}
+      src={@src}
+      alt={@name}
+      tags={@tags}
+    >
       <:title icon={to_string(@sex)}>
         <%= @name %>
       </:title>
