@@ -4,6 +4,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
 
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
 
+  alias Kotkowo.Attributes.Color
   alias Kotkowo.Attributes.Seniority
   alias Kotkowo.Attributes.Sex
   alias Kotkowo.GalleryImage
@@ -36,6 +37,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
     genders = Map.get(params, "genders", [])
     castrated = params |> Map.get("castrated", nil) |> query_to_bool()
     tag = params |> Map.get("tag", "") |> String.downcase()
+    colors = Map.get(params, "colors", [])
     date_to = Map.get(params, "date_to", "")
     date_from = Map.get(params, "date_from", "")
 
@@ -46,6 +48,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
       |> filter_castrated(castrated)
       |> filter_ages(ages)
       |> filter_genders(genders)
+      |> filter_colors(colors)
       |> filter_dates(date_from, date_to)
 
     max_page = max(@first_page, ceil(length(filtered_cats) / limit))
@@ -67,6 +70,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
       |> assign(:ages, ages)
       |> assign(:genders, genders)
       |> assign(:date_from, date_from)
+      |> assign(:colors, colors)
       |> assign(:date_to, date_to)
       |> assign(:limit, limit)
       |> assign(:page, page)
@@ -109,6 +113,11 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
           true == params |> Map.get(Atom.to_string(key), false) |> query_to_bool(),
           do: key
 
+    colors =
+      for key <- Color.all(),
+          true == params |> Map.get(Atom.to_string(key), false) |> query_to_bool(),
+          do: key
+
     query_params = %{
       name: name_query,
       tag: tag_query,
@@ -116,6 +125,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
       ages: ages,
       genders: genders,
       date_from: date_from,
+      colors: colors,
       date_to: date_to,
       page: page,
       limit: limit
@@ -137,6 +147,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
       tag: socket.assigns.tag,
       castrated: socket.assigns.castrated,
       ages: socket.assigns.ages,
+      colors: socket.assigns.colors,
       genders: socket.assigns.genders,
       date_from: socket.assigns.date_from,
       date_to: socket.assigns.date_to,
@@ -161,6 +172,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
       ages: socket.assigns.ages,
       genders: socket.assigns.genders,
       date_from: socket.assigns.date_from,
+      colors: socket.assigns.colors,
       date_to: socket.assigns.date_to,
       page: page,
       limit: socket.assigns.limit
@@ -220,6 +232,16 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
 
       true in [within_range]
     end)
+  end
+
+  defp filter_colors(cats, colors) do
+    if Enum.empty?(colors) do
+      cats
+    else
+      Enum.filter(cats, fn adopted_cat ->
+        Atom.to_string(adopted_cat.cat.color.value) in colors
+      end)
+    end
   end
 
   defp filter_genders(cats, genders) do
