@@ -48,6 +48,7 @@ meta {
         fiv_felv
         castrated
         healthy
+        color
         description_heading
         description
         createdAt

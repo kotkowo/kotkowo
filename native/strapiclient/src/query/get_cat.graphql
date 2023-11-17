@@ -34,6 +34,7 @@ query CatGetQuery($slug: String) {
         fiv_felv
         castrated
         healthy
+        color
 		description_heading
 		description
         createdAt
