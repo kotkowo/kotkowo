@@ -13,6 +13,7 @@ defmodule Kotkowo.Cat do
     :age,
     :sex,
     :fiv_felv,
+    :color,
     :castrated,
     :healthy,
     :medical_status,

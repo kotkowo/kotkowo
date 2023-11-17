@@ -35,6 +35,7 @@ query CatListQuery {
         castrated
         healthy
         description_heading
+        color
         description
         createdAt
         updatedAt

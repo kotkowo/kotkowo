@@ -76,6 +76,7 @@ impl TryFrom<CatListQueryCats> for Vec<Cat> {
                     description: attributes.description,
                     slug: attributes.slug,
                     sex: attributes.sex.into(),
+                    color: attributes.color.into(),
                     age: attributes.age.into(),
                     healthy: attributes.healthy.into(),
                     fiv_felv: attributes.fiv_felv.into(),
@@ -141,6 +142,37 @@ impl From<ENUM_CAT_FIV_FELV> for FivFelv {
         }
     }
 }
+impl From<ENUM_CAT_COLOR> for Color {
+    fn from(value: ENUM_CAT_COLOR) -> Self {
+        match value {
+            ENUM_CAT_COLOR::Black => Color{
+                value: color::enums::Color::Black,
+            },
+            ENUM_CAT_COLOR::Tricolor => Color{
+                value: color::enums::Color::Tricolor,
+            },
+            ENUM_CAT_COLOR::Gray => Color{
+                value: color::enums::Color::Gray,
+            },
+            ENUM_CAT_COLOR::Ginger => Color{
+                value: color::enums::Color::Ginger,
+            },
+
+
+            ENUM_CAT_COLOR::Patched => Color{
+                value: color::enums::Color::Patched,
+            },
+            ENUM_CAT_COLOR::OtherColor => Color { 
+                value: color::enums::Color::OtherColor 
+
+            },
+                ENUM_CAT_COLOR::Other(_) => Color {
+                value: color::enums::Color::OtherColor
+            }
+                    }
+    }
+}
+
 
 impl From<ENUM_CAT_MEDICAL_STATUS> for MedicalStatus {
     fn from(value: ENUM_CAT_MEDICAL_STATUS) -> Self {

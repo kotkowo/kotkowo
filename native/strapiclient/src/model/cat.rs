@@ -19,6 +19,7 @@ pub struct Cat {
     pub age: Age,
     pub medical_status: MedicalStatus,
     pub fiv_felv: FivFelv,
+    pub color: Color,
     pub castrated: Castrated,
     pub healthy: Healthy,
     pub tags: Vec<String>,
@@ -46,6 +47,17 @@ macro_rules! attr_enum{
     }
 }
 
+attr_enum![
+    color,
+    Color,
+    "Kotkowo.Cat.Color",
+    Black,
+    Ginger,
+    Tricolor,
+    Gray,
+    Patched,
+    OtherColor
+];
 attr_enum![sex, Sex, "Kotkowo.Cat.Sex", Male, Female];
 
 attr_enum![age, Age, "Kotkowo.Cat.Age", Junior, Adult, Senior];

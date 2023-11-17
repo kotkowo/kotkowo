@@ -6480,6 +6480,53 @@
         },
         {
           "description": null,
+          "enumValues": [
+            {
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "Black"
+            },
+            {
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "Gray"
+            },
+            {
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "Tricolor"
+            },
+            {
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "Patched"
+            },
+            {
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "Ginger"
+            },
+            {
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "OtherColor"
+            }
+          ],
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "kind": "ENUM",
+          "name": "ENUM_CAT_COLOR",
+          "possibleTypes": null
+        },
+        {
+          "description": null,
           "enumValues": null,
           "fields": null,
           "inputFields": [
@@ -6610,6 +6657,16 @@
               "type": {
                 "kind": "INPUT_OBJECT",
                 "name": "CatTagFiltersInput",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "color",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "StringFilterInput",
                 "ofType": null
               }
             },
@@ -6818,6 +6875,16 @@
                   "name": "ID",
                   "ofType": null
                 }
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "color",
+              "type": {
+                "kind": "ENUM",
+                "name": "ENUM_CAT_COLOR",
+                "ofType": null
               }
             },
             {
@@ -7092,6 +7159,22 @@
                 "kind": "OBJECT",
                 "name": "CatTagRelationResponseCollection",
                 "ofType": null
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "color",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "ENUM_CAT_COLOR",
+                  "ofType": null
+                }
               }
             },
             {
