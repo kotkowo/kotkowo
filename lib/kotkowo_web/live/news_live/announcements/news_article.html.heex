@@ -23,11 +23,11 @@
       <span class="text-2xl font-semibold leading-10"><%= @article.introduction %></span>
       <span class="text-xl leading-10 "><%= @article.content %></span>
     </div>
-    <div class="flex flex-col lg:mt-0 mt-10 font-manrope gap-y-6 text-[#2c3535] text-3xl">
-      <h2 class="font-extrabold">Najczęściej czytane</h2>
+    <div class="flex flex-col lg:mt-0 mt-10 items-center font-manrope gap-y-6 text-[#2c3535] text-3xl">
+      <h2 class="font-extrabold self-start">Najczęściej czytane</h2>
       <.news_card
         :for={news <- @popular_news}
-        class="lg:w-[313px] w-full"
+        class="lg:w-[313px] w-full max-w-sm"
         news_id={news.id}
         src={GalleryImage.url(news.image)}
         title={news.title}
