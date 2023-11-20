@@ -51,8 +51,12 @@ fn run_query<QB: serde::Serialize, R: for<'a> serde::Deserialize<'a>>(
 }
 
 #[rustler::nif]
-fn list_cats() -> Result<Vec<Cat>> {
-    let query = CatListQuery::build_query(CatListVariables);
+fn list_cats(is_dead: Option<bool>, limit: Option<i64>, offset: Option<i64>) -> Result<Vec<Cat>> {
+    let query = CatListQuery::build_query(CatListVariables {
+        limit,
+        offset,
+        is_dead,
+    });
     let cat: Vec<Cat> = match run_query(&query)?.data {
         Some(CatListResponseData {
             cats: Some(cats), ..
@@ -61,6 +65,22 @@ fn list_cats() -> Result<Vec<Cat>> {
     };
 
     Ok(cat)
+}
+#[rustler::nif]
+fn list_cats_pages(is_dead: Option<bool>, limit: Option<i64>, offset: Option<i64>) -> Result<i64> {
+    let query = CatListQuery::build_query(CatListVariables {
+        limit,
+        offset,
+        is_dead,
+    });
+    let pages: i64 = match run_query(&query)?.data {
+        Some(CatListResponseData {
+            cats: Some(cats), ..
+        }) => cats.meta.pagination.page_count,
+        _ => Err(Error::MissingData)?,
+    };
+
+    Ok(pages)
 }
 #[rustler::nif]
 fn list_adopted_cats(limit: Option<i64>, offset: Option<i64>) -> Result<Vec<AdoptedCat>> {
@@ -156,6 +176,7 @@ rustler::init!(
         list_announcements,
         get_article_for_announcement,
         get_announcement_list_pages,
-        list_adopted_cats_pages
+        list_adopted_cats_pages,
+        list_cats_pages,
     ]
 );

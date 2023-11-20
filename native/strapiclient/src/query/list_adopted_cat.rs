@@ -90,6 +90,7 @@ impl TryFrom<AdoptedCatListQueryAdoptedCats> for Vec<AdoptedCat> {
                     sex: attributes.sex.into(),
                     age: attributes.age.into(),
                     color: attributes.color.into(),
+                    is_dead: attributes.is_dead,
                     healthy: attributes.healthy.into(),
                     fiv_felv: attributes.fiv_felv.into(),
                     castrated: attributes.castrated.into(),
