@@ -15,7 +15,7 @@
   </h1>
 </.section>
 <.section class="flex flex-col gap-y-5 lg:gap-y-10 items-center" parent_class="py-8 xl:py-10">
-  <div class="flex w-full px-2">
+  <div class="lg:flex-initial lg:flex justify-center flex-1 w-full px-2">
     <div
       class="overflow-x-auto snap-x lg:snap-none lg:mx-auto"
       x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
@@ -27,7 +27,7 @@
           news_id={news.id}
           tags={news.tags}
           src={Kotkowo.GalleryImage.url(news.image)}
-          class="lg:w-82"
+          class="lg:w-82 w-full"
         />
       </div>
     </div>
@@ -43,7 +43,7 @@
   </h1>
 </.section>
 <.section class="flex flex-col gap-y-5 lg:gap-y-10 items-center" parent_class="py-8 xl:py-10">
-  <div class="flex w-full px-2">
+  <div class="lg:flex-initial lg:flex justify-center flex-1 w-full px-2">
     <div
       class="overflow-x-auto snap-x lg:snap-none lg:mx-auto"
       x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
@@ -68,39 +68,26 @@
   </h1>
 </.section>
 <.section class="flex flex-col gap-y-5 lg:gap-y-10 items-center" parent_class="py-8 xl:py-10">
-  <div class="flex w-full px-2">
+  <div class="lg:flex-none lg:flex justify-center flex-1 w-full px-2">
     <div
       class="overflow-x-auto snap-x lg:snap-none lg:mx-auto"
       x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
     >
       <div class="flex flex-row space-x-4 xl:space-x-7 m-auto">
         <.cat_card
-          name="Bonifacy"
+          :for={cat <- @passed_away}
+          name={cat.name}
           share_href="#"
-          dead={true}
-          src={~p"/images/bonifacy.png"}
-          sex={:male}
-          tags={[gettext("Spokojny"), gettext("Śpioch")]}
-        />
-        <.cat_card
-          name="Bonifacy"
-          share_href="#"
-          dead={true}
-          src={~p"/images/bonifacy.png"}
-          sex={:male}
-          tags={[gettext("Spokojny"), gettext("Śpioch")]}
-        />
-        <.cat_card
-          name="Bonifacy"
-          share_href="#"
-          dead={true}
-          src={~p"/images/bonifacy.png"}
-          sex={:male}
-          tags={[gettext("Spokojny"), gettext("Śpioch")]}
+          dead={cat.is_dead}
+          src={cat.gallery |> hd |> GalleryImage.url()}
+          sex={cat.sex.value}
+          tags={cat.tags}
         />
       </div>
     </div>
   </div>
-  <.button type="outline" href="">Zobacz wszystkie</.button>
+  <.button type="outline" navigate={~p"/aktualnosci/za-teczowym-mostem"}>
+    Zobacz wszystkie
+  </.button>
 </.section>
 <.how_you_can_help />
