@@ -1,5 +1,5 @@
 query AdoptedCatListQuery($limit:Int, $offset:Int) {
-  adoptedCats ( pagination: { limit: $limit, start: $offset }
+  adoptedCats ( filters: {cat: {is_dead: {eq: false} }}, pagination: { limit: $limit, start: $offset }
     sort: "updatedAt:desc"
 ){
 meta {
@@ -45,6 +45,7 @@ meta {
         sex
         age
         medical_status
+        is_dead
         fiv_felv
         castrated
         healthy

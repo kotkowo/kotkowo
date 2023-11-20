@@ -77,6 +77,7 @@ impl TryFrom<CatGetQueryCats> for Cat {
                     description: attributes.description,
                     slug: attributes.slug,
                     sex: attributes.sex.into(),
+                    is_dead: attributes.is_dead,
                     age: attributes.age.into(),
                     color: attributes.color.into(),
                     healthy: attributes.healthy.into(),

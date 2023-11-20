@@ -6673,6 +6673,16 @@
             {
               "defaultValue": null,
               "description": null,
+              "name": "is_dead",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "BooleanFilterInput",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
               "name": "createdAt",
               "type": {
                 "kind": "INPUT_OBJECT",
@@ -6884,6 +6894,16 @@
               "type": {
                 "kind": "ENUM",
                 "name": "ENUM_CAT_COLOR",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "is_dead",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
                 "ofType": null
               }
             },
@@ -7173,6 +7193,22 @@
                 "ofType": {
                   "kind": "ENUM",
                   "name": "ENUM_CAT_COLOR",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "is_dead",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
                   "ofType": null
                 }
               }

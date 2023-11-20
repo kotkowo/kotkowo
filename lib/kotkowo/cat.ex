@@ -12,6 +12,7 @@ defmodule Kotkowo.Cat do
     :description,
     :age,
     :sex,
+    :is_dead,
     :fiv_felv,
     :color,
     :castrated,

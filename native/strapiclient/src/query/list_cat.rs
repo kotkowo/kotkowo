@@ -78,6 +78,7 @@ impl TryFrom<CatListQueryCats> for Vec<Cat> {
                     sex: attributes.sex.into(),
                     color: attributes.color.into(),
                     age: attributes.age.into(),
+                    is_dead: attributes.is_dead,
                     healthy: attributes.healthy.into(),
                     fiv_felv: attributes.fiv_felv.into(),
                     castrated: attributes.castrated.into(),

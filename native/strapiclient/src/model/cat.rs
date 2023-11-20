@@ -17,6 +17,7 @@ pub struct Cat {
     pub published_at: Option<DateTime>,
     pub sex: Sex,
     pub age: Age,
+    pub is_dead: bool,
     pub medical_status: MedicalStatus,
     pub fiv_felv: FivFelv,
     pub color: Color,
