@@ -12,7 +12,7 @@ defmodule KotkowoWeb.Layouts do
        [
          {"Z ostatniej chwili", "/aktualnosci/z-ostatniej-chwili"},
          {"Znalazły dom", "/aktualnosci/znalazly-dom"},
-         {"Za tęczowym mostem", "#"}
+         {"Za tęczowym mostem", "/aktualnosci/za-teczowym-mostem"}
        ], []},
       {"Adopcja", nil,
        [
