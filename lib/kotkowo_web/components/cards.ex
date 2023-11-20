@@ -41,7 +41,6 @@ defmodule KotkowoWeb.Components.Cards do
     <div class={
       classes(["lg:w-82 shrink-0 snap-center w-full max-w-xs lg:snap-none flex flex-col", @class])
     }>
-
       <div class="relative">
         <img
           src={@src}
@@ -256,8 +255,10 @@ defmodule KotkowoWeb.Components.Cards do
 
   def news_card(assigns) do
     ~H"""
-
-    <.link class={classes(["w-full shrink-0 max-w-xs", @class])} navigate={~p"/aktualnosci/z-ostatniej-chwili/#{assigns.news_id}"}>
+    <.link
+      class={classes(["w-full shrink-0 max-w-xs", @class])}
+      navigate={~p"/aktualnosci/z-ostatniej-chwili/#{assigns.news_id}"}
+    >
       <.card
         src={@src}
         alt={@title}
