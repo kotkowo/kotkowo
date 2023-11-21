@@ -17,118 +17,131 @@
 
     <div class="flex flex-col lg:flex-row gap-x-32 mt-10 lg:mt-20 gap-y-10">
       <div class="lg:w-80 w-full shrink-0 border border-gray rounded-2xl flex flex-col lg:max-w-none max-w-sm self-center space-y-6 h-min ">
-        <form phx-change="filter_cats" class="p-6 flex flex-col space-y-6 h-min">
-          <div class="flex flex-col space-y-4">
-            <h3 class="font-bold text-primary text-sm">Imię</h3>
-            <input
-              id="catSearch"
-              phx-debounce="100"
-              name="cat_search"
-              type="text"
-              value={@name}
-              placeholder="Wpisz imię kota"
-              class="border border-gray rounded-lg text-sm"
-            />
-          </div>
+        <.drawer
+          class_when_hidden="hidden lg:block"
+          title="Filtruj według"
+          title_class="text-primary text-justify font-manrope text-2xl font-bold"
+          class="xl:w-full block lg:hidden"
+        >
+          <form phx-change="filter_cats" class="p-6 flex flex-col space-y-6 h-min">
+            <h4 class="lg:block hidden text-primary text-justify font-manrope text-2xl font-bold">
+              Filtruj według
+            </h4>
 
-          <div class="flex flex-col space-y-4">
-            <h3 class="font-bold text-primary text-sm">Tagi</h3>
-            <input
-              type="text"
-              value={@tag}
-              name="tag_search"
-              phx-debounce="100"
-              id="tagSearch"
-              placeholder="Wpisz cechę kota"
-              class="border border-gray rounded-lg text-sm"
-            />
-          </div>
-          <div class="flex flex-col space-y-4">
-            <h3 class="font-bold text-primary text-sm">Płeć</h3>
-            <div class="flex flex-col space-y-6">
-              <div :for={sex <- Sex.all()}>
-                <input
-                  type="checkbox"
-                  name={sex |> Atom.to_string() |> String.downcase()}
-                  checked={String.downcase(sex |> Atom.to_string()) in @genders}
-                  class="mr-3.5 border-gray rounded"
-                />
-                <label class="text-sm"><%= Sex.to_string(sex) |> String.downcase() %></label>
-              </div>
-            </div>
-          </div>
-
-          <div class="flex flex-col space-y-4">
-            <h3 class="font-bold text-primary text-sm">Wiek</h3>
-            <div class="flex flex-col space-y-6">
-              <div :for={age <- Seniority.all()}>
-                <input
-                  type="checkbox"
-                  name={age |> Atom.to_string() |> String.downcase()}
-                  checked={String.downcase(age |> Atom.to_string()) in @ages}
-                  class="mr-3.5 border-gray rounded"
-                />
-                <label class="text-sm">
-                  <%= Seniority.to_string(age) |> String.downcase() %>
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <div class="flex flex-col space-y-4">
-            <h3 class="font-bold text-primary text-sm">Wiek</h3>
-            <div class="flex flex-col space-y-6">
-              <div :for={color <- Color.all()}>
-                <input
-                  type="checkbox"
-                  name={color |> Atom.to_string() |> String.downcase()}
-                  checked={String.downcase(color |> Atom.to_string()) in @colors}
-                  class="mr-3.5 border-gray rounded"
-                />
-                <label class="text-sm"><%= Color.to_string(color) |> String.downcase() %></label>
-              </div>
-            </div>
-          </div>
-          <div class="flex flex-col space-y-4">
-            <h3 class="font-bold text-primary text-sm">Kastracja / sterylizacja</h3>
-            <div>
+            <div class="flex flex-col space-y-4">
+              <h3 class="font-bold text-primary text-sm">Imię</h3>
               <input
-                name="is_castrated"
-                checked={@castrated == true}
-                type="checkbox"
-                class="mr-3.5 border-gray rounded"
-              />
-              <label class="text-sm">po zabiegu</label>
-            </div>
-            <div>
-              <input
-                type="checkbox"
-                checked={@castrated == false}
-                name="not_castrated"
-                class="mr-3.5 border-gray rounded"
-              />
-              <label class="text-sm">przed zabiegiem</label>
-            </div>
-          </div>
-
-          <div class="flex-col flex space-y-4">
-            <h3 class="font-bold text-primary">Data</h3>
-            <div class=" text-gray-500 text-center w-full space-y-6">
-              <input
-                class="border-gray rounded-lg border w-28"
-                name="date_from"
-                value={@date_from}
-                type="date"
-              /> -
-              <input
-                class="border-gray rounded-lg border w-28"
-                name="date_to"
-                value={@date_to}
-                type="date"
+                id="catSearch"
+                phx-debounce="100"
+                name="cat_search"
+                type="text"
+                value={@name}
+                placeholder="Wpisz imię kota"
+                class="border border-gray rounded-lg text-sm"
               />
             </div>
-          </div>
-        </form>
+
+            <div class="flex flex-col space-y-4">
+              <h3 class="font-bold text-primary text-sm">Tagi</h3>
+              <input
+                type="text"
+                value={@tag}
+                name="tag_search"
+                phx-debounce="100"
+                id="tagSearch"
+                placeholder="Wpisz cechę kota"
+                class="border border-gray rounded-lg text-sm"
+              />
+            </div>
+            <div class="flex flex-col space-y-4">
+              <h3 class="font-bold text-primary text-sm">Płeć</h3>
+              <div class="flex flex-col space-y-6">
+                <div :for={sex <- Sex.all()}>
+                  <input
+                    type="checkbox"
+                    name={sex |> Atom.to_string() |> String.downcase()}
+                    checked={String.downcase(sex |> Atom.to_string()) in @genders}
+                    class="mr-3.5 border-gray rounded"
+                  />
+                  <label class="text-sm"><%= Sex.to_string(sex) |> String.downcase() %></label>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-col space-y-4">
+              <h3 class="font-bold text-primary text-sm">Wiek</h3>
+              <div class="flex flex-col space-y-6">
+                <div :for={age <- Seniority.all()}>
+                  <input
+                    type="checkbox"
+                    name={age |> Atom.to_string() |> String.downcase()}
+                    checked={String.downcase(age |> Atom.to_string()) in @ages}
+                    class="mr-3.5 border-gray rounded"
+                  />
+                  <label class="text-sm">
+                    <%= Seniority.to_string(age) |> String.downcase() %>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-col space-y-4">
+              <h3 class="font-bold text-primary text-sm">Wiek</h3>
+              <div class="flex flex-col space-y-6">
+                <div :for={color <- Color.all()}>
+                  <input
+                    type="checkbox"
+                    name={color |> Atom.to_string() |> String.downcase()}
+                    checked={String.downcase(color |> Atom.to_string()) in @colors}
+                    class="mr-3.5 border-gray rounded"
+                  />
+                  <label class="text-sm">
+                    <%= Color.to_string(color) |> String.downcase() %>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-col space-y-4">
+              <h3 class="font-bold text-primary text-sm">Kastracja / sterylizacja</h3>
+              <div>
+                <input
+                  name="is_castrated"
+                  checked={@castrated == true}
+                  type="checkbox"
+                  class="mr-3.5 border-gray rounded"
+                />
+                <label class="text-sm">po zabiegu</label>
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  checked={@castrated == false}
+                  name="not_castrated"
+                  class="mr-3.5 border-gray rounded"
+                />
+                <label class="text-sm">przed zabiegiem</label>
+              </div>
+            </div>
+
+            <div class="flex-col flex space-y-4">
+              <h3 class="font-bold text-primary">Data</h3>
+              <div class=" text-gray-500 text-center w-full space-y-6">
+                <input
+                  class="border-gray rounded-lg border w-28"
+                  name="date_from"
+                  value={@date_from}
+                  type="date"
+                /> -
+                <input
+                  class="border-gray rounded-lg border w-28"
+                  name="date_to"
+                  value={@date_to}
+                  type="date"
+                />
+              </div>
+            </div>
+          </form>
+        </.drawer>
       </div>
       <div class="gap-x-16 gap-y-10 flex flex-wrap lg:justify-start justify-center h-min">
         <.cat_card

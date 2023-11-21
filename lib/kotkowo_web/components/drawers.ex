@@ -19,29 +19,31 @@ defmodule KotkowoWeb.Components.Drawers do
   def drawer(assigns) do
     ~H"""
     <div>
-    <div
-      class={classes(["border rounded-xl xl:w-[757px] flex flex-col cursor-pointer select-none", @class])}
-      x-data={'{folded: #{@folded}}'}
-    >
       <div
-        class="p-6 flex justify-between align-center"
-        x-bind:class="!folded && 'pb-3'"
-        x-on:click="folded = !folded"
+        class={
+          classes(["border rounded-xl xl:w-[757px] flex flex-col cursor-pointer select-none", @class])
+        }
+        x-data={~c"{folded: #{@folded}}"}
       >
-        <span class={@title_class}><%= @title %></span>
-        <template x-if="folded">
-          <.icon name="chevron_down" class="w-4 lg:w-5 h-3 lg:h-4 my-auto" />
-        </template>
-        <template x-if="!folded">
-          <.icon name="chevron_up" class="w-4 lg:w-5 h-3 lg:h-4 my-auto" />
-        </template>
+        <div
+          class="p-6 flex justify-between align-center"
+          x-bind:class="!folded && 'pb-3'"
+          x-on:click="folded = !folded"
+        >
+          <span class={@title_class}><%= @title %></span>
+          <template x-if="folded">
+            <.icon name="chevron_down" class="w-4 lg:w-5 h-3 lg:h-4 my-auto" />
+          </template>
+          <template x-if="!folded">
+            <.icon name="chevron_up" class="w-4 lg:w-5 h-3 lg:h-4 my-auto" />
+          </template>
+        </div>
+        <div class="pl-6 pr-12 pb-6 select-text cursor-text xl:text-lg" x-show="!folded" x-transition>
+          <%= render_slot(@inner_block) %>
+        </div>
       </div>
-      <div class="pl-6 pr-12 pb-6 select-text cursor-text xl:text-lg" x-show="!folded" x-transition>
-        <%= render_slot(@inner_block) %>
-      </div>
-    </div>
       <div class={@class_when_hidden}>
-         <%= render_slot(@inner_block)%> 
+        <%= render_slot(@inner_block) %>
       </div>
     </div>
     """

@@ -2,6 +2,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
   @moduledoc false
   use KotkowoWeb, :live_view
 
+  import KotkowoWeb.Components.Drawers
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
 
   alias Kotkowo.Attributes.Color
