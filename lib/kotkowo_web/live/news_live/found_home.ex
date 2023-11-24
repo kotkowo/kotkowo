@@ -14,16 +14,11 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
   @first_page 1
   @default_limit 30
   @impl true
-  def mount(params, _session, socket) do
-    limit = params |> Map.get("limit", Integer.to_string(@default_limit)) |> String.to_integer() |> abs()
+  def mount(_params, _session, socket) do
     {:ok, adopted_cats} = StrapiClient.list_adopted_cats()
-    {:ok, max_page} = StrapiClient.list_adopted_cats_pages(limit)
-    max_page = max(1, max_page)
 
     socket =
-      socket
-      |> assign(:max_page, max_page)
-      |> assign(:adopted_cats, adopted_cats)
+      assign(socket, :adopted_cats, adopted_cats)
 
     {:ok, socket}
   end

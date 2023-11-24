@@ -15,16 +15,11 @@ defmodule KotkowoWeb.NewsLive.PassedAway do
   @first_page 1
   @default_limit 30
   @impl true
-  def mount(params, _session, socket) do
-    limit = params |> Map.get("limit", Integer.to_string(@default_limit)) |> String.to_integer() |> abs()
+  def mount(_params, _session, socket) do
     {:ok, passed_away} = StrapiClient.list_cats(true)
-    {:ok, max_page} = StrapiClient.list_cats_pages(true, limit)
-    max_page = max(1, max_page)
 
     socket =
-      socket
-      |> assign(:max_page, max_page)
-      |> assign(:passed_away, passed_away)
+      assign(socket, :passed_away, passed_away)
 
     {:ok, socket}
   end
