@@ -1,0 +1,136 @@
+<.section class="mt-6 xl:mt-0 px-6 xl:px-0">
+  <.breadcrumb>
+    <:crumb disabled={true}>
+      Adopcja
+    </:crumb>
+    <:crumb navigate={~p"/adopcja/zasady-adopcji"} active>
+      Zasady Adopcji
+    </:crumb>
+  </.breadcrumb>
+  <h1 class="text-primary font-manrope text-center mb-12 font-extrabold xl:text-4xl text-2xl">
+    Jak wygląda proces adopcyjny?
+  </h1>
+
+  <.steps>
+    <.step>Sprawdź, które koty aktualnie szukają domów.</.step>
+    <.step>Wypełnij ankietę przedadopcyjną i czekaj na odpowiedź.</.step>
+    <.step>Umów się na wizytę przedadopcyjną.</.step>
+    <.step>Przygotuj dom na przyjazd kota i przeczytaj umowę adopcyjną.</.step>
+  </.steps>
+</.section>
+<.section>
+  <div class="flex flex-col px-2">
+    <h2 class="mx-auto mb-10 text-primary font-manrope font-bold xl:font-extrabold text-2xl xl:text-4xl">
+      <%= gettext("Pilnie szukają domu") %>
+    </h2>
+
+    <div
+      class="overflow-x-auto snap-x lg:snap-none lg:overflow-hidden lg:mx-auto"
+      x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
+    >
+      <div class="flex flex-row space-x-4 xl:space-x-7 m-auto">
+        <.cat_card
+          name="Puszek"
+          share_href="#"
+          src={~p"/images/puszek.png"}
+          sex={:male}
+          seniority={:junior}
+          health_status={:examined_and_vaccinated}
+          castrated={false}
+          tags={[gettext("Mruczek"), gettext("Wielbiciel kolan")]}
+        />
+
+        <.cat_card
+          name="Bonifacy"
+          share_href="#"
+          src={~p"/images/bonifacy.png"}
+          sex={:male}
+          seniority={:adult}
+          health_status={:examined_and_vaccinated}
+          castrated={true}
+          tags={[gettext("Spokojny"), gettext("Śpioch")]}
+        />
+
+        <.cat_card
+          name="Elza"
+          share_href="#"
+          src={~p"/images/elza.png"}
+          sex={:female}
+          seniority={:junior}
+          health_status={:examined_and_vaccinated}
+          castrated={true}
+          tags={[gettext("Żywiołowy"), gettext("Lubi zabawę")]}
+        />
+      </div>
+    </div>
+
+    <.button href="#" type="outline" class="mx-auto mt-10">
+      <%= gettext("Zobacz wszystkie") %>
+    </.button>
+  </div>
+</.section>
+<.section class="gap-y-16 flex flex-col">
+  <div class="flex flex-row justify-between">
+    <div class="flex flex-col w-[646px] px-4 gap-y-6">
+      <h1 class="text-primary font-manrope font-extrabold text-6xl">
+        Zasady kotkowa
+      </h1>
+      <div class="text-lg space-y-1">
+        <p>
+          1. Nie handlujemy zwierzętami. Nie sprzedajemy kotów ani ich nie kupujemy.
+        </p>
+        <p>
+          2. Pomagamy przede wszystkim kotom bezdomnym, wolno żyjącym w Białymstoku lub najbliższych okolicach.
+        </p>
+        <p>
+          3. Nie przyjmujemy do Domów Tymczasowych potomstwa kotek, które zostały rozmnożone w domu.
+        </p>
+        <p>
+          4. Nie finansujemy nieodpowiedzialności. Warunkiem pomocy w adopcji kociaków jest zawsze sterylizacja kociej mamy.
+        </p>
+        <p>
+          5. Jeżeli pośredniczymy w adopcjach kotków — wymagamy podpisania umowy adopcyjnej z zobowiązaniem do sterylizacji/kastracji zwierzaczka - wzór umowy adopcyjnej.
+        </p>
+        <p>
+          6. Nie wysyłamy kotów pocztą, kurierem itp. Jeżeli chcesz przygarnąć kotka — musimy spotkać się osobiście.
+        </p>
+        <p>
+          7. Chcemy pomóc, ale czasem mamy też swoje sprawy. Dlatego czasem ciężko się do nas dodzwonić, a zdarza się, że na maila odpowiadamy późno wieczorem lub następnego dnia.
+        </p>
+        <p>
+          8. Nasza działalność jest transparentna. Zawsze możesz zajrzeć do dokumentacji kotkowa.
+        </p>
+      </div>
+      <div class="flex flex-col gap-y-4">
+        <.button class="" navigate={~p"/adopcja/szukaja-domu"}>Zobacz koty do adopcji</.button>
+
+        <.button class="" type="outline">Wypełnij ankietę adopcyjną</.button>
+      </div>
+    </div>
+    <img
+      src={~p"/images/rules_kitty_placeholder.png"}
+      class="object-cover w-[536px] h-[688px] rounded-2xl"
+    />
+  </div>
+  <div class="flex flex-row justify-between">
+    <img
+      class="object-cover w-[535px] h-[362px] rounded-2xl"
+      src={~p"/images/give_cat_what_is_free.png"}
+    />
+    <div class="flex flex-col w-[648px] gap-y-8 text-lg">
+      <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl">
+        Daj kotu dom, to nic nie kosztuje
+      </h1>
+      <p>
+        Koty pozostające pod naszą opieką poszukują ciepłych, kochających, odpowiedzialnych opiekunów.
+      </p>
+      <p>
+        Adopcja kota w Kotkowie jest bezpłatna, ale zapewnij mu godziwe warunki. Musisz też podpisać z nami umowę adopcyjną.
+      </p>
+      <p>
+        Z tytułu adopcji nie pobieramy żadnych opłat, ani gratyfikacji rzeczowych, ale jeśli chcesz zostawić kotkom prezent, żeby nie było im smutno, że nie znalazły domu, możesz to zrobić. Chętnie przyjmą karmę lub inny prezent.
+      </p>
+    </div>
+  </div>
+</.section>
+<.how_you_can_help />
