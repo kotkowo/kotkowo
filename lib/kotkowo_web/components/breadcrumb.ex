@@ -5,6 +5,7 @@ defmodule KotkowoWeb.Components.Breadcrumb do
   slot :crumb do
     attr :navigate, :string
     attr :active, :boolean
+    attr :disabled, :boolean
   end
 
   def breadcrumb(assigns) do
@@ -17,7 +18,7 @@ defmodule KotkowoWeb.Components.Breadcrumb do
       </div>
       <div :for={crumb <- @crumb} class="flex gap-x-2 items-center">
         <span class="mb-0.5">&gt;</span>
-        <.link navigate={crumb[:navigate]} class={[crumb[:active] && "font-bold pointer-events-none"]}>
+        <.link navigate={crumb[:navigate]} class={[crumb[:active] && "font-bold pointer-events-none", crumb[:disabled] && "pointer-events-none"]}>
           <%= render_slot(crumb) %>
         </.link>
       </div>
