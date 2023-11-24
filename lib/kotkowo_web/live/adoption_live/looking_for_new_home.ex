@@ -310,6 +310,14 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
 
   defp items_per_page, do: [30, 60, 90]
 
+  defp cats_amount_string(amount) do
+    cond do
+      amount == 1 -> "#{amount} kot"
+      amount in [2, 3, 4] -> "#{amount} koty"
+      amount > 4 -> "#{amount} kotów"
+    end
+  end
+
   def pagination_bar(assigns) do
     assigns =
       assigns
