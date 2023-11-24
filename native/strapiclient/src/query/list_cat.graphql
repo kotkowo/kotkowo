@@ -12,6 +12,11 @@ meta {
     data {
       id
       attributes {
+        adopted_cat {
+          data {
+            id
+          }
+        }
         slug
         images {
           data {

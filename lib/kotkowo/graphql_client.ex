@@ -4,8 +4,9 @@ defmodule Kotkowo.StrapiClient do
     otp_app: :kotkowo,
     crate: :strapiclient
 
-  def list_cats(_is_dead \\ false, _limit \\ nil, _offset \\ nil), do: :erlang.nif_error(:nif_not_loaded)
-  def list_cats_pages(_is_dead \\ false, _limit \\ nil, _offset \\ nil), do: :erlang.nif_error(:nif_not_loaded)
+  def list_cats(_is_dead \\ false, _is_adopted \\ nil, _limit \\ nil, _offset \\ nil),
+    do: :erlang.nif_error(:nif_not_loaded)
+
   def list_adopted_cats(_limit \\ nil, _offset \\ nil), do: :erlang.nif_error(:nif_not_loaded)
   def list_adopted_cats_pages(_number \\ nil, _offset \\ nil), do: :erlang.nif_error(:nif_not_loaded)
   def list_announcements(_number \\ nil, _offset \\ nil), do: :erlang.nif_error(:nif_not_loaded)

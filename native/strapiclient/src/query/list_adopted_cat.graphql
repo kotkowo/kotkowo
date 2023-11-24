@@ -1,5 +1,5 @@
 query AdoptedCatListQuery($limit:Int, $offset:Int) {
-  adoptedCats ( filters: {cat: {is_dead: {eq: false} }}, pagination: { limit: $limit, start: $offset }
+  cats ( filters: {is_dead: {eq: false}, adopted_cat: {id: {ne: null}} }, pagination: { limit: $limit, start: $offset }
     sort: "updatedAt:desc"
 ){
 meta {
@@ -12,15 +12,19 @@ meta {
     data{
       id
       attributes {
-        adoption_date
-        cat {
-      		    data {
-      id
-      attributes {
         slug
+        adopted_cat {
+          data {
+            id
+            attributes { 
+            	adoption_date
+            }
+          }
+        }
         images {
           data {
             attributes {
+            
               image {
                 data {
                   attributes {
@@ -60,6 +64,6 @@ meta {
 
         }
       }
-    }
-  }
-}
+    
+  
+

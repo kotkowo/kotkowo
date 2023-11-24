@@ -51,7 +51,12 @@ fn run_query<QB: serde::Serialize, R: for<'a> serde::Deserialize<'a>>(
 }
 
 #[rustler::nif]
-fn list_cats(is_dead: Option<bool>, limit: Option<i64>, offset: Option<i64>) -> Result<Vec<Cat>> {
+fn list_cats(
+    is_dead: Option<bool>,
+    is_adopted: Option<bool>,
+    limit: Option<i64>,
+    offset: Option<i64>,
+) -> Result<Vec<Cat>> {
     let query = CatListQuery::build_query(CatListVariables {
         limit,
         offset,
@@ -63,31 +68,24 @@ fn list_cats(is_dead: Option<bool>, limit: Option<i64>, offset: Option<i64>) -> 
         }) => cats.try_into()?,
         _ => Err(Error::MissingData)?,
     };
-
-    Ok(cat)
-}
-#[rustler::nif]
-fn list_cats_pages(is_dead: Option<bool>, limit: Option<i64>, offset: Option<i64>) -> Result<i64> {
-    let query = CatListQuery::build_query(CatListVariables {
-        limit,
-        offset,
-        is_dead,
-    });
-    let pages: i64 = match run_query(&query)?.data {
-        Some(CatListResponseData {
-            cats: Some(cats), ..
-        }) => cats.meta.pagination.page_count,
-        _ => Err(Error::MissingData)?,
-    };
-
-    Ok(pages)
+    let filtered_cats: Vec<Cat> = cat
+        .into_iter()
+        .filter(|c| {
+            if let Some(value) = is_adopted {
+                c.is_adopted == value
+            } else {
+                true
+            }
+        })
+        .collect();
+    Ok(filtered_cats)
 }
 #[rustler::nif]
 fn list_adopted_cats(limit: Option<i64>, offset: Option<i64>) -> Result<Vec<AdoptedCat>> {
     let query = AdoptedCatListQuery::build_query(AdoptedCatListVariables { limit, offset });
     let cat: Vec<AdoptedCat> = match run_query(&query)?.data {
         Some(AdoptedCatResponseData {
-            adopted_cats: Some(adopted_cats),
+            cats: Some(adopted_cats),
             ..
         }) => adopted_cats.try_into()?,
         _ => Err(Error::MissingData)?,
@@ -101,7 +99,7 @@ fn list_adopted_cats_pages(limit: Option<i64>, offset: Option<i64>) -> Result<i6
     let query = AdoptedCatListQuery::build_query(AdoptedCatListVariables { limit, offset });
     let pages: i64 = match run_query(&query)?.data {
         Some(AdoptedCatResponseData {
-            adopted_cats: Some(adopted_cats),
+            cats: Some(adopted_cats),
             ..
         }) => adopted_cats.meta.pagination.page_count,
         _ => Err(Error::MissingData)?,
@@ -177,6 +175,5 @@ rustler::init!(
         get_article_for_announcement,
         get_announcement_list_pages,
         list_adopted_cats_pages,
-        list_cats_pages,
     ]
 );

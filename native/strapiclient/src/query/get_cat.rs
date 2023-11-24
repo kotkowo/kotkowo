@@ -67,6 +67,11 @@ impl TryFrom<CatGetQueryCats> for Cat {
 
                 let gallery = gallery?;
                 let tags = tags?;
+                
+                let is_adopted = attributes.adopted_cat
+                    .ok_or_else(|| Error::AttributeMissing("cat.adoptedcat".to_string()))?
+                    .data.is_some();
+
 
                 Ok(Cat {
                     id,
@@ -76,6 +81,7 @@ impl TryFrom<CatGetQueryCats> for Cat {
                     description_heading: attributes.description_heading,
                     description: attributes.description,
                     slug: attributes.slug,
+                    is_adopted,
                     sex: attributes.sex.into(),
                     is_dead: attributes.is_dead,
                     age: attributes.age.into(),
