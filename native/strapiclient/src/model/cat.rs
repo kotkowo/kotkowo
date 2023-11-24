@@ -15,6 +15,7 @@ pub struct Cat {
     pub created_at: Option<DateTime>,
     pub updated_at: Option<DateTime>,
     pub published_at: Option<DateTime>,
+    pub is_adopted: bool,
     pub sex: Sex,
     pub age: Age,
     pub is_dead: bool,

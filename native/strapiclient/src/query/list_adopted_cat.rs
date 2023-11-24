@@ -16,32 +16,21 @@ use graphql_client::GraphQLQuery;
     response_derives = "Debug,Clone"
 )]
 pub struct AdoptedCatListQuery;
-impl TryFrom<AdoptedCatListQueryAdoptedCats> for Vec<AdoptedCat> {
+impl TryFrom<AdoptedCatListQueryCats> for Vec<AdoptedCat> {
     type Error = Error;
 
-    fn try_from(value: AdoptedCatListQueryAdoptedCats) -> Result<Self> {
-        let adopted_cats: Result<Vec<AdoptedCat>> = value.data.into_iter().map(|adopted_cat| {
-            let id: usize = adopted_cat
+    fn try_from(value: AdoptedCatListQueryCats) -> Result<Self> {
+        let adopted_cats: Result<Vec<AdoptedCat>> = value.data.into_iter().map(|cat| {
+            let id: usize = cat
                 .id
                 .ok_or_else(|| Error::AttributeMissing("CatListQuery.data.[n].id".to_string()))?
                 .parse()?;
-            let adopted_attributes = adopted_cat.attributes.ok_or_else(|| {
+            let attributes = cat.attributes.ok_or_else(|| {
                 Error::AttributeMissing("adoptedcatlistquery.data.[n].attributes".to_string())
             })?;
-            let cat: Result<Cat> = {
-                let inner_cat = adopted_attributes.cat.ok_or_else(|| {
-                    Error::AttributeMissing(
-                        "adoptedcatlistquery.data.[n].attributes.cat".to_string(),
-                    )
-                })?.data.ok_or_else(|| Error::AttributeMissing("adopted_cat.cat.data".to_string()))?;
-                let id: usize = inner_cat
-                .id
-                .ok_or_else(|| Error::AttributeMissing("CatListQuery.data.[n].id".to_string()))?
-                .parse()?;
+            let built_cat: Result<Cat> = {
+               
 
-                let attributes = inner_cat
-                    .attributes
-                    .ok_or_else(|| Error::AttributeMissing("innercat.attributes".to_string()))?;
                 let gallery: Result<Vec<GalleryImage>> = attributes
                     .images
                     .ok_or_else(|| {
@@ -87,6 +76,7 @@ impl TryFrom<AdoptedCatListQueryAdoptedCats> for Vec<AdoptedCat> {
                     description_heading: attributes.description_heading,
                     description: attributes.description,
                     slug: attributes.slug,
+                    is_adopted: true,
                     sex: attributes.sex.into(),
                     age: attributes.age.into(),
                     color: attributes.color.into(),
@@ -101,10 +91,17 @@ impl TryFrom<AdoptedCatListQueryAdoptedCats> for Vec<AdoptedCat> {
                 })
 
             };
+            let adopted_attributes = attributes.adopted_cat.ok_or_else(|| {
+                Error::AttributeMissing("cat.adoptedcat".to_string())
+            })?.data.ok_or_else(|| {
+                Error::AttributeMissing("cat.adoptedcat.data".to_string())
+            })?.attributes.ok_or_else(|| {
+                Error::AttributeMissing("cat.adoptedcat.data.attrs".to_string())
+            })?;
             let adoption_date = adopted_attributes.adoption_date;
             Ok(AdoptedCat {
                 id,
-                cat: cat?,
+                cat: built_cat?,
                 adoption_date
             })
         }).collect();
@@ -208,7 +205,7 @@ impl From<ENUM_CAT_MEDICAL_STATUS> for MedicalStatus {
     }
 }
 
-impl TryInto<String> for AdoptedCatListQueryAdoptedCatsDataAttributesCatDataAttributesCatTagsData {
+impl TryInto<String> for AdoptedCatListQueryCatsDataAttributesCatTagsData {
     type Error = Error;
 
     fn try_into(self) -> Result<String> {

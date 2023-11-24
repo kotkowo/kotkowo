@@ -4938,16 +4938,6 @@
             {
               "defaultValue": null,
               "description": null,
-              "name": "cat",
-              "type": {
-                "kind": "INPUT_OBJECT",
-                "name": "CatFiltersInput",
-                "ofType": null
-              }
-            },
-            {
-              "defaultValue": null,
-              "description": null,
               "name": "adoption_date",
               "type": {
                 "kind": "INPUT_OBJECT",
@@ -5037,16 +5027,6 @@
             {
               "defaultValue": null,
               "description": null,
-              "name": "cat",
-              "type": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              }
-            },
-            {
-              "defaultValue": null,
-              "description": null,
               "name": "adoption_date",
               "type": {
                 "kind": "SCALAR",
@@ -5074,18 +5054,6 @@
           "description": null,
           "enumValues": null,
           "fields": [
-            {
-              "args": [],
-              "deprecationReason": null,
-              "description": null,
-              "isDeprecated": false,
-              "name": "cat",
-              "type": {
-                "kind": "OBJECT",
-                "name": "CatEntityResponse",
-                "ofType": null
-              }
-            },
             {
               "args": [],
               "deprecationReason": null,
@@ -6683,6 +6651,16 @@
             {
               "defaultValue": null,
               "description": null,
+              "name": "adopted_cat",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "AdoptedCatFiltersInput",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
               "name": "createdAt",
               "type": {
                 "kind": "INPUT_OBJECT",
@@ -6904,6 +6882,16 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Boolean",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "adopted_cat",
+              "type": {
+                "kind": "SCALAR",
+                "name": "ID",
                 "ofType": null
               }
             },
@@ -7211,6 +7199,18 @@
                   "name": "Boolean",
                   "ofType": null
                 }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "adopted_cat",
+              "type": {
+                "kind": "OBJECT",
+                "name": "AdoptedCatEntityResponse",
+                "ofType": null
               }
             },
             {

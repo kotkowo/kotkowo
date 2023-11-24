@@ -66,7 +66,13 @@ impl TryFrom<CatListQueryCats> for Vec<Cat> {
 
                 let gallery = gallery?;
                 let tags = tags?;
-
+                let is_adopted = attributes.adopted_cat
+                    .ok_or_else(|| Error::AttributeMissing("cat.adoptedcat".to_string()))?
+                 .data;
+                let is_adopted = match is_adopted {
+                    None => false,
+                    Some(_) => true,
+                };
                 Ok(Cat {
                     id,
                     gallery,
@@ -75,6 +81,7 @@ impl TryFrom<CatListQueryCats> for Vec<Cat> {
                     description_heading: attributes.description_heading,
                     description: attributes.description,
                     slug: attributes.slug,
+                    is_adopted,
                     sex: attributes.sex.into(),
                     color: attributes.color.into(),
                     age: attributes.age.into(),

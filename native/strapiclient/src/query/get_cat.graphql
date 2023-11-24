@@ -27,6 +27,11 @@ query CatGetQuery($slug: String) {
             }
           }
         }
+        adopted_cat {
+          data {
+            id
+          }
+        }
         name
 		sex
         age
