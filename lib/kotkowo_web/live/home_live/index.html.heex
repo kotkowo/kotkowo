@@ -15,7 +15,9 @@
           "Od 2007 r. opiekujemy się bezdomnymi kotami, m.in. znajdujemy domy zwierzakom z Białegostoku i okolic."
         ) %>
       </h3>
-      <.button href="#"><%= gettext("Zobacz koty do adopcji") %></.button>
+      <.button navigate={~p"/adopcja/szukaja-domu"}>
+        <%= gettext("Zobacz koty do adopcji") %>
+      </.button>
     </div>
   </div>
 </.section>
@@ -32,41 +34,20 @@
     >
       <div class="flex flex-row space-x-4 xl:space-x-7 m-auto">
         <.cat_card
-          name="Puszek"
+          :for={cat <- @in_need_of_a_new_home}
+          name={cat.cat.name}
           share_href="#"
-          src={~p"/images/puszek.png"}
-          sex={:male}
-          seniority={:junior}
+          src={cat.cat.gallery |> hd() |> GalleryImage.url()}
+          sex={cat.cat.sex.value}
+          seniority={cat.cat.age.value}
           health_status={:examined_and_vaccinated}
-          castrated={false}
-          tags={[gettext("Mruczek"), gettext("Wielbiciel kolan")]}
-        />
-
-        <.cat_card
-          name="Bonifacy"
-          share_href="#"
-          src={~p"/images/bonifacy.png"}
-          sex={:male}
-          seniority={:adult}
-          health_status={:examined_and_vaccinated}
-          castrated={true}
-          tags={[gettext("Spokojny"), gettext("Śpioch")]}
-        />
-
-        <.cat_card
-          name="Elza"
-          share_href="#"
-          src={~p"/images/elza.png"}
-          sex={:female}
-          seniority={:junior}
-          health_status={:examined_and_vaccinated}
-          castrated={true}
-          tags={[gettext("Żywiołowy"), gettext("Lubi zabawę")]}
+          castrated={cat.cat.castrated.value}
+          tags={cat.cat.tags}
         />
       </div>
     </div>
 
-    <.button href="#" type="outline" class="mx-auto mt-10">
+    <.button navigate={~p"/adopcja/szukaja-domu"} type="outline" class="mx-auto mt-10">
       <%= gettext("Zobacz wszystkie") %>
     </.button>
   </div>
@@ -124,7 +105,7 @@
           title={news.title}
           news_id={news.id}
           tags={news.tags}
-          src={Kotkowo.GalleryImage.url(news.image)}
+          src={GalleryImage.url(news.image)}
           class="w-[345px] h-[360px]"
         />
       </div>
