@@ -7,18 +7,32 @@
       Zasady Adopcji
     </:crumb>
   </.breadcrumb>
-  <h1 class="text-primary font-manrope text-center mb-12 font-extrabold xl:text-4xl text-2xl">
+  <h1 class="text-primary font-manrope text-start lg:text-center mb-12 font-bold lg:font-extrabold xl:text-4xl text-2xl">
     Jak wygląda proces adopcyjny?
   </h1>
 
   <.steps>
-    <.step>Sprawdź, które koty aktualnie szukają domów.</.step>
-    <.step>Wypełnij ankietę przedadopcyjną i czekaj na odpowiedź.</.step>
+    <.step>
+      Sprawdź, które koty aktualnie
+      <.link class="underline text-primary font-bold" navigate={~p"/adopcja/szukaja-domu"}>
+        szukają domów.
+      </.link>
+    </.step>
+    <.step>
+      Wypełnij
+      <.link class="underline text-primary font-bold" navigate={~p"/"}>
+        ankietę przedadopcyjną
+      </.link>
+      i czekaj na odpowiedź.
+    </.step>
     <.step>Umów się na wizytę przedadopcyjną.</.step>
-    <.step>Przygotuj dom na przyjazd kota i przeczytaj umowę adopcyjną.</.step>
+    <.step>Przygotuj dom na przyjazd kota i przeczytaj 
+      <.link class="underline text-primary font-bold" navigate={~p"/adopcja/szukaja-domu"}>
+      umowę adopcyjną.
+      </.link></.step>
   </.steps>
 </.section>
-<.section>
+<.section class="mt-6 xl:mt-0 xl:px-0">
   <div class="flex flex-col px-2">
     <h2 class="mx-auto mb-10 text-primary font-manrope font-bold xl:font-extrabold text-2xl xl:text-4xl">
       <%= gettext("Pilnie szukają domu") %>
@@ -30,36 +44,15 @@
     >
       <div class="flex flex-row space-x-4 xl:space-x-7 m-auto">
         <.cat_card
-          name="Puszek"
+          :for={cat <- @in_need_of_a_new_home}
+          name={cat.cat.name}
           share_href="#"
-          src={~p"/images/puszek.png"}
-          sex={:male}
-          seniority={:junior}
+          src={cat.cat.gallery |> hd() |> GalleryImage.url()}
+          sex={cat.cat.sex.value}
+          seniority={cat.cat.age.value}
           health_status={:examined_and_vaccinated}
-          castrated={false}
-          tags={[gettext("Mruczek"), gettext("Wielbiciel kolan")]}
-        />
-
-        <.cat_card
-          name="Bonifacy"
-          share_href="#"
-          src={~p"/images/bonifacy.png"}
-          sex={:male}
-          seniority={:adult}
-          health_status={:examined_and_vaccinated}
-          castrated={true}
-          tags={[gettext("Spokojny"), gettext("Śpioch")]}
-        />
-
-        <.cat_card
-          name="Elza"
-          share_href="#"
-          src={~p"/images/elza.png"}
-          sex={:female}
-          seniority={:junior}
-          health_status={:examined_and_vaccinated}
-          castrated={true}
-          tags={[gettext("Żywiołowy"), gettext("Lubi zabawę")]}
+          castrated={cat.cat.castrated.value}
+          tags={cat.cat.tags}
         />
       </div>
     </div>
@@ -69,13 +62,13 @@
     </.button>
   </div>
 </.section>
-<.section class="gap-y-16 flex flex-col">
-  <div class="flex flex-row justify-between">
-    <div class="flex flex-col w-[646px] px-4 gap-y-6">
-      <h1 class="text-primary font-manrope font-extrabold text-6xl">
+<.section class="lg:gap-y-16 gap-y-6 flex flex-col mt-6 xl:mt-0 px-6 xl:px-0">
+  <div class="flex flex-col gap-y-16 items-center lg:gap-y-0 lg:flex-row justify-between">
+    <div class="flex flex-col lg:w-[646px] gap-y-6">
+      <h1 class="text-primary font-manrope font-bold lg:font-extrabold text-3xl lg:text-6xl">
         Zasady kotkowa
       </h1>
-      <div class="text-lg space-y-1">
+      <div class="text-lg space-y-1 flex flex-wrap">
         <p>
           1. Nie handlujemy zwierzętami. Nie sprzedajemy kotów ani ich nie kupujemy.
         </p>
@@ -109,16 +102,16 @@
     </div>
     <img
       src={~p"/images/rules_kitty_placeholder.png"}
-      class="object-cover w-[536px] h-[688px] rounded-2xl"
+      class="object-cover items-center w-[312px] -mt-6 lg:w-[536px] h-[363px] lg:h-[688px] rounded-2xl"
     />
   </div>
-  <div class="flex flex-row justify-between">
+  <div class="flex lg:flex-row flex-col-reverse items-center justify-between">
     <img
-      class="object-cover w-[535px] h-[362px] rounded-2xl"
+      class="object-cover w-[312px] lg:w-[535px] h-[363px] lg:h-[362px] lg-mt-0 mt-6 rounded-2xl"
       src={~p"/images/give_cat_what_is_free.png"}
     />
-    <div class="flex flex-col w-[648px] gap-y-8 text-lg">
-      <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl">
+    <div class="flex flex-col lg:w-[648px] gap-y-8 lg:mt-0 mt-6 text-lg">
+      <h1 class="text-primary font-manrope font-bold lg:font-extrabold xl:text-4xl text-2xl">
         Daj kotu dom, to nic nie kosztuje
       </h1>
       <p>

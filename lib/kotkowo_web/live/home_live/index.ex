@@ -5,6 +5,7 @@ defmodule KotkowoWeb.HomeLive.Index do
 
   import KotkowoWeb.Components.Steps
 
+  alias Kotkowo.GalleryImage
   alias Kotkowo.StrapiClient
 
   require Logger
@@ -21,7 +22,12 @@ defmodule KotkowoWeb.HomeLive.Index do
           :error
       end
 
-    socket = assign(socket, :news, news)
+    {:ok, in_need_of_a_new_home} = StrapiClient.list_adopted_cats(3)
+
+    socket =
+      socket
+      |> assign(:news, news)
+      |> assign(:in_need_of_a_new_home, in_need_of_a_new_home)
 
     {:ok, socket}
   end
