@@ -315,6 +315,7 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
       amount == 1 -> "#{amount} kot"
       amount in [2, 3, 4] -> "#{amount} koty"
       amount > 4 -> "#{amount} kotów"
+      true -> "0 kotów"
     end
   end
 
