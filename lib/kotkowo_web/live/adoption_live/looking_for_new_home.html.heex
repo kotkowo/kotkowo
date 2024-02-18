@@ -94,7 +94,7 @@
                 phx-debounce="100"
                 name="cat_search"
                 type="text"
-                value={@name}
+                value={@query_params.name}
                 placeholder="Wpisz imię kota"
                 class="border border-gray rounded-lg text-sm"
               />
@@ -104,7 +104,7 @@
               <h3 class="font-bold text-primary text-sm">Tagi</h3>
               <input
                 type="text"
-                value={@tag}
+                value={@query_params.tag}
                 name="tag_search"
                 phx-debounce="100"
                 id="tagSearch"
@@ -114,15 +114,15 @@
             </div>
             <div class="flex flex-col space-y-4">
               <h3 class="font-bold text-primary text-sm">Płeć</h3>
-              <div class="flex flex-col space-y-6">
+              <div class="flex flex-col space-y-6 lowercase">
                 <div :for={sex <- Sex.all()}>
                   <input
                     type="checkbox"
-                    name={sex |> Atom.to_string() |> String.downcase()}
-                    checked={String.downcase(sex |> Atom.to_string()) in @genders}
+                    name={sex |> Atom.to_string()}
+                    checked={Atom.to_string(sex) in @query_params.sexes}
                     class="mr-3.5 border-gray rounded"
                   />
-                  <label class="text-sm"><%= Sex.to_string(sex) |> String.downcase() %></label>
+                  <label class="text-sm"><%= Sex.to_string(sex) %></label>
                 </div>
               </div>
             </div>
@@ -130,15 +130,15 @@
             <div class="flex flex-col space-y-4">
               <h3 class="font-bold text-primary text-sm">Wiek</h3>
               <div class="flex flex-col space-y-6">
-                <div :for={age <- Seniority.all()}>
+                <div :for={age <- Seniority.all()} class="lowercase">
                   <input
                     type="checkbox"
-                    name={age |> Atom.to_string() |> String.downcase()}
-                    checked={String.downcase(age |> Atom.to_string()) in @ages}
+                    name={age |> Atom.to_string()}
+                    checked={Atom.to_string(age) in @query_params.seniority}
                     class="mr-3.5 border-gray rounded"
                   />
                   <label class="text-sm">
-                    <%= Seniority.to_string(age) |> String.downcase() %>
+                    <%= Seniority.to_string(age) %>
                   </label>
                 </div>
               </div>
@@ -146,16 +146,16 @@
 
             <div class="flex flex-col space-y-4">
               <h3 class="font-bold text-primary text-sm">Kolor</h3>
-              <div class="flex flex-col space-y-6">
+              <div class="flex flex-col space-y-6 lowercase">
                 <div :for={color <- Color.all()}>
                   <input
                     type="checkbox"
-                    name={color |> Atom.to_string() |> String.downcase()}
-                    checked={String.downcase(color |> Atom.to_string()) in @colors}
+                    name={color |> Atom.to_string()}
+                    checked={Atom.to_string(color) in @query_params.colors}
                     class="mr-3.5 border-gray rounded"
                   />
                   <label class="text-sm">
-                    <%= Color.to_string(color) |> String.downcase() %>
+                    <%= Color.to_string(color) %>
                   </label>
                 </div>
               </div>
@@ -165,7 +165,7 @@
               <div>
                 <input
                   name="is_castrated"
-                  checked={@castrated == true}
+                  checked={@query_params.castrated == true}
                   type="checkbox"
                   class="mr-3.5 border-gray rounded"
                 />
@@ -174,7 +174,7 @@
               <div>
                 <input
                   type="checkbox"
-                  checked={@castrated == false}
+                  checked={@query_params.castrated == false}
                   name="not_castrated"
                   class="mr-3.5 border-gray rounded"
                 />
@@ -188,13 +188,13 @@
                 <input
                   class="border-gray rounded-lg border w-28"
                   name="date_from"
-                  value={@date_from}
+                  value={@query_params.date_from}
                   type="date"
                 /> -
                 <input
                   class="border-gray rounded-lg border w-28"
                   name="date_to"
-                  value={@date_to}
+                  value={@query_params.date_to}
                   type="date"
                 />
               </div>
@@ -216,13 +216,17 @@
     </div>
     <div class="flex flex-col lg:flex-row justify-center items-center relative">
       <div class="mt-10 lg:mt-0">
-        <.pagination_bar selected_page={@page} last_page={@max_page} />
+        <.pagination_bar selected_page={@query_params.page} last_page={@max_page} />
       </div>
       <div class="lg:absolute right-0 -order-1 self-center">
         <form phx-change="items_amount" class="">
           <label class="font-inter mr-5 text-md">Pokaż na stronie</label>
           <select name="items_per_page" class="rounded-lg">
-            <option :for={option <- items_per_page()} value={option} selected={@limit == option}>
+            <option
+              :for={option <- items_per_page()}
+              value={option}
+              selected={@query_params.limit == option}
+            >
               <%= option %>
             </option>
           </select>

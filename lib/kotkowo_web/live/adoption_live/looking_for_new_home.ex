@@ -12,7 +12,7 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
   alias Kotkowo.StrapiClient
 
   @first_page 1
-  @default_limit 30
+  @default_limit "30"
   @impl true
   def mount(_params, _session, socket) do
     {:ok, cats} = StrapiClient.list_cats(false, false)
@@ -25,13 +25,13 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
 
   @impl true
   def handle_params(params, _uri, socket) do
-    limit = params |> Map.get("limit", Integer.to_string(@default_limit)) |> String.to_integer() |> abs()
-    page = params |> Map.get("page", Integer.to_string(@first_page)) |> String.to_integer()
+    limit = params |> Map.get("limit", @default_limit) |> parse_limit()
+    page = params |> Map.get("page", Integer.to_string(@first_page)) |> parse_limit()
 
     name = params |> Map.get("name", "") |> String.downcase()
-    ages = Map.get(params, "ages", [])
-    genders = Map.get(params, "genders", [])
-    castrated = params |> Map.get("castrated", nil) |> query_to_bool()
+    seniority = Map.get(params, "seniority", [])
+    sexes = Map.get(params, "sexes", [])
+    castrated = params |> Map.get("castrated", nil) |> parse_checkbox()
     tag = params |> Map.get("tag", "") |> String.downcase()
     colors = Map.get(params, "colors", [])
     date_to = Map.get(params, "date_to", "")
@@ -42,12 +42,17 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
       |> search_tags(tag)
       |> search_names(name)
       |> filter_castrated(castrated)
-      |> filter_ages(ages)
-      |> filter_genders(genders)
+      |> filter_seniority(seniority)
+      |> filter_sexes(sexes)
       |> filter_colors(colors)
       |> filter_dates(date_from, date_to)
 
-    max_page = max(@first_page, ceil(length(filtered_cats) / limit))
+    max_page =
+      filtered_cats
+      |> length()
+      |> Kernel./(limit)
+      |> ceil()
+      |> max(@first_page)
 
     page =
       cond do
@@ -58,18 +63,22 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
 
     offset = (page - 1) * limit
 
+    query_params = %{
+      name: name,
+      tag: tag,
+      castrated: castrated,
+      seniority: seniority,
+      sexes: sexes,
+      date_from: date_from,
+      colors: colors,
+      date_to: date_to,
+      page: page,
+      limit: limit
+    }
+
     socket =
       socket
-      |> assign(:tag, tag)
-      |> assign(:name, name)
-      |> assign(:castrated, castrated)
-      |> assign(:ages, ages)
-      |> assign(:genders, genders)
-      |> assign(:date_from, date_from)
-      |> assign(:colors, colors)
-      |> assign(:date_to, date_to)
-      |> assign(:limit, limit)
-      |> assign(:page, page)
+      |> assign(:query_params, query_params)
       |> assign(:filtered_cats, Enum.slice(filtered_cats, offset, limit))
       |> assign(:max_page, max_page)
 
@@ -88,38 +97,46 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
         } = params,
         socket
       ) do
-    limit = socket.assigns |> Map.get(:limit, Integer.to_string(@default_limit)) |> abs()
-    page = Map.get(socket.assigns, :page, Integer.to_string(@first_page))
+    limit = socket.assigns.query_params |> Map.get(:limit, @default_limit) |> parse_limit()
+    page = socket.assigns.query_params |> Map.get(:page, Integer.to_string(@first_page)) |> parse_limit()
 
-    not_castrated = params |> Map.get("not_castrated", nil) |> query_to_bool()
+    not_castrated = params |> Map.get("not_castrated", nil) |> parse_checkbox()
 
     is_castrated =
       params
       |> Map.get("is_castrated", nil)
-      |> query_to_bool()
+      |> parse_checkbox()
       |> castrated_switch(not_castrated, event)
 
-    ages =
-      for key <- Seniority.all(),
-          true == params |> Map.get(Atom.to_string(key), false) |> query_to_bool(),
-          do: key
+    # create string -> atom mapping e.g. %{"senior" => :senior}
+    checkbox_mappings =
+      Enum.reduce(Seniority.all() ++ Sex.all() ++ Color.all(), %{}, &Map.put(&2, Atom.to_string(&1), &1))
 
-    genders =
-      for key <- Sex.all(),
-          true == params |> Map.get(Atom.to_string(key), false) |> query_to_bool(),
-          do: key
-
-    colors =
-      for key <- Color.all(),
-          true == params |> Map.get(Atom.to_string(key), false) |> query_to_bool(),
-          do: key
+    # take all matching key value pairs that are checkboxes
+    %{seniority: seniority, sexes: sexes, colors: colors} =
+      params
+      |> Map.take(Map.keys(checkbox_mappings))
+      # filter out only ones that evaluate to `true`  and then for each true return the atom value
+      # e.g. for %{"senior" => "true} we return [:senior]
+      |> Enum.reduce([], fn {key, val}, acc -> if parse_checkbox(val), do: [checkbox_mappings[key] | acc], else: acc end)
+      # group_by the category
+      |> Enum.group_by(fn x ->
+        cond do
+          x in Seniority.all() -> :seniority
+          x in Sex.all() -> :sexes
+          x in Color.all() -> :colors
+        end
+      end)
+      |> Map.put_new(:sexes, [])
+      |> Map.put_new(:seniority, [])
+      |> Map.put_new(:colors, [])
 
     query_params = %{
       name: name_query,
       tag: tag_query,
       castrated: is_castrated,
-      ages: ages,
-      genders: genders,
+      seniority: seniority,
+      sexes: sexes,
       date_from: date_from,
       colors: colors,
       date_to: date_to,
@@ -135,21 +152,10 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
 
   @impl true
   def handle_event("items_amount", %{"items_per_page" => amount}, socket) do
-    limit = amount |> String.to_integer() |> abs()
+    limit = amount |> String.to_integer() |> max(1)
     max_page = max(@first_page, socket.assigns.filtered_cats |> length() |> div(limit))
 
-    query_params = %{
-      name: socket.assigns.name,
-      tag: socket.assigns.tag,
-      castrated: socket.assigns.castrated,
-      ages: socket.assigns.ages,
-      colors: socket.assigns.colors,
-      genders: socket.assigns.genders,
-      date_from: socket.assigns.date_from,
-      date_to: socket.assigns.date_to,
-      page: socket.assigns.page,
-      limit: limit
-    }
+    query_params = %{socket.assigns.query_params | limit: limit}
 
     socket =
       socket
@@ -161,24 +167,13 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
 
   @impl true
   def handle_event("select_page", %{"value" => page}, socket) do
-    query_params = %{
-      name: socket.assigns.name,
-      tag: socket.assigns.tag,
-      castrated: socket.assigns.castrated,
-      ages: socket.assigns.ages,
-      genders: socket.assigns.genders,
-      date_from: socket.assigns.date_from,
-      colors: socket.assigns.colors,
-      date_to: socket.assigns.date_to,
-      page: page,
-      limit: socket.assigns.limit
-    }
+    query_params = %{socket.assigns.query_params | page: page}
 
     socket = push_patch(socket, to: ~p"/adopcja/szukaja-domu?#{query_params}")
     {:noreply, socket}
   end
 
-  def query_to_bool(query) do
+  def parse_checkbox(query) do
     case query do
       "on" -> true
       "true" -> true
@@ -201,6 +196,11 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
       end)
     end
   end
+
+  defp parse_limit(limit) when is_float(limit), do: limit |> floor() |> parse_limit()
+  defp parse_limit(limit) when is_binary(limit), do: limit |> String.to_integer() |> parse_limit()
+  defp parse_limit(limit) when is_integer(limit), do: max(limit, 1)
+  defp parse_limit(_), do: @default_limit
 
   defp parse_date(date_str) when date_str == "", do: nil
 
@@ -230,52 +230,44 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
     end)
   end
 
+  defp filter_colors(cats, []), do: cats
+
   defp filter_colors(cats, colors) do
-    if Enum.empty?(colors) do
-      cats
-    else
-      Enum.filter(cats, fn cats ->
-        Atom.to_string(cats.color.value) in colors
-      end)
-    end
+    Enum.filter(cats, fn adopted_cat ->
+      Atom.to_string(adopted_cat.cat.color.value) in colors
+    end)
   end
 
-  defp filter_genders(cats, genders) do
-    if Enum.empty?(genders) do
-      cats
-    else
-      Enum.filter(cats, fn cats ->
-        Atom.to_string(cats.sex.value) in genders
-      end)
-    end
+  defp filter_sexes(cats, []), do: cats
+
+  defp filter_sexes(cats, sexes) do
+    Enum.filter(cats, fn adopted_cat ->
+      Atom.to_string(adopted_cat.cat.sex.value) in sexes
+    end)
   end
 
-  defp filter_ages(cats, ages) do
-    if Enum.empty?(ages) do
-      cats
-    else
-      Enum.filter(cats, fn cats ->
-        Atom.to_string(cats.age.value) in ages
-      end)
-    end
+  defp filter_seniority(cats, []), do: cats
+
+  defp filter_seniority(cats, seniority) do
+    Enum.filter(cats, fn adopted_cat ->
+      Atom.to_string(adopted_cat.cat.age.value) in seniority
+    end)
   end
+
+  defp filter_castrated(cats, nil), do: cats
 
   defp filter_castrated(cats, is_castrated) do
-    if is_castrated == nil do
-      cats
-    else
-      Enum.filter(cats, fn cats ->
-        cats.castrated.value == is_castrated
-      end)
-    end
+    Enum.filter(cats, fn adopted_cat ->
+      adopted_cat.cat.castrated.value == is_castrated
+    end)
   end
 
   defp search_names(cats, search) do
     if String.trim(search) == "" do
       cats
     else
-      Enum.filter(cats, fn cats ->
-        name = String.downcase(cats.name)
+      Enum.filter(cats, fn adopted_cat ->
+        name = String.downcase(adopted_cat.cat.name)
         search = String.downcase(search)
         String.contains?(name, search)
       end)
