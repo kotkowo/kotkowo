@@ -1,7 +1,8 @@
 defmodule Kotkowo.GalleryImage do
   @moduledoc false
   defstruct [:hash, :ext, :name, :alternative_text]
-
+  # idk add smthn here xddd
+  @default_image "placeholder"
   @type t :: %__MODULE__{
           hash: String.t(),
           ext: String.t() | nil,
@@ -19,6 +20,13 @@ defmodule Kotkowo.GalleryImage do
   def url(%__MODULE__{} = gallery_image, :thumbnail) do
     filename = "thumbnail_#{gallery_image.hash}#{gallery_image.ext}"
     get_upload_url(filename)
+  end
+
+  def first_image(gallery, default \\ @default_image) do
+    case List.first(gallery) do
+      nil -> default
+      image -> url(image)
+    end
   end
 
   defp get_upload_url(filename) do

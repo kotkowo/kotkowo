@@ -147,7 +147,7 @@
         <.cat_card
           :for={cat <- @filtered_cats}
           share_href="#"
-          src={cat.gallery |> hd |> GalleryImage.url()}
+          src={cat.gallery |> GalleryImage.first_image()}
           sex={cat.sex.value}
           dead={cat.is_dead}
           tags={cat.tags}
@@ -160,7 +160,7 @@
         <.pagination_bar selected_page={@query_params.page} last_page={@max_page} />
       </div>
       <div class="lg:absolute right-0 -order-1 self-center">
-        <form phx-change="items_amount" class="">
+        <form phx-change="items_amount">
           <label class="font-inter mr-5 text-md">Pokaż na stronie</label>
           <select name="items_per_page" class="rounded-lg">
             <option
