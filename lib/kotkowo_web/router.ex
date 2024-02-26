@@ -41,9 +41,9 @@ defmodule KotkowoWeb.Router do
       live "/za-teczowym-mostem", NewsLive.PassedAway
 
       scope "/z-ostatniej-chwili" do
-        live "/", NewsLive.Announcements.LatestNews
-        live "/wszystkie", NewsLive.Announcements.AllNews
-        live "/:article_id", NewsLive.Announcements.NewsArticle
+        live "/", AnnouncementsLive.LatestNews
+        live "/wszystkie", AnnouncementsLive.AllNews
+        live "/:article_id", AnnouncementsLive.NewsArticle
       end
     end
   end
