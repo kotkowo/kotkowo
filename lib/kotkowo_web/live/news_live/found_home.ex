@@ -11,7 +11,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
   alias Kotkowo.GalleryImage
   alias Kotkowo.StrapiClient
 
-   @params_default %{
+  @params_default %{
     limit: 30,
     page: 1,
     name: "",
@@ -24,7 +24,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
     date_to: ""
   }
   @params_keys @params_default |> Map.keys() |> Enum.map(&to_string/1)
-   @impl true
+  @impl true
   def mount(_params, _session, socket) do
     {:ok, adopted_cats} = StrapiClient.list_adopted_cats()
 
@@ -35,7 +35,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
 
   @impl true
   def handle_params(params, _uri, socket) do
-   parsed_params =
+    parsed_params =
       params
       |> Map.take(@params_keys)
       |> Map.new(&parse_param/1)
@@ -79,7 +79,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
         } = params,
         socket
       ) do
-   limit = socket.assigns.query_params.limit
+    limit = socket.assigns.query_params.limit
     page = socket.assigns.query_params.page
 
     not_castrated = params |> Map.get("not_castrated", nil) |> parse_checkbox()
@@ -90,7 +90,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
       |> parse_checkbox()
       |> castrated_switch(not_castrated, event)
 
-  filter_default = %{sexes: [], seniority: [], colors: []}
+    filter_default = %{sexes: [], seniority: [], colors: []}
     # create string -> atom mapping e.g. %{"senior" => :senior}
     checkbox_mappings =
       Enum.reduce(Seniority.all() ++ Sex.all() ++ Color.all(), %{}, &Map.put(&2, Atom.to_string(&1), &1))
@@ -151,7 +151,8 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
     socket = push_patch(socket, to: ~p"/aktualnosci/znalazly-dom?#{query_params}")
     {:noreply, socket}
   end
-defp parse_page_meta(params, cats) do
+
+  defp parse_page_meta(params, cats) do
     max_page =
       cats
       |> length()
@@ -188,7 +189,6 @@ defp parse_page_meta(params, cats) do
   defp parse_param({key, value}) do
     {String.to_existing_atom(key), value}
   end
-
 
   def parse_checkbox(query) do
     case query do
