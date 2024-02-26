@@ -28,7 +28,7 @@
       <.pagination_bar selected_page={@page} last_page={@max_page} />
     </div>
     <div class="lg:absolute right-0 -order-1 self-center">
-      <form phx-change="items_amount" class="">
+      <form phx-change="items_amount">
         <label class="font-inter mr-5 text-md">Pokaż na stronie</label>
         <select name="items_per_page" class="rounded-lg">
           <option :for={option <- items_per_page()} value={option} selected={@limit == option}>

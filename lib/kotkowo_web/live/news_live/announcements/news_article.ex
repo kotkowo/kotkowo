@@ -1,4 +1,4 @@
-defmodule KotkowoWeb.NewsLive.Announcements.NewsArticle do
+defmodule KotkowoWeb.AnnouncementsLive.NewsArticle do
   @moduledoc false
   use KotkowoWeb, :live_view
 

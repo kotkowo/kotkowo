@@ -181,24 +181,6 @@
                 <label class="text-sm">przed zabiegiem</label>
               </div>
             </div>
-
-            <div class="flex-col flex space-y-4">
-              <h3 class="font-bold text-primary">Data</h3>
-              <div class=" text-gray-500 text-center w-full space-y-6">
-                <input
-                  class="border-gray rounded-lg border w-28"
-                  name="date_from"
-                  value={@query_params.date_from}
-                  type="date"
-                /> -
-                <input
-                  class="border-gray rounded-lg border w-28"
-                  name="date_to"
-                  value={@query_params.date_to}
-                  type="date"
-                />
-              </div>
-            </div>
           </form>
         </.drawer>
       </div>
@@ -219,7 +201,7 @@
         <.pagination_bar selected_page={@query_params.page} last_page={@max_page} />
       </div>
       <div class="lg:absolute right-0 -order-1 self-center">
-        <form phx-change="items_amount" class="">
+        <form phx-change="items_amount">
           <label class="font-inter mr-5 text-md">Pokaż na stronie</label>
           <select name="items_per_page" class="rounded-lg">
             <option

@@ -11,10 +11,20 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
   alias Kotkowo.GalleryImage
   alias Kotkowo.StrapiClient
 
-  @first_page 1
-  @default_limit "30"
+  @params_default %{
+    limit: 30,
+    page: 1,
+    name: "",
+    seniority: [],
+    sexes: [],
+    castrated: nil,
+    tag: "",
+    colors: []
+  }
+  @params_keys @params_default |> Map.keys() |> Enum.map(&to_string/1)
   @impl true
   def mount(_params, _session, socket) do
+    # have to be filtered by newest first
     {:ok, cats} = StrapiClient.list_cats(false, false)
 
     socket =
@@ -25,61 +35,32 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
 
   @impl true
   def handle_params(params, _uri, socket) do
-    limit = params |> Map.get("limit", @default_limit) |> parse_limit()
-    page = params |> Map.get("page", Integer.to_string(@first_page)) |> parse_limit()
-
-    name = params |> Map.get("name", "") |> String.downcase()
-    seniority = Map.get(params, "seniority", [])
-    sexes = Map.get(params, "sexes", [])
-    castrated = params |> Map.get("castrated", nil) |> parse_checkbox()
-    tag = params |> Map.get("tag", "") |> String.downcase()
-    colors = Map.get(params, "colors", [])
-    date_to = Map.get(params, "date_to", "")
-    date_from = Map.get(params, "date_from", "")
+    parsed_params =
+      params
+      |> Map.take(@params_keys)
+      |> Map.new(&parse_param/1)
+      |> then(&Map.merge(@params_default, &1))
 
     filtered_cats =
       socket.assigns.cats
-      |> search_tags(tag)
-      |> search_names(name)
-      |> filter_castrated(castrated)
-      |> filter_seniority(seniority)
-      |> filter_sexes(sexes)
-      |> filter_colors(colors)
-      |> filter_dates(date_from, date_to)
+      |> search_tags(parsed_params.tag)
+      |> search_names(parsed_params.name)
+      |> filter_castrated(parsed_params.castrated)
+      |> filter_seniority(parsed_params.seniority)
+      |> filter_sexes(parsed_params.sexes)
+      |> filter_colors(parsed_params.colors)
 
-    max_page =
-      filtered_cats
-      |> length()
-      |> Kernel./(limit)
-      |> ceil()
-      |> max(@first_page)
-
-    page =
-      cond do
-        page < @first_page -> @first_page
-        page > max_page -> max_page
-        true -> page
-      end
-
-    offset = (page - 1) * limit
+    %{page: page, offset: offset, max_page: max_page} = parse_page_meta(parsed_params, filtered_cats)
 
     query_params = %{
-      name: name,
-      tag: tag,
-      castrated: castrated,
-      seniority: seniority,
-      sexes: sexes,
-      date_from: date_from,
-      colors: colors,
-      date_to: date_to,
-      page: page,
-      limit: limit
+      parsed_params
+      | page: page
     }
 
     socket =
       socket
       |> assign(:query_params, query_params)
-      |> assign(:filtered_cats, Enum.slice(filtered_cats, offset, limit))
+      |> assign(:filtered_cats, Enum.slice(filtered_cats, offset, parsed_params.limit))
       |> assign(:max_page, max_page)
 
     {:noreply, socket}
@@ -88,17 +69,11 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
   @impl true
   def handle_event(
         "filter_cats",
-        %{
-          "_target" => event,
-          "date_from" => date_from,
-          "date_to" => date_to,
-          "cat_search" => name_query,
-          "tag_search" => tag_query
-        } = params,
+        %{"_target" => event, "cat_search" => name_query, "tag_search" => tag_query} = params,
         socket
       ) do
-    limit = socket.assigns.query_params |> Map.get(:limit, @default_limit) |> parse_limit()
-    page = socket.assigns.query_params |> Map.get(:page, Integer.to_string(@first_page)) |> parse_limit()
+    limit = socket.assigns.query_params.limit
+    page = socket.assigns.query_params.page
 
     not_castrated = params |> Map.get("not_castrated", nil) |> parse_checkbox()
 
@@ -112,6 +87,7 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
     checkbox_mappings =
       Enum.reduce(Seniority.all() ++ Sex.all() ++ Color.all(), %{}, &Map.put(&2, Atom.to_string(&1), &1))
 
+    filter_default = %{sexes: [], seniority: [], colors: []}
     # take all matching key value pairs that are checkboxes
     %{seniority: seniority, sexes: sexes, colors: colors} =
       params
@@ -127,9 +103,7 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
           x in Color.all() -> :colors
         end
       end)
-      |> Map.put_new(:sexes, [])
-      |> Map.put_new(:seniority, [])
-      |> Map.put_new(:colors, [])
+      |> then(&Map.merge(filter_default, &1))
 
     query_params = %{
       name: name_query,
@@ -137,9 +111,7 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
       castrated: is_castrated,
       seniority: seniority,
       sexes: sexes,
-      date_from: date_from,
       colors: colors,
-      date_to: date_to,
       page: page,
       limit: limit
     }
@@ -152,8 +124,8 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
 
   @impl true
   def handle_event("items_amount", %{"items_per_page" => amount}, socket) do
-    limit = amount |> String.to_integer() |> max(1)
-    max_page = max(@first_page, socket.assigns.filtered_cats |> length() |> div(limit))
+    limit = parse_limit(amount)
+    max_page = socket.assigns.filtered_cats |> length() |> div(limit) |> parse_limit()
 
     query_params = %{socket.assigns.query_params | limit: limit}
 
@@ -171,6 +143,44 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
 
     socket = push_patch(socket, to: ~p"/adopcja/szukaja-domu?#{query_params}")
     {:noreply, socket}
+  end
+
+  defp parse_page_meta(params, cats) do
+    max_page =
+      cats
+      |> length()
+      |> Kernel./(params.limit)
+      |> ceil()
+      |> max(@params_default.page)
+
+    page =
+      cond do
+        params.page < @params_default.page -> @params_default.page
+        params.page > max_page -> max_page
+        true -> params.page
+      end
+
+    offset = (page - 1) * params.limit
+    %{page: page, offset: offset, max_page: max_page}
+  end
+
+  defp parse_param({"castrated", value}) do
+    castrated = parse_checkbox(value)
+    {:castrated, castrated}
+  end
+
+  defp parse_param({"limit", value}) do
+    limit = parse_limit(value)
+    {:limit, limit}
+  end
+
+  defp parse_param({"page", value}) do
+    page = parse_limit(value)
+    {:page, page}
+  end
+
+  defp parse_param({key, value}) do
+    {String.to_existing_atom(key), value}
   end
 
   def parse_checkbox(query) do
@@ -200,41 +210,13 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
   defp parse_limit(limit) when is_float(limit), do: limit |> floor() |> parse_limit()
   defp parse_limit(limit) when is_binary(limit), do: limit |> String.to_integer() |> parse_limit()
   defp parse_limit(limit) when is_integer(limit), do: max(limit, 1)
-  defp parse_limit(_), do: @default_limit
-
-  defp parse_date(date_str) when date_str == "", do: nil
-
-  defp parse_date(date_str) do
-    [year, month, day] =
-      date_str
-      |> String.split("-")
-      |> Enum.map(&String.to_integer/1)
-
-    Date.new!(year, month, day)
-  end
-
-  defp filter_dates(cats, "", ""), do: cats
-
-  defp filter_dates(cats, from, to) do
-    from = parse_date(from)
-    to = parse_date(to)
-
-    Enum.filter(cats, fn cats ->
-      adoption_date = DateTime.to_date(cats.adoption_date)
-
-      within_range =
-        (from == nil or Date.compare(adoption_date, from) in [:gt, :eq]) and
-          (to == nil or Date.compare(adoption_date, to) in [:lt, :eq])
-
-      true in [within_range]
-    end)
-  end
+  defp parse_limit(_), do: @params_default.limit
 
   defp filter_colors(cats, []), do: cats
 
   defp filter_colors(cats, colors) do
     Enum.filter(cats, fn adopted_cat ->
-      Atom.to_string(adopted_cat.cat.color.value) in colors
+      Atom.to_string(adopted_cat.color.value) in colors
     end)
   end
 
@@ -242,7 +224,7 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
 
   defp filter_sexes(cats, sexes) do
     Enum.filter(cats, fn adopted_cat ->
-      Atom.to_string(adopted_cat.cat.sex.value) in sexes
+      Atom.to_string(adopted_cat.sex.value) in sexes
     end)
   end
 
@@ -250,7 +232,7 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
 
   defp filter_seniority(cats, seniority) do
     Enum.filter(cats, fn adopted_cat ->
-      Atom.to_string(adopted_cat.cat.age.value) in seniority
+      Atom.to_string(adopted_cat.age.value) in seniority
     end)
   end
 
@@ -258,7 +240,7 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
 
   defp filter_castrated(cats, is_castrated) do
     Enum.filter(cats, fn adopted_cat ->
-      adopted_cat.cat.castrated.value == is_castrated
+      adopted_cat.castrated.value == is_castrated
     end)
   end
 
@@ -267,7 +249,7 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
       cats
     else
       Enum.filter(cats, fn adopted_cat ->
-        name = String.downcase(adopted_cat.cat.name)
+        name = String.downcase(adopted_cat.name)
         search = String.downcase(search)
         String.contains?(name, search)
       end)
@@ -316,7 +298,7 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
       assigns
       |> assign(:previous_page, assigns.selected_page - 1)
       |> assign(:next_page, assigns.selected_page + 1)
-      |> assign(:first_page, @first_page)
+      |> assign(:first_page, @params_default.page)
 
     ~H"""
     <div class="flex flex-row text-xl gap-x-4">
