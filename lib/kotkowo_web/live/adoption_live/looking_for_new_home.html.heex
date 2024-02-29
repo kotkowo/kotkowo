@@ -188,7 +188,6 @@
         <.cat_card
           :for={cat <- @filtered_cats}
           share_href="#"
-          alias
           src={cat.gallery |> GalleryImage.first_image()}
           sex={cat.sex.value}
           dead={cat.is_dead}
