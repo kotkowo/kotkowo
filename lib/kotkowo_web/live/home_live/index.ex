@@ -22,7 +22,15 @@ defmodule KotkowoWeb.HomeLive.Index do
           :error
       end
 
-    {:ok, in_need_of_a_new_home} = StrapiClient.list_adopted_cats(3)
+    in_need_of_a_new_home =
+      case StrapiClient.list_adopted_cats(3) do
+        {:ok, result} ->
+          result
+
+        {:error, {_reason, message}} ->
+          Logger.error(message)
+          :error
+      end
 
     socket =
       socket

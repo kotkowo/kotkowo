@@ -34,6 +34,7 @@
     >
       <div class="flex flex-row space-x-4 xl:space-x-7 m-auto">
         <.cat_card
+          :if={@in_need_of_a_new_home != :error}
           :for={cat <- @in_need_of_a_new_home}
           name={cat.cat.name}
           share_href="#"
