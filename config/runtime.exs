@@ -30,4 +30,11 @@ if config_env() == :prod do
       port: port
     ],
     secret_key_base: secret_key_base
+
+  config :sentry,
+    dsn: System.get_env("SENTRY_DSN"),
+    environment_name: Mix.env(),
+    included_environments: [:prod],
+    enable_source_code_context: true,
+    root_source_code_paths: [File.cwd!()]
 end
