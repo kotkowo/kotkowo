@@ -6,10 +6,10 @@ COPY assets assets
 
 RUN npm --prefix /app/assets install
 
-FROM hexpm/elixir:1.15.5-erlang-24.3.4.9-alpine-3.18.2 as builder
+FROM hexpm/elixir:1.16.1-erlang-26.2.3-alpine-3.19.1 as builder
 
 # elixir expects utf8.
-ENV ELIXIR_VERSION="v1.15.4" \
+ENV ELIXIR_VERSION="v1.16.1" \
 	LANG=C.UTF-8 \
     RUSTUP_HOME=/usr/local/rustup \
     CARGO_HOME=/usr/local/cargo \
@@ -94,7 +94,7 @@ RUN mix release
 
 # start a new build stage so that the final image will only contain
 # the compiled release and other runtime necessities
-FROM hexpm/elixir:1.15.5-erlang-24.3.4.9-alpine-3.18.2
+FROM hexpm/elixir:1.16.1-erlang-26.2.3-alpine-3.19.1
 
 
 RUN apk add --no-cache libstdc++ \
