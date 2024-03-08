@@ -33,7 +33,7 @@ if config_env() == :prod do
 
   config :sentry,
     dsn: System.get_env("SENTRY_DSN"),
-    environment_name: Mix.env(),
+    environment_name: config_env(),
     included_environments: [:prod],
     enable_source_code_context: true,
     root_source_code_paths: [File.cwd!()]
