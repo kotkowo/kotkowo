@@ -279,10 +279,10 @@ defmodule KotkowoWeb.Components.Cards do
       class="lg:w-[1312px] flex flex-col lg:flex-row justify-between border border-1 rounded-2xl items-start h-full lg:h-[322px] pt-6 lg:pt-0"
     >
       <div class="flex flex-col pl-6 lg:py-6 max-w-xl h-full">
-        <div class="text-2xl font-semibold leading-10 line-clamp-2">
+        <div class="text-2xl h-20 font-semibold leading-10 line-clamp-2">
           <%= @title %>
         </div>
-        <p class="py-2 text-lg leading-10 grow line-clamp-6 lg:line-clamp-4 px-2 lg:px-0">
+        <p class="py-2 text-lg h-32 leading-10 grow line-clamp-6 lg:line-clamp-4 px-2 lg:px-0">
           <%= @introduction %>
         </p>
         <div
