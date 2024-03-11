@@ -34,7 +34,7 @@
     >
       <div
         :if={@in_need_of_a_new_home != :error}
-        class="flex flex-row space-x-4 xl:space-x-7 m-auto"
+        class="flex flex-row space-x-4 xl:space-x-7 m-auto justify-center"
       >
         <.cat_card
           :for={cat <- @in_need_of_a_new_home}
@@ -68,14 +68,16 @@
       </div>
       <.button type="outline" href="#">Dowiedz się więcej</.button>
     </div>
-    <.virtual_adoption_card
-      name="Rudzik"
-      action_href="#"
-      share_href="#"
-      src={~p"/images/rudzik.png"}
-      sex={:male}
-      tags={[gettext("Mruczek"), gettext("Wielbiciel kolan")]}
-    />
+    <div class="flex flex-row items-center justify-center">
+      <.virtual_adoption_card
+        name="Rudzik"
+        action_href="#"
+        share_href="#"
+        src={~p"/images/rudzik.png"}
+        sex={:male}
+        tags={[gettext("Mruczek"), gettext("Wielbiciel kolan")]}
+      />
+    </div>
   </div>
 </.section>
 
@@ -102,7 +104,7 @@
       class="overflow-x-auto snap-x lg:snap-none lg:overflow-hidden lg:mx-auto"
       x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
     >
-      <div class="flex flex-row space-x-4 xl:space-x-7 m-auto">
+      <div class="flex flex-row justify-center space-x-4 xl:space-x-7 m-auto">
         <.news_card
           :for={news <- @news}
           title={news.title}

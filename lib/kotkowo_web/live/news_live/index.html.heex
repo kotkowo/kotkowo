@@ -27,7 +27,7 @@
           news_id={news.id}
           tags={news.tags}
           src={Kotkowo.GalleryImage.url(news.image)}
-          class="lg:w-82 w-full"
+          class="lg:w-82 w-full mx-auto"
         />
       </div>
     </div>
@@ -55,6 +55,7 @@
           src={cat.cat.gallery |> GalleryImage.first_image()}
           sex={cat.cat.sex.value}
           tags={cat.cat.tags}
+          card_class="mx-auto"
           name={cat.cat.name}
         />
       </div>
@@ -78,6 +79,7 @@
           :for={cat <- @passed_away}
           name={cat.name}
           share_href="#"
+          card_class="mx-auto"
           dead={cat.is_dead}
           src={cat.gallery |> GalleryImage.first_image()}
           sex={cat.sex.value}
