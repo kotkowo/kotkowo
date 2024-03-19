@@ -100,9 +100,12 @@ defmodule KotkowoWeb.Components.Static.HowYouCanHelpSection do
   def how_you_can_help(assigns) do
     ~H"""
     <.section>
-      <h1 class="text-primary mb-8 font-manrope font-extrabold xl:text-4xl text-2xl text-center">
+      <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl text-center">
         Jak możesz pomóc?
       </h1>
+      <p class="text-center text-lg mb-8">
+        Jeżeli nie możesz zaadoptować kotka - możesz pomóc w inny sposób
+      </p>
 
       <.container fold={@fold}>
         <%= for card <- help_cards() do %>

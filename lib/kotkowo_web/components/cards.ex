@@ -266,7 +266,7 @@ defmodule KotkowoWeb.Components.Cards do
         body_class="rounded-t-none grow py-4 mt-0 h-48"
         class={classes(["lg:w-[345px] grow h-full", @class])}
       >
-        <:title class="lg:text-xl grow line-clamp-3"><%= @title %></:title>
+        <:title class="lg:text-xl grow line-clamp-2"><%= @title %></:title>
       </.card>
     </.link>
     """

@@ -33,6 +33,7 @@ defmodule KotkowoWeb.Router do
       live "/szukaja-domu/:slug", AdoptionLive.Show
       live "/szukaja-domu", AdoptionLive.LookingForNewHome
       live "/zasady-adopcji", AdoptionLive.AdoptionRules
+      live "/adopcja-wirtualna", AdoptionLive.VirtualAdoption
     end
 
     scope "/aktualnosci" do
