@@ -7,14 +7,14 @@
       Adopcja wirtualna
     </:crumb>
   </.breadcrumb>
-  <div class="flex flex-row justify-between">
-    <div class="flex-col gap-y-10 flex mr-[73px]">
-      <h1 class="font-manrope font-extrabold xl:text-4xl text-primary">
+  <div class="flex flex-col lg:flex-row justify-between mx-5 lg:mt-0 mt-4">
+    <div class="flex-col gap-y-10 flex lg:mr-[73px]">
+      <h1 class="font-manrope font-bold lg:font-extrabold xl:text-4xl text-3xl text-primary">
         Na czym polega wirtualna adopcja?
       </h1>
       <ul class="flex flex-col space-y-3">
         <%= for text <- \
-                     [ "Wszystkie nasze kotki mieszkają w Białymstoku, ale mogą także podróżować do innych części Polski" \
+                     [ "Kotek przebywa w domu wolontariusza lub lecznicy" \
                      , "Osoba adoptująca wirtualnie zobowiązuje się do cyklicznych wpłat na utrzymanie kota (ok. 50 zł miesięcznie)" \
                      , "Wirtualny właściciel lub właścicielka pozostaje w kontakcie z domem kicia i uzyskuje informacje, jak zwierzę się miewa" \
                      , "Można umówić się na spotkanie i mizianie ze swoim pupilem!" \
@@ -22,28 +22,32 @@
                      , "Wirtualnym opiekunem może zostać osoba prywatna, organizacja, określona grupa ludzi (np. szkoła, klasa itp.) czy też firma. Dla firm może to być dodatkowa forma reklamy - mogą umieścić obok zdjęcia zwierzaka swoje logo, czy też odnośnik do strony internetowej." \
                      ] do %>
           <li class="flex">
-            <.icon name="paw" class="w-3 h-3 mr-3 my-auto" />
-            <span class="my-auto xl:text-lg">
+            <.icon name="paw" class="w-[13px] h-[25px] mr-3" />
+            <span class="my-auto xl:text-lg text-xl">
               <%= text %>
             </span>
           </li>
         <% end %>
       </ul>
-      <h2 class="font-manrope font-bold text-2xl mb-4">
+      <h2 class="font-manrope font-bold text-3xl lg:text-2xl lg:mb-4">
         Chcesz mieć kota, ale nie możesz trzymać go w domu?
         Wirtualna adopcja jest dla Ciebie!
       </h2>
-      <.button type="outline">Wesprzyj kotki finansowo</.button>
+      <.button type="outline">
+        <span class="text-xl lg:text-2xl text-semibold">
+        Wesprzyj kotki finansowo
+        </span>
+      </.button>
     </div>
     <img
-      class="object-cover h-[669px] w-[536px] rounded-2xl"
+      class="object-cover h-[669px] w-[536px] rounded-2xl mt-8 lg:mt-0"
       src={~p"/images/virtual_adoption_kitty.jpeg"}
     />
   </div>
 </.section>
 <.section>
   <div class="flex flex-col mb-8">
-    <h1 class="font-manrope font-extrabold text-center xl:text-4xl text-primary">
+    <h1 class="font-manrope font-bold lg:font-extrabold text-center xl:text-4xl text-3xl text-primary">
       Koty do wirtualnej adopcji
     </h1>
   </div>
@@ -58,32 +62,41 @@
     />
   </div>
 </.section>
-<.section>
-  <h1 class="font-manrope font-extrabold xl:text-4xl mb-12 text-primary">
+<.section class="lg:mx-auto mx-5">
+  <h1 class="font-manrope font-bold lg:font-extrabold xl:text-4xl text-2xl mb-12 text-primary">
     Jak adoptować wirtualnie kota?
   </h1>
   <.steps>
     <.step>
+      <span class="text-lg">
       Wybierz kota, którego chcesz adoptować.
+      </span>
     </.step>
     <.step>
+
+      <span class="text-lg">
       Skontaktuj się z nami mailowo lub na Facebooku.
+      </span>
       <div class="mt-10 gap-y-10 flex flex-col items-start">
         <a href="mailto:kotkowo@email.com">
-          <.icon name="envelope" class="mb-0.5 w-6 inline invert" />
-          <span class="underline font-bold">kotkowo@email.com</span>
+          <.icon name="envelope" class="mb-0.5 lg:w-6 w-7 inline invert" />
+          <span class="underline font-bold lg:text-base text-lg">fundacja.kotkowo@email.com</span>
         </a>
         <a href="https://facebook.com/kotkowo">
-          <.icon name="facebook" class="mb-0.5 w-6 inline invert" />
-          <span class="underline font-bold">facebook.com/kotkowo</span>
+          <.icon name="facebook" class="mb-0.5 w-7 inline invert" />
+          <span class="underline font-bold lg:text-base text-lg">facebook.com/kotkowo</span>
         </a>
       </div>
     </.step>
     <.step>
+      <span class="text-lg">
       Jeśli chcesz to możemy umieścić Cię na naszej stronie - podaj swoje imię/pseudonim oraz zdjęcie.
+      </span>
     </.step>
     <.step>
+      <span class="text-lg">
       Ustaw cykliczną płatność przez Paypal lub wpłać 50 zł na konto.
+      </span>
       <div class="flex flex-col gap-y-6 mt-10 items-center px-4">
         <.button>Ustaw płatność przez PayPal</.button>
         <.button type="outline">Sprawdź dane do przelewu</.button>
@@ -92,4 +105,4 @@
   </.steps>
 </.section>
 <.how_you_can_help />
-<.people_supporting />
+<.people_supporting card_class="" />
