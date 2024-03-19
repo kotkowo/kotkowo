@@ -14,11 +14,11 @@ defmodule KotkowoWeb.Layouts do
          {"Znalazły dom", "/aktualnosci/znalazly-dom"},
          {"Za tęczowym mostem", "/aktualnosci/za-teczowym-mostem"}
        ], []},
-      {"Adopcja", nil,
+      {"Adopcja", ~p"/adopcja/szukaja-domu",
        [
          {"Szukają domu", ~p"/adopcja/szukaja-domu"},
          {"Zasady adopcji", ~p"/adopcja/zasady-adopcji"},
-         {"Adoptuj wirtualnie kota", "#"}
+         {"Adoptuj wirtualnie kota", ~p"/adopcja/adopcja-wirtualna"}
        ], []},
       {"Zaginione/znalezione", "#zaginione-znalezione", [], []},
       {"Jak pomóc", ~p"/pomoc",
