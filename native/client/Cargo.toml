@@ -1,0 +1,16 @@
+[package]
+name = "client"
+version = "0.1.0"
+authors = []
+edition = "2021"
+
+[lib]
+name = "client"
+path = "src/lib.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+rustler = "0.29.1"
+serde = { version = "1.0.183", features = ["derive"] }
+kotkowo-client = { path = "../../../kotkowo-client", features = ["elixir_support"] }
+
