@@ -8,6 +8,8 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
   alias Kotkowo.Attributes.Color
   alias Kotkowo.Attributes.Seniority
   alias Kotkowo.Attributes.Sex
+  alias Kotkowo.Client
+  alias Kotkowo.Client.Paged
   alias Kotkowo.GalleryImage
   alias Kotkowo.StrapiClient
 
@@ -57,11 +59,23 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
       | page: page
     }
 
+    dbg(parsed_params)
+    page_size = parsed_params[:limit]
+    page = parsed_params[:page]
+    tags = String.split(parsed_params[:tag])
+
+    {:ok, %Paged{items: new_cats, total: cats_total} = paged} =
+      Client.list_cats(Client.new(page: page, page_size: page_size, cat: %{tags: tags}))
+
+    # dbg(paged)
+
     socket =
       socket
       |> assign(:query_params, query_params)
       |> assign(:filtered_cats, Enum.slice(filtered_cats, offset, parsed_params.limit))
       |> assign(:max_page, max_page)
+      |> assign(:new_cats, new_cats)
+      |> assign(:cats_total, cats_total)
 
     {:noreply, socket}
   end

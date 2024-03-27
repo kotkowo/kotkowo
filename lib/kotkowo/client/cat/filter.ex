@@ -2,7 +2,7 @@ defmodule Kotkowo.Client.Cat.Filter do
   @moduledoc false
   alias Kotkowo.Client.Cat
 
-  defstruct [:sex, :age, :color, :castrated, :tags]
+  defstruct [:sex, :age, :color, :castrated, :tags, :name]
 
   @type t() :: %__MODULE__{
           sex: Cat.sex() | nil,
