@@ -1,6 +1,9 @@
 defmodule KotkowoWeb.ErrorHTML do
   @moduledoc false
   use KotkowoWeb, :html
+  import KotkowoWeb.Components.Static.HowYouCanHelpSection
+  import KotkowoWeb.Components.Sections
+  import KotkowoWeb.Components.Buttons
 
   # If you want to customize your error pages,
   # uncomment the embed_templates/1 call below
@@ -9,7 +12,7 @@ defmodule KotkowoWeb.ErrorHTML do
   #   * lib/kotkowo_web/controllers/error/404.html.heex
   #   * lib/kotkowo_web/controllers/error/500.html.heex
   #
-  # embed_templates "error/*"
+  embed_templates "error/*"
 
   # The default is to render a plain text page based on
   # the template name. For example, "404.html" becomes

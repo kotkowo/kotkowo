@@ -12,7 +12,7 @@ config :kotkowo, KotkowoWeb.Endpoint,
   url: [host: "localhost"],
   render_errors: [
     formats: [html: KotkowoWeb.ErrorHTML, json: KotkowoWeb.ErrorJSON],
-    layout: false
+    layout: {KotkowoWeb.Layouts, :error}
   ],
   pubsub_server: Kotkowo.PubSub,
   live_view: [signing_salt: "RqlIo7X0"]

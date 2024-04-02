@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content={get_csrf_token()} />
+    <.live_title suffix=" · Kotkowo">
+      <%= assigns[:meta][:title] || "Kotkowo" %>
+    </.live_title>
+    <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-white antialiased">
+    <.header contact_email="kotkowo@email.com" links={links()}>Kotkowo</.header>
+    <div id="shadow-realm"></div>
+    <div class="mx-auto max-w-3xl md:max-w-5xl lg:max-w-7xl"></div>
+
+    <main>
+      <%= @inner_content %>
+    </main>
+    <.footer />
+  </body>
+</html>
