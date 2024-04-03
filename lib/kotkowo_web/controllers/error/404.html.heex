@@ -1,16 +1,31 @@
 <.section class="mt-8  flex font-manrope lg:flex-row flex-col justify-center items-center gap-x-10">
-  <img src={~p"/images/404_cat.svg"} width="266" height="353" class="lg:trasnlate-x-0 translate-x-4"/>
+  <img
+    src={~p"/images/404_cat.svg"}
+    width="266"
+    height="353"
+    class="lg:trasnlate-x-0 translate-x-4"
+  />
   <div class="flex flex-col gap-y-6 lg:text-justify text-center mx-6 lg:mx-0 mt-10 lg:mt-0">
     <h1 class="text-4xl font-extrabold">Ups, kotki znowu coś spsociły...</h1>
 
-    <h2 class="font-bold text-justify tracking-tight">Strona nie istnieje. Oto, co możesz zrobić:</h2>
-    <ol class="font-inter text-justify">
-    <li>1. Na poprawę humoru <a href="#" class="underline font-bold text-primary">obejrzyj kotki do adopcji z Fundacji Kotkowo.</a></li>
-    <li>2. Przybij łapkę i <a href="#" class="underline font-bold text-primary">dorzuć się do smaczka!</a></li>
+    <h2 class="font-bold text-justify tracking-[0.4px]">
+      Strona nie istnieje. Oto, co możesz zrobić:
+    </h2>
+    <ol class="font-inter text-justify list-decimal list-inside">
+      <li>
+        Na poprawę humoru
+        <a href="#" class="underline font-bold text-primary">
+          obejrzyj kotki do adopcji z Fundacji Kotkowo.
+        </a>
+      </li>
+      <li>
+        Przybij łapkę i
+        <a href="#" class="underline font-bold text-primary">dorzuć się do smaczka!</a>
+      </li>
     </ol>
     <div class="flex lg:flex-row flex-col font-normal text-base gap-4 mt-6">
-    <.button type="outline">Wpłacam na Kotkowo</.button>
-    <.button navigate={~p"/"}>Strona główna</.button>
+      <.button type="outline">Wpłacam na Kotkowo</.button>
+      <.button navigate={~p"/"}>Strona główna</.button>
     </div>
   </div>
 </.section>

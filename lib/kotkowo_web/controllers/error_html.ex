@@ -1,9 +1,10 @@
 defmodule KotkowoWeb.ErrorHTML do
   @moduledoc false
   use KotkowoWeb, :html
-  import KotkowoWeb.Components.Static.HowYouCanHelpSection
-  import KotkowoWeb.Components.Sections
+
   import KotkowoWeb.Components.Buttons
+  import KotkowoWeb.Components.Sections
+  import KotkowoWeb.Components.Static.HowYouCanHelpSection
 
   # If you want to customize your error pages,
   # uncomment the embed_templates/1 call below
