@@ -18,7 +18,10 @@ defmodule KotkowoWeb.Components.Steps do
       <span class="m-auto font-manrope text-2xl xl:text-4xl text-white counter-increment after:counter-result">
       </span>
     </div>
-    <span :if={@inner_block != []} class="xl:row-start-2 text-center xl:text-lg px-6 xl:px-0">
+    <span
+      :if={@inner_block != []}
+      class="xl:row-start-2 text-center xl:text-lg px-6 xl:px-0 tracking-wider lg:tracking-normal"
+    >
       <%= render_slot(@inner_block) %>
     </span>
     <span :if={@actions != []} class="xl:row-start-3 mx-auto"><%= render_slot(@actions) %></span>
