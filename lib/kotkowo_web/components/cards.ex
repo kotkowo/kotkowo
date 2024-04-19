@@ -9,6 +9,7 @@ defmodule KotkowoWeb.Components.Cards do
   import KotkowoWeb.Components.Buttons
   import KotkowoWeb.Components.Icons
   import KotkowoWeb.Gettext
+  import KotkowoWeb.WebHelpers, only: [beautify_phone_number: 1]
   import Tails
 
   alias Kotkowo.Attributes.HealthStatus
@@ -25,6 +26,7 @@ defmodule KotkowoWeb.Components.Cards do
     examples: [["Mruczek", "Wielbiciel kolan"], ["Meowy", "Loves laps"]]
 
   attr :class, :string, default: ""
+  attr :img_class, :string, default: ""
   attr :body_class, :string, default: ""
   attr :grayscale, :boolean, default: false
 
@@ -39,21 +41,27 @@ defmodule KotkowoWeb.Components.Cards do
   def card(assigns) do
     ~H"""
     <div class={
-      classes(["lg:w-82 shrink-0 snap-center w-full max-w-xs lg:snap-none flex flex-col", @class])
+      classes([
+        "lg:w-82 shrink-0 snap-center w-full max-w-xs lg:snap-none flex flex-col",
+        @class
+      ])
     }>
       <div class="relative">
         <img
           src={@src}
           alt={@alt}
-          class={[
-            "border border-1 rounded-t-2xl w-full object-cover h-48",
-            @grayscale && "grayscale"
-          ]}
+          class={
+            classes([
+              "border border-1 rounded-t-2xl w-full object-cover h-48",
+              @grayscale && "grayscale",
+              @img_class
+            ])
+          }
         />
         <a
           :if={@share_href != nil}
           href={@share_href}
-          class="absolute right-3 top-3 bg-white w-6 lg:w-10 h-6 lg:h-10 rounded-full lg:opacity-60 flex"
+          class="absolute right-3 top-3 bg-white w-6 lg:w-10 h-6 lg:h-10 rounded-full opacity-60 flex"
         >
           <.icon name="share" class="w-3 lg:w-5 h-3 lg:h-5 m-auto" />
         </a>
@@ -66,9 +74,9 @@ defmodule KotkowoWeb.Components.Cards do
           @body_class
         ])
       }>
-        <div :for={title <- @title} class="flex justify-between flex-1">
+        <div :for={title <- @title} class="flex justify-between ">
           <h3 class={[
-            "lg:font-manrope font-semibold lg:font-bold text-lg lg:text-2xl",
+            "lg:font-manrope font-semibold lg:font-bold text-lg lg:text-2xl overflow-x-auto",
             Map.get(title, :class)
           ]}>
             <%= render_slot(title) %>
@@ -144,7 +152,7 @@ defmodule KotkowoWeb.Components.Cards do
     """
   end
 
-  attr :icon, :string, required: true, values: icons_all()
+  attr :icon, :string, default: nil, values: [nil | icons_all()]
 
   attr :rest, :global
 
@@ -153,7 +161,7 @@ defmodule KotkowoWeb.Components.Cards do
   def card_attribute(assigns) do
     ~H"""
     <div {@rest}>
-      <.icon name={@icon} class="inline mr-1 lg:mr-3 w-4 lg:w-5 h-4 lg:h-5" />
+      <.icon :if={@icon != nil} name={@icon} class="inline mr-1 lg:mr-3 w-4 lg:w-5 h-4 lg:h-5" />
       <span class="text-sm lg:text-base">
         <%= render_slot(@inner_block) %>
       </span>
@@ -240,6 +248,59 @@ defmodule KotkowoWeb.Components.Cards do
         </p>
       </div>
     </a>
+    """
+  end
+
+  attr :class, :string, default: ""
+  attr :src, :string, required: true
+  attr :title, :string, required: true
+  attr :share_href, :string, default: nil
+  attr :phone_numbers, :list, default: []
+  attr :chip_numbers, :list, default: []
+
+  def lost_and_found_card(assigns) do
+    ~H"""
+    <.card
+      img_class="h-40"
+      body_class="rounded-t-none -mt-0.5 grow lg:p-6 px-4 py-3"
+      class="max-w-none lg:w-[345px] w-[240px] h-[400px] lg:h-[500px]"
+      share_href={@share_href}
+      src={@src}
+      alt={@title}
+    >
+      <:title>
+        <h2 class="lg:text-xl text-sm font-manrope font-bold tracking-wider h-fit"><%= @title %></h2>
+      </:title>
+      <:attributes>
+        <.card_attribute>
+          <h3 class="text-primary font-bold text-sm lg:text-xl mb-2">Telefon</h3>
+          <div class="flex flex-row gap-x-1 overflow-x-auto">
+            <div
+              :for={phone_number <- @phone_numbers}
+              class="rounded-3xl border lg:border-2 border-primary p-2 lg:py-2 lg:px-3"
+            >
+              <a class="flex flex-row" href={"tel:+48#{phone_number}"}>
+                <Heroicons.phone solid class="w-4 text-primary lg:mr-1" />
+                <span class="font-inter text-xs lg:text-sm tracking-tighter lg:tracking-tight">
+                  <%= phone_number |> beautify_phone_number() %>
+                </span>
+              </a>
+            </div>
+          </div>
+        </.card_attribute>
+        <.card_attribute>
+          <h3 class="text-primary font-bold text-sm lg:text-xl mb-2">Numer chipa</h3>
+          <div class="flex flex-row gap-x-1 overflow-x-auto">
+            <div
+              :for={chip_number <- @chip_numbers}
+              class="flex flex-row rounded-3xl border border-gray py-2 px-1 lg:px-3"
+            >
+              <span class="font-inter text-xs lg:text-sm tracking-tight"><%= chip_number %></span>
+            </div>
+          </div>
+        </.card_attribute>
+      </:attributes>
+    </.card>
     """
   end
 
