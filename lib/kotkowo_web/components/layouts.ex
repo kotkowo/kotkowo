@@ -20,7 +20,10 @@ defmodule KotkowoWeb.Layouts do
          {"Zasady adopcji", ~p"/adopcja/zasady-adopcji"},
          {"Adoptuj wirtualnie kota", ~p"/adopcja/adopcja-wirtualna"}
        ], []},
-      {"Zaginione/znalezione", "#zaginione-znalezione", [], []},
+      {"Zaginione/znalezione", ~p"/zaginione-znalezione", [
+        {"Zaginione", ~p"/zaginione-znalezione/zaginione"},
+        {"Znalezione", ~p"/zaginione-znalezione/zaginione"},
+      ], []},
       {"Jak pomóc", ~p"/pomoc",
        [
          {"Przekaż nam 1,5% podatku", "/pomoc/przekaz-nam-podatek"},
