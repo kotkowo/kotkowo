@@ -172,7 +172,7 @@ defmodule KotkowoWeb.Components.Sections do
   def section(assigns) do
     ~H"""
     <div class={classes(["w-full even:bg-primary-light first:pt-0 py-10 xl:py-16", @parent_class])}>
-      <section class={["mx-auto max-w-3xl md:max-w-5xl lg:max-w-7xl", @class]} {@rest}>
+      <section class={classes(["mx-auto max-w-3xl md:max-w-5xl lg:max-w-7xl", @class])} {@rest}>
         <%= render_slot(@inner_block) %>
       </section>
     </div>
