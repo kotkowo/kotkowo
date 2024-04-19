@@ -1,0 +1,173 @@
+<.section class="!max-w-none">
+  <div class="mx-auto max-w-3xl md:max-w-5xl lg:max-w-7xl">
+    <.breadcrumb>
+      <:crumb navigate={~p"/zaginione-znalezione"} active>
+        Zaginione/Znalezione
+      </:crumb>
+    </.breadcrumb>
+  </div>
+  <div class="flex flex-col items-center gap-y-6 lg:gap-y-8">
+    <h1 class="text-primary text-justify font-manrope mt-6 lg:mt-0 font-bold lg:font-extrabold xl:text-3xl text-2xl">
+      Znalezione/widziane na ulicy
+    </h1>
+    <form>
+      <input
+        class="rounded-3xl border-2 text-lg lg:text-xl font-inter border-gray-200 px-3 py-1"
+        phx-change="query_seen_found_chip"
+        style="font-family: Inter, FontAwesome;"
+        placeholder="&#xF002; Wpisz nr chipa lub kolor kota"
+      />
+    </form>
+    <div
+      class="flex flex-row gap-x-4 lg:gap-x-7 w-full overflow-x-auto snap-x lg:snap-none"
+      x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
+    >
+      <.lost_and_found_card
+        :for={_ <- 0..6}
+        title="Bury przyjazny kocurek błąkał się po Dojlidach w pobliżu plaży"
+        share_href="#"
+        phone_numbers={[
+          "123456789",
+          "123456789"
+        ]}
+        chip_numbers={[
+          "616093900192604"
+        ]}
+        src={~p"/images/rudzik.png"}
+      />
+    </div>
+    <.button type="outline">Zobacz wszystkie</.button>
+  </div>
+</.section>
+<.section class="!max-w-none" parent_class="!py-10">
+  <div class="flex flex-col items-center gap-y-6 lg:gap-y-8">
+    <h1 class="text-primary text-justify font-manrope font-bold lg:font-extrabold xl:text-3xl text-2xl">
+      Zaginione
+    </h1>
+    <form>
+      <input
+        class="rounded-3xl border-2 text-lg lg:text-xl font-inter border-gray-200 px-3 py-1"
+        phx-change="query_seen_found_chip"
+        style="font-family: Inter, FontAwesome;"
+        placeholder="&#xF002; Wpisz nr chipa lub kolor kota"
+      />
+    </form>
+    <div
+      class="flex flex-row gap-x-4 lg:gap-x-7 w-full overflow-x-auto snap-x lg:snap-none"
+      x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
+    >
+      <.lost_and_found_card
+        :for={_ <- 0..6}
+        title="Bury przyjazny kocurek błąkał się po Dojlidach w pobliżu plaży"
+        share_href="#"
+        phone_numbers={[
+          "123456789",
+          "123456789"
+        ]}
+        chip_numbers={[
+          "616093900192604"
+        ]}
+        src={~p"/images/rudzik.png"}
+      />
+    </div>
+    <.button type="outline">Zobacz wszystkie</.button>
+  </div>
+</.section>
+<.section>
+  <div class="flex flex-col space-y-12">
+    <h1 class="text-primary text-center font-manrope font-bold lg:font-extrabold xl:text-3xl text-2xl">
+      Jak zgłosić nam zaginięcie/znalezienie kota?
+    </h1>
+    <.steps>
+      <.step>
+        Sprawdź, czy kot ma obrożę z adresem. Popytaj okolicznych mieszkańców, czy go nie znają.
+      </.step>
+      <.step>
+        Zrób zdjęcie kota, ewentualnie nagraj filmik. Zanotuj, jakie ma cechy charakterystyczne.
+      </.step>
+      <.step>
+        Zapisz lokalizację i adres kota. Jeśli to możliwe, zabierz go do domu.
+        <:actions>
+          <.button type="outline" href={~p"/pomoc/stworz-dom-tymczasowy"}>
+            Stwórz dom tymczasowy
+          </.button>
+        </:actions>
+      </.step>
+      <.step>
+        Skontaktuj się z nami mailowo lub na Facebooku. Prześlij wszystkie informacje o kocie.
+        <:actions>
+          <a href="#" class="flex">
+            <.icon name="envelope2" class="w-6 h-6 my-auto mr-2 inline invert" />
+            <span class="underline font-bold">
+              kotkowo@email.com
+            </span>
+          </a>
+
+          <a href="#" class="flex mt-7">
+            <.icon name="facebook" class="w-6 h-6 my-auto mr-2 inline invert" />
+            <span class="underline my-auto font-bold">
+              facebook.com/kotkowo
+            </span>
+          </a>
+        </:actions>
+      </.step>
+    </.steps>
+  </div>
+  <div class="flex flex-col items-center lg:flex-row lg:justify-between lg:px-0 px-6 mt-10 lg:mt-16">
+    <div class="flex flex-col gap-y-8">
+      <h1 class="text-primary lg:text-justify font-manrope font-bold lg:font-extrabold xl:text-3xl text-2xl">
+        Zachipuj kota, aby łatwiej było go znaleźć!
+      </h1>
+      <ul class="flex flex-col space-y-3 max-sm:max-w-none max-w-xl">
+        <%= for text <- \
+                     [ "Zachipuj kota u weterynarza – to w ogóle nie boli zwierzaka, a cały zabieg trwa tylko kilka sekund!" \
+                     , "Kota możesz zachipować bezpłatnie w ramach jednej z licznych inicjatyw miejskich" \
+                     , "Po zachipowaniu kota otrzymasz unikalny numer mikroczipa" \
+                     , "Osoba, która znajdzie kota, będzie mogła sprawdzić numer chipa u weterynarza"
+                     ] do %>
+          <li class="flex">
+            <.icon name="paw" class="w-[13px] h-[25px] mr-3" />
+            <span class="my-auto xl:text-lg text-base">
+              <%= text %>
+            </span>
+          </li>
+        <% end %>
+        <li class="flex">
+          <.icon name="paw" class="w-[13px] h-[25px] mr-3" />
+          <span class="my-auto xl:text-lg text-base">
+            Zarejestruj się na stronach
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://safe-animal.eu"
+              class="underline"
+            >
+              safe-animal.eu
+            </a>
+            i
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://identyfikacja.pl"
+              class="underline"
+            >
+              identyfikacja.pl
+            </a>
+            lub poproś weterynarza, aby wprowadził twoje dane i numer chipa!
+          </span>
+        </li>
+      </ul>
+      <h2 class="text-secondary font-manrope font-bold tracking-wider lg:text-2xl text-xl">
+        Chcesz mieć pewność, że osoba, która znajdzie twojego pupila, będzie mogła dać ci znać?
+      </h2>
+      <.button type="outline" href="https://safe-animal.eu">
+        <span class="underline">Zachipuj kota</span>
+      </.button>
+    </div>
+    <img
+      class="w-[536px] lg:h-[560px] h-[330px] object-cover rounded-2xl mt-6 lg:mt-0"
+      src={~p"/images/chip_kitty.jpeg"}
+    />
+  </div>
+</.section>
+<.how_you_can_help />

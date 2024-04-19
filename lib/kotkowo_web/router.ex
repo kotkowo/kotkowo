@@ -36,6 +36,12 @@ defmodule KotkowoWeb.Router do
       live "/adopcja-wirtualna", AdoptionLive.VirtualAdoption
     end
 
+    scope "/zaginione-znalezione" do
+      live "/", LostAndFoundLive.Index
+      live "/znalezione", LostAndFoundLive.Found
+      live "/zaginione", LostAndFoundLive.Lost
+    end
+
     scope "/aktualnosci" do
       live "/", NewsLive.Index
       live "/znalazly-dom", NewsLive.FoundHome
