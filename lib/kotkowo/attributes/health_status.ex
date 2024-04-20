@@ -3,7 +3,7 @@ defmodule Kotkowo.Attributes.HealthStatus do
 
   import KotkowoWeb.Gettext
 
-  def all, do: [:examined_and_vaccinated]
+  def all, do: [:tested_and_vaccinated]
 
-  def to_string(:examined_and_vaccinated), do: gettext("Przebadany i zaszczepiony")
+  def to_string(:tested_and_vaccinated), do: gettext("Przebadany i zaszczepiony")
 end

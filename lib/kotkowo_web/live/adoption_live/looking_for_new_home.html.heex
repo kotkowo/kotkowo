@@ -9,7 +9,7 @@
   </.breadcrumb>
 
   <div class="flex flex-col xl:flex-row space-x-0 xl:space-x-52 space-y-6 xl:space-y-0 xl:justify-between">
-    <div class="flex flex-col space-y-6 xl:text-lg">
+    <div class="flex flex-col space-y-6 xl:text-lg lg:max-w-[646px]">
       <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl">
         Adoptuj kota z fundacji Kotkowo
       </h1>
@@ -49,7 +49,7 @@
         </li>
       </ul>
 
-      <p>
+      <p class="font-inter tracking-normal lg:text-lg">
         Pamiętaj, że kotek jest żywą, czującą istotą.
         Największą krzywdą staje się dla niego utrata opiekuna, którego pokochał.
         Nie bierz kotka dla zabawy, na święta, na prezent.
@@ -62,7 +62,7 @@
     <img
       src={~p"/images/light_brown_cat_white_bg.png"}
       alt="Cat on a doorstep"
-      class="rounded-2xl self-center"
+      class="rounded-2xl self-center object-cover h-[312px] w-[312px] lg:w-[535px] lg:h-[512px]"
     />
   </div>
 </.section>
@@ -73,9 +73,9 @@
   </h1>
 </.section>
 
-<.section class="mt-6 xl:mt-0 px-6 xl:px-0 flex flex-col xl:flex-row xl:space-x-32 gap-y-10 xl:space-y-0">
-  <div class="mx-6 lg:mx-0 self-start flex flex-col justify-center w-full space-y-10">
-    <div class="flex flex-col lg:flex-row gap-x-32 mt-10 lg:mt-20 gap-y-10">
+<.section class="px-6 xl:px-0">
+  <div class="self-start flex flex-col justify-center w-full space-y-10">
+    <div class="flex flex-col lg:flex-row gap-x-32 gap-y-10">
       <div class="lg:w-80 w-full shrink-0 border border-gray rounded-2xl flex flex-col lg:max-w-none max-w-sm self-center space-y-6 h-min ">
         <.live_component
           id="cat_filter"
@@ -95,6 +95,9 @@
           src={cat_image_url(cat)}
           sex={cat.sex}
           dead={false}
+          seniority={cat.age.value}
+          castrated={cat.castrated}
+          health_status={cat.medical_status.value}
           tags={cat.tags}
           name={cat.name}
         />

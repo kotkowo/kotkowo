@@ -248,7 +248,7 @@ defmodule KotkowoWeb.Components.Sections do
             </dl>
 
             <.button href={~p"/pomoc/wsparcie-finansowe"} type="secondary" class="!mt-8">
-              Wesprzyj nas
+              Wesprzyj kotki
             </.button>
           </.footer_section>
         </div>

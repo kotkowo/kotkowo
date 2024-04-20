@@ -56,62 +56,22 @@ defmodule KotkowoWeb.AdoptionLive.VirtualAdoption do
 
   defp people_supporting(assigns) do
     ~H"""
-    <.section class="!max-w-none">
-      <div
-        class="overflow-x-auto overflow-y-hidden self-center snap-x lg:snap-none"
-        x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
-      >
-        <div class="flex-row flex gap-x-5 w-full mx-auto">
-          <.supporting_card
-            class={@card_class}
-            person_name="Kasia"
-            person_image={~p"/images/supporting_kasia.jpg"}
-            cat_image={~p"/images/bonifacy.png"}
-            cat_name="Bonifacy"
-          />
-          <.supporting_card
-            class={@card_class}
-            person_name="Kasia"
-            person_image={~p"/images/supporting_kasia.jpg"}
-            cat_image={~p"/images/bonifacy.png"}
-            cat_name="Bonifacy"
-          />
-
-          <.supporting_card
-            class={@card_class}
-            person_name="Kasia"
-            person_image={~p"/images/supporting_kasia.jpg"}
-            cat_image={~p"/images/bonifacy.png"}
-            cat_name="Bonifacy"
-          />
-
-          <.supporting_card
-            class={@card_class}
-            person_name="Kasia"
-            person_image={~p"/images/supporting_kasia.jpg"}
-            cat_image={~p"/images/bonifacy.png"}
-            cat_name="Bonifacy"
-          />
-
-          <.supporting_card
-            class={@card_class}
-            person_name="Kasia"
-            person_image={~p"/images/supporting_kasia.jpg"}
-            cat_image={~p"/images/bonifacy.png"}
-            cat_name="Bonifacy"
-          />
-
-          <.supporting_card
-            class={@card_class}
-            person_name="Bonifacy"
-            person_image={~p"/images/supporting_kasia.jpg"}
-            cat_image={~p"/images/bonifacy.png"}
-            cat_name="Bonifacy"
-          />
-        </div>
+    <div
+      class="overflow-x-auto overflow-y-hidden self-center snap-x lg:snap-none"
+      x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
+    >
+      <div class="flex-row flex gap-x-5 w-full mx-auto">
+        <.supporting_card
+          :for={_ <- 0..6}
+          class={@card_class}
+          person_name="Kasia"
+          person_image={~p"/images/supporting_kasia.jpg"}
+          cat_image={~p"/images/bonifacy.png"}
+          cat_name="Bonifacy"
+        />
       </div>
-      <.button class="mt-8 mx-auto flex">Zostań wirtualnym opiekunem</.button>
-    </.section>
+    </div>
+    <.button class="mt-8 mx-auto flex">Zostań wirtualnym opiekunem</.button>
     """
   end
 end
