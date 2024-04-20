@@ -48,11 +48,12 @@
         <.cat_card
           :for={cat <- @in_need_of_a_new_home}
           name={cat.cat.name}
+          card_class=""
           share_href="#"
           src={cat.cat.gallery |> GalleryImage.first_image()}
           sex={cat.cat.sex.value}
           seniority={cat.cat.age.value}
-          health_status={:examined_and_vaccinated}
+          health_status={cat.cat.medical_status.value}
           castrated={cat.cat.castrated.value}
           tags={cat.cat.tags}
         />
@@ -64,13 +65,13 @@
     </.button>
   </div>
 </.section>
-<.section class="lg:gap-y-16 gap-y-6 flex flex-col mt-6 xl:mt-0 px-6 xl:px-0">
-  <div class="flex flex-col gap-y-16 items-center lg:gap-y-0 lg:flex-row justify-between">
+<.section class="px-6 xl:px-0">
+  <div class="flex flex-col gap-y-12 lg:gap-y-16 items-center lg:gap-y-0 lg:flex-row justify-between">
     <div class="flex flex-col lg:w-[646px] gap-y-6">
       <h1 class="text-primary font-manrope font-bold lg:font-extrabold text-3xl lg:text-6xl">
         Zasady kotkowa
       </h1>
-      <div class="text-lg space-y-1 flex flex-wrap">
+      <div class="text-lg space-y-1 flex flex-wrap lg:tracking-wide">
         <p>
           1. Nie handlujemy zwierzętami. Nie sprzedajemy kotów ani ich nie kupujemy.
         </p>
@@ -107,9 +108,9 @@
       class="object-cover items-center w-[312px] -mt-6 lg:w-[536px] h-[363px] lg:h-[688px] rounded-2xl"
     />
   </div>
-  <div class="flex lg:flex-row flex-col-reverse items-center justify-between">
+  <div class="flex lg:mt-16 lg:flex-row flex-col-reverse items-center justify-between">
     <img
-      class="object-cover w-[312px] lg:w-[535px] h-[363px] lg:h-[362px] lg-mt-0 mt-6 rounded-2xl"
+      class="object-cover w-[312px] lg:w-[535px] h-[363px] lg:h-[362px] lg:mt-0 mt-6 rounded-2xl"
       src={~p"/images/give_cat_what_is_free.png"}
     />
     <div class="flex flex-col lg:w-[648px] gap-y-8 lg:mt-0 mt-6 text-lg">

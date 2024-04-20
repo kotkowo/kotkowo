@@ -7,7 +7,7 @@
       Z ostatniej chwili
     </:crumb>
   </.breadcrumb>
-  <h1 class="text-primary text-center lg:text-justify lg:mt-0 font-manrope font-extrabold xl:text-4xl text-3xl">
+  <h1 class="text-primary text-center lg:text-justify lg:mt-0 mt-6 font-manrope font-extrabold xl:text-4xl text-3xl">
     Z ostatniej chwili
   </h1>
   <div class="flex flex-col mx-4 lg:mt-6 mt-8 gap-y-10">
@@ -20,17 +20,17 @@
       introduction={@article.introduction}
     >
     </.header_news_card>
-    <div class="lg:flex-row lg:items-justify items-center flex-col flex lg:gap-y-0 gap-y-5 lg:gap-x-5">
+    <div class="lg:flex-row lg:items-justify max-sm:items-center flex-col flex lg:gap-y-0 gap-y-4 lg:gap-x-5">
       <.news_card
         :for={popular_news <- @popular_news}
-        class="lg:w-[313px] w-full max-w-sm"
+        card_class="lg:w-[313px] w-[320px]"
         news_id={popular_news.id}
         title={popular_news.title}
         tags={popular_news.tags}
         src={GalleryImage.url(popular_news.image)}
       />
-      <div class="lg:w-[646px] text-center lg:text-justify w-full lg:order-none order-first flex flex-col gap-y-6 lg:pl-8 pb-20">
-        <h1 class="text-primary font-manrope text-center lg:text-justify font-extrabold text-3xl">
+      <div class="lg:w-[646px] text-center lg:text-justify w-full lg:order-none order-first flex flex-col gap-y-6 lg:pl-8 pb-10 lg:self-start">
+        <h1 class="text-primary font-manrope text-center lg:text-left font-extrabold text-3xl">
           Najczęściej czytane
         </h1>
 
@@ -38,13 +38,13 @@
           :for={titles <- @popular_titles}
           :if={@header_news != nil}
           href={~p"/aktualnosci/z-ostatniej-chwili/#{titles.id}"}
-          class="text-2xl text-justify line-clamp-2 font-manrope font-bold text-gray-800 pr-0 lg:pr-2"
+          class="text-2xl text-left line-clamp-2 font-manrope font-bold text-gray-800 pr-0 lg:pr-2"
         >
           <%= titles.title %>
         </a>
       </div>
     </div>
-    <div class="flex flex-col lg:flex-row gap-y-5 lg:gap-y-0 lg:gap-x-5">
+    <div :if={@news != []} class="flex flex-col lg:flex-row gap-y-5 lg:gap-y-0 lg:gap-x-5">
       <.news_card
         :for={news <- @news}
         class="lg:w-[313px] w-full"

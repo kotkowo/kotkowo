@@ -10,17 +10,17 @@
       <%= @article.title %>
     </:crumb>
   </.breadcrumb>
-  <div class="flex flex-col lg:flex-row justify-between px-5 mt-10">
-    <div class="flex flex-col flex-wrap gap-y-10 w-full lg:w-[865px]">
+  <div class="flex flex-col lg:flex-row justify-between px-5">
+    <div class="flex flex-col flex-wrap w-full lg:w-[865px]">
       <h1 class="w-full lg:w-[832px] text-primary text-center lg:text-justify lg:mt-0 font-manrope font-extrabold xl:text-4xl text-3xl">
         <%= @article.title %>
       </h1>
       <img
-        class="w-full h-[340px] object-cover  rounded-2xl"
+        class="w-full h-[340px] object-cover  rounded-2xl mt-10"
         src={GalleryImage.url(@article.image)}
         alt="article image"
       />
-      <span class="text-2xl font-semibold leading-10"><%= @article.introduction %></span>
+      <span class="text-2xl font-semibold leading-10 mt-10"><%= @article.introduction %></span>
       <span class="text-xl whitespace-pre-wrap leading-10 w-full lg:w-[865px] overflow-auto">
         <%= @article.content %>
       </span>
@@ -29,7 +29,7 @@
       <h2 class="font-extrabold self-start">Najczęściej czytane</h2>
       <.news_card
         :for={news <- @popular_news}
-        class="lg:w-[313px] w-full max-w-sm"
+        card_class="lg:w-[313px] w-[320px]"
         news_id={news.id}
         src={GalleryImage.url(news.image)}
         title={news.title}

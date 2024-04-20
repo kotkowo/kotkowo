@@ -51,7 +51,10 @@
       Koty do wirtualnej adopcji
     </h1>
   </div>
-  <div class="gap-x-16 gap-y-10 flex justify-center h-min overflow-x-auto">
+  <div
+    class="gap-x-4 lg:gap-x-7 gap-y-10 flex snap-x lg:snap-none mx-auto h-min overflow-x-auto"
+    x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
+  >
     <.virtual_adoption_card
       :for={_ <- 0..6}
       share_href="#"
@@ -64,7 +67,7 @@
   </div>
 </.section>
 <.section class="lg:mx-auto mx-5">
-  <h1 class="font-manrope font-bold lg:font-extrabold xl:text-4xl text-2xl mb-12 text-primary">
+  <h1 class="font-manrope font-bold !tracking-wide text-normal lg:text-center lg:font-extrabold xl:text-4xl text-2xl mb-12 text-primary">
     Jak adoptować wirtualnie kota?
   </h1>
   <.steps>
@@ -105,4 +108,10 @@
   </.steps>
 </.section>
 <.how_you_can_help />
-<.people_supporting card_class="" />
+<.section class="!max-w-none">
+  <h1 class="font-manrope font-bold !tracking-wide text-center lg:font-extrabold xl:text-4xl text-2xl lg:mb-10 mb-6 text-primary">
+    Wspierają koty wirtualnie
+  </h1>
+
+  <.people_supporting card_class="snap-center" />
+</.section>

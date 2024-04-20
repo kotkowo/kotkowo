@@ -75,13 +75,13 @@ defmodule KotkowoWeb.Components.Cards do
       <div class={
         classes([
           "bg-white rounded-3xl w-auto px-3 lg:px-5 py-2 lg:py-3 flex flex-col",
-          "gap-y-3 pb-3 lg:pb-6 relative -mt-5 border border-1",
+          "justify-between gap-y-3 pb-3 lg:pb-6 relative -mt-5 border border-1",
           @body_class
         ])
       }>
         <div :for={title <- @title} class="flex justify-between ">
           <h3 class={[
-            "lg:font-manrope font-semibold lg:font-bold text-lg lg:text-2xl overflow-x-auto",
+            "lg:font-manrope whitespace-nowrap font-semibold lg:font-bold text-lg lg:text-2xl overflow-x-auto",
             Map.get(title, :class)
           ]}>
             <%= render_slot(title) %>
@@ -134,7 +134,13 @@ defmodule KotkowoWeb.Components.Cards do
     ~H"""
     <.card
       share_href={@share_href}
-      class={@card_class}
+      body_class="grow"
+      class={
+        classes([
+          "only:mx-auto max-w-[240px] lg:max-w-none",
+          @card_class
+        ])
+      }
       grayscale={@dead}
       src={@src}
       alt={@name}
@@ -199,7 +205,14 @@ defmodule KotkowoWeb.Components.Cards do
 
   def virtual_adoption_card(assigns) do
     ~H"""
-    <.card src={@src} alt={@name} tags={@tags} share_href={@share_href}>
+    <.card
+      src={@src}
+      alt={@name}
+      tags={@tags}
+      share_href={@share_href}
+      body_class="lg:max-w-none max-w-[240px] grow lg:-mt-10"
+      class="lg:w-[345px] lg:min-w-[345px] w-[240px]"
+    >
       <:title icon={to_string(@sex)}>
         <%= @name %>
       </:title>
@@ -312,6 +325,7 @@ defmodule KotkowoWeb.Components.Cards do
   end
 
   attr :class, :string, default: ""
+  attr :card_class, :string, default: ""
   attr :src, :string, required: true
   attr :title, :string, required: true
   attr :news_id, :string, required: true
@@ -323,34 +337,32 @@ defmodule KotkowoWeb.Components.Cards do
 
   def news_card(assigns) do
     ~H"""
-    <.link
-      class={classes(["w-full shrink-0 max-w-xs", @class])}
-      navigate={~p"/aktualnosci/z-ostatniej-chwili/#{assigns.news_id}"}
+    <.card
+      src={@src}
+      alt={@title}
+      tags={Enum.take(@tags, 2)}
+      body_class="rounded-t-none grow py-4 mt-0"
+      class={classes(["lg:min-w-[345px] min-w-[240px] w-[240px] mx-auto", @card_class])}
     >
-      <.card
-        src={@src}
-        alt={@title}
-        tags={Enum.take(@tags, 2)}
-        body_class="rounded-t-none grow py-4 mt-0 h-48"
-        class={classes(["lg:w-[345px] grow h-full", @class])}
-      >
-        <:title class="lg:text-xl grow line-clamp-2"><%= @title %></:title>
-      </.card>
-    </.link>
+      <:title class="lg:text-xl text-base grow line-clamp-3 !whitespace-normal">
+        <.link navigate={~p"/aktualnosci/z-ostatniej-chwili/#{assigns.news_id}"}>
+          <%= @title %>
+        </.link>
+      </:title>
+    </.card>
     """
   end
 
   def header_news_card(assigns) do
     ~H"""
-    <.link
-      navigate={~p"/aktualnosci/z-ostatniej-chwili/#{assigns.news_id}"}
-      class="lg:w-[1312px] flex flex-col lg:flex-row justify-between border border-1 rounded-2xl items-start h-full lg:h-[322px] pt-6 lg:pt-0"
-    >
-      <div class="flex flex-col pl-6 lg:py-6 max-w-xl h-full">
-        <div class="text-2xl h-20 font-semibold leading-10 line-clamp-2">
-          <%= @title %>
+    <div class="lg:w-[1312px] flex flex-col lg:flex-row justify-between border border-1 rounded-2xl items-start h-full lg:h-[322px] pt-6 lg:pt-0">
+      <div class="flex flex-col px-6 lg:py-6 max-w-xl h-full lg:gap-y-0 gap-y-4">
+        <div class="text-2xl font-semibold leading-10 lg:line-clamp-2 line-clamp-5">
+          <.link navigate={~p"/aktualnosci/z-ostatniej-chwili/#{assigns.news_id}"}>
+            <%= @title %>
+          </.link>
         </div>
-        <p class="py-2 text-lg h-32 leading-10 grow line-clamp-6 lg:line-clamp-4 px-2 lg:px-0">
+        <p class="text-lg h-32 leading-10 line-clamp-6 lg:line-clamp-3 lg:px-0">
           <%= @introduction %>
         </p>
         <div
@@ -360,12 +372,17 @@ defmodule KotkowoWeb.Components.Cards do
           <.card_tag :for={tag <- @tags}><%= tag %></.card_tag>
         </div>
       </div>
-      <img
-        class="w-full mt-5 lg:mt-0 lg:w-[535px] h-[169px]  lg:h-full object-cover rounded-xl  lg:rounded-l-none lg:rounded-y-none"
-        src={@image}
-        alt="Latest news image"
-      />
-    </.link>
+      <.link
+        class="h-full w-full lg:w-fit mt-10 lg:mt-0"
+        navigate={~p"/aktualnosci/z-ostatniej-chwili/#{assigns.news_id}"}
+      >
+        <img
+          class="w-full lg:w-[535px] h-[169px]  lg:h-full object-cover rounded-xl  lg:rounded-l-none lg:rounded-y-none"
+          src={@image}
+          alt="Latest news image"
+        />
+      </.link>
+    </div>
     """
   end
 end
