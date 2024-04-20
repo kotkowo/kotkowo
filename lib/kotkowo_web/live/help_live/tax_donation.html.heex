@@ -1,18 +1,20 @@
-<.section class="mt-6 xl:mt-0 px-6 xl:px-0">
-  <.breadcrumb>
-    <:crumb navigate={~p"/pomoc"}>
-      Jak pomóc
-    </:crumb>
-    <:crumb navigate={~p"/pomoc/przekaz-nam-podatek"} active>
-      Przekaż nam 1,5% podatku
-    </:crumb>
-  </.breadcrumb>
-  <div class="flex flex-col xl:flex-row xl:space-x-28 space-y-6 xl:space-y-0">
-    <div class="flex flex-col space-y-6 xl:text-lg xl:w-8/12">
+<.section class="mt-6 xl:mt-0 px-6 xl:px-0 !max-w-none">
+  <div class="mx-auto max-w-3xl md:max-w-5xl lg:max-w-7xl">
+    <.breadcrumb>
+      <:crumb navigate={~p"/pomoc"}>
+        Jak pomóc
+      </:crumb>
+      <:crumb navigate={~p"/pomoc/przekaz-nam-podatek"} active>
+        Przekaż nam 1,5% podatku
+      </:crumb>
+    </.breadcrumb>
+  </div>
+  <div class="flex flex-col max-sm:items-center xl:justify-center xl:flex-row xl:space-x-28 space-y-6 xl:space-y-0">
+    <div class="flex flex-col space-y-6 xl:text-lg">
       <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl">
         Kotki proszą o 1,5% Twojego podatku!
       </h1>
-      <p>
+      <p class="max-w-[646px]">
         <.toast message="Skopiowane!" event="copied-to-clipboard" icon="clipboard_done" />
 
         <b>Fundacja Kotkowo posiada status Organizacji Pożytku Publicznego</b>.
@@ -34,8 +36,8 @@
       </p>
     </div>
 
-    <div class="flex flex-row space-x-8 xl:space-x-0">
-      <div class="w-1/2 self-center flex">
+    <div class="flex flex-row space-x-8 xl:space-x-0 xl:w-[648px] xl:justify-between ">
+      <div class="self-center flex flex-row max-md:w-1/2">
         <img
           src={~p"/images/one_point_five_percent.svg"}
           alt="One point five percent"
@@ -43,7 +45,7 @@
         />
       </div>
 
-      <div class="w-1/2 self-center flex">
+      <div class="max-md:w-1/2 self-center flex">
         <img
           src={~p"/images/opp.png"}
           alt="Organizacja Pożytku Publicznego logo"
@@ -95,11 +97,11 @@
 </.section>
 
 <.section class="px-6 xl:px-0">
-  <div class="flex flex-col-reverse space-y-reverse xl:flex-row space-x-0 xl:space-x-28 space-y-6 xl:space-y-0 xl:justify-between">
+  <div class="flex flex-col-reverse space-y-reverse xl:flex-row space-x-0 xl:space-x-28 space-y-6 xl:space-y-0 xl:justify-center">
     <img
-      src={~p"/images/sleepy_cat.png"}
+      src={~p"/images/tax_support_kitty.jpeg"}
       alt="Sleepy cat"
-      class="rounded-2xl object-fit self-center"
+      class="rounded-2xl object-fit self-center lg:w-[536px] lg:h-[295px] w-[312px] h-[172px]"
     />
 
     <div class="flex flex-col space-y-6 xl:text-lg">
