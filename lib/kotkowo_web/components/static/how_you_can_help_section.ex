@@ -41,32 +41,32 @@ defmodule KotkowoWeb.Components.Static.HowYouCanHelpSection do
     [
       %{
         src: ~p"/images/heart_lend.png",
-        alt: gettext("Heart lending"),
+        alt: gettext("1.5% podatku"),
         text: gettext("Przekaż nam 1,5% podatku"),
         href: ~p"/pomoc/przekaz-nam-podatek"
       },
       %{
-        src: ~p"/images/piggy_bank.png",
-        alt: gettext("Piggy bank"),
-        text: gettext("Wesprzyj nas finansowo"),
+        src: ~p"/images/support_funds_kitty.jpeg",
+        alt: gettext("Wepsrzyj kotki finansowo"),
+        text: gettext("Wesprzyj kotki finansowo"),
         href: ~p"/pomoc/wsparcie-finansowe"
       },
       %{
-        src: ~p"/images/spices.png",
-        alt: gettext("Food"),
+        src: ~p"/images/kitty_food.jpeg",
+        alt: gettext("Przekaż rzeczy dla kotków"),
         text: gettext("Przekaż rzeczy dla kotków"),
         href: ~p"/pomoc/przekaz-rzeczy-dla-kotkow"
       },
       %{
-        src: ~p"/images/cat_on_couch.png",
-        alt: gettext("Cat on couch"),
+        src: ~p"/images/temporary_shelter_kitty.jpeg",
+        alt: gettext("Dom tymczasowy"),
         text: gettext("Stwórz dom tymczasowy"),
-        href: ~p"/pomoc/stworz-dom-tymczasowy"
+        href: ~p"/adopcja/adopcja-wirtualna"
       },
       %{
-        src: ~p"/images/cat_food.png",
-        alt: gettext("Cat food"),
-        text: gettext("Zorganizuj zbiórkę"),
+        src: ~p"/images/adopt_virtual_kitty.jpeg",
+        alt: gettext("Adoptuj wirtualnie"),
+        text: gettext("Adoptuj wirtualnie kota"),
         href: ~p"/pomoc/zorganizuj-zbiorke-rzeczowa"
       }
     ]

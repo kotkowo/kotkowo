@@ -13,13 +13,16 @@ defmodule KotkowoWeb.Components.Static.HelpProposalSection do
 
   def help_proposal_section(assigns) do
     ~H"""
-    <.section class={["flex flex-col xl:flex-row px-6 xl:px-0", @class]} parent_class={@parent_class}>
+    <.section
+      class={["flex flex-col xl:flex-row px-6 xl:px-0 lg:justify-between", @class]}
+      parent_class={@parent_class}
+    >
       <div class="flex flex-col space-y-6">
         <h2 class="fonx-bold xl:font-extrabold font-manrope text-xl xl:text-2xl text-primary">
           Zaproponuj własną formę wsparcia
         </h2>
 
-        <p class="text-base xl:text-lg">
+        <p class="text-base xl:text-lg max-w-[535px] tracking-wide">
           Jeżeli możesz pomóc nam w inny sposób, np. moderując Instagrama, zamieszczając filmiki na TikToku lub robiąc zdjęcia kotów – daj nam znać.
           Napisz do nas lub wypełnij formularz dla wolontariuszy, a my skontaktujemy się z Tobą, jak tylko będzie to możliwe.
         </p>
@@ -41,7 +44,12 @@ defmodule KotkowoWeb.Components.Static.HelpProposalSection do
         <.button type="outline" href="#" class="!px-6">Zostań wolontariuszem</.button>
       </div>
 
-      <img src={~p"/images/cats_hugging.png"} alt="Cats hugging" class="self-center" />
+      <img
+        src={~p"/images/help_proposal_kitty.jpeg"}
+        class="rounded-2xl w-[312px] h-[212px] lg:w-[531px] lg:h-[354px] mt-6 lg:mt-0"
+        alt="Cats hugging"
+        class="self-center"
+      />
     </.section>
     """
   end

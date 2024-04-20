@@ -39,9 +39,9 @@
     </div>
 
     <img
-      src={~p"/images/hand_stack.png"}
+      src={~p"/images/support_funds_kitty.jpeg"}
       alt="Hand stack"
-      class="rounded-2xl self-center xl:self-auto object-contain xl:object-fill"
+      class="rounded-2xl self-center object-cover lg:w-[536px] lg:h-[421px] w-[312px] h-[203px]"
     />
   </div>
 </.section>
@@ -84,15 +84,12 @@
 <.section class="px-6 xl:px-0 !pb-0">
   <div class="flex flex-col flex-col-reverse space-y-reverse xl:flex-row space-x-0 xl:space-x-24 space-y-12 xl:space-y-0 xl:justify-between">
     <img
-      x-data="{'isDesktop': $isBreakpoint('lg+')}"
-      x-on:resize.window="isDesktop = $isBreakpoint('lg+')"
-      src={~p"/images/bonifacy_wide.png"}
+      src={~p"/images/paypal_kitty.jpeg"}
       alt="Kot Bonifacy"
-      class="rounded-2xl object-fit self-center"
-      x-bind:src={"isDesktop ? '#{~p"/images/bonifacy_wide.png"}' : '#{~p"/images/bonifacy_wide_mobile.png"}'"}
+      class="rounded-2xl object-cover self-center lg:w-[645px] lg:h-[275px] w-[312px] h-[164px]"
     />
 
-    <div class="flex flex-col space-y-6 xl:text-lg">
+    <div class="w-1/2 flex flex-col space-y-6 xl:text-lg">
       <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl">
         Wpłać darowiznę przez PayPal
       </h1>
@@ -147,9 +144,9 @@
     </div>
 
     <img
-      src={~p"/images/white_cat.png"}
+      src={~p"/images/transaction_kitty.jpeg"}
       alt="Biały kot"
-      class="rounded-2xl object-fit self-center"
+      class="rounded-2xl object-cover self-center lg:w-[535px] lg:h-[483px] h-[312px] h-[281px]"
     />
   </div>
 </.section>

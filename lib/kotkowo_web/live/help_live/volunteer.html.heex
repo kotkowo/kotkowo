@@ -21,11 +21,16 @@
       </p>
 
       <ul class="flex flex-col space-y-3">
-        <%= for n <- 1..4 do %>
+        <%= for responsibility <- [
+          "wożenie kotków, czyli kocie taxi", \
+          "organizowanie zbiórek (np. w Twojej pracy)", \
+          "domy tymczasowe", \
+          "wiele innych :)"
+        ] do %>
           <li class="flex">
             <.icon name="paw" class="w-3 h-3 mr-3 my-auto" />
             <span class="my-auto xl:text-lg">
-              wolontariat <%= n %>
+              <%= responsibility %>
             </span>
           </li>
         <% end %>
@@ -60,28 +65,7 @@
     </div>
   </div>
 </.section>
-
-<.help_proposal_section parent_class="!pb-0" />
-<!-- Using odd/even CSS here and need 2 sections with same color -->
-<span class="hidden"></span>
-
-<.section class="px-6 xl:px-0">
-  <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl mb-10">
-    Najczęściej zadawane pytania
-  </h1>
-
-  <div class="flex flex-col gap-y-6">
-    <%= for n <- 1..4 do %>
-      <.drawer title={"Pytanie #{n}"}>
-        <p>
-          Nisl tincidunt eget nullam non nisi est, sit amet facilisis magna etiam.
-          In tellus integer feugiat scelerisque varius morbi enim nunc, faucibus a pellentesque sit amet,
-          porttitor eget dolor morbi non arcu risus, quis varius quam quisque id diam vel quam elementum?
-          Sit amet mauris commodo quis imperdiet massa tincidunt.
-        </p>
-      </.drawer>
-    <% end %>
-  </div>
+<.section>
+  <.help_proposal_section parent_class="!pb-0" />
 </.section>
-
 <.how_you_can_help />
