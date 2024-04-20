@@ -16,6 +16,7 @@ defmodule KotkowoWeb.AdoptionLive.VirtualAdoption do
     <div class="lg:w-[202px] w-20 pt-9 flex flex-col items-center">
       <img
         src={@portait_image}
+        alt={@portait_name}
         class="lg:w-[160px] w-20 h-20  object-cover lg:h-[160px] rounded-full"
       />
 
