@@ -20,7 +20,7 @@ defmodule KotkowoWeb.Components.Sections do
   """
   attr :contact_email, :string,
     required: true,
-    examples: ["kotkowo@email.com"],
+    examples: ["fundacja.kotkowo@gmail.com"],
     doc: "Organization's contact email"
 
   attr :links, :list,
@@ -200,7 +200,7 @@ defmodule KotkowoWeb.Components.Sections do
 
             <.footer_link href="#" class="flex">
               <.icon name="envelope2" class="w-5 h-5 inline my-auto mr-2" />
-              <span class="my-auto">kotkowo@email.com</span>
+              <span class="my-auto">fundacja.kotkowo@gmail.com</span>
             </.footer_link>
 
             <div class="flex">
