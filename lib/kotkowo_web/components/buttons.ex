@@ -36,4 +36,40 @@ defmodule KotkowoWeb.Components.Buttons do
     </.link>
     """
   end
+
+  attr :id, :string, required: true
+  attr :name, :string, required: true
+  attr :label, :string, required: true
+  attr :options, :list, required: true
+  attr :value, :list, required: true
+  attr :errors, :list, default: []
+  attr :required, :boolean, default: false
+  attr :rest, :global
+
+  def checkgroup(assigns) do
+    assigns = assign(assigns, :name, assigns.name <> "[]")
+
+    ~H"""
+    <div class="flex flex-col space-y-4">
+      <h3 class="font-bold text-primary text-sm"><%= @label %></h3>
+      <input type="hidden" name={@name} value="" />
+      <div class="flex flex-col space-y-6 lowercase">
+        <div :for={{label, value} <- @options}>
+          <label class="text-sm" for={"#{@name}-#{value}"}>
+            <input
+              type="checkbox"
+              id={"#{@name}-#{value}"}
+              name={@name}
+              value={value}
+              checked={value in @value}
+              class="mr-3.5 border-gray rounded"
+              {@rest}
+            />
+            <%= label %>
+          </label>
+        </div>
+      </div>
+    </div>
+    """
+  end
 end

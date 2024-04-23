@@ -405,6 +405,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "95505c38b4572b2d910cecb0281560f54b440a19336cbbcb27bf6ce6adc6f5a8"
 
 [[package]]
+name = "heck"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2304e00983f87ffb38b55b444b5e3b60a884b5d30c0fca7d82fe33449bbe55ea"
+
+[[package]]
 name = "http"
 version = "0.2.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -533,8 +539,7 @@ dependencies = [
 
 [[package]]
 name = "kotkowo-client"
-version = "0.1.0"
-source = "git+https://github.com/kotkowo/kotkowo-client.git?tag=v0.1.0#5a9c7d5bece5c8f4d4f7f3c9c222b7691927c0f1"
+version = "0.1.1"
 dependencies = [
  "cynic",
  "cynic-codegen",
@@ -704,7 +709,7 @@ version = "0.18.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b645dcde5f119c2c454a92d0dfa271a2a3b205da92e4292a68ead4bdbfde1f33"
 dependencies = [
- "heck",
+ "heck 0.4.1",
  "itertools",
  "proc-macro2",
  "proc-macro2-diagnostics",
@@ -886,9 +891,9 @@ dependencies = [
 
 [[package]]
 name = "rustler"
-version = "0.29.1"
+version = "0.32.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0884cb623b9f43d3e2c51f9071c5e96a5acf3e6e6007866812884ff0cb983f1e"
+checksum = "83c330a01eaed3ebce4708e2f1052e0676a9155c1583b8afadc69acaf6105e33"
 dependencies = [
  "lazy_static",
  "rustler_codegen",
@@ -897,11 +902,11 @@ dependencies = [
 
 [[package]]
 name = "rustler_codegen"
-version = "0.29.1"
+version = "0.32.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "50e277af754f2560cf4c4ebedb68c1a735292fb354505c6133e47ec406e699cf"
+checksum = "28516544e4ab5fd4c6802343d9676540fbbac1489d36c0898ad8c19ac11f5be2"
 dependencies = [
- "heck",
+ "heck 0.5.0",
  "proc-macro2",
  "quote",
  "syn",
@@ -909,9 +914,9 @@ dependencies = [
 
 [[package]]
 name = "rustler_sys"
-version = "2.3.1"
+version = "2.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0a7c0740e5322b64e2b952d8f0edce5f90fcf6f6fe74cca3f6e78eb3de5ea858"
+checksum = "39e21c0f1bc2458e29df0249e0b6a047af44303c73856c179098b6fc3700fd38"
 dependencies = [
  "regex",
  "unreachable",
@@ -1031,7 +1036,7 @@ version = "0.8.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b4b19911debfb8c2fb1107bc6cb2d61868aaf53a988449213959bb1b5b1ed95f"
 dependencies = [
- "heck",
+ "heck 0.4.1",
  "proc-macro2",
  "quote",
  "syn",

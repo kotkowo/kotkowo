@@ -35,6 +35,8 @@ defmodule KotkowoWeb.Components.Cards do
     attr :class, :string
   end
 
+  attr :rest, :global
+
   slot(:attributes)
   slot(:actions)
 
@@ -123,6 +125,7 @@ defmodule KotkowoWeb.Components.Cards do
   attr :share_href, :string, required: true, doc: "Cat's share link"
   attr :dead, :boolean, default: false
   attr :card_class, :string, default: ""
+  attr :rest, :global
 
   def cat_card(assigns) do
     ~H"""
@@ -133,6 +136,7 @@ defmodule KotkowoWeb.Components.Cards do
       src={@src}
       alt={@name}
       tags={@tags}
+      {@rest}
     >
       <:title icon={to_string(@sex)}>
         <%= @name %>

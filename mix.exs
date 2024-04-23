@@ -45,7 +45,7 @@ defmodule Kotkowo.MixProject do
       {:phoenix_live_reload, "~> 1.4.1", only: :dev},
       {:phoenix_live_view, "~> 0.20.0", override: true},
       {:phoenix_live_dashboard, "~> 0.8.1"},
-      {:rustler, "~> 0.29.1"},
+      {:rustler, "~> 0.32.1"},
       {:heroicons, "~> 0.5"},
       {:esbuild, "~> 0.7.1", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.2.1", runtime: Mix.env() == :dev},
@@ -72,10 +72,8 @@ defmodule Kotkowo.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "ecto.setup"],
-      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-      "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
+      setup: ["deps.get"],
+      test: ["test"],
       "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"],
       check: [
         "compile --warnings-as-errors --all-warnings",
