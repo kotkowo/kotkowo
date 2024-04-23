@@ -105,6 +105,7 @@ defmodule Kotkowo.Client.Cat.Filter do
     {:name, {:contains_ci, val}}
   end
 
+<<<<<<< HEAD
   defp parse_field({:tags, nil}) do
     {:name, []}
   end
@@ -115,6 +116,18 @@ defmodule Kotkowo.Client.Cat.Filter do
 
   defp parse_field({:castrated, val}) do
     {:castrated, val}
+=======
+  defp parse_field({:tags, vals}) when is_list(vals) do
+    {:tags, {:in, vals}}
+  end
+
+  defp parse_field({:tags, val}) do
+    {:tags, {:contains_ci, val}}
+  end
+
+  defp parse_field({:castrated, val}) do
+    {:castrated, {:equals, val}}
+>>>>>>> fbf9448 (😀 Add a bunch of changes for new rust client support)
   end
 
   defp parse_field({:color, vals}) when is_list(vals) do
@@ -141,6 +154,7 @@ defmodule Kotkowo.Client.Cat.Filter do
     {:sex, {:equals, val}}
   end
 
+<<<<<<< HEAD
   def to_param(_field, nil), do: ""
   def to_param(_field, {_, []}), do: ""
   def to_param(_field, {_, nil}), do: ""
@@ -217,5 +231,12 @@ defmodule Kotkowo.Client.Cat.Filter do
       not is_nil(v) or (is_list(v) and Enum.empty?(v))
     end)
     |> from_map()
+=======
+  def to_param(%__MODULE__{} = filter) do
+    {_, name} = filter.name
+    {_, sex} = filter.sex
+
+    URI.encode("cat[name]=#{name}&cat[sex]=#{sex}&cat[age][]=adult")
+>>>>>>> fbf9448 (😀 Add a bunch of changes for new rust client support)
   end
 end

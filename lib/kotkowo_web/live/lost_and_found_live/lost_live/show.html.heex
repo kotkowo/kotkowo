@@ -1,0 +1,40 @@
+<.section>
+  <.breadcrumb>
+    <:crumb navigate={~p"/zaginione-znalezione"}>
+      Zaginione/Znalezione
+    </:crumb>
+    <:crumb navigate={~p"/zaginione-znalezione/zaginione/"}>
+      Zaginione
+    </:crumb>
+    <:crumb navigate={~p"/zaginione-znalezione/zaginione/#{@slug}"} active>
+      <%= @lost_cat.name %>
+    </:crumb>
+  </.breadcrumb>
+  <div class="flex flex-col gap-y-10">
+    <h1 class="text-primary mx-6 lg:mx-0 text-left font-manrope mt-6 lg:mt-0 font-extrabold xl:text-3xl text-2xl">
+      <%= @lost_cat.title %>
+    </h1>
+    <div
+      x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
+      class="flex-row flex gap-x-2 snap-x overflow-x-auto lg:hidden"
+    >
+      <img
+        :for={_ <- 0..6}
+        src={~p"/images/adoption_rules_kitty.jpeg"}
+        class="h-[156px] only:mx-auto min-w-[280px] object-cover"
+        alt="zaginiony kot"
+      />
+    </div>
+    <.cat_info lost_cat={@lost_cat} />
+    <div class="flex flex-col gap-y-4 px-6">
+      <h2 class="font-manrope tracking-wide font-bold text-xl lg:text-2xl">
+        Masz jakieś informacje?
+      </h2>
+      <p>Zadzwoń i podziel się nimi!</p>
+      <.phone_numbers lost_cat={@lost_cat} />
+      <h2 class="text-xl font-bold font-manrope tracking-wide">Okoliczności zaginięcia</h2>
+      <p><%= @lost_cat.disappearance_circumstances %></p>
+    </div>
+  </div>
+</.section>
+<.how_you_can_help />

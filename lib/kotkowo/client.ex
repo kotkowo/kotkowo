@@ -87,8 +87,11 @@ defmodule Kotkowo.Client do
   end
 
   defp parse_option({:cat, filter}, %Opts{} = acc) when is_map(filter), do: merge_filter(acc, Cat.Filter.from_map(filter))
+<<<<<<< HEAD
 
   defp parse_option({:filter, %Cat.Filter{} = filter}, %Opts{} = acc) when is_map(filter), do: merge_filter(acc, filter)
+=======
+>>>>>>> fbf9448 (😀 Add a bunch of changes for new rust client support)
 
   defp merge_filter(%Opts{filter: nil} = opts, filter) do
     %Opts{opts | filter: filter}
