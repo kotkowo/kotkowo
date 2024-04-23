@@ -1,10 +1,10 @@
 defmodule Kotkowo.Client.Cat do
   @moduledoc false
+  alias Kotkowo.Client.Cat.Age
+  alias Kotkowo.Client.Cat.Color
+  alias Kotkowo.Client.Cat.Sex
   alias Kotkowo.Client.Image
 
-  @type sex() :: :male | :female
-  @type age() :: :junior | :adult | :senior
-  @type color() :: :black | :gray | :tricolor | :patched | :ginger | :other_color
   @type castrated() :: boolean()
   @type tags() :: [String.t()]
   @type fiv_felv() :: :negative | :positive
@@ -12,6 +12,7 @@ defmodule Kotkowo.Client.Cat do
 
   defstruct [
     :id,
+    :age,
     :name,
     :description,
     :color,
@@ -29,13 +30,14 @@ defmodule Kotkowo.Client.Cat do
 
   @type t() :: %__MODULE__{
           id: String.t() | nil,
+          age: Age.t() | nil,
           name: String.t(),
           description: String.t() | nil,
-          color: color() | nil,
+          color: Color.t() | nil,
           tags: tags(),
           slug: String.t() | nil,
           description_heading: String.t() | nil,
-          sex: sex() | nil,
+          sex: Sex.t() | nil,
           is_dead: boolean(),
           fiv_felv: fiv_felv() | nil,
           castrated: boolean(),

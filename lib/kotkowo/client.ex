@@ -8,6 +8,48 @@ defmodule Kotkowo.Client do
 
   def list_cats(_options \\ %Opts{}), do: :erlang.nif_error(:nif_not_loaded)
 
+  @doc """
+  Creates a new client configuration with the specified options.
+
+  This function accepts a list of options that can be used to configure the client's behavior, such as sorting, pagination, and filtering. The options are processed in a way that allows for flexible configuration of the client's behavior.
+
+  ### Options
+
+  - `:sort` - A binary string specifying the sort order. Multiple sort options can be provided, and they will be applied in the order they are received.
+  - `:page_size` - An integer specifying the number of items per page for pagination.
+  - `:page` - An integer specifying the current page number for pagination.
+  - `:start` - An integer specifying the starting index for pagination.
+  - `:limit` - An integer specifying the maximum number of items to return.
+  - `:cat` - A map specifying filters for cats. This map is converted into a `Cat.Filter` structure using `Cat.Filter.from_map/1`.
+
+  ### Parameters
+
+  - `opts` - A list of options to configure the client. This can be a single option or a list of options.
+
+  ### Returns
+
+  A new `Opts` struct configured with the provided options.
+
+  ### Examples
+    iex> Kotkowo.Client.new(cat: %{name: "Fluffy"}, sort: "name:asc", sort: "sex:desc", limit: 10, start: 10)
+    %Kotkowo.Client.Opts{
+    filter: %Kotkowo.Client.Cat.Filter{
+      sex: nil,
+      age: nil,
+      color: nil,
+      castrated: nil,
+      tags: nil,
+      name: {:contains_ci, "Fluffy"}
+    },
+    pagination: %Kotkowo.Client.Pagination{
+      page: nil,
+      page_size: nil,
+      start: 10,
+      limit: 10
+    },
+    sort: ["sex:desc", "name:asc"]
+    }
+  """
   def new(opts \\ [])
 
   def new(opts) when is_list(opts) do
@@ -15,6 +57,8 @@ defmodule Kotkowo.Client do
   end
 
   def new(opt), do: new([opt])
+
+  defp parse_option({_, nil}, %Opts{} = acc), do: acc
 
   defp parse_option({:sort, new_sort}, %Opts{} = acc) when is_binary(new_sort) do
     sort =
@@ -42,12 +86,7 @@ defmodule Kotkowo.Client do
     merge_pagination(acc, %Pagination{limit: limit})
   end
 
-  defp parse_option({:cat, filter}, %Opts{} = acc), do: parse_option(struct!(Cat.Filter, filter), acc)
-  defp parse_option({:filter, filter}, %Opts{} = acc), do: parse_option(filter, acc)
-
-  defp parse_option(%Cat.Filter{} = filter, %Opts{} = acc) do
-    merge_filter(acc, filter)
-  end
+  defp parse_option({:cat, filter}, %Opts{} = acc) when is_map(filter), do: merge_filter(acc, Cat.Filter.from_map(filter))
 
   defp merge_filter(%Opts{filter: nil} = opts, filter) do
     %Opts{opts | filter: filter}

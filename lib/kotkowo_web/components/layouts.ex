@@ -5,7 +5,6 @@ defmodule KotkowoWeb.Layouts do
   import KotkowoWeb.Components.Flashes
   import KotkowoWeb.Components.Sections
 
-  @spec links :: [KotkowoWeb.Components.Sections.link()]
   def links do
     [
       {"Aktualności", "/aktualnosci",
