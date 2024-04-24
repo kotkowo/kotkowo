@@ -32,6 +32,7 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
     page_size = params |> Map.get("page_size", "30") |> parse_int_param()
     page = params |> Map.get("page") |> parse_int_param()
 
+    # TODO: async this
     {:ok, %Paged{items: cats, page_count: page_count, page_size: page_size, page: page, total: total}} =
       [page: page, page_size: page_size, filter: filter] |> Client.new() |> Client.list_cats()
 
