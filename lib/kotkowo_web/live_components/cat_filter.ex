@@ -10,6 +10,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
   alias Kotkowo.Client.Cat.Color
   alias Kotkowo.Client.Cat.Sex
 
+  @impl true
   def mount(socket) do
     socket =
       assign(socket, :raw_filter, Map.from_struct(%Cat.Filter{}))
@@ -17,9 +18,30 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
     {:ok, socket}
   end
 
+  @impl true
+  def update(assigns, socket) do
+    socket =
+      if assigns[:initial_filter] do
+        filter =
+          assigns[:initial_filter]
+          |> Map.from_struct()
+          |> Map.new(fn
+            {k, {_, v}} -> {k, v}
+            {k, v} -> {k, v}
+          end)
+
+        assign(socket, :raw_filter, filter)
+      else
+        socket
+      end
+
+    {:ok, socket}
+  end
+
   @string_ages Enum.map(Cat.Age.all(), &to_string/1)
   @string_colors Enum.map(Cat.Color.all(), &to_string/1)
 
+  @impl true
   def handle_event("change", %{"cat_search" => cat_search, "tag_search" => tag_search}, socket) do
     cat_search = unless(cat_search == "", do: cat_search)
     tag_search = unless(tag_search == "", do: String.split(tag_search))
@@ -82,6 +104,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
     {:noreply, socket}
   end
 
+  @impl true
   def render(assigns) do
     ~H"""
     <div>
@@ -104,6 +127,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
                 type="text"
                 placeholder="Wpisz imię kota"
                 class="border border-gray rounded-lg text-sm"
+                value={@raw_filter.name}
               />
             </div>
 
@@ -116,6 +140,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
                 id="tagSearch"
                 placeholder="Wpisz cechę kota"
                 class="border border-gray rounded-lg text-sm"
+                value={if @raw_filter.tags, do: Enum.join(@raw_filter.tags, " "), else: ""}
               />
             </div>
           </form>

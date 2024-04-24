@@ -8,6 +8,12 @@ defmodule Kotkowo.Client.Cat.Age do
   def to_string(:adult), do: "dorosły"
   def to_string(:senior), do: "senior"
 
+  for age <- @all do
+    def from_string(unquote(to_string(age))), do: unquote(age)
+  end
+
+  def from_string(_), do: nil
+
   @spec all() :: [t()]
   def all, do: @all
 end

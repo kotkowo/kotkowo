@@ -21,18 +21,29 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
 
   @impl true
   def mount(params, _session, socket) do
+    initial_filter = Cat.Filter.from_params(params["cat"])
+    socket = assign(socket, :initial_filter, initial_filter)
+    {:ok, socket}
+  end
+
+  @impl true
+  def handle_params(params, _uri, socket) do
+    filter = Cat.Filter.from_params(params["cat"])
     page_size = params |> Map.get("page_size", "30") |> parse_int_param()
     page = params |> Map.get("page") |> parse_int_param()
 
+    # TODO: async this
     {:ok, %Paged{items: cats, page_count: page_count, page_size: page_size, page: page, total: total}} =
-      [page: page, page_size: page_size] |> Client.new() |> Client.list_cats()
+      [page: page, page_size: page_size, filter: filter] |> Client.new() |> Client.list_cats()
 
     params = %{page: page, page_size: page_size}
+    # NOTE: page_count = 0, page = 1 for no results when filtered
+    page_count = max(1, page_count)
 
     socket =
       if page <= page_count do
         socket
-        |> stream(:cats, cats)
+        |> stream(:cats, cats, reset: true)
         |> assign(:cats_total, total)
         |> assign(:page_count, page_count)
         |> assign(:params, params)
@@ -40,17 +51,11 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
         push_navigate(socket, to: ~p"/adopcja/szukaja-domu")
       end
 
-    {:ok, socket}
-  end
-
-  @impl true
-  def handle_params(params, _uri, socket) do
-    dbg(params)
     {:noreply, socket}
   end
 
+  @impl true
   def handle_info({:filter_cat, %Cat.Filter{} = filter}, socket) do
-    # params = Map.put(socket.assigns.params, :filter, [filter])
     socket = push_patch(socket, to: ~p"/adopcja/szukaja-domu" <> "?#{Cat.Filter.to_param(filter)}")
     {:noreply, socket}
   end
