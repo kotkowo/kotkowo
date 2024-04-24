@@ -11,6 +11,12 @@ defmodule Kotkowo.Client.Cat.Color do
   def to_string(:patched), do: "łaciaty"
   def to_string(:other_color), do: "inny"
 
+  for color <- @all do
+    def from_string(unquote(to_string(color))), do: unquote(color)
+  end
+
+  def from_string(_), do: nil
+
   @spec all() :: [t()]
   def all, do: @all
 end

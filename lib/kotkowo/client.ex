@@ -88,6 +88,8 @@ defmodule Kotkowo.Client do
 
   defp parse_option({:cat, filter}, %Opts{} = acc) when is_map(filter), do: merge_filter(acc, Cat.Filter.from_map(filter))
 
+  defp parse_option({:filter, %Cat.Filter{} = filter}, %Opts{} = acc) when is_map(filter), do: merge_filter(acc, filter)
+
   defp merge_filter(%Opts{filter: nil} = opts, filter) do
     %Opts{opts | filter: filter}
   end
