@@ -105,16 +105,16 @@ defmodule Kotkowo.Client.Cat.Filter do
     {:name, {:contains_ci, val}}
   end
 
-  defp parse_field({:tags, vals}) when is_list(vals) do
-    {:tags, {:in, vals}}
+  defp parse_field({:tags, nil}) do
+    {:name, []}
   end
 
-  defp parse_field({:tags, val}) do
-    {:tags, {:contains_ci, val}}
+  defp parse_field({:tags, vals}) when is_list(vals) do
+    {:tags, vals}
   end
 
   defp parse_field({:castrated, val}) do
-    {:castrated, {:equals, val}}
+    {:castrated, val}
   end
 
   defp parse_field({:color, vals}) when is_list(vals) do
@@ -141,8 +141,13 @@ defmodule Kotkowo.Client.Cat.Filter do
     {:sex, {:equals, val}}
   end
 
+  def to_param(_field, nil), do: ""
   def to_param(_field, {_, []}), do: ""
   def to_param(_field, {_, nil}), do: ""
+
+  def to_param(field, values) when is_list(values) do
+    to_param(field, {nil, values})
+  end
 
   def to_param(field, {_, values}) when is_list(values) do
     base = "cat[#{field}][]="
@@ -150,6 +155,10 @@ defmodule Kotkowo.Client.Cat.Filter do
   end
 
   def to_param(field, {_, value}) do
+    "&cat[#{field}]=#{value}"
+  end
+
+  def to_param(field, value) do
     "&cat[#{field}]=#{value}"
   end
 
@@ -167,7 +176,7 @@ defmodule Kotkowo.Client.Cat.Filter do
     URI.encode(params)
   end
 
-  def from_params(nil), do: nil
+  def from_params(nil), do: %__MODULE__{}
 
   def from_params(params) do
     colors =
@@ -180,8 +189,10 @@ defmodule Kotkowo.Client.Cat.Filter do
     sex = Sex.from_string(params["sex"])
 
     castrated =
-      if params["castrated"] do
-        params["castrated"] == "true"
+      case params["castrated"] do
+        "true" -> true
+        "false" -> false
+        _ -> nil
       end
 
     ages =

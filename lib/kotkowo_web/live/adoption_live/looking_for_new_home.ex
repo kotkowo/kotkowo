@@ -34,7 +34,7 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
 
     # TODO: async this
     {:ok, %Paged{items: cats, page_count: page_count, page_size: page_size, page: page, total: total}} =
-      [page: page, page_size: page_size, filter: filter] |> Client.new() |> Client.list_cats()
+      [page: page, page_size: page_size, filter: filter] |> Client.new() |> dbg() |> Client.list_cats()
 
     params = %{page: page, page_size: page_size}
     # NOTE: page_count = 0, page = 1 for no results when filtered
