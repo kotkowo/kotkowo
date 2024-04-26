@@ -82,10 +82,10 @@
         Skontaktuj się z nami mailowo lub na Facebooku.
       </span>
       <div class="mt-10 gap-y-10 flex flex-col items-start">
-        <a href="mailto:fundacja.kotkowo@gmail.com">
+        <a href={"mailto:#{kotkowo_mail()}"}>
           <.icon name="envelope" class="mb-0.5 lg:w-6 w-7 inline invert" />
           <span class="underline font-bold lg:text-base text-lg">
-            fundacja.fundacja.kotkowo@gmail.com
+            <%= kotkowo_mail() %>
           </span>
         </a>
         <a href="https://facebook.com/kotkowo">

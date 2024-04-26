@@ -8,6 +8,7 @@ defmodule KotkowoWeb.Components.Sections do
 
   import KotkowoWeb.Components.Buttons
   import KotkowoWeb.Components.Icons
+  import KotkowoWeb.Constants, only: [kotkowo_mail: 0]
   import KotkowoWeb.Gettext
   import Tails
 
@@ -198,9 +199,9 @@ defmodule KotkowoWeb.Components.Sections do
 
             <h3 class="text-xl xl:text-2xl font-bold font-manrope">Fundacja kotkowo</h3>
 
-            <.footer_link href="#" class="flex">
+            <.footer_link href={"mailto:#{kotkowo_mail()}"} class="flex">
               <.icon name="envelope2" class="w-5 h-5 inline my-auto mr-2" />
-              <span class="my-auto">fundacja.kotkowo@gmail.com</span>
+              <span class="my-auto"><%= kotkowo_mail() %></span>
             </.footer_link>
 
             <div class="flex">
