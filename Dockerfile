@@ -41,7 +41,7 @@ RUN set -xe \
         aarch64) rustArch='aarch64-unknown-linux-musl'; rustupSha256='841513f7599fcf89c71a62dea332337dfd4332216b60c17648d6effbeefe66a9' ;; \
         *) echo >&2 "unsupported architecture: $apkArch"; exit 1 ;; \
     esac; \
-    url="https://static.rust-lang.org/rustup/archive/1.26.0/${rustArch}/rustup-init"; \
+    url="https://static.rust-lang.org/rustup/archive/1.27.0/${rustArch}/rustup-init"; \
     wget "$url"; \
     echo "${rustupSha256} *rustup-init" | sha256sum -c -; \
     chmod +x rustup-init; \
@@ -80,6 +80,9 @@ COPY lib lib
 COPY native native
 
 COPY --from=node-builder /app/assets assets
+
+RUN RUSTFLAGS="-C target-feature=-crt-static" rustup toolchain uninstall nightly && rustup toolchain install nightly
+
 # compile assets
 RUN RUSTFLAGS="-C target-feature=-crt-static" mix assets.deploy
 
