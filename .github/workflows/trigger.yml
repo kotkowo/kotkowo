@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        elixir: [1.15.5]
+        elixir: [1.16.2]
         otp: [26]
     uses: ./.github/workflows/checks.yml
     with:
