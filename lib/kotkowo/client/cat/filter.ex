@@ -100,7 +100,7 @@ defmodule Kotkowo.Client.Cat.Filter do
     |> assert_type(t())
   end
 
-  @spec parse_field({field(), any()}) :: {field(), filter(any())}
+  @spec parse_field({field(), any()}) :: {field(), filter(any()) | []}
   defp parse_field({:name, val}) do
     {:name, {:contains_ci, val}}
   end
