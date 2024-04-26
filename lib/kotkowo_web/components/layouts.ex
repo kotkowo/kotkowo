@@ -4,6 +4,7 @@ defmodule KotkowoWeb.Layouts do
 
   import KotkowoWeb.Components.Flashes
   import KotkowoWeb.Components.Sections
+  import KotkowoWeb.Constants, only: [kotkowo_mail: 0]
 
   def links do
     [

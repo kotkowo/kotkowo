@@ -7,6 +7,7 @@ defmodule KotkowoWeb.Components.Static.HelpProposalSection do
   import KotkowoWeb.Components.Buttons
   import KotkowoWeb.Components.Icons
   import KotkowoWeb.Components.Sections
+  import KotkowoWeb.Constants, only: [kotkowo_mail: 0]
 
   attr :parent_class, :any, default: nil
   attr :class, :any, default: nil
@@ -27,10 +28,10 @@ defmodule KotkowoWeb.Components.Static.HelpProposalSection do
           Napisz do nas lub wypełnij formularz dla wolontariuszy, a my skontaktujemy się z Tobą, jak tylko będzie to możliwe.
         </p>
 
-        <a href="#" class="flex">
+        <a href={"mailto:#{kotkowo_mail()}"} class="flex">
           <.icon name="envelope2" class="w-6 h-6 my-auto mr-2 inline invert" />
           <span class="underline">
-            fundacja.kotkowo@gmail.com
+            <%= kotkowo_mail() %>
           </span>
         </a>
 

@@ -5,6 +5,7 @@ defmodule KotkowoWeb.AdoptionLive.VirtualAdoption do
   import KotkowoWeb.Components.Sections
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
   import KotkowoWeb.Components.Steps
+  import KotkowoWeb.Constants, only: [kotkowo_mail: 0]
   import Tails
 
   def mount(_params, _session, socket) do

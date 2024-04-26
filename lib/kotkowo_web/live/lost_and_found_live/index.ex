@@ -4,4 +4,5 @@ defmodule KotkowoWeb.LostAndFoundLive.Index do
 
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
   import KotkowoWeb.Components.Steps
+  import KotkowoWeb.Constants, only: [kotkowo_mail: 0]
 end
