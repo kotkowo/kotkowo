@@ -22,7 +22,7 @@
       />
       <span class="text-2xl font-semibold leading-10 mt-10"><%= @article.introduction %></span>
       <span class="text-xl leading-10 w-full lg:w-[865px] overflow-auto break-words">
-        <%= @article.content |> as_html!() |> Phoenix.HTML.raw() %>
+        <%= @article.content |> HtmlSanitizeEx.markdown_html() |> Phoenix.HTML.raw() %>
       </span>
     </div>
     <div class="flex flex-col lg:mt-0 mt-10 items-center font-manrope gap-y-6 text-[#2c3535] text-3xl">
