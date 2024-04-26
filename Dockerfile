@@ -19,6 +19,7 @@ ENV ELIXIR_VERSION="v1.16.1" \
 
 RUN apk add --no-cache \
 		ca-certificates \
+    git \
 		curl \
 		build-base \
         libstdc++ \
