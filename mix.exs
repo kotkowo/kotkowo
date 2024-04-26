@@ -59,7 +59,7 @@ defmodule Kotkowo.MixProject do
       {:hackney, "~> 1.8"},
       {:styler, "~> 0.8", only: [:dev, :test], runtime: false},
       {:gradient, github: "esl/gradient", only: [:dev, :test], runtime: false},
-       {:gradient_macros,
+      {:gradient_macros,
        [
          git: "https://github.com/esl/gradient_macros.git",
          ref: "3bce214",
