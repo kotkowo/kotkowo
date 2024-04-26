@@ -42,12 +42,15 @@ defmodule KotkowoWeb.Components.Cards do
 
   def card(assigns) do
     ~H"""
-    <div class={
-      classes([
-        "lg:w-82 shrink-0 snap-center w-full max-w-xs lg:snap-none flex flex-col",
-        @class
-      ])
-    }>
+    <div
+      class={
+        classes([
+          "lg:w-82 shrink-0 snap-center w-full max-w-xs lg:snap-none flex flex-col",
+          @class
+        ])
+      }
+      {@rest}
+    >
       <div class="relative">
         <img
           src={@src}
