@@ -53,9 +53,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
     }
 
     filter = Cat.Filter.from_map(raw_filter)
-
     socket = assign(socket, :raw_filter, raw_filter)
-
     send(self(), {:filter_cat, filter})
 
     {:noreply, socket}
@@ -122,7 +120,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
             <div class="flex flex-col space-y-4">
               <h3 class="font-bold text-primary text-sm">Imię</h3>
               <input
-                phx-debounce
+                phx-debounce="100"
                 name="cat_search"
                 type="text"
                 placeholder="Wpisz imię kota"

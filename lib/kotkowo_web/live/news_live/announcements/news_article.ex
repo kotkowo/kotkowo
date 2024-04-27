@@ -3,7 +3,7 @@ defmodule KotkowoWeb.AnnouncementsLive.NewsArticle do
   use KotkowoWeb, :live_view
 
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
-  alias HtmlSanitizeEx
+
   alias Kotkowo.Article
   alias Kotkowo.GalleryImage
   alias Kotkowo.StrapiClient
