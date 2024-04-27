@@ -92,9 +92,9 @@
           :for={{id, cat} <- @streams.cats}
           id={id}
           share_href="#"
-          seniority={cat.age.value}
+          seniority={cat.age}
           castrated={cat.castrated}
-          health_status={cat.medical_status.value}
+          health_status={cat.medical_status}
           src={cat_image_url(cat)}
           sex={cat.sex}
           dead={false}

@@ -105,7 +105,6 @@ defmodule Kotkowo.Client.Cat.Filter do
     {:name, {:contains_ci, val}}
   end
 
-<<<<<<< HEAD
   defp parse_field({:tags, nil}) do
     {:name, []}
   end
@@ -142,8 +141,6 @@ defmodule Kotkowo.Client.Cat.Filter do
     {:sex, {:equals, val}}
   end
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   def to_param(_field, nil), do: ""
   def to_param(_field, {_, []}), do: ""
   def to_param(_field, {_, nil}), do: ""
@@ -220,79 +217,5 @@ defmodule Kotkowo.Client.Cat.Filter do
       not is_nil(v) or (is_list(v) and Enum.empty?(v))
     end)
     |> from_map()
-=======
-  def to_param(%__MODULE__{} = filter) do
-    {_, name} = filter.name
-    {_, sex} = filter.sex
-
-    URI.encode("cat[name]=#{name}&cat[sex]=#{sex}&cat[age][]=adult")
->>>>>>> fbf9448 (😀 Add a bunch of changes for new rust client support)
-=======
-  def to_param(_field, {_, []}), do: ""
-  def to_param(_field, {_, nil}), do: ""
-
-  def to_param(field, {_, values}) when is_list(values) do
-    base = "cat[#{field}][]="
-    "&" <> Enum.map_join(values, "&", fn val -> "#{base}#{val}" end)
-  end
-
-  def to_param(field, {_, value}) do
-    "&cat[#{field}]=#{value}"
-  end
-
-  def to_param(%__MODULE__{} = filter) do
-    params =
-      Enum.join([
-        to_param(:name, filter.name),
-        to_param(:sex, filter.sex),
-        to_param(:color, filter.color),
-        to_param(:castrated, filter.castrated),
-        to_param(:tags, filter.tags),
-        to_param(:age, filter.age)
-      ])
-
-    URI.encode(params)
-  end
-
-  def from_params(nil), do: nil
-
-  def from_params(params) do
-    colors =
-      params
-      |> Map.get("color", [])
-      |> Enum.map(&Color.from_string/1)
-      |> Enum.filter(&(not is_nil(&1)))
-
-    colors = if colors == [], do: nil, else: colors
-    sex = Sex.from_string(params["sex"])
-
-    castrated =
-      if params["castrated"] do
-        params["castrated"] == "true"
-      end
-
-    ages =
-      params
-      |> Map.get("age", [])
-      |> Enum.map(&Age.from_string/1)
-      |> Enum.filter(&(not is_nil(&1)))
-
-    ages = if ages == [], do: nil, else: ages
-
-    map = %{
-      name: params["name"],
-      color: colors,
-      tags: params["tags"],
-      sex: sex,
-      castrated: castrated,
-      age: ages
-    }
-
-    map
-    |> Map.filter(fn {_k, v} ->
-      not is_nil(v) or (is_list(v) and Enum.empty?(v))
-    end)
-    |> from_map()
->>>>>>> f23e39c (🤣 Working server side filtering)
   end
 end

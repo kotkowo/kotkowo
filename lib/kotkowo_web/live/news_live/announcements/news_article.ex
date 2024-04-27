@@ -2,9 +2,8 @@ defmodule KotkowoWeb.AnnouncementsLive.NewsArticle do
   @moduledoc false
   use KotkowoWeb, :live_view
 
-  import Earmark, only: [as_html!: 1]
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
-
+  alias HtmlSanitizeEx
   alias Kotkowo.Article
   alias Kotkowo.GalleryImage
   alias Kotkowo.StrapiClient
