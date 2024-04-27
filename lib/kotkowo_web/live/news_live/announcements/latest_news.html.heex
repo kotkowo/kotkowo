@@ -12,7 +12,7 @@
   </h1>
   <div class="flex flex-col mx-4 lg:mt-6 mt-8 gap-y-10">
     <.header_news_card
-      :if={@header_news != nil}
+      :if={@header_news != nil && @article != nil}
       title={@header_news.title}
       image={GalleryImage.url(@header_news.image)}
       tags={@header_news.tags}
