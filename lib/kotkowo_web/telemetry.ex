@@ -46,7 +46,7 @@ defmodule KotkowoWeb.Telemetry do
       summary("phoenix.socket_connected.duration",
         unit: {:native, :millisecond}
       ),
-      summary("phoenix.channel_join.duration",
+      summary("phoenix.channel_joined.duration",
         unit: {:native, :millisecond}
       ),
       summary("phoenix.channel_handled_in.duration",
@@ -54,27 +54,15 @@ defmodule KotkowoWeb.Telemetry do
         unit: {:native, :millisecond}
       ),
 
-      # Database Metrics
-      summary("kotkowo.repo.query.total_time",
-        unit: {:native, :millisecond},
-        description: "The sum of the other measurements"
-      ),
-      summary("kotkowo.repo.query.decode_time",
-        unit: {:native, :millisecond},
-        description: "The time spent decoding the data received from the database"
-      ),
-      summary("kotkowo.repo.query.query_time",
-        unit: {:native, :millisecond},
-        description: "The time spent executing the query"
-      ),
-      summary("kotkowo.repo.query.queue_time",
-        unit: {:native, :millisecond},
-        description: "The time spent waiting for a database connection"
-      ),
-      summary("kotkowo.repo.query.idle_time",
-        unit: {:native, :millisecond},
-        description: "The time the connection spent waiting before being checked out for the query"
-      ),
+      # Phoenix LiveView
+      summary("phoenix.live_view.mount.stop.duration", unit: {:native, :millisecond}),
+      summary("phoenix.live_view.mount.exception.duration", unit: {:native, :millisecond}),
+      summary("phoenix.live_view.handle_params.stop.duration", unit: {:native, :millisecond}),
+      summary("phoenix.live_view.handle_params.exception.duration", unit: {:native, :millisecond}),
+      summary("phoenix.live_view.handle_event.stop.duration", unit: {:native, :millisecond}),
+      summary("phoenix.live_view.handle_event.exception.duration", unit: {:native, :millisecond}),
+      summary("phoenix.live_component.handle_event.stop.duration", unit: {:native, :millisecond}),
+      summary("phoenix.live_component.handle_event.exception.duration", unit: {:native, :millisecond}),
 
       # VM Metrics
       summary("vm.memory.total", unit: {:byte, :kilobyte}),
