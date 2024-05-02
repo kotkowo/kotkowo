@@ -39,6 +39,7 @@ defmodule KotkowoWeb.Endpoint do
   plug PromEx.Plug, prom_ex_module: Kotkowo.PromEx
 
   plug Plug.RequestId
+  plug PromEx.Plug, prom_ex_module: Kotkowo.PromEx
   plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
 
   plug Plug.Parsers,
