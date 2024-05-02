@@ -57,6 +57,7 @@ defmodule Kotkowo.MixProject do
       {:sentry, "== 10.0.0"},
       {:jason, "~> 1.1"},
       {:hackney, "~> 1.8"},
+      {:prom_ex, "~> 1.9"},
       {:styler, "~> 0.8", only: [:dev, :test], runtime: false},
       {:gradient, github: "esl/gradient", only: [:dev, :test], runtime: false},
       {:gradient_macros,
