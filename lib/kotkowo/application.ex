@@ -8,15 +8,10 @@ defmodule Kotkowo.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      Kotkowo.PromEx,
-      # Start the Telemetry supervisor
       KotkowoWeb.Telemetry,
-      # Start the PubSub system
       {Phoenix.PubSub, name: Kotkowo.PubSub},
-      # Start the Endpoint (http/https)
-      KotkowoWeb.Endpoint
-      # Start a worker by calling: Kotkowo.Worker.start_link(arg)
-      # {Kotkowo.Worker, arg}
+      KotkowoWeb.Endpoint,
+      Kotkowo.PromEx
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
