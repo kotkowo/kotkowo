@@ -51,10 +51,10 @@
           card_class=""
           share_href="#"
           src={cat.cat.gallery |> GalleryImage.first_image()}
-          sex={cat.cat.sex.value}
-          seniority={cat.cat.age.value}
-          health_status={cat.cat.medical_status.value}
-          castrated={cat.cat.castrated.value}
+          sex={cat.cat.sex}
+          seniority={cat.cat.age}
+          health_status={cat.cat.medical_status}
+          castrated={cat.cat.castrated}
           tags={cat.cat.tags}
         />
       </div>

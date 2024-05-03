@@ -53,7 +53,7 @@
           :for={cat <- @found_home}
           share_href="#"
           src={cat.cat.gallery |> GalleryImage.first_image()}
-          sex={cat.cat.sex.value}
+          sex={cat.cat.sex}
           tags={cat.cat.tags}
           card_class="mx-auto"
           name={cat.cat.name}
@@ -82,7 +82,7 @@
           card_class="mx-auto"
           dead={cat.is_dead}
           src={cat.gallery |> GalleryImage.first_image()}
-          sex={cat.sex.value}
+          sex={cat.sex}
           tags={cat.tags}
         />
       </div>
