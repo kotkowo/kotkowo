@@ -249,7 +249,7 @@ defmodule KotkowoWeb.NewsLive.PassedAway do
 
   defp filter_colors(cats, colors) do
     Enum.filter(cats, fn adopted_cat ->
-      Atom.to_string(adopted_cat.color.value) in colors
+      Atom.to_string(adopted_cat.color) in colors
     end)
   end
 
@@ -257,7 +257,7 @@ defmodule KotkowoWeb.NewsLive.PassedAway do
 
   defp filter_sexes(cats, sexes) do
     Enum.filter(cats, fn adopted_cat ->
-      Atom.to_string(adopted_cat.sex.value) in sexes
+      Atom.to_string(adopted_cat.sex) in sexes
     end)
   end
 
@@ -265,7 +265,7 @@ defmodule KotkowoWeb.NewsLive.PassedAway do
 
   defp filter_seniority(cats, seniority) do
     Enum.filter(cats, fn adopted_cat ->
-      Atom.to_string(adopted_cat.age.value) in seniority
+      Atom.to_string(adopted_cat.age) in seniority
     end)
   end
 
@@ -273,7 +273,7 @@ defmodule KotkowoWeb.NewsLive.PassedAway do
 
   defp filter_castrated(cats, is_castrated) do
     Enum.filter(cats, fn adopted_cat ->
-      adopted_cat.castrated.value == is_castrated
+      adopted_cat.castrated == is_castrated
     end)
   end
 

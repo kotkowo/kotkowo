@@ -45,10 +45,10 @@
           name={cat.cat.name}
           share_href="#"
           src={cat.cat.gallery |> GalleryImage.first_image()}
-          sex={cat.cat.sex.value}
-          seniority={cat.cat.age.value}
+          sex={cat.cat.sex}
+          seniority={cat.cat.age}
           health_status={:tested_and_vaccinated}
-          castrated={cat.cat.castrated.value}
+          castrated={cat.cat.castrated}
           tags={cat.cat.tags}
         />
       </div>

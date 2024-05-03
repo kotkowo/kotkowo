@@ -148,7 +148,7 @@
           :for={cat <- @filtered_cats}
           share_href="#"
           src={cat.gallery |> GalleryImage.first_image()}
-          sex={cat.sex.value}
+          sex={cat.sex}
           dead={cat.is_dead}
           tags={cat.tags}
           name={cat.name}
