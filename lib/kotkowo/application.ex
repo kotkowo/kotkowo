@@ -8,7 +8,6 @@ defmodule Kotkowo.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      Kotkowo.PromEx,
       # Start the Telemetry supervisor
       KotkowoWeb.Telemetry,
       {Phoenix.PubSub, name: Kotkowo.PubSub},
