@@ -106,7 +106,7 @@ defmodule Kotkowo.Client.Cat.Filter do
   end
 
   defp parse_field({:tags, nil}) do
-    {:name, []}
+    {:tags, []}
   end
 
   defp parse_field({:tags, vals}) when is_list(vals) do
