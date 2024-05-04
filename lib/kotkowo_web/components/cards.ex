@@ -292,7 +292,7 @@ defmodule KotkowoWeb.Components.Cards do
     ~H"""
     <.card
       img_class="h-40"
-      body_class="rounded-t-none -mt-0.5 grow lg:p-6 px-4 py-3"
+      body_class="rounded-t-none -mt-0.5 grow lg:p-6 px-4 py-3 rounded-b-2xl"
       class="max-w-none lg:w-[345px] w-[240px] h-[400px] lg:h-[500px]"
       share_href={@share_href}
       src={@src}
