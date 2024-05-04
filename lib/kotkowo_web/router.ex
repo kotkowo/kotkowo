@@ -39,8 +39,16 @@ defmodule KotkowoWeb.Router do
 
     scope "/zaginione-znalezione" do
       live "/", LostAndFoundLive.Index
-      live "/znalezione", LostAndFoundLive.Found
-      live "/zaginione", LostAndFoundLive.Lost
+
+      scope "/znalezione" do
+        live "/", LostAndFoundLive.FoundLive.Index
+        live "/:slug", LostAndFoundLive.FoundLive.Show
+      end
+
+      scope "/zaginione" do
+        live "/", LostAndFoundLive.LostLive.Index
+        live "/:slug", LostAndFoundLive.LostLive.Show
+      end
     end
 
     scope "/aktualnosci" do
