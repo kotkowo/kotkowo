@@ -23,7 +23,7 @@ defmodule KotkowoWeb.Layouts do
       {"Zaginione/znalezione", ~p"/zaginione-znalezione",
        [
          {"Zaginione", ~p"/zaginione-znalezione/zaginione"},
-         {"Znalezione", ~p"/zaginione-znalezione/zaginione"}
+         {"Znalezione", ~p"/zaginione-znalezione/znalezione"}
        ], []},
       {"Jak pomóc", ~p"/pomoc",
        [
