@@ -33,6 +33,7 @@ defmodule KotkowoWeb.AnnouncementsLive.LatestNews do
   end
 
   defp get_article(nil), do: nil
+
   defp get_article(%Announcement{} = news) do
     case StrapiClient.get_article_for_announcement(Integer.to_string(news.id)) do
       {:ok, %Article{} = article} -> article
