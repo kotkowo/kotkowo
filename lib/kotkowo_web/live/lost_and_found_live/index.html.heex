@@ -36,7 +36,9 @@
         src={~p"/images/rudzik.png"}
       />
     </div>
-    <.button type="outline">Zobacz wszystkie</.button>
+    <.button navigate={~p"/zaginione-znalezione/znalezione"} type="outline">
+      Zobacz wszystkie
+    </.button>
   </div>
 </.section>
 <.section class="!max-w-none" parent_class="!py-10">
@@ -70,7 +72,9 @@
         src={~p"/images/rudzik.png"}
       />
     </div>
-    <.button type="outline">Zobacz wszystkie</.button>
+    <.button navigate={~p"/zaginione-znalezione/zaginione/"} type="outline">
+      Zobacz wszystkie
+    </.button>
   </div>
 </.section>
 <.section>
@@ -119,7 +123,7 @@
         Zachipuj kota, aby łatwiej było go znaleźć!
       </h1>
       <ul class="flex flex-col space-y-3 max-sm:max-w-none max-w-xl">
-        <%= for text <- \
+        <%= for sentence <- \
                      [ "Zachipuj kota u weterynarza – to w ogóle nie boli zwierzaka, a cały zabieg trwa tylko kilka sekund!" \
                      , "Kota możesz zachipować bezpłatnie w ramach jednej z licznych inicjatyw miejskich" \
                      , "Po zachipowaniu kota otrzymasz unikalny numer mikroczipa" \
@@ -128,7 +132,7 @@
           <li class="flex">
             <.icon name="paw" class="w-[13px] h-[25px] mr-3" />
             <span class="my-auto xl:text-lg text-base">
-              <%= text %>
+              <%= sentence %>
             </span>
           </li>
         <% end %>
