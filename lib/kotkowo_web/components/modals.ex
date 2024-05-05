@@ -13,36 +13,31 @@ defmodule KotkowoWeb.Components.Modals do
     ~H"""
     <div
       x-show="shown"
-      class="flex flex-col gap-y-6 w-96 left-1/2 top-1/2 p-4 -translate-x-1/2 -translate-y-1/2 border-gray border rounded-2xl bg-white shadow-xl fixed z-20"
+      class="flex flex-col gap-y-4 sm:gap-y-6 w-72 sm:w-96 left-1/2 top-1/2 p-4 -translate-x-1/2 -translate-y-1/2 border-gray border rounded-2xl bg-white shadow-xl fixed z-20"
     >
       <div class="flex flex-row">
-        <span class="font-bold text-2xl"><%= gettext("Udostępnij") %></span>
-        <Heroicons.x_mark
-          mini
-          x-on:click="
+        <span class="font-bold text-xl sm:text-2xl"><%= gettext("Udostępnij") %></span>
+        <Heroicons.x_mark mini x-on:click="
         shown = !shown;
-        console.log(shown);
-        "
-          class="ml-auto w-8"
-        />
+        " class="ml-auto w-8" />
       </div>
       <div>
         <span><%= gettext("Udostępnij ten link przez") %>:</span>
         <div class="flex flex-row justify-evenly mt-2">
-          <div class="border border-blue-800 rounded-full p-3">
-            <.icon name="facebook" class="w-5 invert" />
+          <div class="border border-blue-800 rounded-full sm:p-3 p-2">
+            <.icon name="facebook" class="sm:w-5 w-4 invert" />
           </div>
-          <div class="border border-blue-800 rounded-full p-3 ">
-            <.icon name="facebook" class="w-5 invert" />
+          <div class="border border-blue-800 rounded-full sm:p-3 p-2 ">
+            <.icon name="facebook" class="sm:w-5 w-4 invert" />
           </div>
-          <div class="border border-blue-800 rounded-full p-3 ">
-            <.icon name="facebook" class="w-5 invert" />
+          <div class="border border-blue-800 rounded-full sm:p-3 p-2 ">
+            <.icon name="facebook" class="sm:w-5 w-4 invert" />
           </div>
-          <div class="border border-blue-800 rounded-full p-3 ">
-            <.icon name="facebook" class="w-5 invert" />
+          <div class="border border-blue-800 rounded-full sm:p-3 p-2 ">
+            <.icon name="facebook" class="sm:w-5 w-4 invert" />
           </div>
-          <div class="border border-blue-800 rounded-full p-3 ">
-            <.icon name="facebook" class="w-5 invert" />
+          <div class="border border-blue-800 rounded-full sm:p-3 p-2 ">
+            <.icon name="facebook" class="sm:w-5 w-4 invert" />
           </div>
         </div>
       </div>
@@ -54,12 +49,12 @@ defmodule KotkowoWeb.Components.Modals do
           navigator.clipboard.writeText($el.value);
           copied = true;
           "
-          class="w-full cursor-pointer"
+          class="w-full cursor-pointer rounded-3xl"
           type="url"
           value={@href}
           readonly
         />
-        <span class="self-center" x-show="copied">Copied!</span>
+        <span class="self-center" x-show="copied"><%= gettext("Skopiowane!") %></span>
       </div>
     </div>
     """
