@@ -14,6 +14,12 @@ defmodule KotkowoWeb.Components.Modals do
     ~H"""
     <div
       x-show="shown"
+      x-transition:enter="transition ease-out duration-150"
+      x-transition:enter-start="opacity-0"
+      x-transition:enter-end="opacity-100"
+      x-transition:leave="transition ease-in duration-150"
+      x-transition:leave-start="opacity-100"
+      x-transition:leave-end="opacity-0"
       class="flex flex-col gap-y-4 sm:gap-y-6 w-72 sm:w-96 left-1/2 top-1/2 p-4 -translate-x-1/2 -translate-y-1/2 border-gray border rounded-2xl bg-white shadow-xl fixed z-20"
     >
       <div class="flex flex-row">
