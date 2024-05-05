@@ -63,10 +63,26 @@ defmodule KotkowoWeb.Components.Cards do
             ])
           }
         />
-        <div :if={@share_href != nil} x-data="{shown: false}">
+        <div
+          :if={@share_href != nil}
+          x-data={"{shown: false, share_data: {
+          url: '#{@share_href}',
+          text: 'placeholder text',
+          title: 'placeholder title',
+        }}"}
+        >
           <div
             class="absolute right-3 top-3 bg-white w-6 lg:w-10 h-6 lg:h-10 rounded-full opacity-60 flex"
-            x-on:click="shown = true"
+            x-on:click="
+            if (navigator.canShare(share_data)) {
+              navigator.share(share_data).catch((_error) => {
+            shown = true;
+            })
+            } else {
+            shown = true;
+
+            }
+            "
           >
             <.icon name="share" class="w-3 lg:w-5 h-3 lg:h-5 m-auto" />
           </div>
