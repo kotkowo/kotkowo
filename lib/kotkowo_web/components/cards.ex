@@ -63,13 +63,15 @@ defmodule KotkowoWeb.Components.Cards do
             ])
           }
         />
-        <a
-          :if={@share_href != nil}
-          href={@share_href}
-          class="absolute right-3 top-3 bg-white w-6 lg:w-10 h-6 lg:h-10 rounded-full opacity-60 flex"
-        >
-          <.icon name="share" class="w-3 lg:w-5 h-3 lg:h-5 m-auto" />
-        </a>
+        <div :if={@share_href != nil} x-data="{shown: false}">
+          <div
+            class="absolute right-3 top-3 bg-white w-6 lg:w-10 h-6 lg:h-10 rounded-full opacity-60 flex"
+            x-on:click="shown = true"
+          >
+            <.icon name="share" class="w-3 lg:w-5 h-3 lg:h-5 m-auto" />
+          </div>
+          <KotkowoWeb.Components.Modals.share_modal href={@share_href} />
+        </div>
       </div>
 
       <div class={
