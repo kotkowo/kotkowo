@@ -8,6 +8,7 @@ defmodule KotkowoWeb.Components.Modals do
   import KotkowoWeb.Gettext
 
   attr :href, :string, required: true
+  attr :quote, :string, default: ""
 
   def share_modal(assigns) do
     ~H"""
@@ -24,21 +25,22 @@ defmodule KotkowoWeb.Components.Modals do
       <div>
         <span><%= gettext("Udostępnij ten link przez") %>:</span>
         <div class="flex flex-row justify-evenly mt-2">
-          <div class="border border-blue-800 rounded-full sm:p-3 p-2">
+          <a
+            href={"https://www.facebook.com/sharer/sharer.php?u=#{@href}&hashtag=kotkowo"}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="border border-blue-800 rounded-full sm:p-3 p-2"
+          >
             <.icon name="facebook" class="sm:w-5 w-4 invert" />
-          </div>
-          <div class="border border-blue-800 rounded-full sm:p-3 p-2 ">
-            <.icon name="facebook" class="sm:w-5 w-4 invert" />
-          </div>
-          <div class="border border-blue-800 rounded-full sm:p-3 p-2 ">
-            <.icon name="facebook" class="sm:w-5 w-4 invert" />
-          </div>
-          <div class="border border-blue-800 rounded-full sm:p-3 p-2 ">
-            <.icon name="facebook" class="sm:w-5 w-4 invert" />
-          </div>
-          <div class="border border-blue-800 rounded-full sm:p-3 p-2 ">
-            <.icon name="facebook" class="sm:w-5 w-4 invert" />
-          </div>
+          </a>
+          <a
+            href={"https://twitter.com/intent/tweet?url=#{@href}&text=#{@quote}"}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="border border-blue-800 rounded-full sm:p-3 p-2"
+          >
+            <.icon name="twitter" class="sm:w-5 w-4" />
+          </a>
         </div>
       </div>
 
