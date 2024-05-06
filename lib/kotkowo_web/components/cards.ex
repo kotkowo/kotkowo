@@ -74,7 +74,7 @@ defmodule KotkowoWeb.Components.Cards do
           <div
             class="absolute right-3 top-3 bg-white w-6 lg:w-10 h-6 lg:h-10 rounded-full opacity-60 flex"
             x-on:click="
-            if (navigator.canShare(share_data)) {
+            if (navigator.share) {
               navigator.share(share_data).catch((_error) => {
             shown = true;
             })
