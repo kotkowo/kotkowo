@@ -91,7 +91,8 @@
         <.cat_card
           :for={{id, cat} <- @streams.cats}
           id={id}
-          share_href="#"
+          share_href={"#{kotkowo_url()}/adopcja/szukaja-domu/#{cat.slug}"}
+          share_quote={cat.description}
           src={cat_image_url(cat)}
           sex={cat.sex}
           dead={false}

@@ -20,6 +20,7 @@ defmodule KotkowoWeb.Components.Cards do
   attr :src, :string, required: true, doc: "Image"
   attr :alt, :string, required: true, doc: "Image's alt"
   attr :share_href, :string, default: nil, doc: "Share link"
+  attr :share_quote, :string, default: "", doc: "Text to include with most share options"
 
   attr :tags, :list,
     default: [],
@@ -69,7 +70,7 @@ defmodule KotkowoWeb.Components.Cards do
             class="cursor-pointer absolute right-3 top-3 bg-white w-6 lg:w-10 h-6 lg:h-10 rounded-full opacity-60 flex"
             phx-click={JS.dispatch("share_modal")}
             share_href={@share_href}
-            share_quote="placeholder text"
+            share_quote={@share_quote}
           >
             <.icon name="share" class="w-3 lg:w-5 h-3 lg:h-5 m-auto" />
           </div>
