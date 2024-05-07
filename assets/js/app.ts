@@ -58,13 +58,13 @@ window.addEventListener('share_modal', (e) => {
 
   const open_share_modal = () => {
     console.warn('Web Share Api is not supported by the current browser.');
-    let share_dialog = document.getElementById("share-dialog")
+    const share_dialog = document.getElementById("share-dialog")
     share_dialog.showModal()
-    let facebook_share = document.getElementById("share-facebook")
+    const facebook_share = document.getElementById("share-facebook")
     facebook_share.setAttribute("href", `https://www.facebook.com/sharer/sharer.php?u=${href}&hashtag=kotkowo`)
-    let twitter_share = document.getElementById("share-twitter")
+    const twitter_share = document.getElementById("share-twitter")
     twitter_share.setAttribute("href", `https://twitter.com/intent/tweet?url=${href}&text=${quote}`)
-    let share_copy = document.getElementById("share-copy")
+    const share_copy = document.getElementById("share-copy")
     share_copy.value = href
   }
 
