@@ -15,6 +15,7 @@ defmodule KotkowoWeb.Components.Cards do
   alias Kotkowo.Attributes.HealthStatus
   alias Kotkowo.Attributes.Seniority
   alias Kotkowo.Attributes.Sex
+  alias Phoenix.LiveView.JS
 
   attr :src, :string, required: true, doc: "Image"
   attr :alt, :string, required: true, doc: "Image's alt"
@@ -63,32 +64,15 @@ defmodule KotkowoWeb.Components.Cards do
             ])
           }
         />
-        <div
-          :if={@share_href != nil}
-          x-data={"{shown: false, share_data: {
-          url: '#{@share_href}',
-          text: 'placeholder text',
-          title: 'placeholder title',
-        }}"}
-        >
+        <div :if={@share_href != nil}>
           <div
             class="cursor-pointer absolute right-3 top-3 bg-white w-6 lg:w-10 h-6 lg:h-10 rounded-full opacity-60 flex"
-            x-on:click="
-            if (navigator.share) {
-              navigator
-              .share(share_data)
-              .catch((error) => {
-                shown = true;
-                console.warn('Web Share Api is not supported by the current browser.');
-              })
-            } else {
-              shown = true;
-            }
-            "
+            phx-click={JS.dispatch("share_modal")}
+            share_href={@share_href}
+            share_quote="placeholder text"
           >
             <.icon name="share" class="w-3 lg:w-5 h-3 lg:h-5 m-auto" />
           </div>
-          <KotkowoWeb.Components.Modals.share_modal href={@share_href} />
         </div>
       </div>
 
