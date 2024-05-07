@@ -148,6 +148,7 @@
         <.cat_card
           :for={cat <- @filtered_cats}
           share_href="#"
+          share_quote={cat.description}
           src={cat.cat.gallery |> GalleryImage.first_image()}
           sex={cat.cat.sex}
           tags={cat.cat.tags}

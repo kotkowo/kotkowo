@@ -131,6 +131,7 @@ defmodule KotkowoWeb.Components.Cards do
 
   attr :sex, :atom, values: Sex.all(), required: true, doc: "Cat's sex"
   attr :share_href, :string, required: true, doc: "Cat's share link"
+  attr :share_quote, :string, default: "", doc: "Text included with share"
   attr :dead, :boolean, default: false
   attr :card_class, :string, default: ""
   attr :rest, :global

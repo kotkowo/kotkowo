@@ -52,6 +52,7 @@
         <.cat_card
           :for={cat <- @found_home}
           share_href="#"
+          share_quote={cat.cat.description}
           src={cat.cat.gallery |> GalleryImage.first_image()}
           sex={cat.cat.sex}
           tags={cat.cat.tags}
@@ -79,6 +80,7 @@
           :for={cat <- @passed_away}
           name={cat.name}
           share_href="#"
+          share_quote={cat.description}
           card_class="mx-auto"
           dead={cat.is_dead}
           src={cat.gallery |> GalleryImage.first_image()}

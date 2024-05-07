@@ -146,6 +146,7 @@
         <.cat_card
           :for={cat <- @filtered_cats}
           share_href="#"
+          share_quote={cat.description}
           src={cat.gallery |> GalleryImage.first_image()}
           sex={cat.sex}
           dead={cat.is_dead}
