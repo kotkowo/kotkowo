@@ -15,7 +15,7 @@
       </h1>
 
       <ul class="flex flex-col space-y-3">
-        <%= for text <- \
+        <%= for sentence <- \
                      [ "Wszystkie nasze kotki mieszkają w Białymstoku, ale mogą także podróżować do innych części Polski" \
                      , "Są zaszczepione, odpchlone, odrobaczone i nauczone czystości" \
                      , "Znajdują sie pod opieką lekarza weterynarii" \
@@ -23,7 +23,7 @@
           <li class="flex">
             <.icon name="paw" class="w-3 h-3 mr-3 my-auto" />
             <span class="my-auto xl:text-lg">
-              <%= text %>
+              <%= sentence %>
             </span>
           </li>
         <% end %>
@@ -76,7 +76,7 @@
 <.section class="px-6 xl:px-0">
   <div class="self-start flex flex-col justify-center w-full space-y-10">
     <div class="flex flex-col lg:flex-row gap-x-32 gap-y-10">
-      <div class="lg:w-80 w-full shrink-0 border border-gray rounded-2xl flex flex-col lg:max-w-none max-w-sm self-center space-y-6 h-min ">
+      <div class="lg:w-80 w-full shrink-0 xl:border xl:border-gray rounded-2xl flex flex-col lg:max-w-none max-w-sm self-center space-y-6 h-min ">
         <.live_component
           id="cat_filter"
           module={KotkowoWeb.LiveComponents.CatFilter}

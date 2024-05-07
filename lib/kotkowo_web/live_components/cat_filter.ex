@@ -109,7 +109,6 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
     ~H"""
     <div>
       <.drawer
-        class_when_hidden="hidden lg:block"
         title="Filtruj według"
         title_class="text-primary text-justify font-manrope text-2xl font-bold"
         class="xl:w-full block lg:hidden"
