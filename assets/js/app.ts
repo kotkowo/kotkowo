@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+
 import 'phoenix_html'
 import { Socket } from 'phoenix'
 import { LiveSocket } from 'phoenix_live_view'
@@ -51,12 +53,12 @@ window.addEventListener('phx:page-loading-start', _info =>
   topbar.delayedShow(200)
 )
 window.addEventListener('phx:page-loading-stop', _info => topbar.hide())
-window.addEventListener('share_modal', (e) => {
+window.addEventListener('share_modal', e => {
   const elem = e.target;
   const href = elem.getAttribute("share_href");
   const quote = elem.getAttribute("share_quote");
 
-  const open_share_modal = () => {
+  const open_share_modal = () : void => {
     console.warn('Web Share Api is not supported by the current browser.');
     const share_dialog = document.getElementById("share-dialog")
     share_dialog.showModal()
@@ -68,13 +70,13 @@ window.addEventListener('share_modal', (e) => {
     share_copy.value = href
   }
 
-  if (navigator.share) {
+  if (navigator.share !== undefined) {
     navigator
     .share({
         href,
         quote
       })
-    .catch((error) => {
+    .catch(_ => {
       open_share_modal()
     })          
   } else {
@@ -82,8 +84,8 @@ window.addEventListener('share_modal', (e) => {
   }
 })
 
-window.addEventListener("hide_share", (e) => {
-  let share_dialog = document.getElementById("share-dialog")
+window.addEventListener("hide_share", e => {
+  const share_dialog = document.getElementById("share-dialog")
   share_dialog.close();
   
 })
