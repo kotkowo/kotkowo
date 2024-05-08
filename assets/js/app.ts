@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import 'phoenix_html'
 import { Socket } from 'phoenix'
 import { LiveSocket } from 'phoenix_live_view'
@@ -7,6 +5,19 @@ import topbar from '../vendor/topbar'
 import Alpine from 'alpinejs'
 import type { AlpineComponent } from 'alpinejs'
 import breakpoint from 'alpinejs-breakpoints'
+
+function open_share_modal() : void {
+    console.warn('Web Share Api is not supported by the current browser.');
+    const share_dialog = document.getElementById("share-dialog")
+    share_dialog.showModal()
+    const facebook_share = document.getElementById("share-facebook")
+    facebook_share.setAttribute("href", `https://www.facebook.com/sharer/sharer.php?u=${href}&hashtag=kotkowo`)
+    const twitter_share = document.getElementById("share-twitter")
+    twitter_share.setAttribute("href", `https://twitter.com/intent/tweet?url=${href}&text=${quote}`)
+    const share_copy = document.getElementById("share-copy")
+    share_copy.value = href
+  }
+
 
 function toast() : AlpineComponent<{
 	percentage: number,
@@ -57,19 +68,7 @@ window.addEventListener('share_modal', e => {
   const elem = e.target;
   const href = elem.getAttribute("share_href");
   const quote = elem.getAttribute("share_quote");
-
-  const open_share_modal = () : void => {
-    console.warn('Web Share Api is not supported by the current browser.');
-    const share_dialog = document.getElementById("share-dialog")
-    share_dialog.showModal()
-    const facebook_share = document.getElementById("share-facebook")
-    facebook_share.setAttribute("href", `https://www.facebook.com/sharer/sharer.php?u=${href}&hashtag=kotkowo`)
-    const twitter_share = document.getElementById("share-twitter")
-    twitter_share.setAttribute("href", `https://twitter.com/intent/tweet?url=${href}&text=${quote}`)
-    const share_copy = document.getElementById("share-copy")
-    share_copy.value = href
-  }
-
+ 
   if (navigator.share !== undefined) {
     navigator
     .share({
