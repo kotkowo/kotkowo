@@ -19,14 +19,14 @@ defmodule KotkowoWeb.Components.Drawers do
   def drawer(assigns) do
     ~H"""
     <div
-      x-data={"{isXl: window.innerWidth >= 1280, folded: #{@folded}}"}
-      x-on:resize.window="isXl = window.innerWidth >= 1280"
+      x-data={"{isXl: $isBreakpoint('lg+') == true, folded: #{@folded}}"}
+      x-on:resize.window="isXl = $isBreakpoint('lg+') == true"
     >
       <template x-if="!isXl">
         <div class={
           classes([
-            "border rounded-xl xl:w-[757px] flex flex-col cursor-pointer select-none",
-            @class
+            "border rounded-xl xl:w-[757px] flex flex-col cursor-pointer select-none"
+            # @class
           ])
         }>
           <div
