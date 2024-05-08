@@ -111,7 +111,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
       <.drawer
         title="Filtruj według"
         title_class="text-primary text-justify font-manrope text-2xl font-bold"
-        class="xl:w-full block lg:hidden"
+        class="xl:w-full block xl:hidden"
       >
         <div class="p-6 flex flex-col space-y-6 h-min">
           <form phx-change="change" phx-target={@myself} class="flex flex-col space-y-6 h-min">

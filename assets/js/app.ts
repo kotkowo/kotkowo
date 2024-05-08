@@ -6,7 +6,7 @@ import Alpine from 'alpinejs'
 import type { AlpineComponent } from 'alpinejs'
 import breakpoint from 'alpinejs-breakpoints'
 
-function open_share_modal() : void {
+function open_share_modal(href: string, quote: string) : void {
     console.warn('Web Share Api is not supported by the current browser.');
     const share_dialog = document.getElementById("share-dialog")
     share_dialog.showModal()
@@ -76,10 +76,10 @@ window.addEventListener('share_modal', e => {
         quote
       })
     .catch(_ => {
-      open_share_modal()
+      open_share_modal(href, quote)
     })          
   } else {
-    open_share_modal()
+    open_share_modal(href, quote)
   }
 })
 
