@@ -43,13 +43,13 @@ function toast() : AlpineComponent<{
 
 Alpine.data('toast', toast)
 
-const csrfToken = document
+const csrf_token = document
   .querySelector("meta[name='csrf-token']")
   .getAttribute('content')
 
 window.Alpine = Alpine
-const liveSocket = new LiveSocket('/live', Socket, {
-  params: { _csrf_token: csrfToken },
+const live_socket = new LiveSocket('/live', Socket, {
+  params: { _csrf_token: csrf_token },
   dom: {
     onBeforeElUpdated(from, to) {
       if (from._x_dataStack !== undefined) {
@@ -89,9 +89,9 @@ window.addEventListener("hide_share", e => {
   
 })
 
-liveSocket.connect()
+live_socket.connect()
 
-window.liveSocket = liveSocket
+window.live_socket = live_socket
 
 Alpine.plugin(breakpoint)
 Alpine.start()

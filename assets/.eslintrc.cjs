@@ -22,7 +22,13 @@ module.exports = {
   },
   ignorePatterns: ['**/vendor/*.js'],
   rules: {
-    '@typescript-eslint/naming-convention': 'off',
+    '@typescript-eslint/naming-convention': [
+      "error",
+      {
+        'selector': 'variable',
+        'format': ['snake_case']
+      }
+    ],
     'prefer-arrow-callback': 'error',
     'arrow-body-style': ['error', 'as-needed'],
     'arrow-parens': ['error', 'as-needed']
