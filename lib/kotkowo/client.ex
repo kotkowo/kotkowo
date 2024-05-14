@@ -7,6 +7,7 @@ defmodule Kotkowo.Client do
   alias Kotkowo.Client.Pagination
 
   def list_cats(_options \\ %Opts{}), do: :erlang.nif_error(:nif_not_loaded)
+  def list_announcements(_options \\ %Opts{}), do: :erlang.nif_error(:nif_not_loaded)
 
   @doc """
   Creates a new client configuration with the specified options.
