@@ -4,21 +4,15 @@ defmodule KotkowoWeb.AnnouncementsLive.AllNews do
 
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
 
-  alias Kotkowo.StrapiClient
+  alias Kotkowo.Client
+  alias Kotkowo.Client.Paged
 
   @first_page 1
-  @default_limit 30
+  @default_limit 1
 
   @impl true
-  def mount(params, _session, socket) do
-    limit = params |> Map.get("limit", Integer.to_string(@default_limit)) |> String.to_integer()
-
-    {:ok, max_page} = StrapiClient.get_announcement_list_pages(limit)
-    max_page = max(1, max_page)
-
-    socket =
-      assign(socket, :max_page, max_page)
-
+  def mount(_params, _session, socket) do
+    socket = assign(socket, :max_page, @first_page)
     {:ok, socket}
   end
 
@@ -34,14 +28,20 @@ defmodule KotkowoWeb.AnnouncementsLive.AllNews do
         true -> page
       end
 
-    offset = (page - 1) * limit
-    {:ok, news} = StrapiClient.list_announcements(limit, offset)
+    {:ok, %Paged{items: news, page_count: page_count, page_size: _page_size, page: page, total: _total}} =
+      [page: page, page_size: limit, filter: nil] |> Client.new() |> Client.list_announcements()
 
     socket =
-      socket
-      |> assign(:news, news)
-      |> assign(:page, page)
-      |> assign(:limit, limit)
+      if page > page_count do
+        params = %{limit: limit, page: page_count}
+        push_patch(socket, to: ~p"/aktualnosci/z-ostatniej-chwili/wszystkie?#{params}")
+      else
+        socket
+        |> assign(:news, news)
+        |> assign(:page, page)
+        |> assign(:limit, limit)
+        |> assign(:max_page, page_count)
+      end
 
     {:noreply, socket}
   end
@@ -50,12 +50,9 @@ defmodule KotkowoWeb.AnnouncementsLive.AllNews do
   def handle_event("items_amount", %{"items_per_page" => amount}, socket) do
     limit = String.to_integer(amount)
     params = %{limit: limit, page: socket.assigns.page}
-    {:ok, max_page} = StrapiClient.get_announcement_list_pages(limit)
 
     socket =
-      socket
-      |> assign(:max_page, max_page)
-      |> push_patch(to: ~p"/aktualnosci/z-ostatniej-chwili/wszystkie?#{params}")
+      push_patch(socket, to: ~p"/aktualnosci/z-ostatniej-chwili/wszystkie?#{params}")
 
     {:noreply, socket}
   end

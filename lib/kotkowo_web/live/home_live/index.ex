@@ -6,6 +6,8 @@ defmodule KotkowoWeb.HomeLive.Index do
   import KotkowoWeb.Components.Steps
   import KotkowoWeb.Constants, only: [kotkowo_mail: 0]
 
+  alias Kotkowo.Client
+  alias Kotkowo.Client.Paged
   alias Kotkowo.GalleryImage
   alias Kotkowo.StrapiClient
 
@@ -13,12 +15,14 @@ defmodule KotkowoWeb.HomeLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
+    client = Client.new(page: 1, page_size: 3, filter: nil)
+
     news =
-      case StrapiClient.list_announcements(3) do
-        {:ok, news} ->
+      case Client.list_announcements(client) do
+        {:ok, %Paged{items: news, page_count: _page_count, page_size: _page_size, page: _page, total: _total}} ->
           news
 
-        {:error, {_reason, message}} ->
+        {:error, message} ->
           Logger.error(message)
           :error
       end
