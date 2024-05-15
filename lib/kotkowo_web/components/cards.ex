@@ -59,7 +59,7 @@ defmodule KotkowoWeb.Components.Cards do
           alt={@alt}
           class={
             classes([
-              "border border-1 rounded-t-2xl w-full object-cover h-48",
+              "border border-1 rounded-t-2xl w-full object-cover h-48 text-base",
               @grayscale && "grayscale",
               @img_class
             ])
@@ -347,7 +347,7 @@ defmodule KotkowoWeb.Components.Cards do
       src={@src}
       alt={@title}
       tags={Enum.take(@tags, 2)}
-      body_class="rounded-t-none grow py-4 mt-0"
+      body_class="rounded-t-none rounded-b-2xl grow py-4 mt-0"
       class={classes(["lg:min-w-[345px] min-w-[240px] w-[240px] mx-auto", @card_class])}
     >
       <:title class="lg:text-xl text-base grow line-clamp-3 !whitespace-normal">
