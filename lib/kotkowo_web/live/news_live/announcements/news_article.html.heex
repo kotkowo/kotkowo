@@ -31,7 +31,7 @@
         :for={news <- @popular_news}
         card_class="lg:w-[313px] w-[320px]"
         news_id={news.id}
-        src={GalleryImage.url(news.image)}
+        src={news.image.url}
         title={news.title}
         tags={news.tags}
       />

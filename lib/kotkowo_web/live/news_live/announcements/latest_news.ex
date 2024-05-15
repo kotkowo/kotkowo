@@ -4,14 +4,16 @@ defmodule KotkowoWeb.AnnouncementsLive.LatestNews do
 
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
 
-  alias Kotkowo.Announcement
   alias Kotkowo.Article
-  alias Kotkowo.GalleryImage
+  alias Kotkowo.Client
+  alias Kotkowo.Client.Announcement
+  alias Kotkowo.Client.Paged
   alias Kotkowo.StrapiClient
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, news} = StrapiClient.list_announcements(7)
+    {:ok, %Paged{items: news, page_count: _page_count, page_size: _page_size, page: _page, total: _total}} =
+      [page: 0, page_size: 7, filter: nil] |> Client.new() |> Client.list_announcements()
 
     {header_news, news} = List.pop_at(news, 0)
     {popular_news, news} = Enum.split(news, 2)
@@ -35,7 +37,7 @@ defmodule KotkowoWeb.AnnouncementsLive.LatestNews do
   defp get_article(nil), do: nil
 
   defp get_article(%Announcement{} = news) do
-    case StrapiClient.get_article_for_announcement(Integer.to_string(news.id)) do
+    case StrapiClient.get_article_for_announcement(news.id) do
       {:ok, %Article{} = article} -> article
       _ -> nil
     end
