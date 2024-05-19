@@ -330,6 +330,18 @@ defmodule KotkowoWeb.Components.Cards do
     """
   end
 
+  def card_loading(assigns) do
+    ~H"""
+    <div>
+      <div class="h-[192px] lg:min-w-[320px] min-w-[280px] bg-gray-300 animate-pulse rounded-t-2xl">
+      </div>
+
+      <div class="h-[95px] lg:min-w-[320px] min-w-[280px] bg-gray-400 animate-pulse rounded-b-2xl">
+      </div>
+    </div>
+    """
+  end
+
   attr :class, :string, default: ""
   attr :card_class, :string, default: ""
   attr :src, :string, required: true
@@ -348,7 +360,7 @@ defmodule KotkowoWeb.Components.Cards do
       alt={@title}
       tags={Enum.take(@tags, 2)}
       body_class="rounded-t-none rounded-b-2xl grow py-4 mt-0"
-      class={classes(["lg:min-w-[345px] min-w-[240px] w-[240px] mx-auto", @card_class])}
+      class={classes(["lg:min-w-[345px] min-w-[240px] w-[240px] only:mx-auto", @card_class])}
     >
       <:title class="lg:text-xl text-base grow line-clamp-3 !whitespace-normal">
         <.link navigate={~p"/aktualnosci/z-ostatniej-chwili/#{assigns.news_id}"}>
@@ -358,6 +370,29 @@ defmodule KotkowoWeb.Components.Cards do
     </.card>
     """
   end
+
+  def header_news_card_loading(assigns) do
+    ~H"""
+    <div class="lg:w-[1312px] flex flex-col lg:flex-row border border-1 rounded-2xl items-start h-full lg:h-[322px] pt-6 lg:pt-0">
+      <div class="flex flex-col w-full">
+        <div
+          :for={_ <- 1..6}
+          class="mt-2 max-w-xl even:max-w-lg first:mt-6 first:mb-4 mx-6 h-6 first:h-8 bg-gray-300 animate-pulse w-full rounded"
+        >
+        </div>
+      </div>
+      <div class="bg-gray-300 animate-pulse w-full lg:max-w-[535px] lg:h-full rounded-xl lg:rounded-l-none lg:rounded-y-none">
+      </div>
+    </div>
+    """
+  end
+
+  slot :introduction
+
+  attr :title, :string, required: true
+  attr :tags, :list, default: []
+  attr :image, :string, required: true
+  attr :news_id, :string, required: true
 
   def header_news_card(assigns) do
     ~H"""
@@ -369,7 +404,7 @@ defmodule KotkowoWeb.Components.Cards do
           </.link>
         </div>
         <p class="text-lg h-32 leading-10 line-clamp-6 lg:line-clamp-3 lg:px-0">
-          <%= @introduction %>
+          <%= render_slot(@introduction) %>
         </p>
         <div
           :if={@tags != []}
