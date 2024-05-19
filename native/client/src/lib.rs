@@ -1,6 +1,6 @@
 use kotkowo_client::{
-    list_announcement, list_cat, Announcement, AnnouncementFilter, Cat, CatFilter, Error, Options,
-    Paged,
+    get_announcement_article, list_announcement, list_cat, Announcement, AnnouncementFilter,
+    Article, Cat, CatFilter, Error, Options, Paged,
 };
 
 #[rustler::nif]
@@ -13,4 +13,12 @@ fn list_announcements(options: Options<AnnouncementFilter>) -> Result<Paged<Anno
     list_announcement(options)
 }
 
-rustler::init!("Elixir.Kotkowo.Client", [list_cats, list_announcements]);
+#[rustler::nif]
+fn get_article(announcement_id: String) -> Result<Article, Error> {
+    get_announcement_article(announcement_id)
+}
+
+rustler::init!(
+    "Elixir.Kotkowo.Client",
+    [list_cats, list_announcements, get_article]
+);
