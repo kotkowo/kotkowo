@@ -40,7 +40,27 @@ function toast() : AlpineComponent<{
     }
   }
 }
+Hooks = {}
+Hooks.sanitize_article_html = {
+  mounted(){
+    var showdown = require('showdown');
+    const converter = new showdown.Converter({"simpleLineBreaks": true})
+   showdown.extension('tailwind-ol', function() {
+    return [{
+      type: 'output',
+      filter: function(text) {
+        return text.replace(/<ol>/g, '<ol class="list-decimal list-inside">');
+      }
+    }];
+  });
 
+  // Add the extension to the converter
+  converter.addExtension('tailwind-ol');
+    let content = this.el.getAttribute("article-content")
+    content = converter.makeHtml(content);
+    this.pushEvent("set_content", {content: content})
+  }
+}
 Alpine.data('toast', toast)
 
 const csrf_token = document
@@ -50,6 +70,7 @@ const csrf_token = document
 window.Alpine = Alpine
 const live_socket = new LiveSocket('/live', Socket, {
   params: { _csrf_token: csrf_token },
+  hooks: Hooks,
   dom: {
     onBeforeElUpdated(from, to) {
       if (from._x_dataStack !== undefined) {

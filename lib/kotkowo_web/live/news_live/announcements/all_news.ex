@@ -8,28 +8,24 @@ defmodule KotkowoWeb.AnnouncementsLive.AllNews do
   alias Kotkowo.Client.Paged
 
   @first_page 1
-  @default_limit 1
+  @default_limit 30
 
   @impl true
   def mount(_params, _session, socket) do
-    socket = assign(socket, :max_page, @first_page)
+    socket =
+      socket
+      |> assign(:max_page, @first_page)
+      |> assign(:news, [])
+      |> assign(:page, @first_page)
+      |> assign(:limit, @default_limit)
+
     {:ok, socket}
   end
 
   @impl true
-  def handle_params(params, _uri, socket) do
-    limit = params |> Map.get("limit", Integer.to_string(@default_limit)) |> String.to_integer()
-    page = params |> Map.get("page", Integer.to_string(@first_page)) |> String.to_integer()
-
-    page =
-      cond do
-        page < @first_page -> @first_page
-        page > socket.assigns.max_page -> socket.assigns.max_page
-        true -> page
-      end
-
-    {:ok, %Paged{items: news, page_count: page_count, page_size: _page_size, page: page, total: _total}} =
-      [page: page, page_size: limit, filter: nil] |> Client.new() |> Client.list_announcements()
+  def handle_info({:load_announcements, [page, limit]}, socket) do
+    {:ok, %Paged{items: news, page_count: page_count}} =
+      [page: page, page_size: limit] |> Client.new() |> Client.list_announcements()
 
     socket =
       if page > page_count do
@@ -43,6 +39,15 @@ defmodule KotkowoWeb.AnnouncementsLive.AllNews do
         |> assign(:max_page, page_count)
       end
 
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_params(params, _uri, socket) do
+    limit = params |> Map.get("limit", Integer.to_string(@default_limit)) |> String.to_integer()
+    page = params |> Map.get("page", Integer.to_string(@first_page)) |> String.to_integer()
+
+    send(self(), {:load_announcements, [page, limit]})
     {:noreply, socket}
   end
 
