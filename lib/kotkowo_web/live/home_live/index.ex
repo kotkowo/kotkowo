@@ -14,18 +14,28 @@ defmodule KotkowoWeb.HomeLive.Index do
   require Logger
 
   @impl true
+  def handle_info({:load_announcements}, socket) do
+    client = Client.new(page: 1, page_size: 3)
+
+    case Client.list_announcements(client) do
+      {:ok, %Paged{items: news}} ->
+        {:noreply, assign(socket, :news, news)}
+
+      {:error, message} ->
+        Logger.error(message)
+
+        socket =
+          socket
+          |> put_flash(:error, message)
+          |> assign(:news, :error)
+
+        {:noreply, socket}
+    end
+  end
+
+  @impl true
   def mount(_params, _session, socket) do
-    client = Client.new(page: 1, page_size: 3, filter: nil)
-
-    news =
-      case Client.list_announcements(client) do
-        {:ok, %Paged{items: news, page_count: _page_count, page_size: _page_size, page: _page, total: _total}} ->
-          news
-
-        {:error, message} ->
-          Logger.error(message)
-          :error
-      end
+    if connected?(socket), do: send(self(), {:load_announcements})
 
     in_need_of_a_new_home =
       case StrapiClient.list_adopted_cats(3) do
@@ -39,7 +49,7 @@ defmodule KotkowoWeb.HomeLive.Index do
 
     socket =
       socket
-      |> assign(:news, news)
+      |> assign(:news, [])
       |> assign(:in_need_of_a_new_home, in_need_of_a_new_home)
 
     {:ok, socket}
