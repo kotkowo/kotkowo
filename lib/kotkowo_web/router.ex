@@ -50,7 +50,7 @@ defmodule KotkowoWeb.Router do
       scope "/z-ostatniej-chwili" do
         live "/", AnnouncementsLive.LatestNews
         live "/wszystkie", AnnouncementsLive.AllNews
-        live "/:article_id", AnnouncementsLive.NewsArticle
+        live "/:announcement_id", AnnouncementsLive.NewsArticle
       end
     end
   end
