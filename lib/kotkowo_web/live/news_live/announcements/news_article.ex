@@ -4,25 +4,60 @@ defmodule KotkowoWeb.AnnouncementsLive.NewsArticle do
 
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
 
-  alias Kotkowo.Article
   alias Kotkowo.Client
+  alias Kotkowo.Client.Article
   alias Kotkowo.Client.Paged
-  alias Kotkowo.GalleryImage
-  alias Kotkowo.StrapiClient
+
+  require Logger
+
+  def handle_event("set_content", %{"content" => content}, socket) do
+    {:noreply, assign(socket, :content, content)}
+  end
 
   @impl true
-  def mount(%{"article_id" => article_id}, _session, socket) do
-    with {:ok, %Article{} = article} <- StrapiClient.get_article_for_announcement(article_id) do
-      {:ok, %Paged{items: popular_news, page_count: _page_count, page_size: _page_size, page: _page, total: _total}} =
-        [page: 0, page_size: 3, filter: nil] |> Client.new() |> Client.list_announcements()
+  def handle_async(:load_popular_announcements, {:ok, announcements}, socket) do
+    case announcements do
+      {:ok, %Paged{items: popular_news}} ->
+        {:noreply, assign(socket, :popular_news, popular_news)}
 
-      socket =
-        socket
-        |> assign(:article_id, article_id)
-        |> assign(:article, article)
-        |> assign(:popular_news, popular_news)
-
-      {:ok, socket}
+      {:error, message} ->
+        Logger.error(message)
+        {:noreply, assign(socket, :popular_news, :error)}
     end
+  end
+
+  @impl true
+  def handle_async(:load_article, {:ok, article}, socket) do
+    case article do
+      {:ok, %Article{} = article} ->
+        {:noreply, assign(socket, :article, article)}
+
+      {:error, message} ->
+        Logger.error(message)
+
+        {:noreply,
+         socket
+         |> assign(:article, nil)
+         |> put_flash(:error, "Nie znaleziono artykułu")
+         |> push_navigate(to: ~p"/aktualnosci/z-ostatniej-chwili")}
+    end
+  end
+
+  @impl true
+  def mount(%{"announcement_id" => announcement_id}, _session, socket) do
+    socket =
+      socket
+      |> assign(:popular_news, nil)
+      |> assign(:article_id, announcement_id)
+      |> assign(:article, nil)
+      |> assign(:content, "")
+      |> start_async(:load_article, fn ->
+        Client.get_article(announcement_id)
+      end)
+      |> start_async(:load_popular_announcements, fn ->
+        [page: 0, page_size: 3] |> Client.new() |> Client.list_announcements()
+      end)
+
+    {:ok, socket}
   end
 end
