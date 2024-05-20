@@ -47,13 +47,13 @@
     <div class="flex flex-col lg:mt-0 mt-10 items-center font-manrope gap-y-6 text-[#2c3535] text-3xl">
       <h2 class="font-extrabold self-start">Najczęściej czytane</h2>
       <div :if={!@popular_news} class="space-y-6">
-        <.card_loading :for={_ <- 1..3}>
+        <.news_card_loading :for={_ <- 1..3}>
           <div class="h-[192px] lg:min-w-[320px] min-w-[280px] bg-gray-300 animate-pulse rounded-t-2xl">
           </div>
 
           <div class="h-[95px] lg:min-w-[320px] min-w-[280px] bg-gray-400 animate-pulse rounded-b-2xl">
           </div>
-        </.card_loading>
+        </.news_card_loading>
       </div>
       <div :if={@popular_news} class="space-y-6">
         <.news_card

@@ -7,6 +7,8 @@ defmodule KotkowoWeb.AnnouncementsLive.AllNews do
   alias Kotkowo.Client
   alias Kotkowo.Client.Paged
 
+  require Logger
+
   @first_page 1
   @default_limit 30
 
@@ -15,7 +17,7 @@ defmodule KotkowoWeb.AnnouncementsLive.AllNews do
     socket =
       socket
       |> assign(:max_page, @first_page)
-      |> assign(:news, [])
+      |> assign(:news, nil)
       |> assign(:page, @first_page)
       |> assign(:limit, @default_limit)
 
@@ -23,20 +25,24 @@ defmodule KotkowoWeb.AnnouncementsLive.AllNews do
   end
 
   @impl true
-  def handle_info({:load_announcements, [page, limit]}, socket) do
-    {:ok, %Paged{items: news, page_count: page_count}} =
-      [page: page, page_size: limit] |> Client.new() |> Client.list_announcements()
-
+  def handle_async(:load_announcements, {:ok, {announcements, page}}, socket) do
     socket =
-      if page > page_count do
-        params = %{limit: limit, page: page_count}
-        push_patch(socket, to: ~p"/aktualnosci/z-ostatniej-chwili/wszystkie?#{params}")
-      else
-        socket
-        |> assign(:news, news)
-        |> assign(:page, page)
-        |> assign(:limit, limit)
-        |> assign(:max_page, page_count)
+      case announcements do
+        {:ok, %Paged{items: news, page_count: page_count, page_size: limit}} ->
+          if page > page_count do
+            params = %{limit: limit, page: page_count}
+            push_patch(socket, to: ~p"/aktualnosci/z-ostatniej-chwili/wszystkie?#{params}")
+          else
+            socket
+            |> assign(:news, news)
+            |> assign(:page, page)
+            |> assign(:limit, limit)
+            |> assign(:max_page, page_count)
+          end
+
+        {:error, msg} ->
+          Logger.error(msg)
+          socket
       end
 
     {:noreply, socket}
@@ -47,7 +53,11 @@ defmodule KotkowoWeb.AnnouncementsLive.AllNews do
     limit = params |> Map.get("limit", Integer.to_string(@default_limit)) |> String.to_integer()
     page = params |> Map.get("page", Integer.to_string(@first_page)) |> String.to_integer()
 
-    send(self(), {:load_announcements, [page, limit]})
+    socket =
+      start_async(socket, :load_announcements, fn ->
+        {[page: page, page_size: limit] |> Client.new() |> Client.list_announcements(), page}
+      end)
+
     {:noreply, socket}
   end
 
