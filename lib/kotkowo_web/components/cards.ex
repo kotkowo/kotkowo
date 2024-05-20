@@ -330,13 +330,26 @@ defmodule KotkowoWeb.Components.Cards do
     """
   end
 
+  attr :class, :string, default: ""
+  attr :bottom_class, :string, default: ""
+
   def card_loading(assigns) do
     ~H"""
     <div>
-      <div class="h-[192px] lg:min-w-[320px] min-w-[280px] bg-gray-300 animate-pulse rounded-t-2xl">
+      <div class={
+        classes([
+          "h-[192px] lg:min-w-[320px] min-w-[280px] bg-gray-300 animate-pulse rounded-t-2xl",
+          @class
+        ])
+      }>
       </div>
 
-      <div class="h-[95px] lg:min-w-[320px] min-w-[280px] bg-gray-400 animate-pulse rounded-b-2xl">
+      <div class={
+        classes([
+          "h-[95px] lg:min-w-[320px] min-w-[280px] bg-gray-400 animate-pulse rounded-b-2xl",
+          @bottom_class
+        ])
+      }>
       </div>
     </div>
     """
@@ -368,6 +381,17 @@ defmodule KotkowoWeb.Components.Cards do
         </.link>
       </:title>
     </.card>
+    """
+  end
+
+  attr :class, :string, default: ""
+
+  def news_card_loading(assigns) do
+    ~H"""
+    <.card_loading
+      bottom_class={classes(["h-[192px]", @class])}
+      class={classes(["h-[192px]", @class])}
+    />
     """
   end
 
