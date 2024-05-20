@@ -10,6 +10,7 @@ defmodule KotkowoWeb.AnnouncementsLive.NewsArticle do
 
   require Logger
 
+  @impl true
   def handle_event("set_content", %{"content" => content}, socket) do
     {:noreply, assign(socket, :content, content)}
   end

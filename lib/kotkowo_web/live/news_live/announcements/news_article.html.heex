@@ -41,7 +41,7 @@
         article-content={@article.content}
         phx-hook="sanitize_article_html"
       >
-        <%= @content |> Phoenix.HTML.raw() %>
+        <%= @content |> HtmlSanitizeEx.markdown_html() |> Phoenix.HTML.raw() %>
       </div>
     </div>
     <div class="flex flex-col lg:mt-0 mt-10 items-center font-manrope gap-y-6 text-[#2c3535] text-3xl">
