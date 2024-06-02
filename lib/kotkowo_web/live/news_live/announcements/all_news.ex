@@ -16,8 +16,8 @@ defmodule KotkowoWeb.AnnouncementsLive.AllNews do
   def mount(_params, _session, socket) do
     socket =
       socket
+      |> stream(:news, [])
       |> assign(:max_page, @first_page)
-      |> assign(:news, nil)
       |> assign(:page, @first_page)
       |> assign(:limit, @default_limit)
 
@@ -34,7 +34,7 @@ defmodule KotkowoWeb.AnnouncementsLive.AllNews do
             push_patch(socket, to: ~p"/aktualnosci/z-ostatniej-chwili/wszystkie?#{params}")
           else
             socket
-            |> assign(:news, news)
+            |> stream(:news, news)
             |> assign(:page, page)
             |> assign(:limit, limit)
             |> assign(:max_page, page_count)
