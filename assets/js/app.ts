@@ -5,6 +5,8 @@ import topbar from '../vendor/topbar'
 import Alpine from 'alpinejs'
 import type { AlpineComponent } from 'alpinejs'
 import breakpoint from 'alpinejs-breakpoints'
+import DOMPurify from 'dompurify';
+import {marked} from 'marked';
 
 function open_share_modal(href: string, quote: string) : void {
     console.warn('Web Share Api is not supported by the current browser.');
@@ -42,23 +44,12 @@ function toast() : AlpineComponent<{
 }
 Hooks = {}
 Hooks.sanitize_article_html = {
+  
   mounted(){
-    var showdown = require('showdown');
-    const converter = new showdown.Converter({"simpleLineBreaks": true})
-   showdown.extension('tailwind-ol', function() {
-    return [{
-      type: 'output',
-      filter: function(text) {
-        return text.replace(/<ol>/g, '<ol class="list-decimal list-inside">');
-      }
-    }];
-  });
 
-  // Add the extension to the converter
-  converter.addExtension('tailwind-ol');
-    let content = this.el.getAttribute("article-content")
-    content = converter.makeHtml(content);
-    this.pushEvent("set_content", {content: content})
+  const elem = this.el;
+  const content = elem.getAttribute("data-article-content");
+  elem.innerHTML = DOMPurify.sanitize(marked.parse(content));
   }
 }
 Alpine.data('toast', toast)

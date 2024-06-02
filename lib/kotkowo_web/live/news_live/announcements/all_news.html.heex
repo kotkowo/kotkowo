@@ -14,17 +14,17 @@
     Z ostatniej chwili
   </h1>
   <div
-    :if={!@news}
+    :if={!@streams[:news]}
     class="2xl:w-[1312px] lg:grid lg:grid-cols-4 mb-10 lg:mb-16 lg:grid-flow-row lg:gap-x-5 mx-5 lg:mx-0 flex max-sm:items-center flex-col gap-y-4 lg:gap-y-10"
   >
     <.news_card_loading :for={_ <- 1..@limit} />
   </div>
   <div
-    :if={@news}
+    :if={@streams[:news]}
     class="2xl:w-[1312px] lg:grid lg:grid-cols-4 mb-10 lg:mb-16 lg:grid-flow-row lg:gap-x-5 mx-5 lg:mx-0 flex max-sm:items-center flex-col gap-y-4 lg:gap-y-10"
   >
     <.news_card
-      :for={news <- @news}
+      :for={{_id, news} <- @streams.news}
       card_class="lg:w-[313px] !min-w-[320px] max-w-[320px] w-[320px]"
       title={news.title}
       news_id={news.id}
