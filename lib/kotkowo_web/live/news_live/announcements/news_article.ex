@@ -14,7 +14,6 @@ defmodule KotkowoWeb.AnnouncementsLive.NewsArticle do
   def handle_event("set_content", %{"content" => content}, socket) do
     {:noreply, assign(socket, :content, content)}
   end
-
   @impl true
   def handle_async(:load_popular_announcements, {:ok, announcements}, socket) do
     case announcements do
