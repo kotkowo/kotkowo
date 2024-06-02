@@ -11,10 +11,11 @@
   "dependencies": {
     "alpinejs": "3.10.5",
     "alpinejs-breakpoints": "^2.1.1",
+    "dompurify": "^3.1.5",
+    "marked": "^12.0.2",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
-    "phoenix_live_view": "file:../deps/phoenix_live_view",
-    "showdown": "^2.1.0"
+    "phoenix_live_view": "file:../deps/phoenix_live_view"
   },
   "devDependencies": {
     "@tailwindcss/line-clamp": "^0.4.2",

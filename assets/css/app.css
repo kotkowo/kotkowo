@@ -7,6 +7,7 @@
 :root {
   --breakpoint: 'unset';
 }
+
 @media screen and (min-width: 567px) {
   :root {
     --breakpoint: 'sm';
