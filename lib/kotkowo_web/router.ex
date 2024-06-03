@@ -14,6 +14,11 @@ defmodule KotkowoWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :assign_ip do
+    plug RemoteIp
+    plug KotkowoWeb.Plug.AssignIp
+  end
+
   scope "/", KotkowoWeb do
     pipe_through :browser
 
@@ -50,7 +55,11 @@ defmodule KotkowoWeb.Router do
       scope "/z-ostatniej-chwili" do
         live "/", AnnouncementsLive.LatestNews
         live "/wszystkie", AnnouncementsLive.AllNews
-        live "/:announcement_id", AnnouncementsLive.NewsArticle
+
+        scope "/:announcement_id" do
+          pipe_through :assign_ip
+          live "/", AnnouncementsLive.NewsArticle
+        end
       end
     end
   end
