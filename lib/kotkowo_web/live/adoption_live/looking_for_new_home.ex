@@ -4,6 +4,7 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
 
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
   import KotkowoWeb.Constants
+  import KotkowoWeb.WebHelpers, only: [cat_image_url: 1]
 
   alias Kotkowo.Client
   alias Kotkowo.Client.Cat
@@ -68,13 +69,6 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
       amount in [2, 3, 4] -> "#{amount} koty"
       amount > 4 -> "#{amount} kotów"
       true -> "0 kotów"
-    end
-  end
-
-  defp cat_image_url(%Cat{} = cat) do
-    case cat.images do
-      [%Image{} = image | _] -> image.url
-      _ -> nil
     end
   end
 

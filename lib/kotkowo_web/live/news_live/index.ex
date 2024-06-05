@@ -3,11 +3,11 @@ defmodule KotkowoWeb.NewsLive.Index do
   use KotkowoWeb, :live_view
 
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
+  import KotkowoWeb.WebHelpers, only: [cat_image_url: 1]
 
   alias Kotkowo.Client
   alias Kotkowo.Client.Paged
   alias Kotkowo.GalleryImage
-  alias Kotkowo.StrapiClient
   alias Phoenix.LiveView.AsyncResult
 
   require Logger
@@ -17,29 +17,38 @@ defmodule KotkowoWeb.NewsLive.Index do
     socket =
       socket
       |> assign(:news, nil)
-      |> assign(:found_home, %AsyncResult{})
+      |> assign(:found_home, nil)
       |> assign(:passed_away, %AsyncResult{})
       |> start_async(:load_announcements, fn ->
         [page: 0, page_size: 3] |> Client.new() |> Client.list_announcements()
       end)
-      |> assign_async(:found_home, fn -> {:ok, %{found_home: get_found_home()}} end)
-      |> assign_async(:passed_away, fn -> {:ok, %{passed_away: get_passed_away()}} end)
+      |> start_async(:load_adopted_cats, fn ->
+        [page: 0, page_size: 3] |> Client.new() |> Client.list_adopted_cats()
+      end)
 
     {:ok, socket}
   end
 
-  def get_passed_away do
-    case StrapiClient.list_cats(true, nil, 3) do
-      {:ok, cats} -> cats
-      _ -> nil
-    end
+  @impl true
+  def handle_async(:load_passed_away, {:ok, passed_away}, socket) do
+    socket =
+      case passed_away do
+        {:ok, %Paged{items: cats}} -> assign(socket, :passed_away, cats)
+        {:error, msg} -> Logger.error(msg)
+      end
+
+    {:noreply, socket}
   end
 
-  def get_found_home do
-    case StrapiClient.list_adopted_cats(3) do
-      {:ok, cats} -> cats
-      _ -> nil
-    end
+  @impl true
+  def handle_async(:load_adopted_cats, {:ok, adopted_cats}, socket) do
+    socket =
+      case adopted_cats do
+        {:ok, %Paged{items: cats}} -> assign(socket, :found_home, cats)
+        {:error, msg} -> Logger.error(msg)
+      end
+
+    {:noreply, socket}
   end
 
   @impl true

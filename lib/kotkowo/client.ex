@@ -7,6 +7,7 @@ defmodule Kotkowo.Client do
   alias Kotkowo.Client.Pagination
 
   def list_cats(_options \\ %Opts{}), do: :erlang.nif_error(:nif_not_loaded)
+  def list_adopted_cats(_options \\ %Opts{}, _between_datetime \\ nil), do: :erlang.nif_error(:nif_not_loaded)
   def list_announcements(_options \\ %Opts{}), do: :erlang.nif_error(:nif_not_loaded)
   def get_article(_announcement_article), do: :erlang.nif_error(:nif_not_loaded)
 
