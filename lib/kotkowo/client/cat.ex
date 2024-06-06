@@ -6,6 +6,7 @@ defmodule Kotkowo.Client.Cat do
   alias Kotkowo.Client.Image
 
   @type castrated() :: boolean()
+  @type is_dead() :: boolean()
   @type tags() :: [String.t()]
   @type fiv_felv() :: :negative | :positive
   @type medical_status() :: :tested_and_vaccinated

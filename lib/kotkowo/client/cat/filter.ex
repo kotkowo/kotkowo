@@ -10,7 +10,7 @@ defmodule Kotkowo.Client.Cat.Filter do
   alias Kotkowo.Client.Cat.Color
   alias Kotkowo.Client.Cat.Sex
 
-  defstruct [:sex, :age, :color, :castrated, :tags, :name]
+  defstruct [:sex, :age, :color, :castrated, :tags, :name, :is_dead, :include_adopted]
 
   @typedoc """
   A type representing a field that can be filtered.
@@ -37,7 +37,9 @@ defmodule Kotkowo.Client.Cat.Filter do
           age: filter(Cat.Age.t()) | nil,
           color: filter(Cat.Color.t()) | nil,
           castrated: filter(Cat.castrated()) | nil,
-          tags: filter(Cat.tags()) | nil
+          tags: filter(Cat.tags()) | nil,
+          is_dead: filter(Cat.is_dead()) | nil,
+          include_adopted: filter(boolean()) | nil
         }
 
   @doc """
@@ -61,6 +63,7 @@ defmodule Kotkowo.Client.Cat.Filter do
   - `:color` - Filters cats by their color.
   - `:castrated` - Filters cats by their castration status.
   - `:tags` - Filters cats by their tags.
+  - ':is_dead' - Filters cats by their alive status  
 
   ### Parameters
 
@@ -79,7 +82,8 @@ defmodule Kotkowo.Client.Cat.Filter do
       color: nil,
       castrated: nil,
       tags: nil,
-      name: {:contains_ci, "Fluffy"}
+      name: {:contains_ci, "Fluffy"},
+      is_dead: nil
     }
 
     iex> Kotkowo.Client.Cat.Filter.from_map(%{name: "Fluffy", sex: :female, color: [:black, :ginger]}) 
@@ -89,7 +93,8 @@ defmodule Kotkowo.Client.Cat.Filter do
       color: {:in, [:black, :ginger]},
       castrated: nil,
       tags: nil,
-      name: {:contains_ci, "Fluffy"}
+      name: {:contains_ci, "Fluffy"},
+      is_dead: nil
     }
   """
   @spec from_map(map()) :: t()
@@ -115,6 +120,14 @@ defmodule Kotkowo.Client.Cat.Filter do
 
   defp parse_field({:castrated, val}) do
     {:castrated, val}
+  end
+
+  defp parse_field({:include_adopted, val}) do
+    {:include_adopted, val}
+  end
+
+  defp parse_field({:is_dead, val}) do
+    {:is_dead, val}
   end
 
   defp parse_field({:color, vals}) when is_list(vals) do
@@ -170,7 +183,8 @@ defmodule Kotkowo.Client.Cat.Filter do
         to_param(:color, filter.color),
         to_param(:castrated, filter.castrated),
         to_param(:tags, filter.tags),
-        to_param(:age, filter.age)
+        to_param(:age, filter.age),
+        to_param(:is_dead, filter.is_dead)
       ])
 
     URI.encode(params)
@@ -195,6 +209,8 @@ defmodule Kotkowo.Client.Cat.Filter do
         _ -> nil
       end
 
+    is_dead = params |> Map.get("is_dead", nil)
+
     ages =
       params
       |> Map.get("age", [])
@@ -209,7 +225,8 @@ defmodule Kotkowo.Client.Cat.Filter do
       tags: params["tags"],
       sex: sex,
       castrated: castrated,
-      age: ages
+      age: ages,
+      is_dead: is_dead
     }
 
     map
