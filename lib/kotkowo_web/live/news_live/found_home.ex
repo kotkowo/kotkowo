@@ -2,10 +2,11 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
   @moduledoc false
   use KotkowoWeb, :live_view
 
-  import KotkowoWeb.Components.Drawers
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
   import KotkowoWeb.WebHelpers, only: [cat_image_url: 1]
+
   alias Kotkowo.Client
+  alias Kotkowo.Client.BetweenDateTime
   alias Kotkowo.Client.Cat
   alias Kotkowo.Client.Paged
 
@@ -26,9 +27,15 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
     {:ok, socket}
   end
 
+  # defp dates_from_params(nil), do: %BetweenDateTime{date_from: nil, date_to: nil}
+  # defp dates_from_params(cat), do: %BetweenDateTime{date_from: cat["date_from"], date_to: cat["date_to"]}
+
   @impl true
   def handle_params(params, _uri, socket) do
     filter = Cat.Filter.from_params(params["cat"])
+
+    # dates = dates_from_params(params["cat"])
+
     adopted_filter = filter |> Map.put(:include_adopted, true) |> Map.put(:is_dead, false)
     page_size = params |> Map.get("page_size", "30") |> parse_int_param()
     page = params |> Map.get("page") |> parse_int_param()
@@ -68,7 +75,6 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
       |> assign(:previous_page, assigns.selected_page - 1)
       |> assign(:next_page, assigns.selected_page + 1)
       |> assign(:first_page, 1)
-
 
     ~H"""
     <div class="flex flex-row text-xl gap-x-4">

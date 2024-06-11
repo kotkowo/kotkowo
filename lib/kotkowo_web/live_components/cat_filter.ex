@@ -35,7 +35,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
         socket
       end
 
-    {:ok, socket}
+    {:ok, assign(socket, :include_dates, assigns[:include_dates])}
   end
 
   @string_ages Enum.map(Cat.Age.all(), &to_string/1)
@@ -219,6 +219,9 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
                   checked={@raw_filter.castrated != nil and !@raw_filter.castrated}
                 /> przed zabiegiem
               </label>
+            </form>
+            <form :if={@include_dates} phx-target={@myself} phx-change="change">
+              meow
             </form>
           </div>
         </div>
