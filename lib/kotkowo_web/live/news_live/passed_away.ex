@@ -3,322 +3,63 @@ defmodule KotkowoWeb.NewsLive.PassedAway do
 
   use KotkowoWeb, :live_view
 
-  import KotkowoWeb.Components.Drawers
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
+  import KotkowoWeb.WebHelpers, only: [cat_image_url: 1]
 
-  alias Kotkowo.Attributes.Color
-  alias Kotkowo.Attributes.Seniority
-  alias Kotkowo.Attributes.Sex
-  alias Kotkowo.GalleryImage
-  alias Kotkowo.StrapiClient
+  alias Kotkowo.Client
+  alias Kotkowo.Client.Cat
+  alias Kotkowo.Client.Paged
 
-  @params_default %{
-    limit: 30,
-    page: 1,
-    name: "",
-    seniority: [],
-    sexes: [],
-    castrated: nil,
-    tag: "",
-    colors: [],
-    date_from: "",
-    date_to: ""
-  }
-  @params_keys @params_default |> Map.keys() |> Enum.map(&to_string/1)
+  defp parse_int_param(nil), do: nil
+  defp parse_int_param(page) when is_integer(page), do: page
+
+  defp parse_int_param(page) when is_binary(page) do
+    case Integer.parse(page) do
+      {page, _rest} -> page
+      _ -> nil
+    end
+  end
+
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, passed_away} = StrapiClient.list_cats(true)
-
-    socket =
-      assign(socket, :passed_away, passed_away)
-
+  def mount(params, _session, socket) do
+    initial_filter = Cat.Filter.from_params(params["cat"])
+    socket = assign(socket, :initial_filter, initial_filter)
     {:ok, socket}
   end
 
   @impl true
   def handle_params(params, _uri, socket) do
-    parsed_params =
-      params
-      |> Map.take(@params_keys)
-      |> Map.new(&parse_param/1)
-      |> then(&Map.merge(@params_default, &1))
+    filter = Cat.Filter.from_params(params["cat"])
+    dead_filter = filter |> Map.put(:include_adopted, true) |> Map.put(:is_dead, true)
+    page_size = params |> Map.get("page_size", "30") |> parse_int_param()
+    page = params |> Map.get("page") |> parse_int_param()
 
-    filtered_cats =
-      socket.assigns.passed_away
-      |> search_tags(parsed_params.tag)
-      |> search_names(parsed_params.name)
-      |> filter_castrated(parsed_params.castrated)
-      |> filter_seniority(parsed_params.seniority)
-      |> filter_sexes(parsed_params.sexes)
-      |> filter_colors(parsed_params.colors)
-      |> filter_dates(parsed_params.date_from, parsed_params.date_to)
+    {:ok, %Paged{items: cats, page_count: page_count, page_size: page_size, page: page, total: total}} =
+      [page: page, page_size: page_size, filter: dead_filter] |> Client.new() |> Client.list_cats()
 
-    %{page: page, offset: offset, max_page: max_page} = parse_page_meta(parsed_params, filtered_cats)
-
-    query_params = %{
-      parsed_params
-      | page: page
-    }
+    params = %{page: page, page_size: page_size}
+    # NOTE: page_count = 0, page = 1 for no results when filtered
+    page_count = max(1, page_count)
 
     socket =
-      socket
-      |> assign(:query_params, query_params)
-      |> assign(:filtered_cats, Enum.slice(filtered_cats, offset, parsed_params.limit))
-      |> assign(:max_page, max_page)
-
-    {:noreply, socket}
-  end
-
-  @impl true
-  def handle_event(
-        "filter_cats",
-        %{
-          "_target" => event,
-          "date_from" => date_from,
-          "date_to" => date_to,
-          "cat_search" => name_query,
-          "tag_search" => tag_query
-        } = params,
+      if page <= page_count do
         socket
-      ) do
-    limit = socket.assigns.query_params.limit
-    page = socket.assigns.query_params.page
-
-    not_castrated = params |> Map.get("not_castrated", nil) |> parse_checkbox()
-
-    is_castrated =
-      params
-      |> Map.get("is_castrated", nil)
-      |> parse_checkbox()
-      |> castrated_switch(not_castrated, event)
-
-    filter_default = %{sexes: [], seniority: [], colors: []}
-    # create string -> atom mapping e.g. %{"senior" => :senior}
-    checkbox_mappings =
-      Enum.reduce(Seniority.all() ++ Sex.all() ++ Color.all(), %{}, &Map.put(&2, Atom.to_string(&1), &1))
-
-    # take all matching key value pairs that are checkboxes
-    %{seniority: seniority, sexes: sexes, colors: colors} =
-      params
-      |> Map.take(Map.keys(checkbox_mappings))
-      # filter out only ones that evaluate to `true`  and then for each true return the atom value
-      # e.g. for %{"senior" => "true} we return [:senior]
-      |> Enum.reduce([], fn {key, val}, acc -> if parse_checkbox(val), do: [checkbox_mappings[key] | acc], else: acc end)
-      # group_by the category
-      |> Enum.group_by(fn x ->
-        cond do
-          x in Seniority.all() -> :seniority
-          x in Sex.all() -> :sexes
-          x in Color.all() -> :colors
-        end
-      end)
-      |> then(&Map.merge(filter_default, &1))
-
-    query_params = %{
-      name: name_query,
-      tag: tag_query,
-      castrated: is_castrated,
-      seniority: seniority,
-      sexes: sexes,
-      date_from: date_from,
-      colors: colors,
-      date_to: date_to,
-      page: page,
-      limit: limit
-    }
-
-    socket =
-      push_patch(socket, to: ~p"/aktualnosci/za-teczowym-mostem?#{query_params}")
-
-    {:noreply, socket}
-  end
-
-  @impl true
-  def handle_event("items_amount", %{"items_per_page" => amount}, socket) do
-    limit = parse_limit(amount)
-    max_page = socket.assigns.filtered_cats |> length() |> div(limit) |> parse_limit()
-
-    query_params = %{socket.assigns.query_params | limit: limit}
-
-    socket =
-      socket
-      |> assign(:max_page, max_page)
-      |> push_patch(to: ~p"/aktualnosci/za-teczowym-mostem?#{query_params}")
-
-    {:noreply, socket}
-  end
-
-  @impl true
-  def handle_event("select_page", %{"value" => page}, socket) do
-    query_params = %{socket.assigns.query_params | page: page}
-    socket = push_patch(socket, to: ~p"/aktualnosci/za-teczowym-mostem?#{query_params}")
-    {:noreply, socket}
-  end
-
-  defp parse_page_meta(params, cats) do
-    max_page =
-      cats
-      |> length()
-      |> Kernel./(params.limit)
-      |> ceil()
-      |> max(@params_default.page)
-
-    page =
-      cond do
-        params.page < @params_default.page -> @params_default.page
-        params.page > max_page -> max_page
-        true -> params.page
+        |> stream(:cats, cats, reset: true)
+        |> assign(:cats_total, total)
+        |> assign(:page_count, page_count)
+        |> assign(:params, params)
+      else
+        push_navigate(socket, to: ~p"/aktualnosci/za-teczowym-mostem")
       end
 
-    offset = (page - 1) * params.limit
-    %{page: page, offset: offset, max_page: max_page}
+    {:noreply, socket}
   end
 
-  defp parse_param({"castrated", value}) do
-    castrated = parse_checkbox(value)
-    {:castrated, castrated}
+  @impl true
+  def handle_info({:filter_cat, %Cat.Filter{} = filter}, socket) do
+    socket = push_patch(socket, to: ~p"/aktualnosci/za-teczowym-mostem" <> "?#{Cat.Filter.to_param(filter)}")
+    {:noreply, socket}
   end
-
-  defp parse_param({"limit", value}) do
-    limit = parse_limit(value)
-    {:limit, limit}
-  end
-
-  defp parse_param({"page", value}) do
-    page = parse_limit(value)
-    {:page, page}
-  end
-
-  defp parse_param({key, value}) do
-    {String.to_existing_atom(key), value}
-  end
-
-  def parse_checkbox(query) do
-    case query do
-      "on" -> true
-      "true" -> true
-      "false" -> false
-      "" -> nil
-      _ -> query
-    end
-  end
-
-  defp search_tags(cats, search) do
-    if String.trim(search) == "" do
-      cats
-    else
-      Enum.filter(cats, fn adopted_cat ->
-        search = String.downcase(search)
-
-        adopted_cat.tags
-        |> Enum.map(&String.downcase/1)
-        |> Enum.any?(&String.contains?(&1, search))
-      end)
-    end
-  end
-
-  defp parse_date(date_str) when date_str == "", do: nil
-
-  defp parse_date(date_str) do
-    [year, month, day] =
-      date_str
-      |> String.split("-")
-      |> Enum.map(&String.to_integer/1)
-
-    Date.new!(year, month, day)
-  end
-
-  defp filter_dates(cats, "", ""), do: cats
-
-  defp filter_dates(cats, from, to) do
-    from = parse_date(from)
-    to = parse_date(to)
-
-    Enum.filter(cats, fn passed_away ->
-      adoption_date = DateTime.to_date(passed_away.adoption_date)
-
-      within_range =
-        (from == nil or Date.compare(adoption_date, from) in [:gt, :eq]) and
-          (to == nil or Date.compare(adoption_date, to) in [:lt, :eq])
-
-      true in [within_range]
-    end)
-  end
-
-  defp filter_colors(cats, []), do: cats
-
-  defp filter_colors(cats, colors) do
-    Enum.filter(cats, fn adopted_cat ->
-      Atom.to_string(adopted_cat.color) in colors
-    end)
-  end
-
-  defp filter_sexes(cats, []), do: cats
-
-  defp filter_sexes(cats, sexes) do
-    Enum.filter(cats, fn adopted_cat ->
-      Atom.to_string(adopted_cat.sex) in sexes
-    end)
-  end
-
-  defp filter_seniority(cats, []), do: cats
-
-  defp filter_seniority(cats, seniority) do
-    Enum.filter(cats, fn adopted_cat ->
-      Atom.to_string(adopted_cat.age) in seniority
-    end)
-  end
-
-  defp filter_castrated(cats, nil), do: cats
-
-  defp filter_castrated(cats, is_castrated) do
-    Enum.filter(cats, fn adopted_cat ->
-      adopted_cat.castrated == is_castrated
-    end)
-  end
-
-  defp search_names(cats, search) do
-    if String.trim(search) == "" do
-      cats
-    else
-      Enum.filter(cats, fn adopted_cat ->
-        name = String.downcase(adopted_cat.name)
-        search = String.downcase(search)
-        String.contains?(name, search)
-      end)
-    end
-  end
-
-  defp castrated_switch(is_castrated, not_castrated, event) do
-    cond do
-      not_castrated == true and is_castrated == true ->
-        if hd(event) == "is_castrated" do
-          true
-        else
-          false
-        end
-
-      is_castrated == true ->
-        true
-
-      not_castrated == false ->
-        true
-
-      not_castrated == true ->
-        false
-
-      is_castrated == false ->
-        false
-
-      true ->
-        nil
-    end
-  end
-
-  defp parse_limit(limit) when is_float(limit), do: limit |> floor() |> parse_limit()
-  defp parse_limit(limit) when is_binary(limit), do: limit |> String.to_integer() |> parse_limit()
-  defp parse_limit(limit) when is_integer(limit), do: max(limit, 1)
-  defp parse_limit(_), do: @params_default.limit
 
   defp items_per_page, do: [30, 60, 90]
 
@@ -327,7 +68,7 @@ defmodule KotkowoWeb.NewsLive.PassedAway do
       assigns
       |> assign(:previous_page, assigns.selected_page - 1)
       |> assign(:next_page, assigns.selected_page + 1)
-      |> assign(:first_page, @params_default.page)
+      |> assign(:first_page, 1)
 
     ~H"""
     <div class="flex flex-row text-xl gap-x-4">
