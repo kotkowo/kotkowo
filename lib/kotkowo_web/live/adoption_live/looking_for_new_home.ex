@@ -30,12 +30,15 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
   @impl true
   def handle_params(params, _uri, socket) do
     filter = Cat.Filter.from_params(params["cat"])
-    non_dead_or_adopted_filter = filter |> Map.put(:is_dead, false ) |> Map.put(:include_adopted, false)
+
+    non_dead_or_adopted_filter =
+      filter |> Map.put(:is_dead, false) |> Map.put(:include_adopted, false)
+
     page_size = params |> Map.get("page_size", "30") |> parse_int_param()
     page = params |> Map.get("page") |> parse_int_param()
 
     {:ok, %Paged{items: cats, page_count: page_count, page_size: page_size, page: page, total: total}} =
-      [page: page, page_size: page_size, filter: non_dead_or_adopted_filter] |> Client.new() |> Client.list_cats() |> dbg
+      [page: page, page_size: page_size, filter: non_dead_or_adopted_filter] |> Client.new() |> Client.list_cats()
 
     params = %{page: page, page_size: page_size}
     # NOTE: page_count = 0, page = 1 for no results when filtered
