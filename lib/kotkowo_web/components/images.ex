@@ -34,7 +34,7 @@ defmodule KotkowoWeb.Components.Images do
   attr :image, :any, doc: "Image.t()"
 
   def gallery_thumbnail(assigns) do
-    assigns = assign(assigns, :thumbnail, Image.url(assigns.image, :thumbnail))
+    assigns = assign(assigns, :thumbnail, Image.first_url(assigns.image, :thumbnail))
 
     ~H"""
     <img class="w-[80px] h-[45px] object-cover" src={@thumbnail} />
