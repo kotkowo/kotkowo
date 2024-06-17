@@ -4,10 +4,10 @@ defmodule KotkowoWeb.NewsLive.PassedAway do
   use KotkowoWeb, :live_view
 
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
-  import KotkowoWeb.WebHelpers, only: [cat_image_url: 1]
 
   alias Kotkowo.Client
   alias Kotkowo.Client.Cat
+  alias Kotkowo.Client.Image
   alias Kotkowo.Client.Paged
 
   defp parse_int_param(nil), do: nil

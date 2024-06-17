@@ -63,7 +63,7 @@
           :for={cat <- @found_home}
           share_href="#"
           share_quote={cat.cat.description}
-          src={cat_image_url(cat.cat)}
+          src={Image.first_url(cat.cat.images)}
           sex={cat.cat.sex}
           tags={cat.cat.tags}
           card_class="mx-auto"
@@ -96,7 +96,7 @@
           share_quote={cat.description}
           card_class="mx-auto"
           dead={cat.is_dead}
-          src={cat_image_url(cat)}
+          src={Image.first_url(cat.images)}
           sex={cat.sex}
           tags={cat.tags}
         />

@@ -30,7 +30,7 @@
           id={id}
           share_href="#"
           share_quote={cat.description}
-          src={cat |> cat_image_url()}
+          src={Image.first_url(cat.images)}
           sex={cat.sex}
           dead={cat.is_dead}
           tags={cat.tags}

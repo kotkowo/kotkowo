@@ -34,7 +34,7 @@
           id={id}
           share_href="#"
           share_quote={cat.cat.description}
-          src={cat.cat |> cat_image_url()}
+          src={cat.cat.images |> Image.first_url()}
           sex={cat.cat.sex}
           tags={cat.cat.tags}
           name={cat.cat.name}

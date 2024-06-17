@@ -93,7 +93,7 @@
           id={id}
           share_href={"#{kotkowo_url()}/adopcja/szukaja-domu/#{cat.slug}"}
           share_quote={cat.description}
-          src={cat_image_url(cat)}
+          src={Image.first_url(cat.images)}
           sex={cat.sex}
           dead={false}
           seniority={cat.age}

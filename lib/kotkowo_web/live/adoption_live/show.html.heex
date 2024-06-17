@@ -1,20 +1,30 @@
-<div class="xl:pt-[85px]">
-  <.section>
-    <h1 class="font-manrope font-extrabold xl:text-4xl text-primary mb-12"><%= @cat.name %></h1>
+<.section :if={@cat}>
+  <.breadcrumb>
+    <:crumb disabled>
+      Adopcja
+    </:crumb>
+    <:crumb navigate={~p"/adopcja/szukaja-domu"}>
+      Szukają domu
+    </:crumb>
+    <:crumb active>
+      <%= @slug %>
+    </:crumb>
+  </.breadcrumb>
 
-    <div class="grid grid-rows-1 grid-cols-1 xl:grid-cols-none xl:grid-rows-2 xl:grid-flow-col xl:auto-cols-auto xl:gap-x-32 xl:gap-y-12">
-      <.cat_gallery images={@images} current_image={@current_image} />
-      <div class="order-last xl:order-none">
-        <h2 class="font-manrope font-bold text-2xl mb-4">
-          <%= @cat.description_heading %>
-        </h2>
+  <h1 class="font-manrope font-extrabold xl:text-4xl text-primary mb-12"><%= @cat.name %></h1>
 
-        <div class="text-lg">
-          <%= Phoenix.HTML.Format.text_to_html(@cat.description) %>
-        </div>
+  <div class="grid grid-rows-1 grid-cols-1 xl:grid-cols-none xl:grid-rows-2 xl:grid-flow-col xl:auto-cols-auto xl:gap-x-32 xl:gap-y-12">
+    <.cat_gallery images={@images} current_image={@current_image} />
+    <div class="order-last xl:order-none">
+      <h2 class="font-manrope font-bold text-2xl mb-4">
+        <%= @cat.description_heading %>
+      </h2>
+
+      <div class="text-lg">
+        <%= Phoenix.HTML.Format.text_to_html(@cat.description) %>
       </div>
-      <.cat_info cat={@cat} />
-      <.contact />
     </div>
-  </.section>
-</div>
+    <.cat_info cat={@cat} />
+    <.contact />
+  </div>
+</.section>

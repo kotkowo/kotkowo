@@ -1,14 +1,5 @@
 defmodule KotkowoWeb.WebHelpers do
   @moduledoc false
-  alias Kotkowo.Client.Cat
-  alias Kotkowo.Client.Image
-
-  def cat_image_url(%Cat{} = cat) do
-    case cat.images do
-      [%Image{} = image | _] -> image.url
-      _ -> nil
-    end
-  end
 
   def beautify_phone_number(phone_number) do
     case String.length(phone_number) do

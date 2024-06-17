@@ -5,10 +5,10 @@ defmodule KotkowoWeb.HomeLive.Index do
 
   import KotkowoWeb.Components.Steps
   import KotkowoWeb.Constants, only: [kotkowo_mail: 0]
-  import KotkowoWeb.WebHelpers
 
   alias Kotkowo.Client
   alias Kotkowo.Client.Cat
+  alias Kotkowo.Client.Image
   alias Kotkowo.Client.Paged
 
   require Logger
@@ -23,9 +23,7 @@ defmodule KotkowoWeb.HomeLive.Index do
         Logger.error(message)
 
         socket =
-          socket
-          |> put_flash(:error, message)
-          |> assign(:in_need_of_a_new_home, :error)
+          assign(socket, :in_need_of_a_new_home, :error)
 
         {:noreply, socket}
     end

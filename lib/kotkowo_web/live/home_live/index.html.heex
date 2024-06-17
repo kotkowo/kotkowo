@@ -45,7 +45,7 @@
           name={cat.name}
           share_href="#"
           share_quote={cat.description}
-          src={cat |> cat_image_url()}
+          src={Image.first_url(cat.images)}
           sex={cat.sex}
           seniority={cat.age}
           health_status={:tested_and_vaccinated}

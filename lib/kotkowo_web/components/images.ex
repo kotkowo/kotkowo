@@ -4,12 +4,12 @@ defmodule KotkowoWeb.Components.Images do
   use KotkowoWeb, :verified_routes
   use Phoenix.Component
 
-  alias Kotkowo.GalleryImage
+  alias Kotkowo.Client.Image
 
-  attr :image, :any, doc: "GalleryImage.t()"
+  attr :image, :any, doc: "Image.t()"
 
   def gallery_image(assigns) do
-    assigns = assign(assigns, :image_default, GalleryImage.url(assigns.image))
+    assigns = assign(assigns, :image_default, assigns.image.url)
 
     ~H"""
     <picture>
@@ -31,10 +31,10 @@ defmodule KotkowoWeb.Components.Images do
     """
   end
 
-  attr :image, :any, doc: "GalleryImage.t()"
+  attr :image, :any, doc: "Image.t()"
 
   def gallery_thumbnail(assigns) do
-    assigns = assign(assigns, :thumbnail, GalleryImage.url(assigns.image, :thumbnail))
+    assigns = assign(assigns, :thumbnail, Image.url(assigns.image, :thumbnail))
 
     ~H"""
     <img class="w-[80px] h-[45px] object-cover" src={@thumbnail} />
