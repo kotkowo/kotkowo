@@ -4,21 +4,34 @@ defmodule KotkowoWeb.AdoptionLive.Show do
 
   import KotkowoWeb.Components.Images
 
-  alias Kotkowo.Cat
-  alias Kotkowo.StrapiClient
+  alias Kotkowo.Client
+  alias Kotkowo.Client.Cat
+
+  require Logger
+
+  def handle_async(:load_cat, {:ok, cat}, socket) do
+    case cat do
+      {:ok, %Cat{} = cat} ->
+        images = cat.images
+        socket = socket |> assign(:cat, cat) |> assign(:images, images)
+        {:noreply, socket}
+
+      {:error, message} ->
+        Logger.error(message)
+        {:noreply, socket}
+    end
+  end
 
   def mount(%{"slug" => slug}, _session, socket) do
-    with {:ok, %Cat{} = cat} <- StrapiClient.get_cat(slug) do
-      images = cat.gallery
+    socket =
+      socket
+      |> assign(:cat, nil)
+      |> assign(:slug, slug)
+      |> assign(:images, [])
+      |> assign(:current_image, 0)
+      |> start_async(:load_cat, fn -> Client.get_cat_by_slug(slug) end)
 
-      socket =
-        socket
-        |> assign(:cat, cat)
-        |> assign(:images, images)
-        |> assign(:current_image, 0)
-
-      {:ok, socket}
-    end
+    {:ok, socket}
   end
 
   def handle_params(params, url, socket) do
