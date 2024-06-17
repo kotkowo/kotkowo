@@ -2,7 +2,7 @@
   <div class="flex flex-col relative xl:flex-row-reverse w-full space-y-9 mb-64 xl:mb-12">
     <img
       src={~p"/images/landing_page_kitty.png"}
-      alt="Kot leżący na poduszce"
+      alt="Header Kotkowo"
       class="xl:mt-16 xl:rounded-2xl m-0 p-0 h-[233px] xl:h-[369px] xl:w-[536px] object-cover"
     />
 
@@ -42,15 +42,15 @@
       >
         <.cat_card
           :for={cat <- @in_need_of_a_new_home}
-          name={cat.cat.name}
+          name={cat.name}
           share_href="#"
           share_quote={cat.description}
-          src={cat.cat.gallery |> GalleryImage.first_image()}
-          sex={cat.cat.sex}
-          seniority={cat.cat.age}
+          src={cat |> cat_image_url()}
+          sex={cat.sex}
+          seniority={cat.age}
           health_status={:tested_and_vaccinated}
-          castrated={cat.cat.castrated}
-          tags={cat.cat.tags}
+          castrated={cat.castrated}
+          tags={cat.tags}
         />
       </div>
     </div>
