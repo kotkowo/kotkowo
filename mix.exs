@@ -55,7 +55,7 @@ defmodule Kotkowo.MixProject do
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.20"},
-      {:plug_cowboy, "~> 2.5"},
+      {:bandit, "~> 1.5"},
       {:sentry, "== 10.0.0"},
       {:jason, "~> 1.1"},
       {:hackney, "~> 1.8"},

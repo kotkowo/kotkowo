@@ -9,6 +9,7 @@ import Config
 
 # Configures the endpoint
 config :kotkowo, KotkowoWeb.Endpoint,
+  adapter: Bandit.PhoenixAdapter,
   url: [host: "localhost"],
   render_errors: [
     formats: [html: KotkowoWeb.ErrorHTML, json: KotkowoWeb.ErrorJSON],
