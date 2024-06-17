@@ -47,15 +47,15 @@
       <div class="flex flex-row space-x-4 xl:space-x-7 m-auto">
         <.cat_card
           :for={cat <- @in_need_of_a_new_home}
-          name={cat.cat.name}
+          name={cat.name}
           card_class=""
           share_href="#"
-          src={cat.cat.gallery |> GalleryImage.first_image()}
-          sex={cat.cat.sex}
-          seniority={cat.cat.age}
-          health_status={cat.cat.medical_status}
-          castrated={cat.cat.castrated}
-          tags={cat.cat.tags}
+          src={cat.images |> Image.first_url()}
+          sex={cat.sex}
+          seniority={cat.age}
+          health_status={cat.medical_status}
+          castrated={cat.castrated}
+          tags={cat.tags}
         />
       </div>
     </div>
