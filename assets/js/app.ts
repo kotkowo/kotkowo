@@ -47,8 +47,8 @@ Hooks.sanitize_article_html = {
   
   mounted(){
 
-  let elem = this.el;
-  let content = elem.getAttribute("data-article-content");
+  const elem = this.el;
+  const content = elem.getAttribute("data-article-content");
   elem.innerHTML = DOMPurify.sanitize(marked.parse(content));
   }
 }

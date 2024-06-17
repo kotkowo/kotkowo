@@ -209,7 +209,7 @@ defmodule Kotkowo.Client.Cat.Filter do
         _ -> nil
       end
 
-    is_dead = params |> Map.get("is_dead", nil)
+    is_dead = Map.get(params, "is_dead", nil)
 
     ages =
       params

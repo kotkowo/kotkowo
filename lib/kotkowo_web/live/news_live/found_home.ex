@@ -6,7 +6,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
   import KotkowoWeb.WebHelpers, only: [cat_image_url: 1]
 
   alias Kotkowo.Client
-  alias Kotkowo.Client.BetweenDateTime
+  #alias Kotkowo.Client.BetweenDateTime
   alias Kotkowo.Client.Cat
   alias Kotkowo.Client.Paged
 

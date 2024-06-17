@@ -1,21 +1,22 @@
 defmodule KotkowoWeb.NewsLive.Index do
   @moduledoc false
-  alias Kotkowo.Client.Cat.Filter
   use KotkowoWeb, :live_view
 
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
   import KotkowoWeb.WebHelpers, only: [cat_image_url: 1]
 
   alias Kotkowo.Client
+  alias Kotkowo.Client.Cat.Filter
   alias Kotkowo.Client.Paged
 
   require Logger
 
   @impl true
   def mount(_params, _session, socket) do
-    filter = nil |> Filter.from_params()  |> Map.put(:include_adopted, true)
-    dead_filter = filter |> Map.put(:is_dead, true)
-    alive_filter = filter |> Map.put(:is_dead, false)
+    filter = nil |> Filter.from_params() |> Map.put(:include_adopted, true)
+    dead_filter = Map.put(filter, :is_dead, true)
+    alive_filter = Map.put(filter, :is_dead, false)
+
     socket =
       socket
       |> assign(:news, nil)
@@ -27,10 +28,10 @@ defmodule KotkowoWeb.NewsLive.Index do
       |> start_async(:load_adopted_cats, fn ->
         [page: 0, page_size: 3, filter: alive_filter] |> Client.new() |> Client.list_adopted_cats()
       end)
-
       |> start_async(:load_passed_away, fn ->
         [page: 0, page_size: 3, filter: dead_filter] |> Client.new() |> Client.list_cats()
       end)
+
     {:ok, socket}
   end
 
