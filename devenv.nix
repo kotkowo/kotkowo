@@ -25,8 +25,6 @@
     export $(${pkgs.gnugrep}/bin/grep -v '^#' .env | ${pkgs.findutils}/bin/xargs -0)
   '';
 
-  scripts.refresh_schema.exec = "graphql-client introspect-schema http://localhost:1337/graphql --output $DEVENV_ROOT/native/strapiclient/src/query/schema.json";
-
 
   languages.elixir = {
     enable = true;
