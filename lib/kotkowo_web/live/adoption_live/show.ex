@@ -3,6 +3,7 @@ defmodule KotkowoWeb.AdoptionLive.Show do
   use KotkowoWeb, :live_view
 
   import KotkowoWeb.Components.Images
+  import KotkowoWeb.Constants
 
   alias Kotkowo.Client
   alias Kotkowo.Client.Cat
@@ -38,12 +39,12 @@ defmodule KotkowoWeb.AdoptionLive.Show do
     current_image =
       case params |> Map.get("image", "0") |> Integer.parse() do
         {n, _} ->
-          last = length(socket.assigns.images) - 1
+          last = max(length(socket.assigns.images) - 1, 0)
 
-          if n in 0..last do
-            n
-          else
-            0
+          case n do
+            n when n < 0 -> last
+            n when n in 0..last -> n
+            _ -> 0
           end
 
         _ ->
@@ -109,7 +110,24 @@ defmodule KotkowoWeb.AdoptionLive.Show do
     ~H"""
     <%= if @images != [] do %>
       <div class="flex flex-col gap-y-2 min-w-[868px] ">
-        <.gallery_image image={Enum.at(@images, @current_image)} />
+        <div class="relative">
+          <button
+            phx-click="set-image"
+            value={@current_image - 1}
+            class="cursor-pointer rounded-full flex justify-center items-center bg-white/50 w-10 h-10 absolute left-2 top-1/2 -translate-y-1/2"
+          >
+            <.icon name="chevron_down" class="rotate-90 -translate-x-0.5" />
+          </button>
+          <.gallery_image image={Enum.at(@images, @current_image)} />
+
+          <button
+            phx-click="set-image"
+            value={@current_image + 1}
+            class="cursor-pointer rounded-full flex justify-center items-center bg-white/50 w-10 h-10 absolute right-2 top-1/2 -translate-y-1/2"
+          >
+            <.icon name="chevron_up" class="rotate-90 translate-x-0.5" />
+          </button>
+        </div>
         <div :if={length(@images) > 1} class="flex gap-x-2">
           <%= for {image, n} <- thumbnails(@images, @current_image) do %>
             <button phx-click="set-image" value={n}>
@@ -161,7 +179,13 @@ defmodule KotkowoWeb.AdoptionLive.Show do
           </div>
         <% end %>
       </div>
-      <.button href="#">Udostępnij znajomym</.button>
+      <.button
+        share_href={"#{kotkowo_url()}/adopcja/szukaja-domu/#{@cat.slug}"}
+        share_quote={@cat.description_heading}
+        phx-click={JS.dispatch("share_modal")}
+      >
+        Udostępnij znajomym
+      </.button>
     </div>
     """
   end
