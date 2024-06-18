@@ -15,7 +15,7 @@ defmodule Kotkowo.Client.Cat.Filter do
   @typedoc """
   A type representing a field that can be filtered.
   """
-  @type field() :: :name | :sex | :age | :color | :castrated | :tags
+  @type field() :: :name | :sex | :age | :color | :castrated | :tags | :include_adopted | :is_dead
 
   @typedoc """
   A type representing a filter operation for a property.

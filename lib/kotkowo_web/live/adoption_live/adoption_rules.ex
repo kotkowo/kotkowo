@@ -27,7 +27,8 @@ defmodule KotkowoWeb.AdoptionLive.AdoptionRules do
   end
 
   def mount(_params, _session, socket) do
-    default_filter = %{} |> Cat.Filter.from_map() |> Map.put(:include_adopted, false) |> Map.put(:is_dead, false)
+    default_filter =
+      %Cat.Filter{} |> Map.put(:include_adopted, false) |> Map.put(:is_dead, false)
 
     socket =
       socket
