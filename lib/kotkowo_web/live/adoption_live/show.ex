@@ -131,26 +131,26 @@ defmodule KotkowoWeb.AdoptionLive.Show do
 
       <ul class="flex flex-col gap-y-4 font-bold font-manrope text-xl 2xl:whitespace-nowrap">
         <li class="flex align-center gap-x-4">
-          <.icon name="gender" class="w-5" /><%= to_string(@cat.sex) %>
+          <.icon name="gender" class="w-5" /><%= Cat.Sex.to_string(@cat.sex) %>
         </li>
         <li class="flex align-center gap-x-4">
-          <.icon name="paw" class="w-5" /><%= to_string(@cat.age) %>
+          <.icon name="paw" class="w-5" /><%= Cat.Age.to_string(@cat.age) %>
         </li>
         <li class="flex align-center gap-x-4">
           <.icon name="sthetoscope" class="w-5" />
-          <%= to_string(@cat.medical_status) %>
+          <%= Cat.MedicalStatus.to_string(@cat.medical_status) %>
         </li>
         <li class="flex align-center gap-x-4">
           <.icon name="scissors" class="w-5" />
-          <%= to_string(@cat.castrated) %>
+          <%= Cat.Castrated.to_string(@cat.castrated) %>
         </li>
         <li class="flex align-center gap-x-4">
           <.icon name="ekg" class="w-5" />
-          <%= to_string(@cat.healthy) %>
+          <%= Cat.Healthy.to_string(@cat.healthy) %>
         </li>
         <li class="flex align-center gap-x-4">
           <.icon name="medicine" class="w-3 mx-1" />
-          <%= to_string(@cat.fiv_felv) %>
+          <%= Cat.FivFelv.to_string(@cat.fiv_felv) %>
         </li>
       </ul>
 
