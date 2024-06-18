@@ -12,6 +12,8 @@ defmodule KotkowoWeb.Components.Buttons do
     doc: "Button's type"
 
   attr :class, :string, default: ""
+  attr :share_href, :string, required: false
+  attr :share_quote, :string, required: false
   attr :rest, :global, include: ~w(href navigate)
 
   slot :inner_block, required: true, doc: "Button's content"
