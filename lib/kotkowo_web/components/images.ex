@@ -4,19 +4,15 @@ defmodule KotkowoWeb.Components.Images do
   use KotkowoWeb, :verified_routes
   use Phoenix.Component
 
-  alias Kotkowo.Client.Image
-
   attr :image, :any, doc: "Image.t()"
 
   def gallery_image(assigns) do
-    assigns = assign(assigns, :image_default, assigns.image.url)
-
     ~H"""
     <picture>
-      <source media="(max-width: 799px)" srcset={@image_default} />
+      <source media="(max-width: 799px)" srcset={@image.url} />
       <img
         class="w-[868px] h-[485px] max-w-[868px] max-h-[485px] min-w-[868px] min-h-[485px] object-cover"
-        src={@image_default}
+        src={@image.url}
         alt={@image.alternative_text}
       />
     </picture>
