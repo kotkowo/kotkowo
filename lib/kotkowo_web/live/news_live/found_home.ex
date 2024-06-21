@@ -7,7 +7,6 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
   alias Kotkowo.Client
   alias Kotkowo.Client.Cat
   alias Kotkowo.Client.Image
-  # alias Kotkowo.Client.BetweenDateTime
   alias Kotkowo.Client.Paged
 
   defp parse_int_param(nil), do: nil
@@ -27,14 +26,9 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
     {:ok, socket}
   end
 
-  # defp dates_from_params(nil), do: %BetweenDateTime{date_from: nil, date_to: nil}
-  # defp dates_from_params(cat), do: %BetweenDateTime{date_from: cat["date_from"], date_to: cat["date_to"]}
-
   @impl true
   def handle_params(params, _uri, socket) do
     filter = Cat.Filter.from_params(params["cat"])
-
-    # dates = dates_from_params(params["cat"])
 
     adopted_filter = filter |> Map.put(:include_adopted, true) |> Map.put(:is_dead, false)
     page_size = params |> Map.get("page_size", "30") |> parse_int_param()
@@ -63,8 +57,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
 
   @impl true
   def handle_info({:filter_cat, %Cat.Filter{} = filter}, socket) do
-    socket = push_patch(socket, to: ~p"/aktualnosci/znalazly-dom" <> "?#{Cat.Filter.to_param(filter)}")
-    {:noreply, socket}
+    {:noreply, push_patch(socket, to: ~p"/aktualnosci/znalazly-dom" <> "?#{Cat.Filter.to_param(filter)}")}
   end
 
   defp items_per_page, do: [30, 60, 90]
