@@ -37,8 +37,11 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
     page_size = params |> Map.get("page_size", "30") |> parse_int_param()
     page = params |> Map.get("page") |> parse_int_param()
 
+    # NOTE: add section for cats not owned by kotkowo.
     {:ok, %Paged{items: cats, page_count: page_count, page_size: page_size, page: page, total: total}} =
-      [page: page, page_size: page_size, filter: non_dead_or_adopted_filter] |> Client.new() |> Client.list_cats()
+      [page: page, page_size: page_size, filter: non_dead_or_adopted_filter]
+      |> Client.new()
+      |> Client.list_looking_for_adoption_cats(true)
 
     params = %{page: page, page_size: page_size}
     # NOTE: page_count = 0, page = 1 for no results when filtered

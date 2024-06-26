@@ -3,6 +3,7 @@ defmodule Kotkowo.Client.Cat do
   alias Kotkowo.Client.Cat.Age
   alias Kotkowo.Client.Cat.Color
   alias Kotkowo.Client.Cat.Sex
+  alias Kotkowo.Client.ContactInformation
   alias Kotkowo.Client.Image
 
   @type castrated() :: boolean()
@@ -15,6 +16,8 @@ defmodule Kotkowo.Client.Cat do
     :id,
     :age,
     :name,
+    :chip_number,
+    :contact_informations,
     :description,
     :color,
     :tags,
@@ -33,6 +36,8 @@ defmodule Kotkowo.Client.Cat do
           id: String.t() | nil,
           age: Age.t() | nil,
           name: String.t(),
+          chip_number: String.t() | nil,
+          contact_informations: list(ContactInformation.t()),
           description: String.t() | nil,
           color: Color.t() | nil,
           tags: tags(),

@@ -89,18 +89,18 @@
         class="gap-x-16 gap-y-10 flex flex-wrap lg:justify-start justify-center h-min"
       >
         <.cat_card
-          :for={{id, cat} <- @streams.cats}
+          :for={{id, lfh} <- @streams.cats}
           id={id}
-          share_href={"#{kotkowo_url()}/adopcja/szukaja-domu/#{cat.slug}"}
-          share_quote={cat.description}
-          src={Image.first_url(cat.images)}
-          sex={cat.sex}
-          dead={false}
-          seniority={cat.age}
-          castrated={cat.castrated}
-          health_status={cat.medical_status}
-          tags={cat.tags}
-          name={cat.name}
+          share_href={"#{kotkowo_url()}/adopcja/szukaja-domu/#{lfh.cat.slug}"}
+          share_quote={lfh.cat.description}
+          src={Image.first_url(lfh.cat.images)}
+          sex={lfh.cat.sex}
+          dead={lfh.cat.is_dead}
+          seniority={lfh.cat.age}
+          castrated={lfh.cat.castrated}
+          health_status={lfh.cat.medical_status}
+          tags={lfh.cat.tags}
+          name={lfh.cat.name}
         />
       </div>
     </div>

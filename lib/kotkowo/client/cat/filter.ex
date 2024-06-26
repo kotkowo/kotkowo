@@ -125,7 +125,7 @@ defmodule Kotkowo.Client.Cat.Filter do
     {:is_dead, val}
   end
 
-  defp parse_field({:chip_number, val}) when is_binary(val) do
+  defp parse_field({:chip_number, val}) do
     {:chip_number, val}
   end
 
