@@ -30,7 +30,7 @@ defmodule KotkowoWeb.NewsLive.PassedAway do
   @impl true
   def handle_params(params, _uri, socket) do
     filter = Cat.Filter.from_params(params["cat"])
-    dead_filter = filter |> Map.put(:include_adopted, true) |> Map.put(:is_dead, true)
+    dead_filter = Map.put(filter, :is_dead, true)
     page_size = params |> Map.get("page_size", "30") |> parse_int_param()
     page = params |> Map.get("page") |> parse_int_param()
 

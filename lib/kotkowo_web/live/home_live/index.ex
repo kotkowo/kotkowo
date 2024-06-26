@@ -51,10 +51,9 @@ defmodule KotkowoWeb.HomeLive.Index do
   def mount(_params, _session, socket) do
     default_opts = [page: 1, page_size: 3]
 
-    non_dead_or_adopted_filter =
+    non_dead_filter =
       Cat.Filter.from_map(%{
-        is_dead: false,
-        include_adopted: false
+        is_dead: false
       })
 
     socket =
@@ -63,7 +62,7 @@ defmodule KotkowoWeb.HomeLive.Index do
       |> assign(:in_need_of_a_new_home, [])
       |> start_async(:load_announcements, fn -> default_opts |> Client.new() |> Client.list_announcements() end)
       |> start_async(:load_cats, fn ->
-        default_opts |> Keyword.put(:filter, non_dead_or_adopted_filter) |> Client.new() |> Client.list_cats()
+        default_opts |> Keyword.put(:filter, non_dead_filter) |> Client.new() |> Client.list_cats()
       end)
 
     {:ok, socket}

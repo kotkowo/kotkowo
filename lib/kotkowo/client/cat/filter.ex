@@ -10,13 +10,12 @@ defmodule Kotkowo.Client.Cat.Filter do
   alias Kotkowo.Client.Cat.Color
   alias Kotkowo.Client.Cat.Sex
 
-  defstruct [:sex, :age, :color, :castrated, :tags, :name, :is_dead, :include_adopted]
+  defstruct [:sex, :age, :color, :castrated, :tags, :name, :is_dead, :chip_number]
 
   @typedoc """
   A type representing a field that can be filtered.
   """
-  @type field() :: :name | :sex | :age | :color | :castrated | :tags | :include_adopted | :is_dead
-
+  @type field() :: :name | :sex | :age | :color | :castrated | :tags | :is_dead | :chip_number
   @typedoc """
   A type representing a filter operation for a property.
   """
@@ -33,13 +32,13 @@ defmodule Kotkowo.Client.Cat.Filter do
   """
   @type t() :: %__MODULE__{
           name: filter(String.t()) | nil,
+          chip_number: filter(String.t()) | nil,
           sex: filter(Cat.Sex.t()) | nil,
           age: filter(Cat.Age.t()) | nil,
           color: filter(Cat.Color.t()) | nil,
           castrated: filter(Cat.castrated()) | nil,
           tags: filter(Cat.tags()) | nil,
-          is_dead: filter(Cat.is_dead()) | nil,
-          include_adopted: filter(boolean()) | nil
+          is_dead: filter(Cat.is_dead()) | nil
         }
 
   @doc """
@@ -122,12 +121,12 @@ defmodule Kotkowo.Client.Cat.Filter do
     {:castrated, val}
   end
 
-  defp parse_field({:include_adopted, val}) do
-    {:include_adopted, val}
-  end
-
   defp parse_field({:is_dead, val}) do
     {:is_dead, val}
+  end
+
+  defp parse_field({:chip_number, val}) when is_binary(val) do
+    {:chip_number, val}
   end
 
   defp parse_field({:color, vals}) when is_list(vals) do
@@ -178,6 +177,7 @@ defmodule Kotkowo.Client.Cat.Filter do
   def to_param(%__MODULE__{} = filter) do
     params =
       Enum.join([
+        to_param(:chip_number, filter.chip_number),
         to_param(:name, filter.name),
         to_param(:sex, filter.sex),
         to_param(:color, filter.color),
@@ -221,6 +221,7 @@ defmodule Kotkowo.Client.Cat.Filter do
 
     map = %{
       name: params["name"],
+      chip_number: params["chip_number"],
       color: colors,
       tags: params["tags"],
       sex: sex,

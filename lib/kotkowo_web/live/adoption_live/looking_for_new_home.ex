@@ -32,7 +32,7 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
     filter = Cat.Filter.from_params(params["cat"])
 
     non_dead_or_adopted_filter =
-      filter |> Map.put(:is_dead, false) |> Map.put(:include_adopted, false)
+      Map.put(filter, :is_dead, false)
 
     page_size = params |> Map.get("page_size", "30") |> parse_int_param()
     page = params |> Map.get("page") |> parse_int_param()

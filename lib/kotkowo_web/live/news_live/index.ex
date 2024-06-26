@@ -5,7 +5,7 @@ defmodule KotkowoWeb.NewsLive.Index do
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
 
   alias Kotkowo.Client
-  alias Kotkowo.Client.Cat.Filter
+  alias Kotkowo.Client.Cat
   alias Kotkowo.Client.Image
   alias Kotkowo.Client.Paged
 
@@ -13,7 +13,7 @@ defmodule KotkowoWeb.NewsLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    filter = nil |> Filter.from_params() |> Map.put(:include_adopted, true)
+    filter = %Cat.Filter{}
     dead_filter = Map.put(filter, :is_dead, true)
     alive_filter = Map.put(filter, :is_dead, false)
 
