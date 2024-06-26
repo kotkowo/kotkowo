@@ -62,7 +62,7 @@ defmodule KotkowoWeb.HomeLive.Index do
       |> assign(:in_need_of_a_new_home, [])
       |> start_async(:load_announcements, fn -> default_opts |> Client.new() |> Client.list_announcements() end)
       |> start_async(:load_cats, fn ->
-        default_opts |> Keyword.put(:filter, non_dead_filter) |> Client.new() |> Client.list_cats()
+        default_opts |> Keyword.put(:filter, non_dead_filter) |> Client.new() |> Client.list_looking_for_adoption_cats()
       end)
 
     {:ok, socket}

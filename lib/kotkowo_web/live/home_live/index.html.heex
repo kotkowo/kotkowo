@@ -41,16 +41,16 @@
         class="flex flex-row space-x-4 xl:space-x-7 m-auto"
       >
         <.cat_card
-          :for={cat <- @in_need_of_a_new_home}
-          name={cat.name}
+          :for={lfh <- @in_need_of_a_new_home}
+          name={lfh.cat.name}
           share_href="#"
-          share_quote={cat.description}
-          src={Image.first_url(cat.images)}
-          sex={cat.sex}
-          seniority={cat.age}
+          share_quote={lfh.cat.description}
+          src={Image.first_url(lfh.cat.images)}
+          sex={lfh.cat.sex}
+          seniority={lfh.cat.age}
           health_status={:tested_and_vaccinated}
-          castrated={cat.castrated}
-          tags={cat.tags}
+          castrated={lfh.cat.castrated}
+          tags={lfh.cat.tags}
         />
       </div>
     </div>

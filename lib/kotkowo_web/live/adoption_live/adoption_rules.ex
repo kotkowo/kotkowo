@@ -34,7 +34,7 @@ defmodule KotkowoWeb.AdoptionLive.AdoptionRules do
       socket
       |> assign(:in_need_of_a_new_home, [])
       |> start_async(:load_cats, fn ->
-        [page: 1, page_size: 3, filter: default_filter] |> Client.new() |> Client.list_cats()
+        [page: 1, page_size: 3, filter: default_filter] |> Client.new() |> Client.list_looking_for_adoption_cats()
       end)
 
     {:ok, socket}
