@@ -112,6 +112,7 @@ defmodule KotkowoWeb.AdoptionLive.Show do
       <div class="flex flex-col gap-y-2 min-w-[868px] ">
         <div class="relative">
           <button
+            :if={length(@images) > 1}
             phx-click="set-image"
             value={@current_image - 1}
             class="cursor-pointer rounded-full flex justify-center items-center bg-white/50 w-10 h-10 absolute left-2 top-1/2 -translate-y-1/2"
@@ -121,6 +122,7 @@ defmodule KotkowoWeb.AdoptionLive.Show do
           <.gallery_image image={Enum.at(@images, @current_image)} />
 
           <button
+            :if={length(@images) > 1}
             phx-click="set-image"
             value={@current_image + 1}
             class="cursor-pointer rounded-full flex justify-center items-center bg-white/50 w-10 h-10 absolute right-2 top-1/2 -translate-y-1/2"
