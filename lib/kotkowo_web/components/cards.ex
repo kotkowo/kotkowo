@@ -12,9 +12,9 @@ defmodule KotkowoWeb.Components.Cards do
   import KotkowoWeb.WebHelpers, only: [beautify_phone_number: 1]
   import Tails
 
-  alias Kotkowo.Attributes.HealthStatus
-  alias Kotkowo.Attributes.Seniority
-  alias Kotkowo.Attributes.Sex
+  alias Kotkowo.Client.Cat.Age
+  alias Kotkowo.Client.Cat.MedicalStatus
+  alias Kotkowo.Client.Cat.Sex
   alias Phoenix.LiveView.JS
 
   attr :src, :string, required: true, doc: "Image"
@@ -115,11 +115,11 @@ defmodule KotkowoWeb.Components.Cards do
 
   attr :name, :string, required: true, doc: "Cat's name"
   attr :src, :string, required: true, doc: "Cat's image"
-  attr :seniority, :atom, default: nil, values: Seniority.all() ++ [nil], doc: "Cat's seniority"
+  attr :seniority, :atom, default: nil, values: Age.all() ++ [nil], doc: "Cat's seniority"
 
   attr :health_status, :atom,
     default: nil,
-    values: HealthStatus.all() ++ [nil],
+    values: MedicalStatus.all() ++ [nil],
     doc: "Cat's health status"
 
   attr :castrated, :boolean, default: nil, doc: "Whether cat was castrated"
@@ -158,10 +158,10 @@ defmodule KotkowoWeb.Components.Cards do
       </:title>
       <:attributes>
         <.card_attribute :if={@seniority != nil} icon="paw">
-          <%= Seniority.to_string(@seniority) %>
+          <%= Age.to_string(@seniority) %>
         </.card_attribute>
         <.card_attribute :if={@health_status != nil} icon="sthetoscope">
-          <%= HealthStatus.to_string(@health_status) %>
+          <%= MedicalStatus.to_string(@health_status) %>
         </.card_attribute>
         <.card_attribute :if={@castrated != nil} icon="scissors">
           <%= (@castrated && gettext("Po kastracji")) || gettext("Przed kastracją") %>
