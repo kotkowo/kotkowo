@@ -6,8 +6,8 @@ defmodule Kotkowo.Client.Cat.Castrated do
   def to_string(true), do: "Po kastracji"
   def to_string(false), do: "Przed kastracją"
 
-  def from_string(unquote(to_string(true))), do: unquote(true)
-  def from_string(unquote(to_string(false))), do: unquote(false)
+  def from_string("true"), do: unquote(true)
+  def from_string("false"), do: unquote(false)
 
   def from_string(_), do: nil
 end
