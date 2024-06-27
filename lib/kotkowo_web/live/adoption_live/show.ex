@@ -41,14 +41,11 @@ defmodule KotkowoWeb.AdoptionLive.Show do
         {n, _} ->
           last = max(length(socket.assigns.images) - 1, 0)
 
-          case n do
-            n when n < 0 -> last
-            n when n in 0..last -> n
-            _ -> 0
+          cond do
+            n < 0 -> last
+            n in 0..last -> n
+            true -> 0
           end
-
-        _ ->
-          0
       end
 
     socket =
