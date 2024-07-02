@@ -245,7 +245,7 @@ defmodule KotkowoWeb.Components.Cards do
 
   def help_card(assigns) do
     ~H"""
-    <a href={@href} class="flex grow">
+    <.link navigate={@href} class="flex grow">
       <div class="w-56 flex flex-col bg-white rounded-2xl border border-2 snap-center lg:snap-none grow">
         <img src={@src} alt={@alt} class="border border-1 rounded-t-2xl w-full object-cover h-40" />
 
@@ -253,7 +253,7 @@ defmodule KotkowoWeb.Components.Cards do
           <span><%= render_slot(@inner_block) %></span>
         </p>
       </div>
-    </a>
+    </.link>
     """
   end
 

@@ -11,7 +11,12 @@ import {marked} from 'marked';
 function open_share_modal(href: string, quote: string) : void {
     console.warn('Web Share Api is not supported by the current browser.');
     const share_dialog = document.getElementById("share-dialog")
+    const share_content = document.getElementById("share-content")
+
     share_dialog.showModal()
+
+    share_dialog.addEventListener('click', () => share_dialog.close());
+share_content.addEventListener('click', (event) => event.stopPropagation());
     const facebook_share = document.getElementById("share-facebook")
     facebook_share.setAttribute("href", `https://www.facebook.com/sharer/sharer.php?u=${href}&hashtag=kotkowo`)
     const twitter_share = document.getElementById("share-twitter")
