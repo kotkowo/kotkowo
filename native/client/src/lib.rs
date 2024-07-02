@@ -1,8 +1,8 @@
 use kotkowo_client::{
     get_announcement_article, get_cat as get_kitty, get_cat_by_slug as get_kitty_by_slug,
-    list_adopted_cat, list_announcement, list_cat, list_looking_for_adoption_cat, AdoptedCat,
-    Announcement, AnnouncementFilter, Article, BetweenDateTime, Cat, CatFilter, Error,
-    LookingForHomeCat, Options, Paged,
+    get_lfh_cat_by_slug as get_lfh_kitty_by_slug, list_adopted_cat, list_announcement, list_cat,
+    list_looking_for_adoption_cat, AdoptedCat, Announcement, AnnouncementFilter, Article,
+    BetweenDateTime, Cat, CatFilter, Error, LookingForHomeCat, Options, Paged,
 };
 
 #[rustler::nif]
@@ -40,6 +40,10 @@ fn list_looking_for_adoption_cats(
 fn get_cat_by_slug(cat_slug: String) -> Result<Cat, Error> {
     get_kitty_by_slug(cat_slug)
 }
+#[rustler::nif]
+fn get_lfh_cat_by_slug(cat_slug: String) -> Result<LookingForHomeCat, Error> {
+    get_lfh_kitty_by_slug(cat_slug)
+}
 
 #[rustler::nif]
 fn get_cat(id: String) -> Result<Cat, Error> {
@@ -56,5 +60,6 @@ rustler::init!(
         get_article,
         list_adopted_cats,
         list_looking_for_adoption_cats,
+        get_lfh_cat_by_slug
     ]
 );
