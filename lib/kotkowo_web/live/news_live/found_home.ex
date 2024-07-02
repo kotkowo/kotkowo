@@ -3,6 +3,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
   use KotkowoWeb, :live_view
 
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
+  import KotkowoWeb.Constants
 
   alias Kotkowo.Client
   alias Kotkowo.Client.Cat

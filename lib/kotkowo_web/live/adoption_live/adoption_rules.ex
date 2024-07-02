@@ -4,6 +4,7 @@ defmodule KotkowoWeb.AdoptionLive.AdoptionRules do
 
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
   import KotkowoWeb.Components.Steps
+  import KotkowoWeb.Constants
 
   alias Kotkowo.Client
   alias Kotkowo.Client.Cat

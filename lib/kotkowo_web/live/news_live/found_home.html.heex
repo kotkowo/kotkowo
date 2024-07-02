@@ -32,7 +32,8 @@
         <.cat_card
           :for={{id, cat} <- @streams.cats}
           id={id}
-          share_href="#"
+          cat_url={~p"/adopcja/znalazly-dom/#{cat.cat.slug}"}
+          share_href={"#{kotkowo_url()}/adopcja/znalazly-dom/#{cat.cat.slug}"}
           share_quote={cat.cat.description}
           src={cat.cat.images |> Image.first_url()}
           sex={cat.cat.sex}

@@ -43,12 +43,13 @@
         <.cat_card
           :for={lfh <- @in_need_of_a_new_home}
           name={lfh.cat.name}
-          share_href="#"
+          cat_url={~p"/adopcja/szukaja-domu/#{lfh.cat.slug}"}
+          share_href={"#{kotkowo_url()}/adopcja/szukaja-domu/#{lfh.cat.slug}"}
           share_quote={lfh.cat.description}
           src={Image.first_url(lfh.cat.images)}
           sex={lfh.cat.sex}
           seniority={lfh.cat.age}
-          health_status={:tested_and_vaccinated}
+          health_status={lfh.cat.medical_status}
           castrated={lfh.cat.castrated}
           tags={lfh.cat.tags}
         />

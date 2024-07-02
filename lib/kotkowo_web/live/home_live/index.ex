@@ -4,7 +4,7 @@ defmodule KotkowoWeb.HomeLive.Index do
   use KotkowoWeb, :live_view
 
   import KotkowoWeb.Components.Steps
-  import KotkowoWeb.Constants, only: [kotkowo_mail: 0]
+  import KotkowoWeb.Constants
 
   alias Kotkowo.Client
   alias Kotkowo.Client.Cat
