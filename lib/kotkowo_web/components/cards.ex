@@ -81,7 +81,7 @@ defmodule KotkowoWeb.Components.Cards do
             }
           />
         </a>
-        <div :if={@share_href != nil}>
+        <div :if={@share_href}>
           <div
             class="cursor-pointer absolute right-3 top-3 bg-white w-6 lg:w-10 h-6 lg:h-10 rounded-full opacity-60 flex"
             phx-click={JS.dispatch("share_modal")}
@@ -146,7 +146,7 @@ defmodule KotkowoWeb.Components.Cards do
     examples: [["Mruczek", "Wielbiciel kolan"], ["Meowy", "Loves laps"]]
 
   attr :sex, :atom, values: Sex.all(), required: true, doc: "Cat's sex"
-  attr :share_href, :string, required: true, doc: "Cat's share link"
+  attr :share_href, :string, required: false, default: nil, doc: "Cat's share link"
   attr :share_quote, :string, default: "", doc: "Text included with share"
   attr :cat_url, :string, default: nil
   attr :dead, :boolean, default: false

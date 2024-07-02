@@ -48,8 +48,9 @@
         <.cat_card
           :for={lfh <- @in_need_of_a_new_home}
           name={lfh.cat.name}
-          card_class=""
-          share_href="#"
+          cat_url={~p"/adopcja/szukaja-domu/#{lfh.cat.slug}"}
+          share_href={"#{kotkowo_url()}/adopcja/szukaja-domu/#{lfh.cat.slug}"}
+          share_quote={lfh.cat.description}
           src={lfh.cat.images |> Image.first_url()}
           sex={lfh.cat.sex}
           seniority={lfh.cat.age}

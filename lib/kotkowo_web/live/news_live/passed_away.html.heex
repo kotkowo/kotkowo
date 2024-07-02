@@ -28,8 +28,6 @@
         <.cat_card
           :for={{id, cat} <- @streams.cats}
           id={id}
-          share_href="#"
-          share_quote={cat.description}
           src={Image.first_url(cat.images)}
           sex={cat.sex}
           dead={cat.is_dead}
