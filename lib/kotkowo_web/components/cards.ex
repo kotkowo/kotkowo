@@ -29,6 +29,7 @@ defmodule KotkowoWeb.Components.Cards do
 
   attr :class, :string, default: ""
   attr :img_class, :string, default: ""
+  attr :img_anchor, :string, default: nil
   attr :body_class, :string, default: ""
   attr :grayscale, :boolean, default: false
 
@@ -55,6 +56,7 @@ defmodule KotkowoWeb.Components.Cards do
     >
       <div class="relative">
         <img
+          :if={!@img_anchor}
           src={@src}
           alt={@alt}
           class={
@@ -65,6 +67,20 @@ defmodule KotkowoWeb.Components.Cards do
             ])
           }
         />
+
+        <a :if={@img_anchor} href={@img_anchor}>
+          <img
+            src={@src}
+            alt={@alt}
+            class={
+              classes([
+                "border border-1 rounded-t-2xl w-full object-cover h-48 text-base",
+                @grayscale && "grayscale",
+                @img_class
+              ])
+            }
+          />
+        </a>
         <div :if={@share_href != nil}>
           <div
             class="cursor-pointer absolute right-3 top-3 bg-white w-6 lg:w-10 h-6 lg:h-10 rounded-full opacity-60 flex"
@@ -132,6 +148,7 @@ defmodule KotkowoWeb.Components.Cards do
   attr :sex, :atom, values: Sex.all(), required: true, doc: "Cat's sex"
   attr :share_href, :string, required: true, doc: "Cat's share link"
   attr :share_quote, :string, default: "", doc: "Text included with share"
+  attr :cat_url, :string, default: nil
   attr :dead, :boolean, default: false
   attr :card_class, :string, default: ""
   attr :rest, :global
@@ -149,12 +166,14 @@ defmodule KotkowoWeb.Components.Cards do
       }
       grayscale={@dead}
       src={@src}
+      img_anchor={@cat_url}
       alt={@name}
       tags={@tags}
       {@rest}
     >
       <:title icon={to_string(@sex)}>
-        <%= @name %>
+        <.link :if={@cat_url} navigate={@cat_url}><%= @name %></.link>
+        <p :if={!@cat_url}><%= @name %></p>
       </:title>
       <:attributes>
         <.card_attribute :if={@seniority != nil} icon="paw">
