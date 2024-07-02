@@ -7,23 +7,18 @@ defmodule KotkowoWeb.Components.Modals do
   import KotkowoWeb.Components.Icons
   import KotkowoWeb.Gettext
 
-  alias Phoenix.LiveView.JS
-
   def share_modal(assigns) do
     ~H"""
     <dialog
       id="share-dialog"
-      class="fixed h-screen top-0 left-0 w-screen bg-blue-300/10 z-20 transition duration-150"
+      class="opacity-100 fixed h-screen top-0 left-0 w-screen bg-blue-300/10 z-20 transition duration-150"
     >
-      <div class="flex flex-col gap-y-4 sm:gap-y-6 w-72 sm:w-96 left-1/2 top-1/2 p-4 -translate-x-1/2 -translate-y-2/3 border-gray border rounded-2xl bg-white shadow-xl fixed z-20">
-        <div class="flex flex-row">
-          <span class="font-bold text-xl sm:text-2xl"><%= gettext("Udostępnij") %></span>
-          <Heroicons.x_mark
-            mini
-            class="ml-auto w-8 cursor-pointer"
-            phx-click={JS.dispatch("hide_share")}
-          />
-        </div>
+      <div
+        id="share-content"
+        class="flex flex-col gap-y-4 sm:gap-y-6 w-72 sm:w-96 left-1/2 top-1/2 p-4 -translate-x-1/2 -translate-y-2/3 border-gray border rounded-2xl bg-white shadow-xl fixed z-20"
+      >
+        <span class="font-bold text-xl sm:text-2xl"><%= gettext("Udostępnij") %></span>
+
         <div>
           <span><%= gettext("Udostępnij ten link przez") %>:</span>
           <div class="flex flex-row justify-evenly mt-2">
