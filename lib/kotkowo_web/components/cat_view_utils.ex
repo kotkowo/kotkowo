@@ -20,29 +20,34 @@ defmodule KotkowoWeb.Components.CatViewUtils do
 
   def contact(assigns) do
     ~H"""
-    <div class="flex flex-col gap-y-4">
-      <h2 class="font-manrope font-bold xl:text-2xl">Interesuje Cię adopcja?</h2>
-      <p class="text-lg">
+    <div class="flex flex-col gap-y-4 px-4 xl:px-0 xl:mt-0 mt-4">
+      <h2 class="font-manrope font-bold text-xl xl:text-2xl">Interesuje Cię adopcja?</h2>
+      <p class="xl:text-lg">
         Wypełnij
         <a href="#" class="text-primary font-bold underline underline-offset-4">
           ankietę adopcyjną
         </a>
       </p>
-      <p :if={!@caretaker} class="text-lg">
+      <p :if={!@caretaker} class="xl:text-lg">
         Kotem opiekuje się <b>Nikt</b>
       </p>
-      <p :if={@caretaker} class="text-lg">
+      <p :if={@caretaker} class="xl:text-lg">
         Kotem opiekuje się <b><%= @caretaker.first_name %></b>
       </p>
-      <h4 class="text-primary font-bold text-lg">Telefon do opiekuna</h4>
+      <h4 class="text-primary font-bold xl:text-lg">Telefon do opiekuna</h4>
       <div class="flex space-x-2">
         <.button
           :if={@caretaker}
           href="#"
           type="outline"
-          class="!px-4 !py-1.5 text-black font-normal xl:text-sm flex gap-x-1.5 align-center"
+          class="
+          !px-4 !py-1.5 text-black font-normal xl:text-sm flex gap-x-1.5 align-center"
         >
-          <.icon name="telephone" /><span><%= beautify_phone_number(@caretaker.phone_number) %></span>
+          <.icon name="telephone" />
+
+          <span class="w-full">
+            <%= beautify_phone_number(@caretaker.phone_number) %>
+          </span>
         </.button>
         <%= for contact_info <- @contact_informations do %>
           <.button
@@ -51,7 +56,7 @@ defmodule KotkowoWeb.Components.CatViewUtils do
             class="!px-4 !py-1.5 text-black font-normal xl:text-sm flex gap-x-1.5 align-center"
           >
             <.icon name="telephone" />
-            <span>
+            <span class="w-full">
               <%= beautify_phone_number(contact_info.phone_number) %>
             </span>
           </.button>
@@ -63,10 +68,10 @@ defmodule KotkowoWeb.Components.CatViewUtils do
 
   def cat_info(assigns) do
     ~H"""
-    <div class="flex flex-col space-y-6">
-      <h2 class="font-manrope font-extrabold xl:text-3xl">Informacje o kocie</h2>
+    <div class="flex flex-col space-y-6 xl:px-0 px-4 xl:mt-0 mt-4">
+      <h2 class="font-manrope font-bold xl:font-extrabold text-xl xl:text-3xl">Informacje o kocie</h2>
 
-      <ul class="flex flex-col gap-y-4 font-bold font-manrope text-xl 2xl:whitespace-nowrap">
+      <ul class="flex flex-col gap-y-4 font-bold font-manrope xl:text-xl 2xl:whitespace-nowrap">
         <li class="flex align-center gap-x-4">
           <.icon name="gender" class="w-5" /><%= Cat.Sex.to_string(@cat.sex) %>
         </li>

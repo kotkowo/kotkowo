@@ -4,14 +4,22 @@ defmodule KotkowoWeb.Components.Images do
   use KotkowoWeb, :verified_routes
   use Phoenix.Component
 
+  import Tails, only: [classes: 1]
+
   attr :image, :any, doc: "Image.t()"
+  attr :class, :string, default: ""
 
   def gallery_image(assigns) do
     ~H"""
     <picture>
       <source media="(max-width: 799px)" srcset={@image.url} />
       <img
-        class="w-[868px] h-[485px] max-w-[868px] max-h-[485px] min-w-[868px] min-h-[485px] object-cover"
+        class={
+          classes([
+            "w-[868px] h-[485px] max-w-[868px] max-h-[485px] min-w-[868px] min-h-[485px] object-cover",
+            @class
+          ])
+        }
         src={@image.url}
         alt={@image.alternative_text}
       />
