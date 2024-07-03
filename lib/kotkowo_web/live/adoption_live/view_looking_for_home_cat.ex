@@ -1,4 +1,4 @@
-defmodule KotkowoWeb.AdoptionLive.Show do
+defmodule KotkowoWeb.AdoptionLive.ViewLookingForHomeCat do
   @moduledoc false
   use KotkowoWeb, :live_view
 

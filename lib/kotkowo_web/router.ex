@@ -30,10 +30,11 @@ defmodule KotkowoWeb.Router do
     end
 
     scope "/adopcja" do
-      live "/szukaja-domu/:slug", AdoptionLive.Show
+      live "/szukaja-domu/:slug", AdoptionLive.ViewLookingForHomeCat
       live "/szukaja-domu", AdoptionLive.LookingForNewHome
       live "/zasady-adopcji", AdoptionLive.AdoptionRules
       live "/adopcja-wirtualna", AdoptionLive.VirtualAdoption
+      live "/adopcja-wirtualna/:slug", AdoptionLive.ViewVirtualCat
     end
 
     scope "/zaginione-znalezione" do
@@ -45,6 +46,7 @@ defmodule KotkowoWeb.Router do
     scope "/aktualnosci" do
       live "/", NewsLive.Index
       live "/znalazly-dom", NewsLive.FoundHome
+      live "/znalazly-dom/:slug", NewsLive.ViewAdoptedCat
       live "/za-teczowym-mostem", NewsLive.PassedAway
 
       scope "/z-ostatniej-chwili" do
