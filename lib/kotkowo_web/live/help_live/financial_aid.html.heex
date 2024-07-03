@@ -57,23 +57,35 @@
       x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
     >
       <div class="flex flex-row space-x-4 xl:space-x-7 m-auto">
-        <.help_card href="#" src={~p"/images/heart_lend.png"} alt="Heart lending">
+        <.help_card
+          href={kotkowo_paypal()}
+          target="_blank"
+          rel="noopener noreferrer"
+          src={~p"/images/heart_lend.png"}
+          alt="Heart lending"
+        >
           Wpłać darowiznę przez PayPal
         </.help_card>
 
-        <.help_card href="#" src={~p"/images/piggy_bank.png"} alt="Piggy bank">
+        <.help_card href="#dane-do-przelewu" src={~p"/images/piggy_bank.png"} alt="Piggy bank">
           Zrób tradycyjny przelew
         </.help_card>
 
-        <.help_card href="#" src={~p"/images/spices.png"} alt="Food">
+        <.help_card href="#wesprzyj-zbiorki" src={~p"/images/spices.png"} alt="Food">
           Wesprzyj nasze zbiórkl internetowe
         </.help_card>
 
-        <.help_card href="#" src={~p"/images/cat_on_couch.png"} alt="Cat on couch">
+        <.help_card
+          href="https://fanimani.pl/"
+          target="_blank"
+          rel="noopener noreferrer"
+          src={~p"/images/cat_on_couch.png"}
+          alt="Cat on couch"
+        >
           Korzystaj z wtyczki faniMani
         </.help_card>
 
-        <.help_card href="#" src={~p"/images/cat_food.png"} alt="Cat food">
+        <.help_card href="#wrzuc-do-puszki" src={~p"/images/cat_food.png"} alt="Cat food">
           Wrzuć pieniądze do skarbonki
         </.help_card>
       </div>
@@ -98,7 +110,7 @@
         Zachęcamy do ustawienia płatności cyklicznych, które zapewniają nam stabilność finansową,
         czyli pewność, że kocie brzuszki będą zawsze pełne.
       </p>
-      <.button href="#">
+      <.button href={kotkowo_paypal()}>
         Wpłać przez PayPal
       </.button>
     </div>
@@ -108,38 +120,61 @@
 <span class="hidden"></span>
 
 <.section class="px-6 xl:px-0">
+  <.toast message="Skopiowane!" event="copied-to-clipboard" icon="clipboard_done" />
   <div class="flex flex-col xl:flex-row space-x-0 xl:space-x-24 space-y-12 xl:space-y-0 xl:justify-between">
     <div class="flex flex-col space-y-6 xl:text-lg">
-      <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl">
+      <h1
+        id="dane-do-przelewu"
+        class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl"
+      >
         Dane do przelewu tradycyjnego
       </h1>
       <div class="flex flex-col space-y-1 xl:space-y-2 xl:text-lg">
         <p>FUNDACJA KOTKOWO</p>
         <p>Bank: BOŚ SA O. w Bialymstoku</p>
-        <b class="font-bold font-manrope xl:text-2xl">
-          Nr konta: 87 1540 1216 2054 4458 2306 0001
-        </b>
+        <.click_to_copy
+          prefix="Nr konta: "
+          class="text-black xl:text-2xl font-bold"
+          text_to_copy="87 1540 1216 2054 4458 2306 0001"
+        />
         <div class="flex flex-col xl:flex-row xl:space-x-2">
           <h3 class="text-primary font-bold text-lg">W tytule przelewu prosimy podać:</h3>
-          <span>“darowizna na cele statutowe”</span>
+          <cite>
+            <.click_to_copy
+              prefix=""
+              class="text-black text-lg"
+              text_to_copy="darowizna na cele statutowe"
+            />
+          </cite>
         </div>
-        <p>
-          KRS: 0000345319 <br /> NIP: 9662018446 <br /> REGON: 20032337500000
-        </p>
+        <.click_to_copy prefix="KRS: " class="text-black text-lg" text_to_copy="0000345319" />
+        <.click_to_copy prefix="NIP: " class="text-black text-lg" text_to_copy="9662018446" />
+        <.click_to_copy prefix="REGON: " class="text-black text-lg" text_to_copy="20032337500000" />
 
         <h3 class="text-primary font-bold text-lg">Adres do korespondencji:</h3>
 
-        <p>
-          al. Piłsudskiego 26/31 <br /> 15-446 Białystok
-        </p>
+        <.click_to_copy
+          prefix=""
+          class="text-black text-lg"
+          text_to_copy="al. Piłsudskiego 26/31"
+        />
+
+        <.click_to_copy prefix="" class="text-black text-lg" text_to_copy="15-446 Białystok" />
 
         <h3 class="text-primary font-bold text-lg">
           Dla przelewów zagranicznych
         </h3>
 
-        <p>
-          SWIFT/BIC: EBOSPLPWXXX <br /> IBAN: PL 87 1540 1216 2054 4458 2306 0001
-        </p>
+        <.click_to_copy
+          prefix="SWIFT/BIC: "
+          class="text-black text-lg"
+          text_to_copy="EBOSPLPWXXX"
+        />
+        <.click_to_copy
+          prefix="IBAN: "
+          class="text-black text-lg"
+          text_to_copy="PL 87 1540 1216 2054 4458 2306 0001"
+        />
       </div>
     </div>
 
@@ -152,31 +187,54 @@
 </.section>
 
 <.section>
-  <h1 class="text-primary mb-8 font-manrope font-extrabold xl:text-4xl text-2xl text-center">
+  <h1
+    id="wesprzyj-zbiorki"
+    class="text-primary mb-8 font-manrope font-extrabold xl:text-4xl text-2xl text-center"
+  >
     Wesprzyj nasze zbiórki internetowe
   </h1>
   <div class="flex w-full px-2">
     <div class="overflow-x-auto snap-x lg:snap-none lg:mx-auto">
       <div class="flex flex-row space-x-4 xl:space-x-7 m-auto">
-        <.external_site_help_card src="/images/pomagam_pl.svg" alt="pomagam.pl logo" href="#">
+        <.help_card
+          src="/images/pomagam_pl.svg"
+          alt="pomagam.pl logo"
+          href="https://pomagam.pl/org/fundacjakotkowo"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           pomagam.pl
-        </.external_site_help_card>
+        </.help_card>
 
-        <.external_site_help_card
+        <.help_card
           src="/images/ratujemy_zwierzaki_pl.png"
+          alt="pomagam.pl logo"
+          href="https://www.ratujemyzwierzaki.pl/kotkowo"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          ratujemy zwierzaki.pl
+        </.help_card>
+
+        <.help_card
+          src="/images/facebook_logo.png"
+          alt="pomagam.pl logo"
+          href={kotkowo_facebook()}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Facebook
+        </.help_card>
+
+        <.help_card
+          target="_blank"
+          rel="noopener noreferrer"
+          src="/images/zrzutka_pl.svg"
           alt="pomagam.pl logo"
           href="#"
         >
-          ratujemy zwierzaki.pl
-        </.external_site_help_card>
-
-        <.external_site_help_card src="/images/facebook_logo.png" alt="pomagam.pl logo" href="#">
-          Facebook
-        </.external_site_help_card>
-
-        <.external_site_help_card src="/images/zrzutka_pl.svg" alt="pomagam.pl logo" href="#">
           zrzutka.pl
-        </.external_site_help_card>
+        </.help_card>
       </div>
     </div>
   </div>
@@ -208,14 +266,14 @@
     </.step>
   </.steps>
 
-  <.button href="#" class="mx-auto">
+  <.button href="https://fanimani.pl/" target="_blank" rel="noopener noreferrer" class="mx-auto">
     Zainstaluj wtyczkę FaniMani
   </.button>
 </.section>
 
 <.section class="px-6 xl:px-0">
   <div class="xl:w-1/2 flex flex-col space-y-8">
-    <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl">
+    <h1 id="wrzuc-do-puszki" class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl">
       Wrzuć pieniądze do puszki
     </h1>
     <p class="font-bold xl:text-lg">

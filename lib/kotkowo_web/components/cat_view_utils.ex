@@ -24,7 +24,7 @@ defmodule KotkowoWeb.Components.CatViewUtils do
       <h2 class="font-manrope font-bold text-xl xl:text-2xl">Interesuje Cię adopcja?</h2>
       <p class="xl:text-lg">
         Wypełnij
-        <a href="#" class="text-primary font-bold underline underline-offset-4">
+        <a href={adoption_form()} class="text-primary font-bold underline underline-offset-4">
           ankietę adopcyjną
         </a>
       </p>
@@ -38,7 +38,7 @@ defmodule KotkowoWeb.Components.CatViewUtils do
       <div class="flex space-x-2">
         <.button
           :if={@caretaker}
-          href="#"
+          href={"tel:#{@caretaker.phone_number}"}
           type="outline"
           class="
           !px-4 !py-1.5 text-black font-normal xl:text-sm flex gap-x-1.5 align-center"
@@ -51,7 +51,7 @@ defmodule KotkowoWeb.Components.CatViewUtils do
         </.button>
         <%= for contact_info <- @contact_informations do %>
           <.button
-            href="#"
+            href={"tel:#{contact_info.phone_number}"}
             type="outline"
             class="!px-4 !py-1.5 text-black font-normal xl:text-sm flex gap-x-1.5 align-center"
           >
@@ -103,15 +103,14 @@ defmodule KotkowoWeb.Components.CatViewUtils do
           </div>
         <% end %>
       </div>
-      <.button>
-        <div
-          phx-click={JS.dispatch("share_modal")}
-          share_href={"#{kotkowo_url()}/adopcja/szukaja-domu/#{@cat.slug}"}
-          share_quote={@cat.description_heading}
-        >
-          Udostępnij znajomym
-        </div>
-      </.button>
+      <div
+        phx-click={JS.dispatch("share_modal")}
+        share_href={"#{kotkowo_url()}/adopcja/szukaja-domu/#{@cat.slug}"}
+        share_quote={@cat.description_heading}
+        class="py-3 select-none bg-primary text-white hover:text-white hover:bg-primary-lighter px-6 xl:px-10 rounded-full text-center xl:text-lg font-medium w-max transition-colors ease-in-out duration-150"
+      >
+        Udostępnij znajomym
+      </div>
     </div>
     """
   end

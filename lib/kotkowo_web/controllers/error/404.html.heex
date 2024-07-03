@@ -15,17 +15,21 @@
     <ol class="font-inter text-justify list-decimal list-inside">
       <li>
         Na poprawę humoru
-        <a href="#" class="underline font-bold text-primary">
+        <.link navigate={~p"/adopcja/szukaja-domu"} class="underline font-bold text-primary">
           obejrzyj kotki do adopcji z Fundacji Kotkowo.
-        </a>
+        </.link>
       </li>
       <li>
         Przybij łapkę i
-        <a href="#" class="underline font-bold text-primary">dorzuć się do smaczka!</a>
+        <a href={~p"/pomoc/wsparcie-finansowe"} class="underline font-bold text-primary">
+          dorzuć się do smaczka!
+        </a>
       </li>
     </ol>
     <div class="flex lg:flex-row flex-col font-normal text-base gap-4 mt-6">
-      <.button type="outline">Wpłacam na Kotkowo</.button>
+      <.button type="outline" navigate={~p"/pomoc/wsparcie-finansowe"}>
+        Wpłacam na Kotkowo
+      </.button>
       <.button navigate={~p"/"}>Strona główna</.button>
     </div>
   </div>

@@ -24,7 +24,6 @@
           class="underline"
         >podatki.gov.pl</a>.
         Wskaż naszą organizację online w Twoim e-Picie lub wypełnij druk PIT ręcznie i podaj nasz numer <a
-          href="#"
           class="font-bold text-primary"
           x-data
           x-on:click="navigator.clipboard.writeText('000345319'); $dispatch('copied-to-clipboard');"
@@ -84,7 +83,7 @@
               <%= kotkowo_mail() %>
             </span>
           </a>
-          <a href="#" class="flex mt-7">
+          <a href={kotkowo_facebook()} target="_blank" rel="noopener noreferrer" class="flex mt-7">
             <.icon name="facebook" class="w-6 h-6 my-auto mr-2 inline invert" />
             <span class="underline my-auto">
               facebook.com/kotkowo

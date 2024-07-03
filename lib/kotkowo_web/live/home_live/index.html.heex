@@ -72,7 +72,9 @@
         No cóż, nie zawsze można mieć kotka. Wyjazdy, praca, „mama nie pozwala”. A i nie każdy kotek może znaleźć dom – są kotki ciężko chore, stare, nieadopcyjne, które przebywają w domach naszych wolontariuszy „na dożywociu”. Wiadomo, głaskanie kotka przez komputer to „nie to samo”, ale poczucie, że uratowało się jakiegoś stwora, jest bezcenne.
         Dlatego mamy dla Was kotki do adopcji wirtualnej.
       </div>
-      <.button type="outline" href="#">Dowiedz się więcej</.button>
+      <.button type="outline" navigate={~p"/adopcja/adopcja-wirtualna"}>
+        Dowiedz się więcej
+      </.button>
     </div>
     <div class="flex flex-row items-center justify-center">
       <.virtual_adoption_card
@@ -144,7 +146,7 @@
       <.step>
         Zapisz lokalizację i adres kota. Jeśli to możliwe, zabierz go do domu.
         <:actions>
-          <.button type="outline" href={~p"/pomoc/stworz-dom-tymczasowy"}>
+          <.button type="outline" navigate={~p"/pomoc/stworz-dom-tymczasowy"}>
             Stwórz dom tymczasowy
           </.button>
         </:actions>
@@ -159,7 +161,7 @@
             </span>
           </a>
 
-          <a href="#" class="flex mt-7">
+          <a href={kotkowo_facebook()} target="_blank" rel="noopener noreferrer" class="flex mt-7">
             <.icon name="facebook" class="w-6 h-6 my-auto mr-2 inline invert" />
             <span class="underline my-auto">
               facebook.com/kotkowo
