@@ -5,5 +5,5 @@ defmodule KotkowoWeb.HelpLive.ItemDonation do
 
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
   import KotkowoWeb.Components.Steps
-  import KotkowoWeb.Constants, only: [kotkowo_mail: 0]
+  import KotkowoWeb.Constants
 end

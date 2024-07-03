@@ -6,5 +6,5 @@ defmodule KotkowoWeb.HelpLive.TaxDonation do
   import KotkowoWeb.Components.Notifiers
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
   import KotkowoWeb.Components.Steps
-  import KotkowoWeb.Constants, only: [kotkowo_mail: 0]
+  import KotkowoWeb.Constants
 end

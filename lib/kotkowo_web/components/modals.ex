@@ -5,13 +5,14 @@ defmodule KotkowoWeb.Components.Modals do
   use Phoenix.Component, global_prefixes: ~w(x-)
 
   import KotkowoWeb.Components.Icons
+  import KotkowoWeb.Components.Notifiers
   import KotkowoWeb.Gettext
 
   def share_modal(assigns) do
     ~H"""
     <dialog
       id="share-dialog"
-      class="opacity-100 fixed h-screen top-0 left-0 w-screen bg-blue-300/10 z-20 transition duration-150"
+      class="fixed h-screen top-0 left-0 w-screen bg-blue-300/10 z-20 transition duration-150"
     >
       <div
         id="share-content"
@@ -24,7 +25,6 @@ defmodule KotkowoWeb.Components.Modals do
           <div class="flex flex-row justify-evenly mt-2">
             <a
               id="share-facebook"
-              href="#"
               target="_blank"
               rel="noopener noreferrer"
               class="border border-blue-800 rounded-full sm:p-3 p-2"
@@ -33,7 +33,6 @@ defmodule KotkowoWeb.Components.Modals do
             </a>
             <a
               id="share-twitter"
-              href="#"
               target="_blank"
               rel="noopener noreferrer"
               class="border border-black rounded-full sm:p-3 p-2"
@@ -45,18 +44,17 @@ defmodule KotkowoWeb.Components.Modals do
 
         <div class="flex flex-col gap-y-2" x-data={~c"{copied: false}"}>
           <span><%= gettext("Kliknij, aby skopiować link") %></span>
+
+          <.toast message="Skopiowane!" event="copied-to-clipboard" icon="clipboard_done" />
           <input
             id="share-copy"
-            x-on:click="
-          navigator.clipboard.writeText($el.value);
-          copied = true;
-          "
+            x-on:click="navigator.clipboard.writeText($el.value); $dispatch('copied-to-clipboard');"
+            x-data
             class="w-full cursor-pointer rounded-3xl"
             type="url"
             value=""
             readonly
           />
-          <span class="self-center" x-show="copied"><%= gettext("Skopiowane!") %></span>
         </div>
       </div>
     </dialog>

@@ -7,7 +7,7 @@ defmodule KotkowoWeb.Components.Static.HelpProposalSection do
   import KotkowoWeb.Components.Buttons
   import KotkowoWeb.Components.Icons
   import KotkowoWeb.Components.Sections
-  import KotkowoWeb.Constants, only: [kotkowo_mail: 0]
+  import KotkowoWeb.Constants
 
   attr :parent_class, :any, default: nil
   attr :class, :any, default: nil
@@ -35,7 +35,7 @@ defmodule KotkowoWeb.Components.Static.HelpProposalSection do
           </span>
         </a>
 
-        <a href="#" class="flex">
+        <a href={kotkowo_facebook()} target="_blank" rel="noopener noreferrer" class="flex">
           <.icon name="facebook_outline" class="w-6 h-6 my-auto mr-2 inline" />
           <span class="underline">
             facebook.com/kotkowo

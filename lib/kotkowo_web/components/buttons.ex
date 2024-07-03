@@ -3,8 +3,31 @@ defmodule KotkowoWeb.Components.Buttons do
   Provides button UI components.
   """
 
-  use Phoenix.Component,
-    global_prefixes: ~w(x-)
+  use Phoenix.Component, global_prefixes: ~w(x-)
+
+  import Tails
+
+  attr :prefix, :string, required: true, examples: ["PESEL: "]
+  attr :text_to_copy, :string, required: true
+  attr :class, :string, default: ""
+
+  def click_to_copy(assigns) do
+    ~H"""
+    <p
+      x-data={"{to_copy: '#{@text_to_copy}'}"}
+      class={
+        classes([
+          "border-none w-fit cursor-pointer hover:text-primary-lighter transition",
+          @class
+        ])
+      }
+      x-on:click="navigator.clipboard.writeText(to_copy); $dispatch('copied-to-clipboard');"
+      value={@text_to_copy}
+    >
+      <%= @prefix %><%= @text_to_copy %>
+    </p>
+    """
+  end
 
   attr :type, :string,
     values: ~w(primary secondary outline),
@@ -28,7 +51,7 @@ defmodule KotkowoWeb.Components.Buttons do
           "py-3 bg-white text-primary hover:bg-primary-lighter px-6",
         @type == "outline" &&
           "border-2 border-primary text-primary hover:text-primary-lighter hover:border-primary-lighter box-border px-6 xl:px-10 py-2 xl:py-2.5",
-        "rounded-full text-center xl:text-lg font-medium",
+        "rounded-full text-center xl:text-lg font-medium select-none",
         "w-max transition-colors ease-in-out duration-150",
         @class
       ]}

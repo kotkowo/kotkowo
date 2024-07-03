@@ -8,7 +8,7 @@ defmodule KotkowoWeb.Components.Sections do
 
   import KotkowoWeb.Components.Buttons
   import KotkowoWeb.Components.Icons
-  import KotkowoWeb.Constants, only: [kotkowo_mail: 0]
+  import KotkowoWeb.Constants
   import KotkowoWeb.Gettext
   import Tails
 
@@ -33,10 +33,10 @@ defmodule KotkowoWeb.Components.Sections do
            {"Z ostatniej chwili", "/aktualnosci/z-ostatniej-chwili"},
            {"Znalazły dom", "/aktualnosci/znalazly-dom"}
          ], []},
-        {"Zaginione/znalezione", "#zaginione-znalezione", [], []},
+        {"Zaginione/znalezione", "/zaginione-znalezione", [], []},
         {"Jak pomóc", nil,
          [
-           {"Przekaż nam 1% podatku", "#"}
+           {"Przekaż nam 1,5% podatku", "/przekaz-nam-podatek"}
          ], ["p-2", "bg-highlight"]}
       ]
     ],
@@ -49,7 +49,7 @@ defmodule KotkowoWeb.Components.Sections do
     <header class="flex flex-col" x-data="{expanded: false}">
       <div class="px-10 gap-x-10 h-12 bg-primary text-white flex flex-row-reverse w-full hidden xl:flex">
         <div class="my-auto">
-          <a href="#">
+          <a href={kotkowo_facebook()} target="_blank" rel="noopener noreferrer">
             <.icon name="facebook" class="w-7" />
           </a>
         </div>
@@ -139,10 +139,10 @@ defmodule KotkowoWeb.Components.Sections do
                   <%= @contact_email %>
                 </a>
                 <div class="flex space-x-6">
-                  <a href="#">
+                  <a href={kotkowo_facebook()} target="_blank" rel="noopener noreferrer">
                     <.icon name="facebook" class="w-10 invert" />
                   </a>
-                  <a href="#">
+                  <a href={kotkowo_messenger()} target="_blank" rel="noopener noreferrer">
                     <.icon name="messenger_black" class="w-10 h-10" />
                   </a>
                 </div>
@@ -221,20 +221,22 @@ defmodule KotkowoWeb.Components.Sections do
 
           <.footer_section title="Mapa strony">
             <.footer_link href={~p"/aktualnosci"}>Aktualności</.footer_link>
-            <.footer_link href="#">Adopcja</.footer_link>
+            <.footer_link href={~p"/adopcja/szukaja-domu"}>Adopcja</.footer_link>
             <.footer_link href={~p"/pomoc"}>Jak pomóc?</.footer_link>
             <.footer_link href="#">Porady</.footer_link>
             <.footer_link href="#">O fundacji</.footer_link>
-            <.footer_link href="#">Znalezione koty</.footer_link>
+            <.footer_link href={~p"/zaginione-znalezione"}>Znalezione koty</.footer_link>
             <.footer_link href="#">Kontakt</.footer_link>
           </.footer_section>
 
           <.footer_section title="Dokumenty">
-            <.footer_link href="#" class="hover:text-white">Polityka prywatności</.footer_link>
-            <.footer_link href="#">RODO</.footer_link>
-            <.footer_link href="#">Polityka cookies</.footer_link>
-            <.footer_link href="#">Formularz adopcyjny</.footer_link>
-            <.footer_link href="#">Umowa adopcyjna</.footer_link>
+            <.footer_link href={privacy_policy()} class="hover:text-white">
+              Polityka prywatności
+            </.footer_link>
+            <.footer_link href={rodo_policy()}>RODO</.footer_link>
+            <.footer_link href={cookie_policy()}>Polityka cookies</.footer_link>
+            <.footer_link href={adoption_form()}>Formularz adopcyjny</.footer_link>
+            <.footer_link href={adoption_agreement()}>Umowa adopcyjna</.footer_link>
           </.footer_section>
 
           <.footer_section title="Dane fundacji">

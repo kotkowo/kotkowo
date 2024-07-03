@@ -68,7 +68,7 @@ defmodule KotkowoWeb.Components.Cards do
           }
         />
 
-        <a :if={@img_anchor} href={@img_anchor}>
+        <.link :if={@img_anchor} navigate={@img_anchor}>
           <img
             src={@src}
             alt={@alt}
@@ -80,7 +80,7 @@ defmodule KotkowoWeb.Components.Cards do
               ])
             }
           />
-        </a>
+        </.link>
         <div :if={@share_href}>
           <div
             class="cursor-pointer absolute right-3 top-3 bg-white w-6 lg:w-10 h-6 lg:h-10 rounded-full opacity-60 flex"
@@ -257,42 +257,22 @@ defmodule KotkowoWeb.Components.Cards do
     doc: "News' tags",
     examples: [["Zbiórka", "Przedszkole"], ["Akcja", "Kastracja"]]
 
-  attr :href, :string, required: true
   attr :alt, :string, required: true
+  attr :rest, :global, include: ~w(href navigate target rel)
 
   slot(:inner_block, required: true, doc: "Card's text")
 
   def help_card(assigns) do
     ~H"""
-    <.link navigate={@href} class="flex grow">
+    <.link {@rest} class="flex grow">
       <div class="w-56 flex flex-col bg-white rounded-2xl border border-2 snap-center lg:snap-none grow">
-        <img src={@src} alt={@alt} class="border border-1 rounded-t-2xl w-full object-cover h-40" />
+        <img src={@src} alt={@alt} class="border border-1 rounded-t-2xl w-full h-40 object-contain" />
 
         <p class="flex py-5 px-6 text-center font-manrope font-bold grow justify-center items-center">
           <span><%= render_slot(@inner_block) %></span>
         </p>
       </div>
     </.link>
-    """
-  end
-
-  attr :href, :string, required: true
-  attr :src, :string, required: true
-  attr :alt, :string, required: true
-
-  slot(:inner_block, required: true, doc: "Card's text")
-
-  def external_site_help_card(assigns) do
-    ~H"""
-    <a href="#">
-      <div class="w-72 flex flex-col bg-white rounded-2xl border border-2 snap-center lg:snap-none">
-        <img src={@src} alt={@alt} class="object-scale-down my-5 h-16" />
-
-        <p class="pb-6 px-6 text-center font-manrope font-bold">
-          <%= render_slot(@inner_block) %>
-        </p>
-      </div>
-    </a>
     """
   end
 
