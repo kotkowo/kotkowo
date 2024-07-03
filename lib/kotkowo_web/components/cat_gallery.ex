@@ -46,7 +46,7 @@ defmodule KotkowoWeb.Components.CatGallery do
               <img
                 src={img.url}
                 alt={img.alternative_text}
-                class="mx-auto snap-center min-w-[280px] w-[280px] min-h-[156px] h-[156px] object-cover"
+                class="first:ml-4 last:mr-4 mx-auto snap-center min-w-[280px] w-[280px] min-h-[156px] h-[156px] object-cover"
               />
             <% end %>
           </div>
