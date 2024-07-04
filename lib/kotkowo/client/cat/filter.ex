@@ -15,7 +15,7 @@ defmodule Kotkowo.Client.Cat.Filter do
   @typedoc """
   A type representing a field that can be filtered.
   """
-  @type field() :: :name | :sex | :age | :color | :castrated | :tags | :is_dead | :chip_number
+  @type field() :: :name | :sex | :age | :color | :castrated | :tags | :chip_number | :is_dead
   @typedoc """
   A type representing a filter operation for a property.
   """
@@ -26,6 +26,7 @@ defmodule Kotkowo.Client.Cat.Filter do
           | {:equals_ci, prop_type}
           | {:or, [prop_type]}
           | {:in, [prop_type]}
+          | {:starts_with, prop_type}
 
   @typedoc """
   A type representing a filter structure for cats.
@@ -105,12 +106,12 @@ defmodule Kotkowo.Client.Cat.Filter do
   end
 
   @spec parse_field({field(), any()}) :: {field(), filter(any()) | []}
-  defp parse_field({:name, val}) do
-    {:name, {:contains_ci, val}}
+  defp parse_field({field, nil}) do
+    {field, nil}
   end
 
-  defp parse_field({:tags, nil}) do
-    {:tags, []}
+  defp parse_field({:name, val}) do
+    {:name, {:contains_ci, val}}
   end
 
   defp parse_field({:tags, vals}) when is_list(vals) do
@@ -126,7 +127,7 @@ defmodule Kotkowo.Client.Cat.Filter do
   end
 
   defp parse_field({:chip_number, val}) do
-    {:chip_number, val}
+    {:chip_number, {:starts_with, val}}
   end
 
   defp parse_field({:color, vals}) when is_list(vals) do
@@ -153,38 +154,38 @@ defmodule Kotkowo.Client.Cat.Filter do
     {:sex, {:equals, val}}
   end
 
-  def to_param(_field, nil), do: ""
+  def to_param(_field, nil, _cat), do: ""
   def to_param(_field, {_, []}), do: ""
-  def to_param(_field, {_, nil}), do: ""
+  def to_param(_field, {_, nil}, _cat), do: ""
 
-  def to_param(field, values) when is_list(values) do
-    to_param(field, {nil, values})
+  def to_param(field, values, cat) when is_list(values) do
+    to_param(field, {nil, values}, cat)
   end
 
-  def to_param(field, {_, values}) when is_list(values) do
-    base = "cat[#{field}][]="
+  def to_param(field, {_, values}, cat) when is_list(values) do
+    base = "#{cat}[#{field}][]="
     "&" <> Enum.map_join(values, "&", fn val -> "#{base}#{val}" end)
   end
 
-  def to_param(field, {_, value}) do
-    "&cat[#{field}]=#{value}"
+  def to_param(field, {_, value} = xd, cat) do
+    "&#{cat}[#{field}]=#{value}"
   end
 
-  def to_param(field, value) do
-    "&cat[#{field}]=#{value}"
+  def to_param(field, value, cat) do
+    "&#{cat}[#{field}]=#{value}"
   end
 
-  def to_param(%__MODULE__{} = filter) do
+  def to_params(%__MODULE__{} = filter, cat \\ "cat") do
     params =
       Enum.join([
-        to_param(:chip_number, filter.chip_number),
-        to_param(:name, filter.name),
-        to_param(:sex, filter.sex),
-        to_param(:color, filter.color),
-        to_param(:castrated, filter.castrated),
-        to_param(:tags, filter.tags),
-        to_param(:age, filter.age),
-        to_param(:is_dead, filter.is_dead)
+        to_param(:chip_number, filter.chip_number, cat),
+        to_param(:name, filter.name, cat),
+        to_param(:sex, filter.sex, cat),
+        to_param(:color, filter.color, cat),
+        to_param(:castrated, filter.castrated, cat),
+        to_param(:tags, filter.tags, cat),
+        to_param(:age, filter.age, cat),
+        to_param(:is_dead, filter.is_dead, cat)
       ])
 
     URI.encode(params)
