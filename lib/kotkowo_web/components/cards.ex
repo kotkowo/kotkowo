@@ -154,6 +154,8 @@ defmodule KotkowoWeb.Components.Cards do
   attr :rest, :global
 
   def cat_card(assigns) do
+    assigns = assign(assigns, :name, assigns.name || "brak imiona")
+
     ~H"""
     <.card
       share_href={@share_href}
@@ -286,20 +288,22 @@ defmodule KotkowoWeb.Components.Cards do
   attr :title, :string, required: true
   attr :share_href, :string, default: nil
   attr :phone_numbers, :list, default: []
-  attr :chip_numbers, :list, default: []
+  attr :chip_number, :string, required: true
+  attr :rest, :global
 
   def lost_and_found_card(assigns) do
     ~H"""
     <.card
       img_class="h-40"
       body_class="rounded-t-none -mt-0.5 grow lg:p-6 px-4 py-3 rounded-b-2xl"
-      class="max-w-none lg:w-[345px] w-[240px] h-[400px] lg:h-[500px]"
+      class="max-w-none lg:w-[345px] w-[240px] first:ml-auto last:mr-auto"
       share_href={@share_href}
       src={@src}
       alt={@title}
+      {@rest}
     >
-      <:title>
-        <h2 class="lg:text-xl text-sm font-manrope font-bold tracking-wider h-fit"><%= @title %></h2>
+      <:title class="!whitespace-normal lg:text-xl text-sm font-manrope font-bold tracking-wider text-left h-fit line-clamp-3">
+        <%= @title %>
       </:title>
       <:attributes>
         <.card_attribute>
@@ -321,11 +325,8 @@ defmodule KotkowoWeb.Components.Cards do
         <.card_attribute>
           <h3 class="text-primary font-bold text-sm lg:text-xl mb-2">Numer chipa</h3>
           <div class="flex flex-row gap-x-1 overflow-x-auto">
-            <div
-              :for={chip_number <- @chip_numbers}
-              class="flex flex-row rounded-3xl border border-gray py-2 px-1 lg:px-3"
-            >
-              <span class="font-inter text-xs lg:text-sm tracking-tight"><%= chip_number %></span>
+            <div class="flex flex-row rounded-3xl border border-gray py-2 px-1 lg:px-3">
+              <span class="font-inter text-xs lg:text-sm tracking-tight"><%= @chip_number %></span>
             </div>
           </div>
         </.card_attribute>
