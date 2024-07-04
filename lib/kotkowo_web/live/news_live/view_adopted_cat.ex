@@ -2,7 +2,6 @@ defmodule KotkowoWeb.NewsLive.ViewAdoptedCat do
   @moduledoc false
   use KotkowoWeb, :live_view
 
-  import KotkowoWeb.Components.CatViewUtils
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
 
   alias Kotkowo.Client
