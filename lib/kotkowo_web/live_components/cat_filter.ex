@@ -10,6 +10,9 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
   alias Kotkowo.Client.Cat.Color
   alias Kotkowo.Client.Cat.Sex
 
+  @fields [:name, :tag, :sex, :castrated, :age, :dates, :color, :chip]
+  @default_fields [:name, :tag, :sex, :castrated, :age, :color]
+
   @impl true
   def mount(socket) do
     socket =
@@ -35,22 +38,23 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
         socket
       end
 
-    {:ok, assign(socket, :include_dates, assigns[:include_dates])}
+    assign_fields = Map.filter(assigns, fn {key, _val} -> key in @fields end)
+    included_fields = Enum.filter(@fields, fn field -> Map.get(assign_fields, field, field in @default_fields) end)
+    {:ok, assign(socket, :included_fields, included_fields)}
   end
 
   @string_ages Enum.map(Cat.Age.all(), &to_string/1)
   @string_colors Enum.map(Cat.Color.all(), &to_string/1)
 
   @impl true
-  def handle_event("change", %{"cat_search" => cat_search, "tag_search" => tag_search}, socket) do
-    cat_search = unless(cat_search == "", do: cat_search)
-    tag_search = unless(tag_search == "", do: String.split(tag_search))
-
-    raw_filter = %{
+  def handle_event("change", params, socket)
+      when is_map(params) and
+             (is_map_key(params, "chip_search") or is_map_key(params, "cat_search") or is_map_key(params, "tag_search")) do
+    raw_filter =
       socket.assigns.raw_filter
-      | name: cat_search,
-        tags: tag_search
-    }
+      |> put_if_exists(params, "cat_search", :name, & &1)
+      |> put_if_exists(params, "chip_search", :chip_number, & &1)
+      |> put_if_exists(params, "tag_search", :tags, &String.split/1)
 
     filter = Cat.Filter.from_map(raw_filter)
 
@@ -61,15 +65,16 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
     {:noreply, socket}
   end
 
-  def handle_event("change", %{"age" => age, "color" => color}, socket) do
-    age = age |> Enum.filter(&(&1 in @string_ages)) |> Enum.map(&String.to_existing_atom/1)
-    color = color |> Enum.filter(&(&1 in @string_colors)) |> Enum.map(&String.to_existing_atom/1)
-
-    raw_filter = %{
+  def handle_event("change", params, socket)
+      when is_map(params) and (is_map_key(params, "age") or is_map_key(params, "color")) do
+    raw_filter =
       socket.assigns.raw_filter
-      | age: unless(Enum.empty?(age), do: age),
-        color: unless(Enum.empty?(color), do: color)
-    }
+      |> put_if_exists(params, "age", :age, fn age ->
+        age |> Enum.filter(&(&1 in @string_ages)) |> Enum.map(&String.to_existing_atom/1)
+      end)
+      |> put_if_exists(params, "color", :color, fn color ->
+        color |> Enum.filter(&(&1 in @string_colors)) |> Enum.map(&String.to_existing_atom/1)
+      end)
 
     filter = Cat.Filter.from_map(raw_filter)
 
@@ -118,7 +123,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
             <h4 class="lg:block hidden text-primary text-justify font-manrope text-2xl font-bold">
               Filtruj według
             </h4>
-            <div class="flex flex-col space-y-4">
+            <div :if={:name in @included_fields} class="flex flex-col space-y-4">
               <h3 class="font-bold text-primary text-sm">Imię</h3>
               <input
                 phx-debounce={100}
@@ -130,7 +135,19 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
               />
             </div>
 
-            <div class="flex flex-col space-y-4">
+            <div :if={:chip in @included_fields} class="flex flex-col space-y-4">
+              <h3 class="font-bold text-primary text-sm">Nr. chipa</h3>
+              <input
+                phx-debounce={100}
+                name="chip_search"
+                type="text"
+                placeholder="Wpisz numer chipa"
+                class="border border-gray rounded-lg text-sm"
+                value={@raw_filter.chip_number}
+              />
+            </div>
+
+            <div :if={:tag in @included_fields} class="flex flex-col space-y-4">
               <h3 class="font-bold text-primary text-sm">Tagi</h3>
               <input
                 type="text"
@@ -144,7 +161,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
             </div>
           </form>
 
-          <div class="flex flex-col space-y-6 h-min">
+          <div :if={:sex in @included_fields} class="flex flex-col space-y-6 h-min">
             <h3 class="font-bold text-primary text-sm">Płeć</h3>
             <form phx-target={@myself} phx-change="change">
               <input type="hidden" name="sex" value="" />
@@ -177,6 +194,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
 
           <form phx-change="change" phx-target={@myself} class="flex flex-col space-y-6 h-min">
             <.checkgroup
+              :if={:age in @included_fields}
               id="age-checkgroup"
               name="age"
               label="Wiek"
@@ -185,6 +203,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
             />
 
             <.checkgroup
+              :if={:color in @included_fields}
               id="color-checkgroup"
               name="color"
               label="Kolor"
@@ -193,7 +212,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
             />
           </form>
 
-          <div class="flex flex-col space-y-6 h-min">
+          <div :if={:castrated in @included_fields} class="flex flex-col space-y-6 h-min">
             <h3 class="font-bold text-primary text-sm">Kastracja / sterylizacja</h3>
             <form phx-target={@myself} phx-change="change">
               <input type="hidden" name="castrated" value="" />
@@ -220,7 +239,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
                 /> przed zabiegiem
               </label>
             </form>
-            <form :if={@include_dates} phx-target={@myself} phx-change="change">
+            <form :if={:dates in @included_fields} phx-target={@myself} phx-change="change">
               meow
             </form>
           </div>
@@ -229,4 +248,12 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
     </div>
     """
   end
+
+  defp put_if_exists(map, params, key, new_key, transform) when is_map_key(params, key) do
+    if to_charlist(params[key]) != [],
+      do: Map.put(map, new_key, transform.(params[key])),
+      else: Map.put(map, new_key, nil)
+  end
+
+  defp put_if_exists(map, _params, _key, _new_key, _transform), do: map
 end
