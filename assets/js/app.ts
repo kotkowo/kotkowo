@@ -81,6 +81,21 @@ window.addEventListener('phx:page-loading-start', _info =>
   topbar.delayedShow(200)
 )
 window.addEventListener('phx:page-loading-stop', _info => topbar.hide())
+window.addEventListener('scroll_next_child', e => {
+  const scrollable = e.target;
+  const child_width = scrollable.children[0].offsetWidth;
+  scrollable.scrollLeft = scrollable.scrollLeft + child_width
+
+  
+})
+window.addEventListener('scroll_prev_child', e => {
+  const scrollable = e.target;
+  const child_width = scrollable.children[0].offsetWidth;
+  scrollable.scrollLeft = scrollable.scrollLeft - child_width
+
+  
+})
+
 window.addEventListener('share_modal', e => {
   const elem = e.target;
   const href = elem.getAttribute("share_href");
