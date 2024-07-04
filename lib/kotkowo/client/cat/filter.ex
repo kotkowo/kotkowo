@@ -105,7 +105,7 @@ defmodule Kotkowo.Client.Cat.Filter do
     |> assert_type(t())
   end
 
-  @spec parse_field({field(), any()}) :: {field(), filter(any()) | []}
+  @spec parse_field({field(), any()}) :: {field(), filter(any()) | [] | nil}
   defp parse_field({field, nil}) do
     {field, nil}
   end
@@ -154,20 +154,21 @@ defmodule Kotkowo.Client.Cat.Filter do
     {:sex, {:equals, val}}
   end
 
-  def to_param(_field, nil, _cat), do: ""
   def to_param(_field, {_, []}), do: ""
-  def to_param(_field, {_, nil}, _cat), do: ""
 
-  def to_param(field, values, cat) when is_list(values) do
-    to_param(field, {nil, values}, cat)
-  end
+  def to_param(_field, nil, _cat), do: ""
+  def to_param(_field, {_, nil}, _cat), do: ""
 
   def to_param(field, {_, values}, cat) when is_list(values) do
     base = "#{cat}[#{field}][]="
     "&" <> Enum.map_join(values, "&", fn val -> "#{base}#{val}" end)
   end
 
-  def to_param(field, {_, value} = xd, cat) do
+  def to_param(field, values, cat) when is_list(values) do
+    to_param(field, {nil, values}, cat)
+  end
+
+  def to_param(field, {_, value}, cat) do
     "&#{cat}[#{field}]=#{value}"
   end
 
