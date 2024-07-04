@@ -8,6 +8,12 @@
   --breakpoint: 'unset';
 }
 
+
+dialog:modal {
+  max-width: 100vw;
+  max-height: 100vh;
+}
+
 @media screen and (min-width: 567px) {
   :root {
     --breakpoint: 'sm';
