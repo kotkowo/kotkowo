@@ -58,7 +58,7 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
 
   @impl true
   def handle_info({:filter_cat, %Cat.Filter{} = filter}, socket) do
-    {:noreply, push_patch(socket, to: ~p"/aktualnosci/znalazly-dom" <> "?#{Cat.Filter.to_param(filter)}")}
+    {:noreply, push_patch(socket, to: ~p"/aktualnosci/znalazly-dom" <> "?#{Cat.Filter.to_params(filter)}")}
   end
 
   defp items_per_page, do: [30, 60, 90]

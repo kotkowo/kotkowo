@@ -63,7 +63,9 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
 
   @impl true
   def handle_info({:filter_cat, %Cat.Filter{} = filter}, socket) do
-    socket = push_patch(socket, to: ~p"/adopcja/szukaja-domu" <> "?#{Cat.Filter.to_param(filter)}")
+    socket =
+      push_patch(socket, to: ~p"/adopcja/szukaja-domu" <> "?#{Cat.Filter.to_params(filter)}")
+
     {:noreply, socket}
   end
 

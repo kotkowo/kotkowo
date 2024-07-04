@@ -12,7 +12,7 @@ defmodule KotkowoWeb.Components.Modals do
     ~H"""
     <dialog
       id="share-dialog"
-      class="fixed h-screen top-0 left-0 w-screen bg-blue-300/10 z-20 transition duration-150"
+      class="p-0 m-0 max-w-screen fixed h-screen top-0 left-0 w-screen bg-blue-300/10 z-20 transition duration-150"
     >
       <div
         id="share-content"
