@@ -259,6 +259,7 @@ defmodule KotkowoWeb.Components.Cards do
 
   attr :alt, :string, required: true
   attr :rest, :global, include: ~w(href navigate target rel)
+  attr :img_class, :string, default: ""
 
   slot(:inner_block, required: true, doc: "Card's text")
 
@@ -266,7 +267,11 @@ defmodule KotkowoWeb.Components.Cards do
     ~H"""
     <.link {@rest} class="flex grow">
       <div class="w-56 flex flex-col bg-white rounded-2xl border border-2 snap-center lg:snap-none grow">
-        <img src={@src} alt={@alt} class="border border-1 rounded-t-2xl w-full h-40 object-contain" />
+        <img
+          src={@src}
+          alt={@alt}
+          class={classes(["border border-1 rounded-t-2xl w-full h-40 object-contain", @img_class])}
+        />
 
         <p class="flex py-5 px-6 text-center font-manrope font-bold grow justify-center items-center">
           <span><%= render_slot(@inner_block) %></span>

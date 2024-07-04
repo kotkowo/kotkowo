@@ -109,7 +109,7 @@ defmodule KotkowoWeb.Components.Static.HowYouCanHelpSection do
 
       <.container fold={@fold}>
         <%= for card <- help_cards() do %>
-          <.help_card href={card.href} src={card.src} alt={card.alt}>
+          <.help_card img_class="object-cover" href={card.href} src={card.src} alt={card.alt}>
             <%= card.text %>
           </.help_card>
         <% end %>
