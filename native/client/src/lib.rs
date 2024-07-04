@@ -1,13 +1,22 @@
 use kotkowo_client::{
     get_announcement_article, get_cat as get_kitty, get_cat_by_slug as get_kitty_by_slug,
     get_lfh_cat_by_slug as get_lfh_kitty_by_slug, list_adopted_cat, list_announcement, list_cat,
-    list_looking_for_adoption_cat, AdoptedCat, Announcement, AnnouncementFilter, Article,
-    BetweenDateTime, Cat, CatFilter, Error, LookingForHomeCat, Options, Paged,
+    list_found_cat, list_looking_for_adoption_cat, list_lost_cat, AdoptedCat, Announcement,
+    AnnouncementFilter, Article, BetweenDateTime, Cat, CatFilter, Error, FoundCat,
+    LookingForHomeCat, LostCat, Options, Paged,
 };
 
 #[rustler::nif]
 fn list_cats(options: Options<CatFilter>) -> Result<Paged<Cat>, Error> {
     list_cat(options)
+}
+#[rustler::nif]
+fn list_lost_cats(options: Options<CatFilter>) -> Result<Paged<LostCat>, Error> {
+    list_lost_cat(options)
+}
+#[rustler::nif]
+fn list_found_cats(options: Options<CatFilter>) -> Result<Paged<FoundCat>, Error> {
+    list_found_cat(options)
 }
 
 #[rustler::nif]
@@ -54,6 +63,8 @@ rustler::init!(
     "Elixir.Kotkowo.Client",
     [
         list_cats,
+        list_lost_cats,
+        list_found_cats,
         get_cat,
         get_cat_by_slug,
         list_announcements,
