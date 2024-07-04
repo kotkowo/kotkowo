@@ -1,5 +1,10 @@
 defmodule KotkowoWeb.WebHelpers do
   @moduledoc false
+  def extract_phone_numbers(nil), do: []
+
+  def extract_phone_numbers(contact_information) do
+    Enum.map(contact_information, &Map.get(&1, :phone_number))
+  end
 
   def beautify_phone_number(phone_number) do
     case String.length(phone_number) do
