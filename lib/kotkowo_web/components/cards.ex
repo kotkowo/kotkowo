@@ -159,6 +159,7 @@ defmodule KotkowoWeb.Components.Cards do
     ~H"""
     <.card
       share_href={@share_href}
+      share_quote={@share_quote}
       body_class="grow"
       class={
         classes([
@@ -210,10 +211,16 @@ defmodule KotkowoWeb.Components.Cards do
   end
 
   slot(:inner_block, required: true)
+  attr :class, :string, default: ""
 
   def card_tag(assigns) do
     ~H"""
-    <span class="border border-2 rounded-3xl text-gray-500 text-sm lg:text-base py-2 lg:py-3 px-3 lg:px-4">
+    <span class={
+      classes([
+        "border border-2 rounded-3xl text-gray-500 text-sm lg:text-base py-2 lg:py-3 px-3 lg:px-4",
+        @class
+      ])
+    }>
       <%= render_slot(@inner_block) %>
     </span>
     """
@@ -286,10 +293,12 @@ defmodule KotkowoWeb.Components.Cards do
   attr :class, :string, default: ""
   attr :src, :string, required: true
   attr :title, :string, required: true
-  attr :share_href, :string, default: nil
+  attr :share_href, :string, required: false, default: nil, doc: "Cat's share link"
   attr :phone_numbers, :list, default: []
   attr :chip_number, :string, required: true
   attr :rest, :global
+  attr :share_quote, :string, default: "", doc: "Text included with share"
+  attr :cat_url, :string, default: nil
 
   def lost_and_found_card(assigns) do
     ~H"""
@@ -298,12 +307,15 @@ defmodule KotkowoWeb.Components.Cards do
       body_class="rounded-t-none -mt-0.5 grow lg:p-6 px-4 py-3 rounded-b-2xl"
       class="max-w-none lg:w-[345px] w-[240px] first:ml-auto last:mr-auto"
       share_href={@share_href}
+      img_anchor={@cat_url}
+      share_quote={@share_quote}
       src={@src}
       alt={@title}
       {@rest}
     >
       <:title class="!whitespace-normal lg:text-xl text-sm font-manrope font-bold tracking-wider text-left h-fit line-clamp-3">
-        <%= @title %>
+        <.link :if={@cat_url} navigate={@cat_url}><%= @title %></.link>
+        <p :if={!@cat_url}><%= @title %></p>
       </:title>
       <:attributes>
         <.card_attribute>
