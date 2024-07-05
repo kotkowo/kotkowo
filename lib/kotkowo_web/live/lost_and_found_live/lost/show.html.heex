@@ -1,0 +1,102 @@
+<.section :if={@cat}>
+  <.breadcrumb>
+    <:crumb navigate={~p"/zaginione-znalezione"}>
+      Zaginione/Znalezione
+    </:crumb>
+    <:crumb navigate={~p"/zaginione-znalezione/zaginione"}>
+      Zaginione
+    </:crumb>
+    <:crumb active>
+      <%= @slug %>
+    </:crumb>
+  </.breadcrumb>
+
+  <h1 class="mx-4 pb-6 xl:pb-12 mt-4 xl:mt-0 font-manrope font-extrabold text-3xl xl:text-4xl text-primary line-clamp-2 max-w-[868px]">
+    <%= @cat.disappearance_circumstances %>
+  </h1>
+
+  <div class="flex flex-col justify-center xl:grid xl:grid-cols-none xl:grid-rows-2 xl:grid-flow-col xl:auto-cols-auto xl:gap-x-32 xl:gap-y-12">
+    <.live_component
+      images={@images}
+      current_image={@current_image}
+      path={~p"/zaginione-znalezione/zaginione/#{@slug}"}
+      module={CatGallery}
+      id="img-gallery"
+    />
+
+    <div class="order-last xl:order-none xl:mt-0 mt-4 xl:px-0 px-4">
+      <h2 class="font-manrope font-bold text-xl xl:text-2xl mb-4">
+        Okoliczności zaginięcia
+      </h2>
+
+      <div class="xl:text-lg">
+        <%= Phoenix.HTML.Format.text_to_html(@cat.disappearance_circumstances) %>
+      </div>
+    </div>
+    <.cat_info
+      cat={@cat.cat}
+      header={false}
+      share_href={"#{kotkowo_url()}/zaginione-znalezione/zaginione/#{@slug}"}
+      cat_fields={[:sex]}
+      class="xl:text-base"
+    >
+      <:extra_field>
+        <li class="flex flex-col gap-y-2">
+          <div class="gap-x-2 flex flex-row font-inter text-primary lg:text-lg align-center font-bold">
+            <.icon name="location_pin" class="w-4" />Miejsce zaginięcia
+          </div>
+
+          <.card_tag class="font-inter font-normal text-sm w-fit lg:px-4 lg:py-2">
+            <%= @cat.disappearance_location %>
+          </.card_tag>
+        </li>
+      </:extra_field>
+
+      <:extra_field>
+        <li class="flex align-center gap-x-4">
+          <.icon name="barcode" class="w-5" />Nr. chipa: <%= @cat.cat.chip_number %>
+        </li>
+      </:extra_field>
+      <:extra_field>
+        <li class="flex align-center gap-x-4">
+          <.icon name="droplet" class="w-5" />Kolor: <%= Cat.Color.to_string(@cat.cat.color) %>
+        </li>
+      </:extra_field>
+
+      <:extra_field>
+        <li class="flex align-center gap-x-4">
+          <.icon name="star" class="w-5" />Znaki szczególne: <%= @cat.special_signs || "brak" %>
+        </li>
+      </:extra_field>
+      <:extra_field>
+        <li class="flex align-center gap-x-4">
+          <.icon name="medkit" class="w-5" />W trakcie leczenia: <%= (@cat.during_medical_treatment &&
+                                                                        "tak") || "nie" %>
+        </li>
+      </:extra_field>
+      <:extra_field>
+        <li class="flex align-center gap-x-4">
+          <.icon name="calendar" class="w-5" />Data znalezienia: <%= Kotkowo.Client.DateTime.format_date(
+            @cat.disappearance_datetime,
+            "%Y-%m-%d %H:%M"
+          ) %>
+        </li>
+      </:extra_field>
+      <:extra_field>
+        <li class="flex align-center gap-x-4">
+          <.icon name="nametag" class="w-5" />Imię: <%= @cat.cat.name || "nieznane" %>
+        </li>
+      </:extra_field>
+    </.cat_info>
+    <.contact
+      heading="Masz jakieś informacje?"
+      contact_informations={@cat.cat.contact_informations}
+    >
+      <:subtitle>
+        <p class="xl:text-lg">
+          Zadzwoń i podziel się nimi!
+        </p>
+      </:subtitle>
+    </.contact>
+  </div>
+</.section>
