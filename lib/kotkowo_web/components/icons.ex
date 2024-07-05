@@ -6,7 +6,7 @@ defmodule KotkowoWeb.Components.Icons do
   use KotkowoWeb, :verified_routes
   use Phoenix.Component
 
-  @all ~w(arrow_right male female paw sthetoscope scissors share envelope facebook bars messenger chevron_up chevron_down city_scraper envelope2 messenger_black facebook_outline eraser recycle medicine droplet bag fish round_container cookie clipboard_done telephone ekg gender twitter)
+  @all ~w(arrow_right male female paw sthetoscope scissors share envelope facebook bars messenger chevron_up chevron_down city_scraper envelope2 messenger_black facebook_outline eraser recycle medicine droplet bag fish round_container cookie clipboard_done telephone ekg gender twitter location_pin barcode star medkit calendar nametag)
 
   attr :name, :string, values: @all
 
