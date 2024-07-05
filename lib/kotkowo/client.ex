@@ -10,6 +10,8 @@ defmodule Kotkowo.Client do
   def get_cat(_cat_id), do: :erlang.nif_error(:nif_not_loaded)
   def get_cat_by_slug(_cat_slug), do: :erlang.nif_error(:nif_not_loaded)
   def get_lfh_cat_by_slug(_cat_slug), do: :erlang.nif_error(:nif_not_loaded)
+  def get_lost_cat_by_slug(_cat_slug), do: :erlang.nif_error(:nif_not_loaded)
+  def get_found_cat_by_slug(_cat_slug), do: :erlang.nif_error(:nif_not_loaded)
 
   def list_looking_for_adoption_cats(_options \\ %Opts{}, _owned_by_kotkowo \\ nil),
     do: :erlang.nif_error(:nif_not_loaded)
