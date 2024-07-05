@@ -3,6 +3,7 @@ defmodule KotkowoWeb.AdoptionLive.ViewLookingForHomeCat do
   use KotkowoWeb, :live_view
 
   import KotkowoWeb.Components.CatViewUtils
+  import KotkowoWeb.Constants
 
   alias Kotkowo.Client
   alias Kotkowo.Client.LookingForHomeCat

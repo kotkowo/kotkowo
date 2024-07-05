@@ -37,6 +37,9 @@
         <.lost_and_found_card
           :for={{id, cat} <- @streams.cats}
           id={id}
+          cat_url={~p"/zaginione-znalezione/zaginione/#{cat.cat.slug}"}
+          share_href={"#{kotkowo_url()}/zaginione-znalezione/zaginione/#{cat.cat.slug}"}
+          share_quote={cat.disappearance_circumstances}
           title={cat.disappearance_circumstances}
           src={cat.cat.images |> Image.first_url()}
           chip_number={cat.cat.chip_number}

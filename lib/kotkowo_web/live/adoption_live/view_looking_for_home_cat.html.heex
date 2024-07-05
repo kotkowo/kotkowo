@@ -11,7 +11,7 @@
     </:crumb>
   </.breadcrumb>
 
-  <h1 class="mx-4 mb-6 xl:mb-12 mt-4 xl:mt-0 font-manrope font-extrabold text-3xl xl:text-4xl text-primary">
+  <h1 class="mx-4 pb-6 xl:pb-12 mt-4 xl:mt-0 font-manrope font-extrabold text-3xl xl:text-4xl text-primary">
     <%= @cat.name %>
   </h1>
 
@@ -33,7 +33,20 @@
         <%= Phoenix.HTML.Format.text_to_html(@cat.description) %>
       </div>
     </div>
-    <.cat_info cat={@cat} />
-    <.contact caretaker={@caretaker} contact_informations={@cat.contact_informations} />
+    <.cat_info cat={@cat} share_href={"#{kotkowo_url()}/adopcja/szukaja-domu/#{@slug}"} />
+    <.contact
+      heading="Interesuje Cię adopcja?"
+      caretaker={@caretaker}
+      contact_informations={@cat.contact_informations}
+    >
+      <:subtitle>
+        <p class="xl:text-lg">
+          Wypełnij
+          <a href={adoption_form()} class="text-primary font-bold underline underline-offset-4">
+            ankietę adopcyjną
+          </a>
+        </p>
+      </:subtitle>
+    </.contact>
   </div>
 </.section>
