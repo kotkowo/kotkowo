@@ -11,6 +11,6 @@ defmodule Kotkowo.Client.AdoptedCat do
   @type t() :: %__MODULE__{
           id: String.t() | nil,
           cat: Cat.t(),
-          adoption_date: Date.t()
+          adoption_date: Kotkowo.Client.DateTime.t()
         }
 end
