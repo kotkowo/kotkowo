@@ -38,7 +38,9 @@
         <.lost_and_found_card
           :for={found_cat <- @found_cats}
           title={found_cat.discovery_circumstances}
-          share_href="#"
+          cat_url={~p"/zaginione-znalezione/znalezione/#{found_cat.cat.slug}"}
+          share_href={"#{kotkowo_url()}/zaginione-znalezione/znalezione/#{found_cat.cat.slug}"}
+          share_quote={found_cat.discovery_circumstances}
           phone_numbers={extract_phone_numbers(found_cat.cat.contact_informations)}
           chip_number={found_cat.cat.chip_number || "brak"}
           src={Image.first_url(found_cat.cat.images)}
@@ -91,7 +93,9 @@
         <.lost_and_found_card
           :for={lost_cat <- @lost_cats}
           title={lost_cat.disappearance_circumstances}
-          share_href="#"
+          cat_url={~p"/zaginione-znalezione/zaginione/#{lost_cat.cat.slug}"}
+          share_href={"#{kotkowo_url()}/zaginione-znalezione/zaginione/#{lost_cat.cat.slug}"}
+          share_quote={lost_cat.disappearance_circumstances}
           phone_numbers={extract_phone_numbers(lost_cat.cat.contact_informations)}
           chip_number={lost_cat.cat.chip_number || "brak"}
           src={Image.first_url(lost_cat.cat.images)}
