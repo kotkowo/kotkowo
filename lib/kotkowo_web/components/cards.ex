@@ -467,4 +467,58 @@ defmodule KotkowoWeb.Components.Cards do
     </div>
     """
   end
+
+  def view_cat_loading(assigns) do
+    ~H"""
+    <div class="hidden lg:block">
+      <div class="animate-pulse bg-gray-300 w-64 h-12 mx-4 xl:mb-12 mb-6 rounded"></div>
+      <div class="flex flex-row xl:gap-x-32 xl:gap-y-12">
+        <div class="flex flex-col">
+          <div class="min-w-[868px] min-h-[485px] animate-pulse bg-gray-300"></div>
+          <div class="flex flex-row gap-x-2 mt-2">
+            <div :for={_ <- 0..3} class="w-20 h-[45px] animate-pulse bg-gray-300"></div>
+          </div>
+          <div class="flex flex-col gap-y-4 mt-16">
+            <div class="w-[600px] rounded-lg animate-pulse h-8 bg-gray-300"></div>
+            <div class="flex flex-col gap-y-2">
+              <div class="w-[800px] rounded-lg animate-pulse h-6 bg-gray-300"></div>
+              <div class="w-[600px] rounded-lg animate-pulse h-6 bg-gray-300"></div>
+              <div class="w-[700px] rounded-lg animate-pulse h-6 bg-gray-300"></div>
+              <div class="w-[800px] rounded-lg animate-pulse h-6 bg-gray-300"></div>
+              <div class="w-[300px] rounded-lg animate-pulse h-6 bg-gray-300"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="min-w-[280px] flex flex-col gap-y-4">
+          <div class="w-86 h-12 mb-2 animate-pulse bg-gray-300 rounded"></div>
+          <div class="w-16 h-8 animate-pulse bg-gray-300 rounded"></div>
+          <div class="w-32 h-8 animate-pulse bg-gray-300 rounded"></div>
+          <div class="w-64 h-8 animate-pulse bg-gray-300 rounded"></div>
+          <div class="w-36 h-8 animate-pulse bg-gray-300 rounded"></div>
+          <div class="w-64 h-8 animate-pulse bg-gray-300 rounded"></div>
+          <div class="flex flex-row flex-wrap gap-3">
+            <div class="w-36 h-10 rounded-3xl animate-pulse bg-gray-300"></div>
+            <div class="w-32 h-10 rounded-3xl animate-pulse bg-gray-300"></div>
+            <div class="w-32 h-10 rounded-3xl animate-pulse bg-gray-300"></div>
+            <div class="w-24 h-10 rounded-3xl animate-pulse bg-gray-300"></div>
+            <div class="w-24 h-10 rounded-3xl animate-pulse bg-gray-300"></div>
+            <div class="w-32 h-10 rounded-3xl animate-pulse bg-gray-300"></div>
+            <div class="w-64 h-12 rounded-3xl animate-pulse bg-gray-300"></div>
+          </div>
+          <div class="flex flex-col gap-y-4 mt-16">
+            <div class="animate-pulse bg-gray-300 h-8 w-64 rounded-lg"></div>
+            <div class="animate-pulse bg-gray-300 h-6 w-56 rounded-lg"></div>
+            <div class="animate-pulse bg-gray-300 h-6 w-56 rounded-lg"></div>
+            <div class="animate-pulse bg-gray-300 h-6 w-56 rounded-lg"></div>
+            <div class="flex flex-row gap-x-2">
+              <div class="w-32 rounded-2xl h-9 animate-pulse bg-gray-300"></div>
+              <div class="w-32 rounded-2xl h-9 animate-pulse bg-gray-300"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    """
+  end
 end

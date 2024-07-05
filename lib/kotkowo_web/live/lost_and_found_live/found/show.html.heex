@@ -1,3 +1,6 @@
+<.section :if={!@cat} class="mt-20">
+  <.view_cat_loading />
+</.section>
 <.section :if={@cat}>
   <.breadcrumb>
     <:crumb navigate={~p"/zaginione-znalezione"}>
