@@ -74,7 +74,7 @@
 
 <.section class="xl:mt-0 px-6 xl:px-0 flex">
   <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl mx-auto">
-    Szukają domu (<%= cats_amount_string(@cats_total) %>)
+    Szukają domu (<%= cats_amount_string(@owned_cats_total) %>)
   </h1>
 </.section>
 
@@ -83,18 +83,19 @@
     <div class="flex flex-col lg:flex-row gap-x-32 gap-y-10">
       <div class="lg:w-80 w-full shrink-0 lg:border lg:border-gray rounded-2xl flex flex-col lg:max-w-none max-w-sm self-center space-y-6 h-min ">
         <.live_component
-          id="cat_filter"
+          id="kotkowo_cat_filter"
+          name={:filter_owned_cat}
           module={KotkowoWeb.LiveComponents.CatFilter}
-          initial_filter={@initial_filter}
+          initial_filter={@initial_owned_filter}
         />
       </div>
       <div
-        id="cats-list"
+        id="owned-cats-list"
         phx-update="stream"
         class="gap-x-16 gap-y-10 flex flex-wrap lg:justify-start justify-center h-min"
       >
         <.cat_card
-          :for={{id, lfh} <- @streams.cats}
+          :for={{id, lfh} <- @streams.owned_cats}
           id={id}
           cat_url={~p"/adopcja/szukaja-domu/#{lfh.cat.slug}"}
           share_href={"#{kotkowo_url()}/adopcja/szukaja-domu/#{lfh.cat.slug}"}
@@ -110,9 +111,12 @@
         />
       </div>
     </div>
-    <div class="flex flex-col lg:flex-row justify-center items-center relative">
+    <div
+      :if={@owned_params}
+      class="flex flex-col lg:flex-row justify-center items-center relative"
+    >
       <div class="mt-10 lg:mt-0">
-        <.pagination_bar selected_page={@params.page} last_page={@page_count} />
+        <.pagination_bar selected_page={@owned_params.page} last_page={@owned_page_count} />
       </div>
       <div class="lg:absolute right-0 -order-1 self-center">
         <form phx-change="items_amount">
@@ -121,7 +125,7 @@
             <option
               :for={option <- items_per_page()}
               value={option}
-              selected={@params.page_size == option}
+              selected={@owned_params.page_size == option}
             >
               <%= option %>
             </option>
@@ -131,4 +135,68 @@
     </div>
   </div>
 </.section>
+<.section class="xl:mt-0 px-6 xl:px-0 flex">
+  <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl mx-auto">
+    Ogłoszenia grzecznościowe (<%= cats_amount_string(@unowned_cats_total) %>)
+  </h1>
+</.section>
+
+<.section class="px-6 xl:px-0">
+  <div class="self-start flex flex-col justify-center w-full space-y-10">
+    <div class="flex flex-col lg:flex-row gap-x-32 gap-y-10">
+      <div class="lg:w-80 w-full shrink-0 lg:border lg:border-gray rounded-2xl flex flex-col lg:max-w-none max-w-sm self-center space-y-6 h-min ">
+        <.live_component
+          id="cat_filter"
+          name={:filter_unowned_cat}
+          module={KotkowoWeb.LiveComponents.CatFilter}
+          initial_filter={@initial_unowned_filter}
+        />
+      </div>
+      <div
+        id="unowned-cats-list"
+        phx-update="stream"
+        class="gap-x-16 gap-y-10 flex flex-wrap lg:justify-start justify-center h-min"
+      >
+        <.cat_card
+          :for={{id, lfh} <- @streams.unowned_cats}
+          id={id}
+          cat_url={~p"/adopcja/szukaja-domu/#{lfh.cat.slug}"}
+          share_href={"#{kotkowo_url()}/adopcja/szukaja-domu/#{lfh.cat.slug}"}
+          share_quote={lfh.cat.description}
+          src={Image.first_url(lfh.cat.images)}
+          sex={lfh.cat.sex}
+          dead={lfh.cat.is_dead}
+          seniority={lfh.cat.age}
+          castrated={lfh.cat.castrated}
+          health_status={lfh.cat.medical_status}
+          tags={lfh.cat.tags}
+          name={lfh.cat.name}
+        />
+      </div>
+    </div>
+    <div
+      :if={@unowned_params}
+      class="flex flex-col lg:flex-row justify-center items-center relative"
+    >
+      <div class="mt-10 lg:mt-0">
+        <.pagination_bar selected_page={@unowned_params.page} last_page={@unowned_page_count} />
+      </div>
+      <div class="lg:absolute right-0 -order-1 self-center">
+        <form phx-change="items_amount">
+          <label class="font-inter mr-5 text-md">Pokaż na stronie</label>
+          <select name="items_per_page" class="rounded-lg">
+            <option
+              :for={option <- items_per_page()}
+              value={option}
+              selected={@unowned_params.page_size == option}
+            >
+              <%= option %>
+            </option>
+          </select>
+        </form>
+      </div>
+    </div>
+  </div>
+</.section>
+
 <.how_you_can_help />

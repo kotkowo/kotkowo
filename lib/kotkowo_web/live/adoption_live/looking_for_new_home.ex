@@ -10,6 +10,8 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
   alias Kotkowo.Client.Image
   alias Kotkowo.Client.Paged
 
+  require Logger
+
   defp parse_int_param(nil), do: nil
   defp parse_int_param(page) when is_integer(page), do: page
 
@@ -21,50 +23,138 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
   end
 
   @impl true
-  def mount(params, _session, socket) do
-    initial_filter = Cat.Filter.from_params(params["cat"])
-    socket = assign(socket, :initial_filter, initial_filter)
-    {:ok, socket}
-  end
-
-  @impl true
-  def handle_params(params, _uri, socket) do
-    filter = Cat.Filter.from_params(params["cat"])
-
-    non_dead_or_adopted_filter =
-      Map.put(filter, :is_dead, false)
-
-    page_size = params |> Map.get("page_size", "30") |> parse_int_param()
-    page = params |> Map.get("page") |> parse_int_param()
-
-    # NOTE: add section for cats not owned by kotkowo.
-    {:ok, %Paged{items: cats, page_count: page_count, page_size: page_size, page: page, total: total}} =
-      [page: page, page_size: page_size, filter: non_dead_or_adopted_filter]
-      |> Client.new()
-      |> Client.list_looking_for_adoption_cats(true)
-
-    params = %{page: page, page_size: page_size}
-    # NOTE: page_count = 0, page = 1 for no results when filtered
-    page_count = max(1, page_count)
-
+  def handle_async(:load_unowned_cats, {:ok, cats}, socket) do
     socket =
-      if page <= page_count do
-        socket
-        |> stream(:cats, cats, reset: true)
-        |> assign(:cats_total, total)
-        |> assign(:page_count, page_count)
-        |> assign(:params, params)
-      else
-        push_navigate(socket, to: ~p"/adopcja/szukaja-domu")
+      case cats do
+        {:ok, %Paged{items: unowned_cats, page_count: page_count, page_size: page_size, page: page, total: total}} ->
+          params = %{page: page, page_size: page_size}
+          # NOTE: page_count = 0, page = 1 for no results when filteredcat_filt
+          page_count = max(1, page_count)
+
+          if page <= page_count do
+            socket
+            |> stream(:unowned_cats, unowned_cats, reset: true)
+            |> assign(:unowned_cats_total, total)
+            |> assign(:unowned_page_count, page_count)
+            |> assign(:unowned_params, params)
+          else
+            push_navigate(socket, to: ~p"/adopcja/szukaja-domu")
+          end
+
+        {:error, msg} ->
+          Logger.error(msg)
+          socket
       end
 
     {:noreply, socket}
   end
 
   @impl true
-  def handle_info({:filter_cat, %Cat.Filter{} = filter}, socket) do
+  def handle_async(:load_owned_cats, {:ok, cats}, socket) do
     socket =
-      push_patch(socket, to: ~p"/adopcja/szukaja-domu" <> "?#{Cat.Filter.to_params(filter)}")
+      case cats do
+        {:ok, %Paged{items: owned_cats, page_count: page_count, page_size: page_size, page: page, total: total}} ->
+          params = %{page: page, page_size: page_size}
+          # NOTE: page_count = 0, page = 1 for no results when filtered
+          page_count = max(1, page_count)
+
+          if page <= page_count do
+            socket
+            |> stream(:owned_cats, owned_cats, reset: true)
+            |> assign(:owned_cats_total, total)
+            |> assign(:owned_page_count, page_count)
+            |> assign(:owned_params, params)
+          else
+            push_navigate(socket, to: ~p"/adopcja/szukaja-domu")
+          end
+
+        {:error, msg} ->
+          Logger.error(msg)
+          socket
+      end
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def mount(params, _session, socket) do
+    initial_owned_filter = Cat.Filter.from_params(params["owned_cat"])
+    initial_unowned_filter = Cat.Filter.from_params(params["unowned_cat"])
+
+    socket =
+      socket
+      |> assign(:initial_owned_filter, initial_owned_filter)
+      |> assign(:initial_unowned_filter, initial_unowned_filter)
+      |> stream(:owned_cats, [])
+      |> assign(:owned_cats_total, 0)
+      |> assign(:owned_params, nil)
+      |> stream(:unowned_cats, [])
+      |> assign(:unowned_cats_total, 0)
+      |> assign(:unowned_params, nil)
+
+    {:ok, socket}
+  end
+
+  @impl true
+  def handle_params(params, _uri, socket) do
+    owned_filter = params["owned_cat"] |> Cat.Filter.from_params() |> Map.put(:is_dead, false)
+    unowned_filter = params["unowned_cat"] |> Cat.Filter.from_params() |> Map.put(:is_dead, false)
+
+    owned_page_size = params |> Map.get("owned_page_size", "30") |> parse_int_param()
+
+    owned_page = params |> Map.get("owned_page") |> parse_int_param()
+
+    unowned_page_size = params |> Map.get("unowned_page_size", "30") |> parse_int_param()
+
+    unowned_page = params |> Map.get("unowned_page") |> parse_int_param()
+
+    # NOTE: add section for cats not owned by kotkowo.
+    socket =
+      socket
+      |> assign(:owned_filter, owned_filter)
+      |> assign(:unowned_filter, unowned_filter)
+      |> start_async(:load_owned_cats, fn ->
+        [page: owned_page, page_size: owned_page_size, filter: owned_filter]
+        |> Client.new()
+        |> Client.list_looking_for_adoption_cats(true)
+      end)
+      |> start_async(:load_unowned_cats, fn ->
+        [page: unowned_page, page_size: unowned_page_size, filter: unowned_filter]
+        |> Client.new()
+        |> Client.list_looking_for_adoption_cats(false)
+      end)
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_info({:filter_owned_cat, %Cat.Filter{} = filter}, socket) do
+    unowned_params = Cat.Filter.to_params(socket.assigns.unowned_filter, "unowned_cat")
+    owned_params = Cat.Filter.to_params(filter, "owned_cat")
+
+    socket =
+      push_patch(socket,
+        to:
+          ~p"/adopcja/szukaja-domu" <>
+            "?#{owned_params}" <>
+            unowned_params
+      )
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_info({:filter_unowned_cat, %Cat.Filter{} = filter}, socket) do
+    owned_filter = Cat.Filter.to_params(socket.assigns.owned_filter, "owned_cat")
+    unowned_filter = Cat.Filter.to_params(filter, "unowned_cat")
+
+    socket =
+      push_patch(socket,
+        to:
+          ~p"/adopcja/szukaja-domu" <>
+            "?#{owned_filter}" <>
+            unowned_filter
+      )
 
     {:noreply, socket}
   end
