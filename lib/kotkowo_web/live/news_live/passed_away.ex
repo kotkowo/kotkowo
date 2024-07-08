@@ -10,6 +10,8 @@ defmodule KotkowoWeb.NewsLive.PassedAway do
   alias Kotkowo.Client.Image
   alias Kotkowo.Client.Paged
 
+  require Logger
+
   defp parse_int_param(nil), do: nil
   defp parse_int_param(page) when is_integer(page), do: page
 
@@ -21,9 +23,36 @@ defmodule KotkowoWeb.NewsLive.PassedAway do
   end
 
   @impl true
+  def handle_async(:load_cats, {:ok, cats}, socket) do
+    socket =
+      case cats do
+        {:ok, %Paged{items: cats, page_count: page_count, page_size: page_size, page: page, total: total}} ->
+          params = %{page: page, page_size: page_size}
+          # NOTE: page_count = 0, page = 1 for no results when filtered
+          page_count = max(1, page_count)
+
+          if page <= page_count do
+            socket
+            |> stream(:cats, cats, reset: true)
+            |> assign(:cats_total, total)
+            |> assign(:page_count, page_count)
+            |> assign(:params, params)
+          else
+            push_navigate(socket, to: ~p"/aktualnosci/za-teczowym-mostem")
+          end
+
+        {:error, msg} ->
+          Logger.error(msg)
+          socket
+      end
+
+    {:noreply, socket}
+  end
+
+  @impl true
   def mount(params, _session, socket) do
     initial_filter = Cat.Filter.from_params(params["cat"])
-    socket = assign(socket, :initial_filter, initial_filter)
+    socket = socket |> assign(:initial_filter, initial_filter) |> stream(:cats, []) |> assign(:params, nil)
     {:ok, socket}
   end
 
@@ -34,23 +63,10 @@ defmodule KotkowoWeb.NewsLive.PassedAway do
     page_size = params |> Map.get("page_size", "30") |> parse_int_param()
     page = params |> Map.get("page") |> parse_int_param()
 
-    {:ok, %Paged{items: cats, page_count: page_count, page_size: page_size, page: page, total: total}} =
-      [page: page, page_size: page_size, filter: dead_filter] |> Client.new() |> Client.list_cats()
-
-    params = %{page: page, page_size: page_size}
-    # NOTE: page_count = 0, page = 1 for no results when filtered
-    page_count = max(1, page_count)
-
     socket =
-      if page <= page_count do
-        socket
-        |> stream(:cats, cats, reset: true)
-        |> assign(:cats_total, total)
-        |> assign(:page_count, page_count)
-        |> assign(:params, params)
-      else
-        push_navigate(socket, to: ~p"/aktualnosci/za-teczowym-mostem")
-      end
+      start_async(socket, :load_cats, fn ->
+        [page: page, page_size: page_size, filter: dead_filter] |> Client.new() |> Client.list_cats()
+      end)
 
     {:noreply, socket}
   end
