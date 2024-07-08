@@ -43,7 +43,7 @@
       </div>
     </div>
   </div>
-  <div class="flex flex-col lg:flex-row justify-center items-center relative">
+  <div :if={@params} class="flex flex-col lg:flex-row justify-center items-center relative">
     <div class="mt-10 lg:mt-0">
       <.pagination_bar selected_page={@params.page} last_page={@page_count} />
     </div>
