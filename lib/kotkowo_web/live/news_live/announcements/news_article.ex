@@ -45,7 +45,9 @@ defmodule KotkowoWeb.AnnouncementsLive.NewsArticle do
   end
 
   @impl true
-  def mount(%{"announcement_id" => announcement_id}, _session, socket) do
+  def mount(%{"announcement_id" => announcement_id}, session, socket) do
+    remote_ip = session["remote_ip"]
+
     socket =
       socket
       |> assign(:popular_news, nil)
