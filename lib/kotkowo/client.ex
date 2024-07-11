@@ -1,6 +1,6 @@
 defmodule Kotkowo.Client do
   @moduledoc false
-  use Rustler, otp_app: :kotkowo, crate: :client
+  use Rustler, otp_app: :kotkowo, crate: :client, skip_compilation?: true
 
   alias Kotkowo.Client.Cat
   alias Kotkowo.Client.Opts
