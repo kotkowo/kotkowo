@@ -3,8 +3,6 @@ defmodule Kotkowo.Client.Cat.Filter do
   A module for defining and working with filters for cats in the Kotkowo client.
   """
 
-  use Gradient.TypeAnnotation
-
   alias Kotkowo.Client.Cat
   alias Kotkowo.Client.Cat.Age
   alias Kotkowo.Client.Cat.Color
@@ -102,7 +100,6 @@ defmodule Kotkowo.Client.Cat.Filter do
     map
     |> Enum.map(&parse_field/1)
     |> then(&struct!(__MODULE__, &1))
-    |> assert_type(t())
   end
 
   @spec parse_field({field(), any()}) :: {field(), filter(any()) | [] | nil}

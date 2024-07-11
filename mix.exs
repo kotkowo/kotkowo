@@ -62,7 +62,6 @@ defmodule Kotkowo.MixProject do
       {:prom_ex, "~> 1.9"},
       {:styler, "~> 0.8", only: [:dev, :test], runtime: false},
       {:gradient, github: "esl/gradient", only: [:dev, :test], runtime: false},
-      {:gradient_macros, github: "esl/gradient_macros", runtime: false, override: true},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:sobelow, "~> 0.13", only: [:dev, :test], runtime: false}
     ]
