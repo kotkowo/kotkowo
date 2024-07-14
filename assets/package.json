@@ -9,7 +9,7 @@
     "deploy": "cd .. && mix assets.deploy && rm -f _build/esbuild*"
   },
   "dependencies": {
-    "alpinejs": "3.10.5",
+    "alpinejs": "3.14.1",
     "alpinejs-breakpoints": "^2.1.1",
     "dompurify": "^3.1.5",
     "marked": "^12.0.2",
@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@tailwindcss/line-clamp": "^0.4.2",
-    "@types/alpinejs": "^3.13.2",
+    "@types/alpinejs": "^3.13.10",
     "@typescript-eslint/eslint-plugin": "^6.7.2",
     "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",

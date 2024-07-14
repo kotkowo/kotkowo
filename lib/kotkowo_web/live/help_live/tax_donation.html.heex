@@ -15,8 +15,6 @@
         Kotki proszą o 1,5% Twojego podatku!
       </h1>
       <p class="max-w-[646px]">
-        <.toast message="Skopiowane!" event="copied-to-clipboard" icon="clipboard_done" />
-
         <b>Fundacja Kotkowo posiada status Organizacji Pożytku Publicznego</b>.
         Od 2023 r. możesz przekazać nam <b>1,5% swojego podatku</b>.
         W tym celu edytuj swoje zeznanie podatkowe, dostępne od 15 lutego na stronie <a
@@ -24,9 +22,10 @@
           class="underline"
         >podatki.gov.pl</a>.
         Wskaż naszą organizację online w Twoim e-Picie lub wypełnij druk PIT ręcznie i podaj nasz numer <a
-          class="font-bold text-primary"
+          class="font-bold text-primary cursor-copy"
           x-data
-          x-on:click="navigator.clipboard.writeText('000345319'); $dispatch('copied-to-clipboard');"
+          x-on:click="navigator.clipboard.writeText('000345319'); 
+             $dispatch('toast', {message: 'Skopiowane', icon: '📋'})"
         >
           KRS: 000345319
         </a>.

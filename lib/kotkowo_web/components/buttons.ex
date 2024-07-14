@@ -21,7 +21,7 @@ defmodule KotkowoWeb.Components.Buttons do
           @class
         ])
       }
-      x-on:click="navigator.clipboard.writeText(to_copy); $dispatch('copied-to-clipboard');"
+      x-on:click="navigator.clipboard.writeText(to_copy); $dispatch('toast', {message: 'Skopiowane', icon: '📋'})"
       value={@text_to_copy}
     >
       <%= @prefix %><%= @text_to_copy %>

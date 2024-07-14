@@ -3,7 +3,6 @@ defmodule KotkowoWeb.HelpLive.TaxDonation do
 
   use KotkowoWeb, :live_view
 
-  import KotkowoWeb.Components.Notifiers
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
   import KotkowoWeb.Components.Steps
   import KotkowoWeb.Constants
