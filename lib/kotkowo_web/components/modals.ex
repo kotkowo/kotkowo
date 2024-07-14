@@ -5,7 +5,6 @@ defmodule KotkowoWeb.Components.Modals do
   use Phoenix.Component, global_prefixes: ~w(x-)
 
   import KotkowoWeb.Components.Icons
-  import KotkowoWeb.Components.Notifiers
   import KotkowoWeb.Gettext
 
   def share_modal(assigns) do
@@ -45,10 +44,9 @@ defmodule KotkowoWeb.Components.Modals do
         <div class="flex flex-col gap-y-2" x-data={~c"{copied: false}"}>
           <span><%= gettext("Kliknij, aby skopiować link") %></span>
 
-          <.toast message="Skopiowane!" event="copied-to-clipboard" icon="clipboard_done" />
           <input
             id="share-copy"
-            x-on:click="navigator.clipboard.writeText($el.value); $dispatch('copied-to-clipboard');"
+            x-on:click="navigator.clipboard.writeText($el.value); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
             x-data
             class="w-full cursor-pointer rounded-3xl"
             type="url"

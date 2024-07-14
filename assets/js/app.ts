@@ -32,9 +32,11 @@ function toast() : AlpineComponent<{
 }> {
   return {
     percentage: 0,
-    show() {
+    show({message, icon}) {
       this.percentage = 100
       if (this.interval !== undefined) clearInterval(this.interval)
+      this.$el.querySelector("#toast-message").innerHTML = message;
+      this.$el.querySelector("#toast-icon").innerHTML = icon;
 
       this.interval = setInterval((async () => {
         await this.$nextTick()

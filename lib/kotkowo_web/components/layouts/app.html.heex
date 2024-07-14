@@ -1,5 +1,24 @@
 <.header contact_email={kotkowo_mail()} links={links()}>Kotkowo</.header>
-<div id="shadow-realm"></div>
+<!-- BEGIN toast -->
+<div
+  phx-update="ignore"
+  id="toast"
+  x-data="toast"
+  x-show="percentage > 0"
+  x-on:toast.window="show($event.detail)"
+  x-cloak
+  class={[
+    "flex items-center fixed left-1/2 -translate-x-1/2 bottom-2",
+    "bg-black text-white font-bold w-60 h-12 px-6 rounded-full select-none z-50"
+  ]}
+>
+  <div id="toast-icon"></div>
+  <span class="mx-auto" id="toast-message"></span>
+  <div class="w-48 h-1 bottom-0 left-6 fixed flex">
+    <span class="bg-primary-lighter h-full" x-bind:style="`width: ${percentage}%;`"></span>
+  </div>
+</div>
+<!-- END toast -->
 <KotkowoWeb.Components.Modals.share_modal />
 <div class="mx-auto max-w-3xl md:max-w-5xl lg:max-w-7xl">
   <.flash kind={:info} title="Success!" flash={@flash} />

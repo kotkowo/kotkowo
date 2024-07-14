@@ -1,16 +1,23 @@
-{ pkgs, lib, config, inputs, ... }:
 {
-  packages = with pkgs; [
-    erlang_26
-    nodejs_20
-    elixir_1_16
-    elixir_ls
-    docker
-    openssl
-    graphql-client
-    nodePackages."@tailwindcss/language-server"
-    nodePackages.vscode-html-languageserver-bin
-  ] ++ lib.optionals pkgs.stdenv.isLinux (with pkgs; [inotify-tools]);
+  pkgs,
+  lib,
+  config,
+  inputs,
+  ...
+}: {
+  packages = with pkgs;
+    [
+      erlang_26
+      nodejs_20
+      elixir_1_16
+      elixir_ls
+      docker
+      openssl
+      graphql-client
+      nodePackages."@tailwindcss/language-server"
+      nodePackages.vscode-html-languageserver-bin
+    ]
+    ++ lib.optionals pkgs.stdenv.isLinux (with pkgs; [inotify-tools]);
 
   env.LANG = "en_US.UTF-8";
   env.ERL_AFLAGS = "-kernel shell_history enabled";
@@ -21,10 +28,9 @@
     export PATH=$MIX_HOME/bin:$PATH
     export PATH=$HEX_HOME/bin:$PATH
     export PATH=$PATH:$(pwd)/_build/pip_packages/bin
-
-    export $(${pkgs.gnugrep}/bin/grep -v '^#' .env | ${pkgs.findutils}/bin/xargs -0)
   '';
 
+  dotenv.enable = true;
 
   languages.elixir = {
     enable = true;
