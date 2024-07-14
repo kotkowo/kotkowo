@@ -8,7 +8,7 @@
     self,
     nixpkgs,
     flake-utils,
-    fenix
+    fenix,
   }:
     flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
@@ -53,31 +53,66 @@
             pname = "kotkowo-elixir-deps";
             sha256 = "sha256-Cuw0nrenawsiU+Cqxd5a56+eq2N4LtCHF8KlSgcKe2Q=";
           };
-          kotkowo-fe-deps = let 
+          kotkowo-fe-deps = let
             mixDeps = self.packages.${system}.kotkowo-elixir-deps;
           in
             fetchNpmDeps {
-            pname = "kotkowo-fe-deps";
-            inherit version;
-            src = "${src}/assets";
-            hash = "sha256-YF5loRscJRiSsxwSNG2mnePvWDrpOJTo9ONDqexOFmU=";
-            postBuild = ''
-              # fix broken local packages
-              local_packages=(
-                "phoenix"
-                "phoenix_html"
-                "phoenix_live_view"
-              )
-              for package in ''\${local_packages[@]}; do
-                path=node_modules/$package
-                if [[ -L $path ]]; then
-                  echo "fixing local package - $package"
-                  rm node_modules/$package
-                  cp -r ${mixDeps}/$package node_modules/
-                fi
-              done
-            '';
-          };
+              pname = "kotkowo-fe-deps";
+              inherit version;
+              src = "${src}/assets";
+              hash = "sha256-YF5loRscJRiSsxwSNG2mnePvWDrpOJTo9ONDqexOFmU=";
+              postBuild = ''
+                # fix broken local packages
+                local_packages=(
+                  "phoenix"
+                  "phoenix_html"
+                  "phoenix_live_view"
+                )
+                for package in ''${local_packages[@]}; do
+                  path=node_modules/$package
+                  if [[ -L $path ]]; then
+                    echo "fixing local package - $package"
+                    rm node_modules/$package
+                    cp -r ${mixDeps}/$package node_modules/
+                  fi
+                done
+              '';
+            };
+
+          kotkowo-client = let
+            toolchain = fenix.packages.${system}.minimal.toolchain;
+          in
+            (pkgs.makeRustPlatform {
+              cargo = toolchain;
+              rustc = toolchain;
+            })
+            .buildRustPackage {
+              pname = "kotkowo-client";
+              version = "0.1.0";
+              src = ./native/client;
+              # nativeBuildInputs = [pkgs.openssl.dev pkgs.pkg-config];
+              buildInputs = [pkgs.openssl.dev pkgs.pkg-config];
+              nativeBuildInputs = [pkgs.pkg-config];
+              #buildPhase = ''
+              #  export PKG_CONFIG_PATH=${pkgs.openssl.dev}/lib/pkgconfig
+              #  export OPENSSL_LIB_DIR=${pkgs.openssl.dev}/lib
+              #  # export OPENSSL_INCLUDE_DIR=${pkgs.openssl.dev}/include
+              #  export OPENSSL_STATIC=yes
+
+              #  export HOME=$(pwd)
+              #'';
+              #installPhase = ''
+              #  ls target/release
+              #  exit 1
+              #'';
+              cargoLock = {
+                lockFile = ./native/client/Cargo.lock;
+                outputHashes = {
+                  "kotkowo-client-0.2.3" = "sha256-eT/Jj3AXj2jZRcdIwJ6kRU5L4W6DfRUkLEuCxZtjqGk=";
+                };
+              };
+            };
+
           kotkowo-fe = let
             deps = self.packages.${system}.kotkowo-fe-deps;
             mixDeps = self.packages.${system}.kotkowo-elixir-deps;
@@ -104,39 +139,48 @@
           kotkowo = let
             kotkowo-fe = self.packages.${system}.kotkowo-fe;
             mixFodDeps = self.packages.${system}.kotkowo-elixir-deps;
-            throwSystem = throw "tailwindcss has not been packaged for ${system} yet.";
-            tailwindPlatform = {
-              aarch64-darwin = "macos-arm64";
-              aarch64-linux = "linux-arm64";
-              armv7l-linux = "linux-armv7";
-              x86_64-darwin = "macos-x64";
-              x86_64-linux = "linux-x64";
-            }.${system} or throwSystem;
+            throwSystem =
+              throw "tailwindcss has not been packaged for ${system} yet.";
+            tailwindPlatform =
+              {
+                aarch64-darwin = "macos-arm64";
+                aarch64-linux = "linux-arm64";
+                armv7l-linux = "linux-armv7";
+                x86_64-darwin = "macos-x64";
+                x86_64-linux = "linux-x64";
+              }
+              .${system}
+              or throwSystem;
 
-            tailwindHash = {
-              aarch64-darwin = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
-              aarch64-linux = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
-              armv7l-linux = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
-              x86_64-darwin = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
-              x86_64-linux = "sha256-+3egrFc2pVWc9j37wJTWrXhXMYgVrlLZpujoYCpN8zc=";
-            }.${system} or throwSystem;
+            tailwindHash =
+              {
+                aarch64-darwin = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+                aarch64-linux = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+                armv7l-linux = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+                x86_64-darwin = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+                x86_64-linux = "sha256-+3egrFc2pVWc9j37wJTWrXhXMYgVrlLZpujoYCpN8zc=";
+              }
+              .${system}
+              or throwSystem;
             tailwindcss = pkgs.tailwindcss.overrideAttrs (prev: rec {
-                version = "3.1.8";
-                src = pkgs.fetchurl {
-                  url = "https://github.com/tailwindlabs/tailwindcss/releases/download/v${version}/tailwindcss-${tailwindPlatform}";
-                  hash = tailwindHash;
-                };
+              version = "3.1.8";
+              src = pkgs.fetchurl {
+                url = "https://github.com/tailwindlabs/tailwindcss/releases/download/v${version}/tailwindcss-${tailwindPlatform}";
+                hash = tailwindHash;
+              };
             });
 
             deps = self.packages.${system}.kotkowo-fe-deps;
-
           in
             erlangPackages.mixRelease {
               inherit version src mixFodDeps;
               pname = "kotkowo";
               nativeBuildInputs = [fenix.packages.${system}.default.toolchain];
+              buildInputs = [pkgs.openssl.dev];
               preInstall = ''
                 ln -s ${deps}/node_modules assets/node_modules
+
+                cp --no-preserve=mode,ownership,timestamps -R ${kotkowo-client}/lib ./priv/native
                 cp --no-preserve=mode,ownership,timestamps -R ${kotkowo-fe} ./priv/static/
                 cd assets
                 ${tailwindcss}/bin/tailwindcss --minify --config=tailwind.config.cjs --input=css/app.css --output=../priv/static/assets/app.css
@@ -145,8 +189,8 @@
               '';
 
               buildPhase = ''
-                    # this line removes a bug where value of $HOME is set to a non-writable /homeless-shelter dir
-                    export HOME=$(pwd)
+                # this line removes a bug where value of $HOME is set to a non-writable /homeless-shelter dir
+                export HOME=$(pwd)
               '';
             };
           default = kotkowo;
@@ -238,8 +282,9 @@
             };
           };
 
-          users.groups =
-            lib.optionalAttrs (cfg.group == "kotkowo-web") {kotkowo-web = {};};
+          users.groups = lib.optionalAttrs (cfg.group == "kotkowo-web") {
+            kotkowo-web = {};
+          };
 
           systemd.services = {
             kotkowo-web-setup = lib.mkIf cfg.enable {
