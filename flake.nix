@@ -20,7 +20,7 @@
       elixir-ls = erlangPackages.elixir_ls;
     in {
       packages = let
-        version = "0.3.4";
+        version = "0.1.0";
         src = ./.;
         fetchNpmDeps = {
           pname,
@@ -60,7 +60,7 @@
               pname = "kotkowo-fe-deps";
               inherit version;
               src = "${src}/assets";
-              hash = "sha256-YF5loRscJRiSsxwSNG2mnePvWDrpOJTo9ONDqexOFmU=";
+              hash = "sha256-0/0l4/eJBbQQqWVFS7Z60LrExFV1maFlyPNLWHr8KG8=";
               postBuild = ''
                 # fix broken local packages
                 local_packages=(
@@ -90,21 +90,8 @@
               pname = "kotkowo-client";
               version = "0.1.0";
               src = ./native/client;
-              # nativeBuildInputs = [pkgs.openssl.dev pkgs.pkg-config];
-              buildInputs = [pkgs.openssl.dev pkgs.pkg-config];
+              buildInputs = [pkgs.openssl];
               nativeBuildInputs = [pkgs.pkg-config];
-              #buildPhase = ''
-              #  export PKG_CONFIG_PATH=${pkgs.openssl.dev}/lib/pkgconfig
-              #  export OPENSSL_LIB_DIR=${pkgs.openssl.dev}/lib
-              #  # export OPENSSL_INCLUDE_DIR=${pkgs.openssl.dev}/include
-              #  export OPENSSL_STATIC=yes
-
-              #  export HOME=$(pwd)
-              #'';
-              #installPhase = ''
-              #  ls target/release
-              #  exit 1
-              #'';
               cargoLock = {
                 lockFile = ./native/client/Cargo.lock;
                 outputHashes = {
@@ -170,27 +157,50 @@
               };
             });
 
+            esbuild = pkgs.esbuild.overrideAttrs (prev: rec {
+              version = "0.14.54";
+              src = pkgs.fetchFromGitHub {
+                owner = "evanw";
+                repo = "esbuild";
+                rev = "v${version}";
+                hash = "sha256-qCtpy69ROCspRgPKmCV0YY/EOSWiNU/xwDblU0bQp4w=";
+              };
+            });
+
             deps = self.packages.${system}.kotkowo-fe-deps;
           in
             erlangPackages.mixRelease {
               inherit version src mixFodDeps;
               pname = "kotkowo";
-              nativeBuildInputs = [fenix.packages.${system}.default.toolchain];
-              buildInputs = [pkgs.openssl.dev];
+              buildInputs = [pkgs.openssl];
               preInstall = ''
                 ln -s ${deps}/node_modules assets/node_modules
+                ln -s ${pkgs.tailwindcss}/bin/tailwindcss _build/tailwind-${tailwindPlatform}
+                # NOTE: not 100% sure the platform strings are the same
+                ln -s ${esbuild}/bin/esbuild _build/esbuild-${tailwindPlatform}
 
                 cp --no-preserve=mode,ownership,timestamps -R ${kotkowo-client}/lib ./priv/native
                 cp --no-preserve=mode,ownership,timestamps -R ${kotkowo-fe} ./priv/static/
-                cd assets
-                ${tailwindcss}/bin/tailwindcss --minify --config=tailwind.config.cjs --input=css/app.css --output=../priv/static/assets/app.css
-                cd ..
-                ${elixir}/bin/mix phx.digest
+                ${elixir}/bin/mix assets.deploy
               '';
 
-              buildPhase = ''
-                # this line removes a bug where value of $HOME is set to a non-writable /homeless-shelter dir
-                export HOME=$(pwd)
+              postInstall = ''
+                mv $out/bin/kotkowo $out/bin/.kotkowo-unwrapped
+                mv $out/bin/server $out/bin/.server-unwrapped
+
+                cat > $out/bin/kotkowo <<EOF
+                #!${pkgs.runtimeShell}
+                export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath [pkgs.openssl]}:\''$LD_LIBRARY_PATH"
+                exec -a "\''$0" $out/bin/.kotkowo-unwrapped "\''$@"
+                EOF
+
+                cat > $out/bin/server <<EOF
+                #!${pkgs.runtimeShell}
+                export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath [pkgs.openssl]}:\''$LD_LIBRARY_PATH"
+                exec -a "\''$0" $out/bin/.server-unwrapped "\''$@"
+                EOF
+
+                chmod +x $out/bin/server $out/bin/kotkowo
               '';
             };
           default = kotkowo;
@@ -247,20 +257,6 @@
               type = lib.types.str;
               description = "The host to configure the router generation from";
             };
-            #gem = {
-            #  md2gemini = {
-            #    pkg = lib.mkOption {
-            #      type = lib.types.str;
-            #      default = "${pkgs.md2gemini}/bin/md2gemini";
-            #    };
-            #    args = lib.mkOption {
-            #      type = lib.types.listOf lib.types.str;
-            #      default = ["--links" "copy" "--plain"];
-            #    };
-            #  };
-            #  cert = lib.mkOption {type = lib.types.path;};
-            #  key = lib.mkOption {type = lib.types.path;};
-            #};
           };
         };
         config = lib.mkIf cfg.enable {
@@ -309,11 +305,6 @@
                 SECRET_KEY_BASE_FILE = cfg.secretKeyBaseFile;
                 DATABASE_URL_FILE = cfg.databaseUrlFile;
                 HOSTNAME = cfg.host;
-                #HOME_GEMINI_CERT = cfg.gem.cert;
-                #HOME_GEMINI_KEY = cfg.gem.key;
-                #HOME_GEMINI_CONVERTER = cfg.gem.md2gemini.pkg;
-                #HOME_GEMINI_CONVERTER_ARGS =
-                #  pkgs.lib.concatStringsSep " " cfg.gem.md2gemini.args;
                 RELEASE_COOKIE = "${cfg.dataDir}/.cookie";
               };
             };
@@ -338,11 +329,6 @@
                 PORT = builtins.toString cfg.port;
                 DATABASE_URL_FILE = cfg.databaseUrlFile;
                 HOSTNAME = cfg.host;
-                #HOME_GEMINI_CERT = cfg.gem.cert;
-                #HOME_GEMINI_KEY = cfg.gem.key;
-                #HOME_GEMINI_CONVERTER = cfg.gem.md2gemini.pkg;
-                #HOME_GEMINI_CONVERTER_ARGS =
-                #  pkgs.lib.concatStringsSep " " cfg.gem.md2gemini.args;
                 RELEASE_COOKIE = "${cfg.dataDir}/.cookie";
               };
             };
