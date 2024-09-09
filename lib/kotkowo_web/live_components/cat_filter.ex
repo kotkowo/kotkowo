@@ -197,7 +197,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
             <.checkgroup
               :if={:age in @included_fields}
               id={"#{@name}-age-checkgroup"}
-              name={"#{@name}-age"}
+              name="age"
               label="Wiek"
               options={Enum.map(Age.all(), fn age -> {Age.to_string(age), age} end)}
               value={@raw_filter.age || []}
@@ -206,7 +206,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
             <.checkgroup
               :if={:color in @included_fields}
               id={"#{@name}-color-checkgroup"}
-              name={"#{@name}-color"}
+              name="color"
               label="Kolor"
               options={Enum.map(Color.all(), fn color -> {Color.to_string(color), color} end)}
               value={@raw_filter.color || []}
