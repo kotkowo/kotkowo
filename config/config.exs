@@ -1,4 +1,4 @@
-# This file is responsible for configuring your application
+# This file is responsible for configuring your applicationconfig.elwx
 # and its dependencies with the aid of the Config module.
 #
 # This configuration file is loaded before any dependency and
@@ -29,15 +29,17 @@ config :esbuild,
 
 # Configure tailwind (the version is required)
 config :tailwind,
-  version: "3.1.8",
-  default: [
-    args: ~w(
+       [
+         version: "3.1.8",
+         default: [
+           args: ~w(
       --config=tailwind.config.cjs
       --input=css/app.css
       --output=../priv/static/assets/app.css
     ),
-    cd: Path.expand("../assets", __DIR__)
-  ]
+           cd: Path.expand("../assets", __DIR__)
+         ]
+       ] ++ if(tw_path = System.get_env("MIX_TAILWIND_PATH"), do: [path: tw_path], else: [])
 
 # Configures Elixir's Logger
 config :logger,
