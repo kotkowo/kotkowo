@@ -84,7 +84,7 @@
       <div class="lg:w-80 w-full shrink-0 lg:border lg:border-gray rounded-2xl flex flex-col lg:max-w-none max-w-sm self-center space-y-6 h-min ">
         <.live_component
           id="kotkowo_cat_filter"
-          name={:filter_owned_cat}
+          search_name={:filter_owned_cat}
           module={KotkowoWeb.LiveComponents.CatFilter}
           initial_filter={@initial_owned_filter}
         />
@@ -147,7 +147,7 @@
       <div class="lg:w-80 w-full shrink-0 lg:border lg:border-gray rounded-2xl flex flex-col lg:max-w-none max-w-sm self-center space-y-6 h-min ">
         <.live_component
           id="cat_filter"
-          name={:filter_unowned_cat}
+          search_name={:filter_unowned_cat}
           module={KotkowoWeb.LiveComponents.CatFilter}
           initial_filter={@initial_unowned_filter}
         />

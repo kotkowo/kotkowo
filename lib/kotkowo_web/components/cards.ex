@@ -338,7 +338,9 @@ defmodule KotkowoWeb.Components.Cards do
           <h3 class="text-primary font-bold text-sm lg:text-xl mb-2">Numer chipa</h3>
           <div class="flex flex-row gap-x-1 overflow-x-auto">
             <div class="flex flex-row rounded-3xl border border-gray py-2 px-1 lg:px-3">
-              <span class="font-inter text-xs lg:text-sm tracking-tight"><%= @chip_number %></span>
+              <span class="font-inter text-xs lg:text-sm tracking-tight">
+                <%= @chip_number || "Brak" %>
+              </span>
             </div>
           </div>
         </.card_attribute>
