@@ -3,6 +3,7 @@ defmodule KotkowoWeb.AdoptionLive.AdoptionRules do
   use KotkowoWeb, :live_view
 
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
+  import KotkowoWeb.Components.Static.RulesetSection
   import KotkowoWeb.Components.Steps
   import KotkowoWeb.Constants
 
