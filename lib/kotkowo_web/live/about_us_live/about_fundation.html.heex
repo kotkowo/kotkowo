@@ -1,0 +1,104 @@
+<.section parent_class="mt-6 xl:mt-0 px-6 xl:py-6 py-6">
+  <.breadcrumb>
+    <:crumb disabled>
+      O nas
+    </:crumb>
+    <:crumb navigate={~p"/o-nas/o-fundacji"} active>
+      O fundacji
+    </:crumb>
+  </.breadcrumb>
+
+  <div class="flex flex-col gap-y-16">
+    <div class="flex flex-row justify-between">
+      <div class="flex flex-col gap-y-5 w-[646px] font-inter">
+        <h1 class="text-primary text-center tracking-wide lg:text-justify font-manrope font-extrabold xl:text-4xl text-3xl">
+          Kotkowo w skrócie
+        </h1>
+        <div class="flex flex-col gap-y-3">
+          <%= for sentence <- \
+                     [ "Adopcja kotów" \
+                     , "Akcje sterylizacji i kastracji" \
+                     , "Interwencje w sprawie źle traktowanych zwierząt" \
+                     ] do %>
+            <li class="flex">
+              <.icon name="paw" class="w-3 h-3 mr-3 my-auto" />
+              <h3 class="my-auto xl:text-lg text-primary font-bold">
+                <%= sentence %>
+              </h3>
+            </li>
+          <% end %>
+        </div>
+        <p class="tracking-wider text-base">
+          Fundacja Kotkowo została założona w 2010 roku. Nasi wolontariusze pomagają kotom od 2007 roku. Mamy status Organizacji Pożytku Publicznego (OPP). Prowadzimy swoją działalność dzięki pomocy i zaangażowaniu ludzi dobrej woli.
+        </p>
+      </div>
+
+      <img
+        src={~p"/images/support_funds_kitty.jpeg"}
+        class="rounded-2xl w-[536px] h-[305px] object-cover"
+      />
+    </div>
+    <div class="grid grid-cols-3 place-items-center gap-10">
+      <h2 class="col-span-3 text-primary text-center tracking-wide lg:text-justify font-manrope font-extrabold xl:text-4xl text-3xl">
+        Czym się zajmujemy?
+      </h2>
+      <%= for {icon, title, content} <- \
+                     [ 
+              {"playground", "Adopcja", "Szukamy właścicieli dla bezdomnych kotów. Tworzymy im domy tymczasowe i pośredniczymy w ich adopcji."}, \
+              {"sthetoscope","Badania i leczenie", "Troszczymy się o leczenie, sterylizację i odrobaczanie zarówno kotów do adopcji, jak i wolnożyjących."}, \
+              {"scissors", "Sterylizacja i kastracja", "Aby zmniejszyć populację bezdomnych kotów, przeprowadzamy akcje bezpłatnej sterylizacji i kastracji."}, \
+              {"token_chip", "Interwencje w domach", "Interweniujemy w sprawie kotów, których właściciele znęcają się nadzwierzętami."}, \
+              {"gift", "Zbiórki", "Organizujemy publiczne zbiórki na rzecz kotów z Białegostoku i okolic."}, \
+              {"pointing_book", "Edukacja", "Dzielimy się wiedzą z zakresu opieki nad kotami, w tym bezdomnymi kotkami i kocurami."} \
+                     ] do %>
+        <.whats_our_role icon={icon} title={title} content={content} />
+      <% end %>
+    </div>
+    <div class="flex flex-row justify-between">
+      <img
+        src={~p"/images/crying_kitty.jpg"}
+        class="rounded-2xl w-[536px] h-[295px] object-cover"
+      />
+
+      <div class="flex flex-col gap-y-6 w-[646px] font-inter">
+        <h1 class="text-primary text-center tracking-wide lg:text-justify font-manrope font-extrabold xl:text-4xl text-3xl">
+          Nasza misja
+        </h1>
+        <p class="tracking-wider text-base">
+          Dążymy do zapewnienia jak najlepszych warunków bezdomnym kotom. Szukamy pełnych miłości domów zwierzętom, które nadają się do adopcji i pomagamy kotom wolno żyjącym. Wierzymy, że dzięki naszym inicjatywom koty mogą mieć lepszą przyszłość.
+        </p>
+      </div>
+    </div>
+    <.ruleset_section header_class="!text-primary text-center tracking-wide lg:text-justify font-manrope font-extrabold xl:text-4xl text-3xl" />
+    <div class="flex flex-col gap-y-6 font-inter items-center">
+      <h1 class="text-primary text-center tracking-wide lg:text-justify font-manrope font-extrabold xl:text-4xl text-3xl">
+        Opinie o nas
+      </h1>
+      <div class="flex flex-row overflow-x-auto w-full gap-x-8">
+        <.opinion
+          portrait={~p"/images/supporting_kasia.jpg"}
+          name="Kasia"
+          content="Moja rodzina adoptowała dwa koty z Fundacji Kotkowo. Gdy je przygarnęliśmy, oba były jeszcze kociakami. Podobało mi się to, że zwierzaki zostały zaszczepione i odrobaczone, zanim przyjechały do naszego domu. Są z nami do dzisiaj."
+        />
+        <.opinion
+          portrait={~p"/images/supporting_kasia.jpg"}
+          name="Kasia"
+          content="Moja rodzina adoptowała dwa koty z Fundacji Kotkowo. Gdy je przygarnęliśmy, oba były jeszcze kociakami. Podobało mi się to, że zwierzaki zostały zaszczepione i odrobaczone, zanim przyjechały do naszego domu. Są z nami do dzisiaj."
+        />
+
+        <.opinion
+          portrait={~p"/images/supporting_kasia.jpg"}
+          name="Kasia"
+          content="Moja rodzina adoptowała dwa koty z Fundacji Kotkowo. Gdy je przygarnęliśmy, oba były jeszcze kociakami. Podobało mi się to, że zwierzaki zostały zaszczepione i odrobaczone, zanim przyjechały do naszego domu. Są z nami do dzisiaj."
+        />
+
+        <.opinion
+          portrait={~p"/images/supporting_kasia.jpg"}
+          name="Kasia"
+          content="Moja rodzina adoptowała dwa koty z Fundacji Kotkowo. Gdy je przygarnęliśmy, oba były jeszcze kociakami. Podobało mi się to, że zwierzaki zostały zaszczepione i odrobaczone, zanim przyjechały do naszego domu. Są z nami do dzisiaj."
+        />
+      </div>
+    </div>
+  </div>
+</.section>
+<.how_you_can_help />
