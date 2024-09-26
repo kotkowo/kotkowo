@@ -83,7 +83,7 @@ defmodule KotkowoWeb.Components.Buttons do
           <label class="text-sm" for={"#{@name}-#{value}"}>
             <input
               type="checkbox"
-              id={"#{@name}-#{value}"}
+              id={"#{@id}-#{value}"}
               name={@name}
               value={value}
               checked={value in @value}

@@ -40,7 +40,12 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
 
     assign_fields = Map.filter(assigns, fn {key, _val} -> key in @fields end)
     included_fields = Enum.filter(@fields, fn field -> Map.get(assign_fields, field, field in @default_fields) end)
-    socket = socket |> assign(:included_fields, included_fields) |> assign(:name, Map.get(assigns, :name, :filter_cat))
+
+    socket =
+      socket
+      |> assign(:included_fields, included_fields)
+      |> assign(:search_name, Map.get(assigns, :search_name, :filter_cat))
+
     {:ok, socket}
   end
 
@@ -61,7 +66,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
 
     socket = assign(socket, :raw_filter, raw_filter)
 
-    send(self(), {socket.assigns.name, filter})
+    send(self(), {socket.assigns.search_name, filter})
 
     {:noreply, socket}
   end
@@ -81,7 +86,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
 
     socket = assign(socket, :raw_filter, raw_filter)
 
-    send(self(), {socket.assigns.name, filter})
+    send(self(), {socket.assigns.search_name, filter})
 
     {:noreply, socket}
   end
@@ -94,7 +99,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
 
     socket = assign(socket, :raw_filter, raw_filter)
 
-    send(self(), {socket.assigns.name, filter})
+    send(self(), {socket.assigns.search_name, filter})
 
     {:noreply, socket}
   end
@@ -105,7 +110,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
 
     socket = assign(socket, :raw_filter, raw_filter)
 
-    send(self(), {socket.assigns.name, filter})
+    send(self(), {socket.assigns.search_name, filter})
 
     {:noreply, socket}
   end
@@ -154,7 +159,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
                 type="text"
                 name="tag_search"
                 phx-debounce="100"
-                id={"#{@name}-tagSearch"}
+                id={"#{@search_name}-tagSearch"}
                 placeholder="Wpisz cechę kota"
                 class="border border-gray rounded-lg text-sm"
                 value={if @raw_filter.tags, do: Enum.join(@raw_filter.tags, " "), else: ""}
@@ -196,7 +201,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
           <form phx-change="change" phx-target={@myself} class="flex flex-col space-y-6 h-min">
             <.checkgroup
               :if={:age in @included_fields}
-              id={"#{@name}-age-checkgroup"}
+              id={"#{@search_name}-age-checkgroup"}
               name="age"
               label="Wiek"
               options={Enum.map(Age.all(), fn age -> {Age.to_string(age), age} end)}
@@ -205,7 +210,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
 
             <.checkgroup
               :if={:color in @included_fields}
-              id={"#{@name}-color-checkgroup"}
+              id={"#{@search_name}-color-checkgroup"}
               name="color"
               label="Kolor"
               options={Enum.map(Color.all(), fn color -> {Color.to_string(color), color} end)}
