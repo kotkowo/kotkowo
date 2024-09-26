@@ -44,7 +44,7 @@ defmodule KotkowoWeb.Layouts do
        ], []},
       {"O nas", nil,
        [
-         {"Historia fundacji", "#"},
+         {"O fundacji", ~p"/o-nas/o-fundacji"},
          {"Partnerzy", "#"},
          {"Dokumenty", "#"}
        ], []}
