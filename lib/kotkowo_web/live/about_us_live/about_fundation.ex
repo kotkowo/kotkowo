@@ -31,14 +31,17 @@ defmodule KotkowoWeb.AboutUsLive.AboutFundation do
 
   defp opinion(assigns) do
     ~H"""
-    <div class="flex text-center flex-col relative items-center border-gray-50 rounded-2xl w-[600px] h-[229px] border-4">
-      <div class="absolute -translate-y-10 flex flex-col gap-y-2">
+    <div class="relative snap-center h-[289px] md:h-[269px] flex items-end justify-center">
+      <div class="absolute top-0 flex flex-col gap-y-2">
         <img src={@portrait} class="rounded-full w-20 h-20 object-cover overflow-visible" />
         <span class="text-gray-600 text-center"><%= @name %></span>
       </div>
-
-      <.icon name="double_quote" class="w-9 self-end absolute mr-4 mt-3" />
-      <p class="w-[552px] mt-20 mx-1 font-itern tracking-wider italic"><%= @content %></p>
+      <div class="flex text-center flex-col items-center border-gray-50 rounded-2xl md:w-[600px] md:h-[229px] h-[246px] w-[300px] border-4">
+        <.icon name="double_quote" class="w-9 self-end absolute mr-4 mt-3" />
+        <p class="w-[260px] md:w-[552px] mt-20 mx-1 font-itern tracking-wider italic text-sm md:text-base overflow-y-auto">
+          <%= @content %>
+        </p>
+      </div>
     </div>
     """
   end
