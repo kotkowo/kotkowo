@@ -8,10 +8,10 @@
     </:crumb>
   </.breadcrumb>
 
-  <div class="flex flex-col gap-y-16">
-    <div class="flex flex-row justify-between">
-      <div class="flex flex-col gap-y-5 w-[646px] font-inter">
-        <h1 class="text-primary text-center tracking-wide lg:text-justify font-manrope font-extrabold xl:text-4xl text-3xl">
+  <div class="flex flex-col gap-y-6 md:gap-y-16">
+    <div class="flex flex-col md:flex-row justify-between gap-y-5">
+      <div class="flex flex-col gap-y-5 md:w-[646px] font-inter">
+        <h1 class="text-primary md:text-center tracking-wide font-manrope font-bold md:font-extrabold xl:text-4xl text-2xl">
           Kotkowo w skrócie
         </h1>
         <div class="flex flex-col gap-y-3">
@@ -28,18 +28,18 @@
             </li>
           <% end %>
         </div>
-        <p class="tracking-wider text-base">
+        <p class="md:tracking-wider text-base font-inter">
           Fundacja Kotkowo została założona w 2010 roku. Nasi wolontariusze pomagają kotom od 2007 roku. Mamy status Organizacji Pożytku Publicznego (OPP). Prowadzimy swoją działalność dzięki pomocy i zaangażowaniu ludzi dobrej woli.
         </p>
       </div>
 
       <img
         src={~p"/images/support_funds_kitty.jpeg"}
-        class="rounded-2xl w-[536px] h-[305px] object-cover"
+        class="rounded-2xl md:w-[536px] w-[312px] h-[172] md:h-[305px] object-cover"
       />
     </div>
-    <div class="grid grid-cols-3 place-items-center gap-10">
-      <h2 class="col-span-3 text-primary text-center tracking-wide lg:text-justify font-manrope font-extrabold xl:text-4xl text-3xl">
+    <div class="md:grid flex flex-col grid-cols-3 place-items-center gap-8 md:gap-10">
+      <h2 class="md:col-span-3 text-primary md:text-center tracking-wide font-manrope font-bold md:font-extrabold xl:text-4xl text-2xl">
         Czym się zajmujemy?
       </h2>
       <%= for {icon, title, content} <- \
@@ -54,50 +54,40 @@
         <.whats_our_role icon={icon} title={title} content={content} />
       <% end %>
     </div>
-    <div class="flex flex-row justify-between">
+    <div class="flex flex-col gap-y-6 md:flex-row justify-between">
       <img
         src={~p"/images/crying_kitty.jpg"}
-        class="rounded-2xl w-[536px] h-[295px] object-cover"
+        class="rounded-2xl md:w-[536px] w-[312px] h-[172px] md:h-[295px] object-cover order-last md:order-none"
       />
 
-      <div class="flex flex-col gap-y-6 w-[646px] font-inter">
-        <h1 class="text-primary text-center tracking-wide lg:text-justify font-manrope font-extrabold xl:text-4xl text-3xl">
+      <div class="flex flex-col gap-y-4 md:gap-y-6 md:w-[646px] font-inter">
+        <h1 class="text-primary md:text-center tracking-wide font-manrope font-bold md:font-extrabold xl:text-4xl text-2xl">
           Nasza misja
         </h1>
-        <p class="tracking-wider text-base">
+        <p class="tracking-wider text-base font-inter">
           Dążymy do zapewnienia jak najlepszych warunków bezdomnym kotom. Szukamy pełnych miłości domów zwierzętom, które nadają się do adopcji i pomagamy kotom wolno żyjącym. Wierzymy, że dzięki naszym inicjatywom koty mogą mieć lepszą przyszłość.
         </p>
       </div>
     </div>
-    <.ruleset_section header_class="!text-primary text-center tracking-wide lg:text-justify font-manrope font-extrabold xl:text-4xl text-3xl" />
+    <.ruleset_section header_class="!text-primary md:text-center tracking-wide font-manrope font-bold md:font-extrabold xl:text-4xl text-2xl" />
     <div class="flex flex-col gap-y-6 font-inter items-center">
       <h1 class="text-primary text-center tracking-wide lg:text-justify font-manrope font-extrabold xl:text-4xl text-3xl">
         Opinie o nas
       </h1>
-      <div class="flex flex-row overflow-x-auto w-full gap-x-8">
+      <div
+        x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
+        class="flex snap-x flex-row overflow-x-auto w-screen gap-x-8"
+      >
         <.opinion
-          portrait={~p"/images/supporting_kasia.jpg"}
-          name="Kasia"
-          content="Moja rodzina adoptowała dwa koty z Fundacji Kotkowo. Gdy je przygarnęliśmy, oba były jeszcze kociakami. Podobało mi się to, że zwierzaki zostały zaszczepione i odrobaczone, zanim przyjechały do naszego domu. Są z nami do dzisiaj."
-        />
-        <.opinion
-          portrait={~p"/images/supporting_kasia.jpg"}
-          name="Kasia"
-          content="Moja rodzina adoptowała dwa koty z Fundacji Kotkowo. Gdy je przygarnęliśmy, oba były jeszcze kociakami. Podobało mi się to, że zwierzaki zostały zaszczepione i odrobaczone, zanim przyjechały do naszego domu. Są z nami do dzisiaj."
-        />
-
-        <.opinion
-          portrait={~p"/images/supporting_kasia.jpg"}
-          name="Kasia"
-          content="Moja rodzina adoptowała dwa koty z Fundacji Kotkowo. Gdy je przygarnęliśmy, oba były jeszcze kociakami. Podobało mi się to, że zwierzaki zostały zaszczepione i odrobaczone, zanim przyjechały do naszego domu. Są z nami do dzisiaj."
-        />
-
-        <.opinion
+          :for={_ <- 1..10}
           portrait={~p"/images/supporting_kasia.jpg"}
           name="Kasia"
           content="Moja rodzina adoptowała dwa koty z Fundacji Kotkowo. Gdy je przygarnęliśmy, oba były jeszcze kociakami. Podobało mi się to, że zwierzaki zostały zaszczepione i odrobaczone, zanim przyjechały do naszego domu. Są z nami do dzisiaj."
         />
       </div>
+      <.button navigate={~p"/o-nas/opinie"} type="outline">
+        Zobacz wszystkie
+      </.button>
     </div>
   </div>
 </.section>
