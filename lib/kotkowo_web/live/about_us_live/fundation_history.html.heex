@@ -1,0 +1,108 @@
+<.section parent_class="mt-6 xl:mt-0 px-6 xl:py-6 py-6">
+  <.breadcrumb>
+    <:crumb disabled>
+      O nas
+    </:crumb>
+    <:crumb navigate={~p"/o-nas/historia-kotkowa"} active>
+      Historia Kotkowa
+    </:crumb>
+  </.breadcrumb>
+  <div class="flex flex-col gap-y-6 md:flex-row justify-between">
+    <div class="flex flex-col gap-y-6 md:gap-y-6 md:w-[646px] font-inter">
+      <h1 class="text-primary tracking-wide font-manrope font-bold md:font-extrabold xl:text-4xl text-2xl">
+        Historia Kotkowa
+      </h1>
+      <p class="tracking-wider text-base font-inter">
+        Fundacja Kotkowo została założona w 2010 roku. Nasi wolontariusze pomagają kotom od 2007 roku. Mamy status Organizacji Pożytku Publicznego (OPP). Prowadzimy swoją działalność dzięki pomocy i zaangażowaniu ludzi dobrej woli. Mamy nadzieję, że kotkowo.pl stanie się miejscem, dzięki któremu uda nam się zrobić jeszcze więcej i lepiej. Zapraszamy do myszkowania po naszej stronie i współpracy z nami!
+      </p>
+    </div>
+    <img
+      src={~p"/images/looking_through_branches_kitty.jpg"}
+      class="rounded-2xl md:w-[536px] w-[312px] h-[172px] md:h-[230px] object-cover"
+    />
+  </div>
+</.section>
+
+<.section parent_class="px-6 py-16">
+  <div class="flex flex-col gap-y-8 justify-center">
+    <h1 class="text-primary text-center tracking-wide font-manrope font-bold md:font-extrabold xl:text-4xl text-2xl">
+      Co nam się udało?
+    </h1>
+    <div class="grid grid-cols-3 gap-6">
+      <div
+        :for={
+          {amount, name} <- [
+            {"5000+", "kotów ma dzięki nam dom"},
+            {"10000+", "kotek zostało wysterylizowanych"},
+            {"5000+", "kocurów jest wykastrowanych"}
+          ]
+        }
+        class="h-[130px] w-full bg-white p-6 rounded-2xl flex flex-col justify-center"
+      >
+        <h2 class="font-manrope text-primary font-extrabold text-4xl"><%= amount %></h2>
+        <p class="font-inter font-bold text-lg"><%= name %></p>
+      </div>
+    </div>
+  </div>
+</.section>
+
+<.section parent_class="py-16 px-6">
+  <div class="flex flex-col gap-y-16 justify-center">
+    <h1 class="text-primary text-center tracking-wide font-manrope font-bold md:font-extrabold xl:text-4xl text-2xl">
+      Jak to wszystko się zaczęło?
+    </h1>
+    <div class="flex flex-col">
+      <.timeline_element
+        :for={
+          {year, body, line} <- [
+            {"2002",
+             "Wszystko zaczęło się w roku 2002. To wtedy w naszym życiu pojawiła się Nokia. Wkrótce okazało się, że jest to najwredniejsza kotka, jaką znamy. Odznaczała się za to pod względem inteligencji – była jak każdy terrorystka. Z pokorą przyjęliśmy fakt, że nobody's perfect.",
+             true},
+            {"2003",
+             "Rok później pojawił się Sony (dla przyjaciół Słonik). Na początku był trochę mniejszy od myszki. Po dwóch miesiącach karmienia butelką i wygrzewania lampką w pudełku po papierze ksero, przerósł już przeciętną świnkę morską.",
+             true},
+            {"2007",
+             "Prawdziwy przełom nastąpił jednak w 2007 roku. To wtedy zaczęliśmy dokarmiać nasze działkowe kocie stado. Wszystkim kociakom finalnie znaleźliśmy dom, a kocie mamy zostały wysterylizowane. Jeden kotek zamieszkał u nas – to SAABcio, najdzielniejszy z całej trójki.",
+             true},
+            {"2010",
+             "Telefon nie przestawał dzwonić. Zrozumieliśmy, że takiej ilości potrzebujących zwierząt nie da się pomóc \"po partyzancku\". W grudniu 2010 r. zarejestrowaliśmy fundację. Byliśmy wówczas jedyną organizacją w woj. podlaskim, pośredniczącą w adopcji bezdomnych kotów.",
+             true},
+            {"2024",
+             "Dzisiaj Fundacja Kotkowo ma ponad 18 tys. obserwujących na Facebooku. Współpracujemy z władzami miasta Białystok, przychodniami weterynaryjnymi i sklepami z artykułami dla zwierząt, a przede wszystkim pomagamy kotom zacząć drugie, lepsze życie.",
+             false}
+          ]
+        }
+        year={year}
+        body={body}
+        line={line}
+      />
+    </div>
+  </div>
+</.section>
+<.section parent_class="px-6 py-16">
+  <div class="flex flex-col gap-y-10 items-center">
+    <h1 class="text-primary text-center tracking-wide font-manrope font-bold md:font-extrabold xl:text-4xl text-2xl">
+      Zobacz koty, które znalazły dom
+    </h1>
+    <div :if={@found_home} class="flex flex-row gap-x-6 m-auto">
+      <.cat_card
+        :for={cat <- @found_home}
+        card_class="mx-auto"
+        cat_url={~p"/aktualnosci/znalazly-dom/#{cat.cat.slug}"}
+        share_href={"#{kotkowo_url()}/aktualnosci/znalazly-dom/#{cat.cat.slug}"}
+        share_quote={cat.cat.description}
+        src={cat.cat.images |> Image.first_url()}
+        sex={cat.cat.sex}
+        tags={cat.cat.tags}
+        name={cat.cat.name}
+      />
+    </div>
+    <div :if={!@found_home} class="flex flex-row gap-x-6">
+      <.card_loading :for={_ <- 1..3} />
+    </div>
+
+    <.button navigate={~p"/aktualnosci/znalazly-dom"} type="outline">
+      Zobacz wszystkie
+    </.button>
+  </div>
+</.section>

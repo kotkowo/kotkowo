@@ -31,6 +31,7 @@ defmodule KotkowoWeb.Router do
 
     scope "/o-nas" do
       live "/o-fundacji", AboutUsLive.AboutFundation
+      live "/historia-kotkowa", AboutUsLive.FundationHistory
     end
 
     scope "/adopcja" do
