@@ -67,7 +67,7 @@ defmodule KotkowoWeb.Components.Sections do
       >
         <div class="h-full flex flex-col xl:flex-row items-center gap-x-10 w-full xl:w-auto">
           <div class="flex flex-row items-center w-full xl:w-auto pt-2 xl:pt-0 self-start xl:self-auto">
-            <img class="w-10 h-10" src={~p"/images/kotkowo_logo.svg"} alt="logo" />
+            <img class="w-10 h-10" src={~p"/images/kotkowo_logo_black.svg"} alt="logo" />
             <.link
               class="ml-4 xl:font-manrope font-bold text-primary text-lg xl:text-2xl xl:text-black xl:mr-12"
               navigate={~p"/"}
