@@ -1,0 +1,110 @@
+<.section parent_class="mt-6 xl:mt-0 px-6 xl:py-6 py-6">
+  <.breadcrumb>
+    <:crumb disabled>
+      O nas
+    </:crumb>
+    <:crumb navigate={~p"/o-nas/partnerzy"} active>
+      Partnerzy
+    </:crumb>
+  </.breadcrumb>
+  <div class="flex flex-col gap-y-6 md:flex-row justify-between">
+    <div class="flex flex-col gap-y-4 md:gap-y-6 md:w-[646px] font-inter">
+      <h1 class="text-primary tracking-wide font-manrope font-extrabold xl:text-3xl text-3xl">
+        Dołącz do grona naszych partnerów
+      </h1>
+      <p class="md:tracking-wider text-base font-inter">
+        Od 2010 r. nawiązaliśmy współpracę z wieloma podmiotami z sektora prywatnego i publicznego. Nasze działania wsparły m.in. władze miasta Białystok, kliniki weterynaryjne, sklepy zoologiczne, szkoły i duże korporacje. Nie wahaj się i zaangażuj się w nasze działania już dzisiaj! Napisz do nas na
+        <strong>
+          <.link href={"mailto:#{kotkowo_mail()}"}>
+            <%= kotkowo_mail() %>
+          </.link>
+        </strong>
+        lub wypełnij krótki formularz.
+      </p>
+      <.button href="#">Zostań partnerem</.button>
+    </div>
+    <img
+      src={~p"/images/handholding.png"}
+      class="self-center rounded-2xl md:w-[536px] w-[312px] h-[172px] md:h-[305px] object-cover"
+    />
+  </div>
+</.section>
+
+<.section parent_class="mt-6 xl:mt-0 px-6 xl:py-16 py-6">
+  <div class="md:grid flex flex-col grid-cols-3 place-items-center gap-8 md:gap-10">
+    <h2 class="md:col-span-3 text-primary md:text-center tracking-wide font-manrope font-bold md:font-extrabold xl:text-4xl text-2xl">
+      Jakie korzyści da Ci bycie naszym partnerem?
+    </h2>
+    <.benefit
+      :for={
+        {icon, title, body} <- [
+          {"globe", "Twój logotyp na naszej stronie internetowej",
+           "Zamieścimy Twój logotyp na naszej stronie internetowej, a Twoje logo będzie linkowało pod wskazany przez Ciebie adres."},
+          {"partners", "Promocja Twojej marki w naszych social  mediach",
+           "Wymienimy Cię jako partnera na Facebooku i Instagramie. Możemy wspólnie omówić szczegóły wpisów o naszej współpracy."},
+          {"star", "Wzmianki o Tobie podczas naszych wydarzeń",
+           "Będziemy wymieniać Cię jako naszego partnera podczas organizowanych przez nas wydarzeń, m.in. podczas zbiórek dla kotów."}
+        ]
+      }
+      title={title}
+      body={body}
+      icon={icon}
+    />
+    <.button class="md:col-span-3" href="#">Dołącz do partnerów</.button>
+  </div>
+</.section>
+
+<.section parent_class="mt-6 xl:mt-0 px-6 xl:py-16 py-6">
+  <div class="flex flex-col gap-y-6 md:gap-y-10">
+    <div class="flex flex-col md:w-[609px] gap-y-1">
+      <h1 class="text-primary tracking-wide font-manrope font-bold md:font-extrabold xl:text-3xl text-3xl">
+        Poznaj partnerów Fundacji Kotkowo
+      </h1>
+      <p class="font-inter md:text-lg">
+        Zaufali nam m.in. Urząd Miejski w Białymstoku, Ratujemy Zwierzaki
+        i Kocie Cafe. Również Ty możesz zostać naszym partnerem!
+      </p>
+    </div>
+    <div class="xl:grid flex flex-row snap-x grid-cols-5 overflow-x-auto gap-x-5">
+      <img
+        :for={
+          logo <- [
+            ~p"/images/bialystok.svg",
+            ~p"/images/ratujemy_zwierzaki.svg",
+            ~p"/images/kocie_cafe.jpg",
+            ~p"/images/fanimani_pl.svg",
+            ~p"/images/zrzutka_pl.svg"
+          ]
+        }
+        src={logo}
+        class="w-[246px] h-[242px] rounded-2xl object-fit snap-center"
+      />
+    </div>
+  </div>
+  <div class="flex flex-col gap-y-10 mt-8 md:mt-16">
+    <div class="flex flex-col md:w-[646px] gap-y-1">
+      <h1 class="text-primary tracking-wide font-manrope font-extrabold xl:text-3xl text-3xl">
+        Pobierz nasz logotyp
+      </h1>
+      <p class="font-inter md:text-lg">
+        Chcesz wykorzystać nasze logo? Potrzebujesz logotyp w specyficznym formacie? Organizujesz zbiórkę na rzecz kotów z Fundacji Kotkowo? Daj nam znać i napisz do nas na <strong><.link
+            class="inline"
+            href={"mailto:#{kotkowo_mail()}"}
+          ><%= kotkowo_mail() %></.link></strong>.
+      </p>
+    </div>
+
+    <div class="md:grid flex flex-row overflow-x-auto snap-x grid-cols-5 place-items-center gap-8 md:gap-10">
+      <.assets_box
+        :for={
+          asset <- [
+            "kotkowo_logo_black.svg",
+            "kotkowo_logo.svg"
+          ]
+        }
+        asset={asset}
+      />
+    </div>
+  </div>
+</.section>
+<.how_you_can_help />
