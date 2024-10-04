@@ -7,9 +7,9 @@
       Historia Kotkowa
     </:crumb>
   </.breadcrumb>
-  <div class="flex flex-col gap-y-6 md:flex-row justify-between">
-    <div class="flex flex-col gap-y-6 md:gap-y-6 md:w-[646px] font-inter">
-      <h1 class="text-primary tracking-wide font-manrope font-bold md:font-extrabold xl:text-4xl text-2xl">
+  <div class="flex flex-col gap-y-6 md:flex-row justify-between items-center">
+    <div class="flex flex-col gap-y-4 md:gap-y-6 md:w-[646px] font-inter">
+      <h1 class="text-primary tracking-wide font-manrope font-extrabold xl:text-4xl text-3xl">
         Historia Kotkowa
       </h1>
       <p class="tracking-wider text-base font-inter">
@@ -23,12 +23,12 @@
   </div>
 </.section>
 
-<.section parent_class="px-6 py-16">
+<.section parent_class="px-6 !py-8 lg:py-16">
   <div class="flex flex-col gap-y-8 justify-center">
     <h1 class="text-primary text-center tracking-wide font-manrope font-bold md:font-extrabold xl:text-4xl text-2xl">
       Co nam się udało?
     </h1>
-    <div class="grid grid-cols-3 gap-6">
+    <div class="md:grid flex flex-col grid-cols-3 gap-6">
       <div
         :for={
           {amount, name} <- [
@@ -46,12 +46,12 @@
   </div>
 </.section>
 
-<.section parent_class="py-16 px-6">
+<.section parent_class="!py-8 lg:py-16 px-6">
   <div class="flex flex-col gap-y-16 justify-center">
     <h1 class="text-primary text-center tracking-wide font-manrope font-bold md:font-extrabold xl:text-4xl text-2xl">
       Jak to wszystko się zaczęło?
     </h1>
-    <div class="flex flex-col">
+    <div class="flex flex-col md:gap-y-0">
       <.timeline_element
         :for={
           {year, body, line} <- [
@@ -79,15 +79,19 @@
     </div>
   </div>
 </.section>
-<.section parent_class="px-6 py-16">
+<.section parent_class="px-6 md:py-16 !py-8">
   <div class="flex flex-col gap-y-10 items-center">
     <h1 class="text-primary text-center tracking-wide font-manrope font-bold md:font-extrabold xl:text-4xl text-2xl">
       Zobacz koty, które znalazły dom
     </h1>
-    <div :if={@found_home} class="flex flex-row gap-x-6 m-auto">
+    <div
+      :if={@found_home}
+      x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
+      class="flex flex-row gap-x-6 overflow-x-auto w-full snap-x lg:snap-none"
+    >
       <.cat_card
         :for={cat <- @found_home}
-        card_class="mx-auto"
+        card_class="mx-auto min-w-[240px] snap-center"
         cat_url={~p"/aktualnosci/znalazly-dom/#{cat.cat.slug}"}
         share_href={"#{kotkowo_url()}/aktualnosci/znalazly-dom/#{cat.cat.slug}"}
         share_quote={cat.cat.description}

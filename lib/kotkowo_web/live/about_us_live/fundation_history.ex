@@ -40,17 +40,17 @@ defmodule KotkowoWeb.AboutUsLive.FundationHistory do
 
   defp timeline_element(assigns) do
     ~H"""
-    <div class="flex flex-row gap-x-16 self-center h-[200px]">
+    <div class="flex flex-row gap-x-16 self-center min-h-[214px] md:min-h-none md:h-[200px]">
       <div class="flex flex-row items-center gap-2">
-        <div class="flex flex-col h-full">
-          <.icon class="w-8 text-primary-lighter" name="paw" />
+        <div class="flex flex-col h-full shrink-0">
+          <.icon class="shrink-0 min-w-6 h-6 md:h-8 md:w-8 w-6 text-primary-lighter" name="paw" />
           <div :if={@line} class="w-0.5 h-full bg-primary-lighter self-center"></div>
         </div>
-        <h3 class="-mt-1 text-4xl font-inter text-secondary font-bold self-start w-24">
+        <h3 class="-mt-1 text-2xl md:text-4xl font-inter text-secondary font-bold self-start md:w-24 w-12">
           <%= @year %>
         </h3>
       </div>
-      <p class="font-inter w-[649px] text-lg tracking-wide">
+      <p class="font-inter md:w-[649px] text-lg tracking-wide">
         <%= @body %>
       </p>
     </div>
