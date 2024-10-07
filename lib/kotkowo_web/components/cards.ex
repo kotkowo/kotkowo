@@ -552,4 +552,22 @@ defmodule KotkowoWeb.Components.Cards do
     </div>
     """
   end
+
+  attr :asset, :string
+
+  def assets_box(assigns) do
+    ~H"""
+    <div class="flex flex-col min-w-[246px] w-[246px] snap-center">
+      <div class="bg-primary-light h-[158px] rounded-t-2xl w-full">
+        <img class="w-full h-full object-fit" src={~p"/images/#{@asset}"} alt={@asset} />
+      </div>
+      <div class="px-4 items-center flex flex-row justify-between bg-white h-[60px] border-b-2 border-x-2 border-gray-200 rounded-b-2xl rounded-x-2xl w-full">
+        <span><%= @asset %></span>
+        <a download href={~p"/images/#{@asset}"} target="_blank" rel="noopener noreferrer">
+          <.icon name="download" class="w-4 text-black" />
+        </a>
+      </div>
+    </div>
+    """
+  end
 end
