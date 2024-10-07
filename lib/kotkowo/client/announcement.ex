@@ -8,11 +8,13 @@ defmodule Kotkowo.Client.Announcement do
   defstruct [
     :id,
     :title,
+    :tags,
     :image
   ]
 
   @type t() :: %__MODULE__{
           id: String.t() | nil,
+          tags: tags(),
           title: String.t(),
           image: Image.t() | nil
         }

@@ -29,6 +29,13 @@ defmodule KotkowoWeb.Router do
       live "/zapisz-sie-na-wolontariat", HelpLive.Volunteer
     end
 
+    scope "/o-nas" do
+      live "/o-fundacji", AboutUsLive.AboutFundation
+      live "/historia-kotkowa", AboutUsLive.FundationHistory
+      live "/partnerzy", AboutUsLive.OurPartnership
+      live "/media-o-nas", AboutUsLive.MediaAboutUs
+    end
+
     scope "/adopcja" do
       live "/szukaja-domu/:slug", AdoptionLive.ViewLookingForHomeCat
       live "/szukaja-domu", AdoptionLive.LookingForNewHome

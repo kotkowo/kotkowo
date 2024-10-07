@@ -2,9 +2,10 @@ use kotkowo_client::{
     get_announcement_article, get_cat as get_kitty, get_cat_by_slug as get_kitty_by_slug,
     get_found_cat_by_slug as get_found_kitty_by_slug, get_lfh_cat_by_slug as get_lfh_kitty_by_slug,
     get_lost_cat_by_slug as get_lost_kitty_by_slug, list_adopted_cat, list_announcement, list_cat,
-    list_found_cat, list_looking_for_adoption_cat, list_lost_cat, AdoptedCat, Announcement,
-    AnnouncementFilter, Article, BetweenDateTime, Cat, CatFilter, Error, FoundCat,
-    LookingForHomeCat, LostCat, Options, Paged,
+    list_external_media as list_media, list_found_cat, list_looking_for_adoption_cat,
+    list_lost_cat, AdoptedCat, Announcement, AnnouncementFilter, Article, BetweenDateTime, Cat,
+    CatFilter, Error, ExternalMedia, ExternalMediaFilter, FoundCat, LookingForHomeCat, LostCat,
+    Options, Paged,
 };
 
 #[rustler::nif]
@@ -18,6 +19,13 @@ fn list_lost_cats(options: Options<CatFilter>) -> Result<Paged<LostCat>, Error> 
 #[rustler::nif]
 fn list_found_cats(options: Options<CatFilter>) -> Result<Paged<FoundCat>, Error> {
     list_found_cat(options)
+}
+
+#[rustler::nif]
+fn list_external_media(
+    options: Options<ExternalMediaFilter>,
+) -> Result<Paged<ExternalMedia>, Error> {
+    list_media(options)
 }
 
 #[rustler::nif]
@@ -83,5 +91,6 @@ rustler::init!(
         get_lfh_cat_by_slug,
         get_found_cat_by_slug,
         get_lost_cat_by_slug,
+        list_external_media
     ]
 );

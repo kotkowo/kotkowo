@@ -17,7 +17,8 @@ module.exports = {
         primary: '#116858',
         'primary-light': '#F3F8F6',
         'primary-lighter': '#579488',
-        highlight: '#FEEC8F'
+        highlight: '#FEEC8F',
+        secondary: "#444444"
       },
       fontFamily: {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
