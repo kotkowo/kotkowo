@@ -1,0 +1,76 @@
+<.section class="px-6">
+  <.breadcrumb>
+    <:crumb disabled>
+      O nas
+    </:crumb>
+    <:crumb navigate={~p"/o-nas/media-o-nas"} active>
+      Media o nas
+    </:crumb>
+  </.breadcrumb>
+  <div class="flex flex-col md:flex-row justify-between h-min">
+    <div class="md:w-[646px] h-min flex flex-col md:gap-y-6 gap-y-4">
+      <h1 class="text-primary md:text-center lg:text-justify lg:mt-0 mt-6 font-manrope font-extrabold xl:text-4xl text-3xl">
+        Kotkowo w świetle reflektorów
+      </h1>
+      <p class="font-inter md:text-lg">
+        Jesteśmy fundacją, która z pasją pomaga bezdomnym kotom. Chętnie dzielimy się naszą wiedzą i doświadczeniem z dziennikarzami radia, telewizji i prasy. Aktywnie promujemy dbanie o koty, zwracając uwagę na problem bezdomności i konieczność sterylizacji. Zachęcamy do adopcji zwierząt, dając im szansę na nowy, kochający dom. Z przyjemnością udzielimy wywiadu na temat działalności Kotkowa, a także problemów, z jakimi borykają się bezdomne koty. Zapraszamy do kontaktu!
+      </p>
+      <div class="flex flex-col gap-y-2 text-lg font-inter">
+        <h3 class="font-bold text-primary">Kontakt dla mediów</h3>
+        <p>Agata Kilon, prezeska fundacji Kotkowo</p>
+        <a class="underline font-bold" href={"mailto:#{kotkowo_mail()}"}><%= kotkowo_mail() %></a>
+      </div>
+    </div>
+    <img
+      src={~p"/images/item_donation_kitty.jpeg"}
+      class="h-[218px] w-[313px] self-center md:h-[384px] md:w-[536px] rounded-2xl object-cover mt-6"
+    />
+  </div>
+</.section>
+
+<.section class="lg:max-w-none flex justify-center">
+  <div :if={!@external_media} class="md:grid flex flex-col grid-cols-4 gap-y-10 gap-x-5">
+    <.news_card_loading :for={_ <- 0..3} />
+  </div>
+  <div :if={@external_media} class="md:grid flex flex-col grid-cols-4 gap-y-5 md:gap-y-10 gap-x-5">
+    <.external_media_card
+      :for={media <- @external_media ++ @external_media ++ @external_media}
+      card_class="lg:min-w-[313px] max-w-[313px] mx-none"
+      src={media.image.url}
+      title={media.title}
+      tags={media.tags}
+      media_url={media.media_url}
+    />
+    <.button class="mx-auto col-span-4" type="outline" navigate={~p"/o-nas/media-o-nas/wszystkie"}>
+      Zobacz wszystkie
+    </.button>
+  </div>
+</.section>
+<.section class="px-6">
+  <div class="flex flex-col gap-y-10 ">
+    <div class="flex flex-col md:w-[646px] gap-y-1">
+      <h1 class="text-primary tracking-wide font-manrope font-extrabold xl:text-3xl text-3xl">
+        Pobierz nasz logotyp
+      </h1>
+      <p class="font-inter md:text-lg">
+        Chcesz wykorzystać nasze logo? Potrzebujesz logotyp w specyficznym formacie? Organizujesz zbiórkę na rzecz kotów z Fundacji Kotkowo? Daj nam znać i napisz do nas na <strong><.link
+            class="inline"
+            href={"mailto:#{kotkowo_mail()}"}
+          ><%= kotkowo_mail() %></.link></strong>.
+      </p>
+    </div>
+
+    <div class="md:grid flex flex-row overflow-x-auto snap-x grid-cols-5 place-items-center gap-8 md:gap-10">
+      <.assets_box
+        :for={
+          asset <- [
+            "kotkowo_logo_black.svg",
+            "kotkowo_logo.svg"
+          ]
+        }
+        asset={asset}
+      />
+    </div>
+  </div>
+</.section>
+<.how_you_can_help />
