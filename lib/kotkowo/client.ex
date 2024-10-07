@@ -20,6 +20,7 @@ defmodule Kotkowo.Client do
   def list_lost_cats(_options \\ %Opts{}), do: :erlang.nif_error(:nif_not_loaded)
   def list_found_cats(_options \\ %Opts{}), do: :erlang.nif_error(:nif_not_loaded)
   def list_announcements(_options \\ %Opts{}), do: :erlang.nif_error(:nif_not_loaded)
+  def list_external_media(_options \\ %Opts{}), do: :erlang.nif_error(:nif_not_loaded)
   def get_article(_announcement_article), do: :erlang.nif_error(:nif_not_loaded)
 
   @doc """

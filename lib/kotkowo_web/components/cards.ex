@@ -378,6 +378,35 @@ defmodule KotkowoWeb.Components.Cards do
   attr :card_class, :string, default: ""
   attr :src, :string, required: true
   attr :title, :string, required: true
+  attr :media_url, :string, required: true
+
+  attr :tags, :list,
+    default: [],
+    doc: "Tags",
+    examples: [["Mruczek", "Wielbiciel kolan"], ["Meowy", "Loves laps"]]
+
+  def external_media_card(assigns) do
+    ~H"""
+    <.card
+      src={@src}
+      alt={@title}
+      tags={Enum.take(@tags, 2)}
+      body_class="rounded-t-none rounded-b-2xl grow py-4 mt-0"
+      class={classes(["lg:min-w-[345px] min-w-[240px] w-[240px] only:mx-auto", @card_class])}
+    >
+      <:title class="lg:text-xl text-base grow line-clamp-3 !whitespace-normal">
+        <.link href={@media_url} rel="noopener noreferrer" target="_blank">
+          <%= @title %>
+        </.link>
+      </:title>
+    </.card>
+    """
+  end
+
+  attr :class, :string, default: ""
+  attr :card_class, :string, default: ""
+  attr :src, :string, required: true
+  attr :title, :string, required: true
   attr :news_id, :string, required: true
 
   attr :tags, :list,
