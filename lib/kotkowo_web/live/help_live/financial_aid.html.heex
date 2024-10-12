@@ -130,11 +130,11 @@
       </h1>
       <div class="flex flex-col space-y-1 xl:space-y-2 xl:text-lg">
         <p>FUNDACJA KOTKOWO</p>
-        <p>Bank: BOŚ SA O. w Bialymstoku</p>
+        <p>Bank: <%= bank() %></p>
         <.click_to_copy
           prefix="Nr konta: "
           class="text-black xl:text-2xl font-bold"
-          text_to_copy="87 1540 1216 2054 4458 2306 0001"
+          text_to_copy={bank_account_number()}
         />
         <div class="flex flex-col xl:flex-row xl:space-x-2">
           <h3 class="text-primary font-bold text-lg">W tytule przelewu prosimy podać:</h3>
@@ -146,19 +146,15 @@
             />
           </cite>
         </div>
-        <.click_to_copy prefix="KRS: " class="text-black text-lg" text_to_copy="0000345319" />
-        <.click_to_copy prefix="NIP: " class="text-black text-lg" text_to_copy="9662018446" />
-        <.click_to_copy prefix="REGON: " class="text-black text-lg" text_to_copy="20032337500000" />
+        <.click_to_copy prefix="KRS: " class="text-black text-lg" text_to_copy={krs()} />
+        <.click_to_copy prefix="NIP: " class="text-black text-lg" text_to_copy={nip()} />
+        <.click_to_copy prefix="REGON: " class="text-black text-lg" text_to_copy={regon()} />
 
         <h3 class="text-primary font-bold text-lg">Adres do korespondencji:</h3>
 
-        <.click_to_copy
-          prefix=""
-          class="text-black text-lg"
-          text_to_copy="al. Piłsudskiego 26/31"
-        />
+        <.click_to_copy prefix="" class="text-black text-lg" text_to_copy={kotkowo_address()} />
 
-        <.click_to_copy prefix="" class="text-black text-lg" text_to_copy="15-446 Białystok" />
+        <.click_to_copy prefix="" class="text-black text-lg" text_to_copy={postal_code()} />
 
         <h3 class="text-primary font-bold text-lg">
           Dla przelewów zagranicznych
@@ -167,13 +163,9 @@
         <.click_to_copy
           prefix="SWIFT/BIC: "
           class="text-black text-lg"
-          text_to_copy="EBOSPLPWXXX"
+          text_to_copy={swift_bic()}
         />
-        <.click_to_copy
-          prefix="IBAN: "
-          class="text-black text-lg"
-          text_to_copy="PL 87 1540 1216 2054 4458 2306 0001"
-        />
+        <.click_to_copy prefix="IBAN: " class="text-black text-lg" text_to_copy={iban()} />
       </div>
     </div>
 
