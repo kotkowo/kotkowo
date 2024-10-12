@@ -40,7 +40,7 @@ defmodule KotkowoWeb.HomeLive.Index do
 
         socket =
           socket
-          |> put_flash(:error, message)
+          |> put_flash(:error, "Błąd podczas wczytywania aktualności")
           |> assign(:news, :error)
 
         {:noreply, socket}
