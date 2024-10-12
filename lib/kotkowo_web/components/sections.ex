@@ -274,8 +274,10 @@ defmodule KotkowoWeb.Components.Sections do
   end
 
   attr :class, :string, default: nil
-  attr :rest, :global
   slot(:inner_block, required: true)
+  attr :navigate, :string, required: false
+  attr :href, :string, required: false
+  attr :rest, :global
 
   defp footer_link(assigns) do
     ~H"""
