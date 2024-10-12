@@ -48,7 +48,7 @@ defmodule KotkowoWeb.Layouts do
          {"Historia Kotkowa", ~p"/o-nas/historia-kotkowa"},
          {"Partnerzy", ~p"/o-nas/partnerzy"},
          {"Media o nas", ~p"/o-nas/media-o-nas"},
-         {"Dokumenty", "#"}
+         {"Dokumenty", ~p"/o-nas/dokumenty"}
        ], []}
     ]
   end

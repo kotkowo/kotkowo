@@ -1,0 +1,69 @@
+<.section class="py-6 px-4 md:py-0">
+  <.breadcrumb>
+    <:crumb disabled>
+      O nas
+    </:crumb>
+    <:crumb navigate={~p"/o-nas/dokumenty"} active>
+      Dokumenty
+    </:crumb>
+  </.breadcrumb>
+
+  <div class="flex flex-col md:flex-row justify-between">
+    <div class="flex flex-col gap-y-4 md:gap-y-6">
+      <h1 class="text-primary tracking-wide font-manrope font-extrabold text-3xl">
+        Dane Fundacji
+      </h1>
+      <div class="flex flex-col gap-y-2 text-lg font-inter">
+        <h3 class="text-primary tracking-wide font-manrope font-bold md:font-extrabold">
+          Kontakt
+        </h3>
+        <.click_to_copy prefix="E-mail" prefix_class="font-bold" text_to_copy={kotkowo_mail()} />
+      </div>
+      <div class="flex flex-col gap-y-2 text-lg font-inter">
+        <h3 class="text-primary tracking-wide font-manrope font-bold md:font-extrabold">
+          Adres do korespondencji:
+        </h3>
+        <.click_to_copy prefix="" text_to_copy={kotkowo_address()} />
+        <.click_to_copy prefix="" text_to_copy={postal_code()} />
+      </div>
+      <span class="text-2xl font-bold font-manrope">
+        <.click_to_copy prefix="Nr konta:" class="block" text_to_copy={bank_account_number()} />
+      </span>
+      <div class="flex flex-col gap-y-2 text-lg font-inter">
+        <div class="flex flex-row space-x-3">
+          <.click_to_copy prefix="Bank" prefix_class="font-bold" text_to_copy={bank()} />
+        </div>
+        <div class="flex flex-col md:flex-row space-x-3">
+          <span class="font-bold text-primary">W tytule przelewu prosimy podać:</span>
+          <cite>
+            <.click_to_copy prefix="" class="text-lg" text_to_copy="darowizna na cele statutowe" />
+          </cite>
+        </div>
+        <.click_to_copy prefix="KRS: " prefix_class="font-bold" text_to_copy={krs()} />
+        <.click_to_copy prefix="NIP: " prefix_class="font-bold" text_to_copy={nip()} />
+        <.click_to_copy prefix="REGON: " prefix_class="font-bold" text_to_copy={regon()} />
+      </div>
+      <div class="flex flex-col gap-y-2 text-lg font-inter">
+        <h3 class="text-primary tracking-wide font-manrope font-bold md:font-extrabold">
+          Dla przelewów zagranicznych
+        </h3>
+        <.click_to_copy prefix="SWIFT/BIC: " prefix_class="font-bold" text_to_copy={swift_bic()} />
+        <.click_to_copy prefix_class="font-bold" prefix="IBAN: " text_to_copy={iban()} />
+      </div>
+    </div>
+    <div class="flex flex-col gap-y-6">
+      <h1 class="text-primary tracking-wide font-manrope font-bold md:font-extrabold xl:text-3xl text-2xl">
+        Dokumenty do pobrania
+      </h1>
+      <div class="flex flex-col gap-y-5">
+        <.download_card href="#" title="Statut fundacji" />
+        <.download_card href="#" title="Polityka prywatności" />
+        <.download_card href="#" title="Ochrona danych osobowych" />
+        <.download_card href="#" title="Umowa adopcyjna" />
+        <.download_card href="#" title="Logo fundacji" />
+        <.download_card href="#" external title="Sprawozdania finansowe" icon="external_link" />
+      </div>
+    </div>
+  </div>
+</.section>
+<.how_you_can_help />

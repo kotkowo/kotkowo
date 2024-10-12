@@ -10,22 +10,23 @@ defmodule KotkowoWeb.Components.Buttons do
   attr :prefix, :string, required: true, examples: ["PESEL: "]
   attr :text_to_copy, :string, required: true
   attr :class, :string, default: ""
+  attr :prefix_class, :string, default: ""
 
   def click_to_copy(assigns) do
     ~H"""
-    <p
+    <div
       x-data={"{to_copy: '#{@text_to_copy}'}"}
       class={
         classes([
-          "border-none w-fit cursor-pointer hover:text-primary-lighter transition",
+          "flex flex-row space-x-2 border-none w-fit",
           @class
         ])
       }
       x-on:click="navigator.clipboard.writeText(to_copy); $dispatch('toast', {message: 'Skopiowane', icon: '📋'})"
       value={@text_to_copy}
     >
-      <%= @prefix %><%= @text_to_copy %>
-    </p>
+      <span :if={@prefix != ""} class={@prefix_class}><%= @prefix %></span><span class="cursor-pointer hover:text-primary-lighter transition"><%= @text_to_copy %></span>
+    </div>
     """
   end
 

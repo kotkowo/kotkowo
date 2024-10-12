@@ -34,6 +34,7 @@ defmodule KotkowoWeb.Router do
       live "/historia-kotkowa", AboutUsLive.FundationHistory
       live "/partnerzy", AboutUsLive.OurPartnership
       live "/media-o-nas", AboutUsLive.MediaAboutUs
+      live "/dokumenty", AboutUsLive.Documents
     end
 
     scope "/adopcja" do

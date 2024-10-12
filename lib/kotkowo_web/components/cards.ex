@@ -570,4 +570,28 @@ defmodule KotkowoWeb.Components.Cards do
     </div>
     """
   end
+
+  attr :href, :string
+  attr :title, :string
+  attr :type, :string, required: false
+
+  def download_card(%{external: _} = assigns) do
+    ~H"""
+    <div class="flex flex-row items-center justify-between border h-14 w-[313px] border-gray-300 p-4 rounded-2xl">
+      <span class="font-manrope font-bold"><%= @title %></span>
+      <a target="_blank" rel="noopener noreferrer" href={@href}>
+        <.icon name="external_link" class="text-black h-3 w-3" />
+      </a>
+    </div>
+    """
+  end
+
+  def download_card(assigns) do
+    ~H"""
+    <div class="flex flex-row items-center justify-between border h-14 w-[313px] border-gray-300 p-4 rounded-2xl">
+      <span class="font-manrope font-bold"><%= @title %></span>
+      <a href={@href} download><.icon name="download" class="text-black h-4 w-4" /></a>
+    </div>
+    """
+  end
 end
