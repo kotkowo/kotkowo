@@ -49,14 +49,12 @@ function toast() : AlpineComponent<{
     }
   }
 }
-Hooks = {}
+var Hooks = {}
 Hooks.sanitize_article_html = {
-  
   mounted(){
-
-  const elem = this.el;
-  const content = elem.getAttribute("data-article-content");
-  elem.innerHTML = DOMPurify.sanitize(marked.parse(content));
+    const elem = this.el;
+    const content = elem.getAttribute("data-article-content");
+    elem.innerHTML = DOMPurify.sanitize(marked.parse(content));
   }
 }
 Alpine.data('toast', toast)
