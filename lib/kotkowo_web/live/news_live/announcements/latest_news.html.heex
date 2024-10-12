@@ -64,14 +64,14 @@
           Najczęściej czytane
         </h1>
 
-        <a
+        <.link
           :for={titles <- @popular_titles}
           :if={@header_news != nil}
-          href={~p"/aktualnosci/z-ostatniej-chwili/#{titles.id}"}
+          navigate={~p"/aktualnosci/z-ostatniej-chwili/#{titles.id}"}
           class="text-2xl text-left line-clamp-2 font-manrope font-bold text-gray-800 pr-0 lg:pr-2"
         >
           <%= titles.title %>
-        </a>
+        </.link>
       </div>
     </div>
     <div :if={@news} class="flex flex-col lg:flex-row justify-start gap-y-5 lg:gap-y-0 lg:gap-x-5">

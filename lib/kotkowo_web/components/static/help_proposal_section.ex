@@ -42,7 +42,15 @@ defmodule KotkowoWeb.Components.Static.HelpProposalSection do
           </span>
         </a>
 
-        <.button type="outline" href="#" class="!px-6">Zostań wolontariuszem</.button>
+        <.button
+          type="outline"
+          target="_blank"
+          rel="noopener noreferrer"
+          href={volunteer_form()}
+          class="!px-6"
+        >
+          Zostań wolontariuszem
+        </.button>
       </div>
 
       <img

@@ -1,12 +1,22 @@
 defmodule KotkowoWeb.Constants do
   @moduledoc false
+  @downloadable_assets [
+    "kotkowo_logo_black.svg",
+    "kotkowo_logo.svg"
+  ]
+  def kotkowo_assets, do: @downloadable_assets
   def kotkowo_mail, do: "fundacja.kotkowo@gmail.com"
+  def kotkowo_github, do: "https://github.com/kotkowo/kotkowo"
   def kotkowo_url, do: "https://kotkowo.ravensiris.xyz"
   def kotkowo_facebook, do: "https://www.facebook.com/kotkowo"
+  def kotkowo_zrzutka, do: "#"
   def kotkowo_messenger, do: "#"
   def adoption_form, do: "#"
   def kotkowo_paypal, do: "#"
   def pre_adoption_form, do: "#"
+  def partnership_form, do: "#"
+  def volunteer_form, do: "#"
+  def temporary_shelter_form, do: "#"
   def adoption_agreement, do: "#"
   def cookie_policy, do: "#"
   def rodo_policy, do: "#"

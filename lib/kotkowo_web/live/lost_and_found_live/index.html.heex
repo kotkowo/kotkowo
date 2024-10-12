@@ -130,7 +130,7 @@
       <.step>
         Zapisz lokalizację i adres kota. Jeśli to możliwe, zabierz go do domu.
         <:actions>
-          <.button type="outline" href={~p"/pomoc/stworz-dom-tymczasowy"}>
+          <.button type="outline" navigate={~p"/pomoc/stworz-dom-tymczasowy"}>
             Stwórz dom tymczasowy
           </.button>
         </:actions>
@@ -202,7 +202,12 @@
       <h2 class="text-secondary font-manrope font-bold tracking-wider lg:text-2xl text-xl">
         Chcesz mieć pewność, że osoba, która znajdzie twojego pupila, będzie mogła dać ci znać?
       </h2>
-      <.button type="outline" href="https://safe-animal.eu">
+      <.button
+        type="outline"
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://safe-animal.eu"
+      >
         <span class="underline">Zachipuj kota</span>
       </.button>
     </div>

@@ -110,7 +110,7 @@
         Zachęcamy do ustawienia płatności cyklicznych, które zapewniają nam stabilność finansową,
         czyli pewność, że kocie brzuszki będą zawsze pełne.
       </p>
-      <.button href={kotkowo_paypal()}>
+      <.button target="_blank" rel="noopener noreferrer" href={kotkowo_paypal()}>
         Wpłać przez PayPal
       </.button>
     </div>
@@ -222,7 +222,9 @@
           rel="noopener noreferrer"
           src="/images/zrzutka_pl.svg"
           alt="pomagam.pl logo"
-          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          href={kotkowo_zrzutka()}
         >
           zrzutka.pl
         </.help_card>

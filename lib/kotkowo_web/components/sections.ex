@@ -220,23 +220,36 @@ defmodule KotkowoWeb.Components.Sections do
           </.footer_section>
 
           <.footer_section title="Mapa strony">
-            <.footer_link href={~p"/aktualnosci"}>Aktualności</.footer_link>
-            <.footer_link href={~p"/adopcja/szukaja-domu"}>Adopcja</.footer_link>
-            <.footer_link href={~p"/pomoc"}>Jak pomóc?</.footer_link>
-            <.footer_link href="#">Porady</.footer_link>
-            <.footer_link href="#">O fundacji</.footer_link>
-            <.footer_link href={~p"/zaginione-znalezione"}>Znalezione koty</.footer_link>
-            <.footer_link href="#">Kontakt</.footer_link>
+            <.footer_link navigate={~p"/aktualnosci"}>Aktualności</.footer_link>
+            <.footer_link navigate={~p"/adopcja/szukaja-domu"}>Adopcja</.footer_link>
+            <.footer_link navigate={~p"/pomoc"}>Jak pomóc?</.footer_link>
+            <.footer_link navigate="#">Porady</.footer_link>
+            <.footer_link navigate={~p"/o-nas/o-fundacji"}>O fundacji</.footer_link>
+            <.footer_link navigate={~p"/zaginione-znalezione"}>Znalezione koty</.footer_link>
+            <.footer_link navigate={~p"/o-nas/dokumenty"}>Kontakt</.footer_link>
           </.footer_section>
 
           <.footer_section title="Dokumenty">
-            <.footer_link href={privacy_policy()} class="hover:text-white">
+            <.footer_link
+              target="_blank"
+              rel="noopener noreferrer"
+              href={privacy_policy()}
+              class="hover:text-white"
+            >
               Polityka prywatności
             </.footer_link>
-            <.footer_link href={rodo_policy()}>RODO</.footer_link>
-            <.footer_link href={cookie_policy()}>Polityka cookies</.footer_link>
-            <.footer_link href={adoption_form()}>Formularz adopcyjny</.footer_link>
-            <.footer_link href={adoption_agreement()}>Umowa adopcyjna</.footer_link>
+            <.footer_link target="_blank" rel="noopener noreferrer" href={rodo_policy()}>
+              RODO
+            </.footer_link>
+            <.footer_link target="_blank" rel="noopener noreferrer" href={cookie_policy()}>
+              Polityka cookies
+            </.footer_link>
+            <.footer_link target="_blank" rel="noopener noreferrer" href={adoption_form()}>
+              Formularz adopcyjny
+            </.footer_link>
+            <.footer_link target="_blank" rel="noopener noreferrer" href={adoption_agreement()}>
+              Umowa adopcyjna
+            </.footer_link>
           </.footer_section>
 
           <.footer_section title="Dane fundacji">
@@ -250,7 +263,7 @@ defmodule KotkowoWeb.Components.Sections do
               <.footer_definition term="IBAN" description="PL 87 1540 1216 2054 4458 2306 0001" />
             </dl>
 
-            <.button href={~p"/pomoc/wsparcie-finansowe"} type="secondary" class="!mt-8">
+            <.button navigate={~p"/pomoc/wsparcie-finansowe"} type="secondary" class="!mt-8">
               Wesprzyj kotki
             </.button>
           </.footer_section>
@@ -260,16 +273,13 @@ defmodule KotkowoWeb.Components.Sections do
     """
   end
 
-  attr :href, :string, required: true
   attr :class, :string, default: nil
-
   attr :rest, :global
-
   slot(:inner_block, required: true)
 
   defp footer_link(assigns) do
     ~H"""
-    <a href={@href} class={["hover:text-white", @class]} {@rest}><%= render_slot(@inner_block) %></a>
+    <a class={["hover:text-white", @class]} {@rest}><%= render_slot(@inner_block) %></a>
     """
   end
 

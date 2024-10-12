@@ -251,7 +251,7 @@ defmodule KotkowoWeb.Components.Cards do
         <%= @name %>
       </:title>
       <:actions>
-        <.button class="xl:!px-6 xl:!text-base" href={@action_href}>
+        <.button class="xl:!px-6 xl:!text-base" navigate={@action_href}>
           <%= gettext("Adoptuj wirtualnie") %>
         </.button>
       </:actions>

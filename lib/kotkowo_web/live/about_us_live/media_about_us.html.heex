@@ -61,15 +61,7 @@
     </div>
 
     <div class="md:grid flex flex-row overflow-x-auto snap-x grid-cols-5 place-items-center gap-8 md:gap-10">
-      <.assets_box
-        :for={
-          asset <- [
-            "kotkowo_logo_black.svg",
-            "kotkowo_logo.svg"
-          ]
-        }
-        asset={asset}
-      />
+      <.assets_box :for={asset <- kotkowo_assets()} asset={asset} />
     </div>
   </div>
 </.section>

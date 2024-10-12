@@ -32,7 +32,12 @@
           <.icon name="paw" class="w-3 h-3 mr-3 my-auto" />
           <span class="my-auto xl:text-lg">
             Interesuje cię adopcja? Wypełnij
-            <a href={adoption_form()} class="text-primary font-bold underline underline-offset-4">
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={adoption_form()}
+              class="text-primary font-bold underline underline-offset-4"
+            >
               ankietę adopcyjną
             </a>
           </span>
@@ -43,6 +48,8 @@
           <span class="my-auto xl:text-lg">
             Przy oddawaniu kotka podpisujemy
             <a
+              target="_blank"
+              rel="noopener noreferrer"
               href={adoption_agreement()}
               class="text-primary font-bold underline underline-offset-4"
             >
@@ -59,7 +66,7 @@
         Przygarnij go tylko wtedy, gdy czujesz, że jesteś w stanie go kochać przez następnych kilka – kilkanaście lat…
       </p>
 
-      <.button href={~p"/adopcja/zasady-adopcji"} type="outline" class="!px-8 !py-3">
+      <.button navigate={~p"/adopcja/zasady-adopcji"} type="outline" class="!px-8 !py-3">
         Poznaj zasady adopcji
       </.button>
     </div>

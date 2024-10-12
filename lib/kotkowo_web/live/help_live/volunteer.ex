@@ -5,4 +5,5 @@ defmodule KotkowoWeb.HelpLive.Volunteer do
 
   import KotkowoWeb.Components.Static.HelpProposalSection
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
+  import KotkowoWeb.Constants
 end
