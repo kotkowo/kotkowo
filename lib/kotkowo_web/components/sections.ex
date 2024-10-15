@@ -230,12 +230,7 @@ defmodule KotkowoWeb.Components.Sections do
           </.footer_section>
 
           <.footer_section title="Dokumenty">
-            <.footer_link
-              target="_blank"
-              rel="noopener noreferrer"
-              href={privacy_policy()}
-              class="hover:text-white"
-            >
+            <.footer_link target="_blank" rel="noopener noreferrer" href={privacy_policy()}>
               Polityka prywatności
             </.footer_link>
             <.footer_link target="_blank" rel="noopener noreferrer" href={rodo_policy()}>
@@ -274,14 +269,15 @@ defmodule KotkowoWeb.Components.Sections do
   end
 
   attr :class, :string, default: nil
-  slot(:inner_block, required: true)
-  attr :navigate, :string, required: false
+  attr :rest, :global, include: ~w(href navigate)
   attr :href, :string, required: false
-  attr :rest, :global
+  slot(:inner_block, required: true)
 
   defp footer_link(assigns) do
     ~H"""
-    <a class={["hover:text-white", @class]} {@rest}><%= render_slot(@inner_block) %></a>
+    <.link class={["hover:text-primary-lighter transition", @class]} {@rest}>
+      <%= render_slot(@inner_block) %>
+    </.link>
     """
   end
 
