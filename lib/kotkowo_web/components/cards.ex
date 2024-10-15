@@ -573,6 +573,7 @@ defmodule KotkowoWeb.Components.Cards do
 
   attr :href, :string
   attr :title, :string
+  attr :external, :boolean, required: false
   attr :type, :string, required: false
 
   def download_card(%{external: _} = assigns) do

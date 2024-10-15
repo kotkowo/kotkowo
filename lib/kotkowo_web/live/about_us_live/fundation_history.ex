@@ -14,8 +14,12 @@ defmodule KotkowoWeb.AboutUsLive.FundationHistory do
   def handle_async(:load_found_home, {:ok, cats}, socket) do
     socket =
       case cats do
-        {:ok, %Paged{items: cats}} -> assign(socket, :found_home, cats)
-        {:error, msg} -> Logger.error(msg)
+        {:ok, %Paged{items: cats}} ->
+          assign(socket, :found_home, cats)
+
+        {:error, msg} ->
+          Logger.error(msg)
+          socket
       end
 
     {:noreply, socket}
