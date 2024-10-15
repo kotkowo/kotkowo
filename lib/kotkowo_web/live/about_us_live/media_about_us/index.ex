@@ -1,4 +1,4 @@
-defmodule KotkowoWeb.AboutUsLive.MediaAboutUs do
+defmodule KotkowoWeb.AboutUsLive.MediaAboutUsLive.Index do
   @moduledoc false
   use KotkowoWeb, :live_view
 
