@@ -36,6 +36,13 @@ module.exports = {
     require('@tailwindcss/typography'),
     require('@tailwindcss/line-clamp'),
     require('tailwindcss-counter')(),
+   function({ addUtilities }) {
+      addUtilities({
+        '.snap-x': {
+          scrollSnapType: 'x mandatory',
+        },
+      }, ['responsive', 'hover']);
+    },
     plugin(({ addVariant }) =>
       { addVariant('phx-no-feedback', ['.phx-no-feedback&', '.phx-no-feedback &']); }
     ),
