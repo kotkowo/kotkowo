@@ -54,7 +54,7 @@ defmodule KotkowoWeb.Components.Static.HelpProposalSection do
       </div>
 
       <img
-        src={~p"/images/help_proposal_kitty.jpeg"}
+        src={~p"/images/help_proposal_kitty.jpg"}
         class="rounded-2xl w-[312px] h-[212px] lg:w-[531px] lg:h-[354px] mt-6 lg:mt-0"
         alt="Kot lężacy na plecach"
         class="self-center"

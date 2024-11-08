@@ -57,7 +57,7 @@ defmodule KotkowoWeb.Components.Static.RulesetSection do
         </div>
       </div>
       <img
-        src={~p"/images/adoption_rules_kitty.jpeg"}
+        src={~p"/images/adoption_rules_kitty.jpg"}
         alt="kot na drewnianej podłodze"
         class="object-cover items-center w-[312px] -mt-6 lg:w-[536px] h-[363px] lg:h-[688px] rounded-2xl"
       />

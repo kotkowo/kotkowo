@@ -40,31 +40,31 @@ defmodule KotkowoWeb.Components.Static.HowYouCanHelpSection do
   def help_cards do
     [
       %{
-        src: ~p"/images/heart_lend.png",
+        src: ~p"/images/heart_lend.jpg",
         alt: gettext("1.5% podatku"),
         text: gettext("Przekaż nam 1,5% podatku"),
         href: ~p"/pomoc/przekaz-nam-podatek"
       },
       %{
-        src: ~p"/images/support_funds_kitty.jpeg",
+        src: ~p"/images/support_funds_kitty.jpg",
         alt: gettext("Wepsrzyj kotki finansowo"),
         text: gettext("Wesprzyj kotki finansowo"),
         href: ~p"/pomoc/wsparcie-finansowe"
       },
       %{
-        src: ~p"/images/kitty_food.jpeg",
+        src: ~p"/images/kitty_food.jpg",
         alt: gettext("Przekaż rzeczy dla kotków"),
         text: gettext("Przekaż rzeczy dla kotków"),
         href: ~p"/pomoc/przekaz-rzeczy-dla-kotkow"
       },
       %{
-        src: ~p"/images/temporary_shelter_kitty.jpeg",
+        src: ~p"/images/temporary_shelter_kitty.jpg",
         alt: gettext("Dom tymczasowy"),
         text: gettext("Stwórz dom tymczasowy"),
         href: ~p"/pomoc/stworz-dom-tymczasowy"
       },
       %{
-        src: ~p"/images/adopt_virtual_kitty.jpeg",
+        src: ~p"/images/adopt_virtual_kitty.jpg",
         alt: gettext("Adoptuj wirtualnie"),
         text: gettext("Adoptuj wirtualnie kota"),
         href: ~p"/adopcja/adopcja-wirtualna"
