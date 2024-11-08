@@ -1,7 +1,7 @@
 defmodule Kotkowo.Client.Image do
   @moduledoc false
   defstruct [:id, :name, :width, :height, :url, :mime, :alternative_text, :preview_url]
-  @default_image "/images/cat_placeholder.png"
+  @default_image "/images/cat_placeholder.jpg"
   @type t() :: %__MODULE__{
           id: String.t() | nil,
           name: String.t() | nil,

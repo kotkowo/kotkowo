@@ -68,7 +68,7 @@ defmodule KotkowoWeb.AdoptionLive.VirtualAdoption do
           class={@card_class}
           person_name="Kasia"
           person_image={~p"/images/supporting_kasia.jpg"}
-          cat_image={~p"/images/bonifacy.png"}
+          cat_image={~p"/images/bonifacy.jpg"}
           cat_name="Bonifacy"
         />
       </div>
