@@ -4,20 +4,27 @@ defmodule KotkowoWeb.Constants do
     "kotkowo_logo_black.svg",
     "kotkowo_logo.svg"
   ]
+  @unused_addresses [
+    "https://www.bolilapkabialystok.pl/",
+    "https://centrumpupila.pl/",
+    "https://www.e-pazur.com/",
+    "https://weterynaria.bialystok.pl/",
+    "https://www.przychodniazwierzat.pl/",
+    "https://www.siepomaga.pl/",
+    "https://zwierzak-wet.pl/"
+  ]
+
   def kotkowo_assets, do: @downloadable_assets
   def kotkowo_mail, do: "fundacja.kotkowo@gmail.com"
   def kotkowo_github, do: "https://github.com/kotkowo/kotkowo"
   def kotkowo_url, do: "https://kotkowo.ravensiris.xyz"
   def kotkowo_facebook, do: "https://www.facebook.com/kotkowo"
-  def kotkowo_zrzutka, do: "#"
+  def kotkowo_zrzutka, do: "https://zrzutka.pl/sfmr6p"
   def kotkowo_messenger, do: "#"
-  def adoption_form, do: "#"
-  def kotkowo_paypal, do: "#"
+  def kotkowo_paypal, do: "https://www.paypal.com/donate/?hosted_button_id=QX8YAKQ4FFA5S"
   def pre_adoption_form, do: "#"
-  def partnership_form, do: "#"
-  def volunteer_form, do: "#"
   def temporary_shelter_form, do: "#"
-  def adoption_agreement, do: "#{kotkowo_url()}/documents/umowa_adopcyjna2015.pdf"
+  def adoption_agreement, do: "#{kotkowo_url()}/documents/umowa_adopcyjna_2023.pdf"
   def cookie_policy, do: "#"
   def rodo_policy, do: "#"
   def privacy_policy, do: "#"
@@ -30,4 +37,14 @@ defmodule KotkowoWeb.Constants do
   def bank, do: "BOŚ SA O. w Bialymstoku"
   def kotkowo_address, do: "al. Piłsudskiego 26/31"
   def postal_code, do: "15-446 Białystok"
+  def opp_report_base, do: "https://sprawozdaniaopp.niw.gov.pl/"
+
+  def adoption_form,
+    do: "https://docs.google.com/forms/d/e/1FAIpQLSfQBZ0CHZlXGSGv32HG0mYqQHCskryBlYKUKc3SiHk2cBY-Eg/viewform"
+
+  def partnership_form,
+    do: "https://docs.google.com/forms/d/e/1FAIpQLSetpNAlTcbaBQLM9pir_ZlAeqpv2rNfrjfFT96bTnHPtPZV6w/viewform"
+
+  def volunteer_form,
+    do: "https://docs.google.com/forms/d/e/1FAIpQLScLwoP7x57Yjkx1PVpw0qSR9RR-L3iQNAR5FT2R5tetwRWk5w/viewform"
 end
