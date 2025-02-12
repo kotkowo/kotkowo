@@ -51,9 +51,10 @@ defmodule KotkowoWeb.Components.Drawers do
           </div>
         </div>
       </template>
-      <template x-if="isXl" class={@class_when_hidden}>
+      <div x-if="isXl" class={classes([@class_when_hidden, "text-xl font-manrope text-secondary"])}>
+        <span class={classes(["!text-3xl font-primary", @title_class ])}><%= @title %></span>
         <%= render_slot(@inner_block) %>
-      </template>
+      </div>
     </div>
     """
   end
