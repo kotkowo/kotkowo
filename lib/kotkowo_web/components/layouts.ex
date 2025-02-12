@@ -42,7 +42,7 @@ defmodule KotkowoWeb.Layouts do
          {"Co robić, gdy znajdę kota?", "#"},
          {"Zachowanie kota", "#"}
        ], []},
-      {"O nas", nil,
+      {"O nas", ~p"/o-nas/o-fundacji",
        [
          {"O fundacji", ~p"/o-nas/o-fundacji"},
          {"Historia Kotkowa", ~p"/o-nas/historia-kotkowa"},

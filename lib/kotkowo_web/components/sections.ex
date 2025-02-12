@@ -208,14 +208,20 @@ defmodule KotkowoWeb.Components.Sections do
               <.icon name="city_scraper" class="w-5 h-5 inline mr-2" />
               <div class="flex flex-col space-y-2">
                 <span>Adres biura</span>
-                <span>al. J. Piłsudskiego 26/31</span>
-                <span>15-446 Białystok</span>
+                <.click_to_copy text_to_copy="al. J. Piłsudskiego 26/31\n15-446 Białystok">
+                  <span>al. J. Piłsudskiego 26/31</span>
+                  <span>15-446 Białystok</span>
+                </.click_to_copy>
               </div>
             </div>
 
             <div class="flex space-x-6">
-              <.icon name="facebook" class="w-8 h-8 inline" />
-              <.icon name="messenger" class="w-8 h-8 inline" />
+              <.link href={kotkowo_facebook()} target="_blank" rel="noopener noreferrer">
+                <.icon name="facebook" class="w-8 h-8 inline" />
+              </.link>
+              <.link href={kotkowo_messenger()} target="_blank" rel="noopener noreferrer">
+                <.icon name="messenger" class="w-8 h-8 inline" />
+              </.link>
             </div>
           </.footer_section>
 
@@ -252,7 +258,7 @@ defmodule KotkowoWeb.Components.Sections do
               <.footer_definition term="KRS" description="0000345319" />
               <.footer_definition term="NIP" description="9662018446" />
               <.footer_definition term="REGON" description="20032337500000" />
-              <.footer_definition term="Bank" description="BOŚ SA O. w Bialymstoku" />
+              <.footer_definition term="Bank" description={bank()} />
               <.footer_definition term="Numer konta" description="87 1540 1216 2054 4458 2306 0001" />
               <.footer_definition term="SWIFT/BIC" description="EBOSPLPWXXX" />
               <.footer_definition term="IBAN" description="PL 87 1540 1216 2054 4458 2306 0001" />
@@ -270,7 +276,6 @@ defmodule KotkowoWeb.Components.Sections do
 
   attr :class, :string, default: nil
   attr :rest, :global, include: ~w(href navigate)
-  attr :href, :string, required: false
   slot(:inner_block, required: true)
 
   defp footer_link(assigns) do
@@ -302,7 +307,9 @@ defmodule KotkowoWeb.Components.Sections do
     ~H"""
     <div class="xl:grid grid-flow-col auto-cols-max gap-3">
       <dt class="font-bold"><%= @term %></dt>
-      <dd><%= @description %></dd>
+      <.click_to_copy text_to_copy={@description}>
+        <dd><%= @description %></dd>
+      </.click_to_copy>
     </div>
     """
   end

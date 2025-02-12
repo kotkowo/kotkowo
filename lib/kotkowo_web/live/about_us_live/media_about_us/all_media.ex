@@ -31,7 +31,7 @@ defmodule KotkowoWeb.AboutUsLive.MediaAboutUsLive.AllMedia do
         {:ok, %Paged{items: media, page_count: page_count, page_size: limit}} ->
           if page > page_count do
             params = %{limit: limit, page: page_count}
-            push_patch(socket, to: ~p"/o-nas/media-o-nas/wszystkie?#{params}")
+            push_patch(socket, to: ~p"/o-nas/media-o-nas/wszystkie?#{params}", replace: true)
           else
             socket
             |> stream(:media, media)
@@ -67,7 +67,7 @@ defmodule KotkowoWeb.AboutUsLive.MediaAboutUsLive.AllMedia do
     params = %{limit: limit, page: socket.assigns.page}
 
     socket =
-      push_patch(socket, to: ~p"/o-nas/media-o-nas/wszystkie?#{params}")
+      push_patch(socket, to: ~p"/o-nas/media-o-nas/wszystkie?#{params}", replace: true)
 
     {:noreply, socket}
   end
@@ -75,7 +75,7 @@ defmodule KotkowoWeb.AboutUsLive.MediaAboutUsLive.AllMedia do
   @impl true
   def handle_event("select_page", %{"value" => page}, socket) do
     params = %{page: page, limit: socket.assigns.limit}
-    socket = push_patch(socket, to: ~p"/o-nas/media-o-nas/wszystkie?#{params}")
+    socket = push_patch(socket, to: ~p"/o-nas/media-o-nas/wszystkie?#{params}", replace: true)
     {:noreply, socket}
   end
 

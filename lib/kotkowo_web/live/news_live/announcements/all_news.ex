@@ -31,7 +31,7 @@ defmodule KotkowoWeb.AnnouncementsLive.AllNews do
         {:ok, %Paged{items: news, page_count: page_count, page_size: limit}} ->
           if page > page_count do
             params = %{limit: limit, page: page_count}
-            push_patch(socket, to: ~p"/aktualnosci/z-ostatniej-chwili/wszystkie?#{params}")
+            push_patch(socket, to: ~p"/aktualnosci/z-ostatniej-chwili/wszystkie?#{params}", replace: true)
           else
             socket
             |> stream(:news, news)
@@ -67,7 +67,7 @@ defmodule KotkowoWeb.AnnouncementsLive.AllNews do
     params = %{limit: limit, page: socket.assigns.page}
 
     socket =
-      push_patch(socket, to: ~p"/aktualnosci/z-ostatniej-chwili/wszystkie?#{params}")
+      push_patch(socket, to: ~p"/aktualnosci/z-ostatniej-chwili/wszystkie?#{params}", replace: true)
 
     {:noreply, socket}
   end
@@ -75,7 +75,7 @@ defmodule KotkowoWeb.AnnouncementsLive.AllNews do
   @impl true
   def handle_event("select_page", %{"value" => page}, socket) do
     params = %{page: page, limit: socket.assigns.limit}
-    socket = push_patch(socket, to: ~p"/aktualnosci/z-ostatniej-chwili/wszystkie?#{params}")
+    socket = push_patch(socket, to: ~p"/aktualnosci/z-ostatniej-chwili/wszystkie?#{params}", replace: true)
     {:noreply, socket}
   end
 

@@ -53,6 +53,9 @@ defmodule KotkowoWeb.Components.CatViewUtils do
             <%= beautify_phone_number(@caretaker.phone_number) %>
           </span>
         </.button>
+        <span :if={@contact_informations == []} class="font-semibold">
+          Brak informacji kontaktowych
+        </span>
         <%= for contact_info <- @contact_informations do %>
           <.button
             href={"tel:#{contact_info.phone_number}"}

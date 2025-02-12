@@ -73,7 +73,9 @@ defmodule KotkowoWeb.NewsLive.PassedAway do
 
   @impl true
   def handle_info({:filter_cat, %Cat.Filter{} = filter}, socket) do
-    socket = push_patch(socket, to: ~p"/aktualnosci/za-teczowym-mostem" <> "?#{Cat.Filter.to_params(filter)}")
+    socket =
+      push_patch(socket, to: ~p"/aktualnosci/za-teczowym-mostem" <> "?#{Cat.Filter.to_params(filter)}", replace: true)
+
     {:noreply, socket}
   end
 

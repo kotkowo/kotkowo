@@ -14,26 +14,31 @@
       <h1 class="text-primary font-manrope font-extrabold xl:text-4xl text-2xl">
         Kotki proszą o 1,5% Twojego podatku!
       </h1>
-      <p class="max-w-[646px]">
-        <b>Fundacja Kotkowo posiada status Organizacji Pożytku Publicznego</b>.
-        Od 2023 r. możesz przekazać nam <b>1,5% swojego podatku</b>.
-        W tym celu edytuj swoje zeznanie podatkowe, dostępne od 15 lutego na stronie <a
-          href="https://podatki.gov.pl"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="underline"
-        >podatki.gov.pl</a>.
-        Wskaż naszą organizację online w Twoim e-Picie lub wypełnij druk PIT ręcznie i podaj nasz numer <a
-          class="font-bold text-primary cursor-copy"
-          x-data
-          x-on:click="navigator.clipboard.writeText('000345319'); 
-             $dispatch('toast', {message: 'Skopiowane', icon: '📋'})"
+      <div class="max-w-[646px]">
+        <p class="inline">
+          <b>Fundacja Kotkowo posiada status Organizacji Pożytku Publicznego</b>.
+          Od 2023 r. możesz przekazać nam <b>1,5% swojego podatku</b>.
+          W tym celu edytuj swoje zeznanie podatkowe, dostępne od 15 lutego na stronie <a
+            href="https://podatki.gov.pl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="underline"
+          >podatki.gov.pl</a>.
+        </p>
+        <p class="inline">
+          Wskaż naszą organizację online w Twoim e-Picie lub wypełnij druk PIT ręcznie i podaj nasz numer
+        </p>
+        <.click_to_copy
+          text_to_copy={krs()}
+          class="font-bold font-primary text-primary !inline !w-none"
         >
           KRS: 000345319
-        </a>.
-        Zebrane <b>środki przeznaczymy w całości na rzecz kotów</b>
-        znajdujących się pod naszą opieką.
-      </p>
+        </.click_to_copy>.
+        <p class="inline">
+          Zebrane <b>środki przeznaczymy w całości na rzecz kotów</b>
+          znajdujących się pod naszą opieką.
+        </p>
+      </div>
     </div>
 
     <div class="flex flex-row space-x-8 xl:space-x-0 xl:w-[648px] xl:justify-between ">

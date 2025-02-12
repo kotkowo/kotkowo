@@ -58,6 +58,7 @@ defmodule KotkowoWeb.LostAndFoundLive.Index do
       |> assign(:raw_lost_filter, raw_lost_filter)
       |> start_async(:load_lost_cats, fn -> [filter: filter] |> Client.new() |> Client.list_lost_cats() end)
       |> push_patch(
+        replace: true,
         to:
           ~p"/zaginione-znalezione" <>
             "?#{params}" <>
@@ -82,6 +83,7 @@ defmodule KotkowoWeb.LostAndFoundLive.Index do
       |> assign(:raw_found_filter, raw_found_filter)
       |> start_async(:load_found_cats, fn -> [filter: filter] |> Client.new() |> Client.list_found_cats() end)
       |> push_patch(
+        replace: true,
         to:
           ~p"/zaginione-znalezione" <>
             "?#{params}" <>
