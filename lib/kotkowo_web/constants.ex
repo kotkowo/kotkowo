@@ -17,7 +17,7 @@ defmodule KotkowoWeb.Constants do
   def partnership_form, do: "#"
   def volunteer_form, do: "#"
   def temporary_shelter_form, do: "#"
-  def adoption_agreement, do: "#"
+  def adoption_agreement, do: "#{kotkowo_url()}/documents/umowa_adopcyjna2015.pdf"
   def cookie_policy, do: "#"
   def rodo_policy, do: "#"
   def privacy_policy, do: "#"
