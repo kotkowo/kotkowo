@@ -137,7 +137,8 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
         to:
           ~p"/adopcja/szukaja-domu" <>
             "?#{owned_params}" <>
-            unowned_params
+            unowned_params,
+        replace: true
       )
 
     {:noreply, socket}
@@ -153,7 +154,8 @@ defmodule KotkowoWeb.AdoptionLive.LookingForNewHome do
         to:
           ~p"/adopcja/szukaja-domu" <>
             "?#{owned_filter}" <>
-            unowned_filter
+            unowned_filter,
+        replace: true
       )
 
     {:noreply, socket}

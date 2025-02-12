@@ -17,38 +17,85 @@
         <h3 class="text-primary tracking-wide font-manrope font-bold md:font-extrabold">
           Kontakt
         </h3>
-        <.click_to_copy prefix="E-mail" prefix_class="font-bold" text_to_copy={kotkowo_mail()} />
+        <div>
+          <span class="font-bold">E-mail:</span>
+          <.click_to_copy class="!inline" text_to_copy={kotkowo_mail()}>
+            <span><%= kotkowo_mail() %></span>
+          </.click_to_copy>
+        </div>
       </div>
       <div class="flex flex-col gap-y-2 text-lg font-inter">
         <h3 class="text-primary tracking-wide font-manrope font-bold md:font-extrabold">
           Adres do korespondencji:
         </h3>
-        <.click_to_copy prefix="" text_to_copy={kotkowo_address()} />
-        <.click_to_copy prefix="" text_to_copy={postal_code()} />
+
+        <.click_to_copy text_to_copy={"#{kotkowo_address()}\\n#{postal_code()}"}>
+          <span><%= kotkowo_address() %></span>
+          <span><%= postal_code() %></span>
+        </.click_to_copy>
       </div>
       <span class="text-2xl font-bold font-manrope">
-        <.click_to_copy prefix="Nr konta:" class="block" text_to_copy={bank_account_number()} />
+        <div>
+          <span>Nr konta:</span>
+          <.click_to_copy class="!inline" text_to_copy={bank_account_number()}>
+            <%= bank_account_number() %>
+          </.click_to_copy>
+        </div>
       </span>
       <div class="flex flex-col gap-y-2 text-lg font-inter">
         <div class="flex flex-row space-x-3">
-          <.click_to_copy prefix="Bank" prefix_class="font-bold" text_to_copy={bank()} />
+          <div>
+            <span class="font-bold">Bank:</span>
+            <.click_to_copy class="!inline" text_to_copy={bank()}>
+              <%= bank() %>
+            </.click_to_copy>
+          </div>
         </div>
         <div class="flex flex-col md:flex-row space-x-3">
           <span class="font-bold text-primary">W tytule przelewu prosimy podać:</span>
-          <cite>
-            <.click_to_copy prefix="" class="text-lg" text_to_copy="darowizna na cele statutowe" />
-          </cite>
+          <div>
+            <.click_to_copy class="!inline" text_to_copy="darowizna na cele statutowe">
+              <cite>
+                darowizna na cele statutowe
+              </cite>
+            </.click_to_copy>
+          </div>
         </div>
-        <.click_to_copy prefix="KRS: " prefix_class="font-bold" text_to_copy={krs()} />
-        <.click_to_copy prefix="NIP: " prefix_class="font-bold" text_to_copy={nip()} />
-        <.click_to_copy prefix="REGON: " prefix_class="font-bold" text_to_copy={regon()} />
+        <div>
+          <span class="font-bold">KRS:</span>
+          <.click_to_copy class="!inline" text_to_copy={krs()}>
+            <%= krs() %>
+          </.click_to_copy>
+        </div>
+        <div>
+          <span class="font-bold">NIP:</span>
+          <.click_to_copy class="!inline" text_to_copy={nip()}>
+            <%= nip() %>
+          </.click_to_copy>
+        </div>
+        <div>
+          <span class="font-bold">REGON:</span>
+          <.click_to_copy class="!inline" text_to_copy={regon()}>
+            <%= regon() %>
+          </.click_to_copy>
+        </div>
       </div>
       <div class="flex flex-col gap-y-2 text-lg font-inter">
         <h3 class="text-primary tracking-wide font-manrope font-bold md:font-extrabold">
           Dla przelewów zagranicznych
         </h3>
-        <.click_to_copy prefix="SWIFT/BIC: " prefix_class="font-bold" text_to_copy={swift_bic()} />
-        <.click_to_copy prefix_class="font-bold" prefix="IBAN: " text_to_copy={iban()} />
+        <div>
+          <span class="font-bold">SWIFT/BIC:</span>
+          <.click_to_copy class="!inline" text_to_copy={swift_bic()}>
+            <%= swift_bic() %>
+          </.click_to_copy>
+        </div>
+        <div>
+          <span class="font-bold">IBAN:</span>
+          <.click_to_copy class="!inline" text_to_copy={iban()}>
+            <%= iban() %>
+          </.click_to_copy>
+        </div>
       </div>
     </div>
     <div class="flex flex-col gap-y-6">
@@ -59,8 +106,11 @@
         <.download_card href="#" title="Statut fundacji" />
         <.download_card href="#" title="Polityka prywatności" />
         <.download_card href="#" title="Ochrona danych osobowych" />
-        <.download_card href="#" title="Umowa adopcyjna" />
-        <.download_card href="#" title="Logo fundacji" />
+        <.download_card href={adoption_agreement()} title="Umowa adopcyjna" />
+        <.download_card
+          href={"/images/" <> (kotkowo_assets() |> Enum.at(1))}
+          title="Logo fundacji"
+        />
         <.download_card href="#" external title="Sprawozdania finansowe" />
       </div>
     </div>

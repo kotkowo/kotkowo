@@ -5,6 +5,7 @@ defmodule KotkowoWeb.Components.Static.RulesetSection do
   use KotkowoWeb, :verified_routes
 
   import KotkowoWeb.Components.Buttons
+  import KotkowoWeb.Constants
   import Tails
 
   attr :header_class, :string, default: ""
@@ -53,7 +54,9 @@ defmodule KotkowoWeb.Components.Static.RulesetSection do
         <div class="flex flex-col gap-y-4">
           <.button navigate={~p"/adopcja/szukaja-domu"}>Zobacz koty do adopcji</.button>
 
-          <.button type="outline">Wypełnij ankietę adopcyjną</.button>
+          <.button href={adoption_form()} target="_blank" type="outline">
+            Wypełnij ankietę adopcyjną
+          </.button>
         </div>
       </div>
       <img

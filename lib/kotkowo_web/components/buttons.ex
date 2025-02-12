@@ -7,10 +7,10 @@ defmodule KotkowoWeb.Components.Buttons do
 
   import Tails
 
-  attr :prefix, :string, required: true, examples: ["PESEL: "]
   attr :text_to_copy, :string, required: true
   attr :class, :string, default: ""
   attr :prefix_class, :string, default: ""
+  slot :inner_block, required: true
 
   def click_to_copy(assigns) do
     ~H"""
@@ -18,14 +18,14 @@ defmodule KotkowoWeb.Components.Buttons do
       x-data={"{to_copy: '#{@text_to_copy}'}"}
       class={
         classes([
-          "flex flex-row space-x-2 border-none w-fit",
+          "flex flex-col space-y-2 border-none w-fit cursor-pointer hover:text-primary-lighter transition",
           @class
         ])
       }
       x-on:click="navigator.clipboard.writeText(to_copy); $dispatch('toast', {message: 'Skopiowane', icon: '📋'})"
       value={@text_to_copy}
     >
-      <span :if={@prefix != ""} class={@prefix_class}><%= @prefix %></span><span class="cursor-pointer hover:text-primary-lighter transition"><%= @text_to_copy %></span>
+      <%= render_slot(@inner_block) %>
     </div>
     """
   end

@@ -130,42 +130,78 @@
       </h1>
       <div class="flex flex-col space-y-1 xl:space-y-2 xl:text-lg">
         <p>FUNDACJA KOTKOWO</p>
-        <p>Bank: <%= bank() %></p>
-        <.click_to_copy
-          prefix="Nr konta: "
-          class="text-black xl:text-2xl font-bold"
-          text_to_copy={bank_account_number()}
-        />
+
+        <div>
+          <span>Bank:</span>
+          <.click_to_copy class="text-black !inline" text_to_copy={bank()}>
+            <%= bank() %>
+          </.click_to_copy>
+        </div>
+        <div>
+          <span>Nr konta:</span>
+          <.click_to_copy
+            class="text-black xl:text-2xl font-bold !inline"
+            text_to_copy={bank_account_number()}
+          >
+            <%= bank_account_number() %>
+          </.click_to_copy>
+        </div>
         <div class="flex flex-col xl:flex-row xl:space-x-2">
           <h3 class="text-primary font-bold text-lg">W tytule przelewu prosimy podać:</h3>
-          <cite>
-            <.click_to_copy
-              prefix=""
-              class="text-black text-lg"
-              text_to_copy="darowizna na cele statutowe"
-            />
-          </cite>
+          <.click_to_copy
+            class="text-black text-lg !inline"
+            text_to_copy="darowizna na cele statutowe"
+          >
+            <cite>
+              darowizna na cele statutowe
+            </cite>
+          </.click_to_copy>
         </div>
-        <.click_to_copy prefix="KRS: " class="text-black text-lg" text_to_copy={krs()} />
-        <.click_to_copy prefix="NIP: " class="text-black text-lg" text_to_copy={nip()} />
-        <.click_to_copy prefix="REGON: " class="text-black text-lg" text_to_copy={regon()} />
+        <div>
+          <span>KRS: </span>
+          <.click_to_copy class="text-black text-lg !inline" text_to_copy={krs()}>
+            <span><%= krs() %></span>
+          </.click_to_copy>
+        </div>
+        <div>
+          <span>NIP: </span>
+          <.click_to_copy class="text-black text-lg !inline" text_to_copy={nip()}>
+            <span><%= nip() %></span>
+          </.click_to_copy>
+        </div>
+        <div>
+          <span>REGON: </span>
+          <.click_to_copy class="text-black text-lg !inline" text_to_copy={regon()}>
+            <span><%= regon() %></span>
+          </.click_to_copy>
+        </div>
 
         <h3 class="text-primary font-bold text-lg">Adres do korespondencji:</h3>
 
-        <.click_to_copy prefix="" class="text-black text-lg" text_to_copy={kotkowo_address()} />
-
-        <.click_to_copy prefix="" class="text-black text-lg" text_to_copy={postal_code()} />
+        <.click_to_copy
+          class="text-black text-lg"
+          text_to_copy={"#{kotkowo_address()}\\n#{postal_code()}"}
+        >
+          <span><%= kotkowo_address() %></span>
+          <span><%= postal_code() %></span>
+        </.click_to_copy>
 
         <h3 class="text-primary font-bold text-lg">
           Dla przelewów zagranicznych
         </h3>
 
-        <.click_to_copy
-          prefix="SWIFT/BIC: "
-          class="text-black text-lg"
-          text_to_copy={swift_bic()}
-        />
-        <.click_to_copy prefix="IBAN: " class="text-black text-lg" text_to_copy={iban()} />
+        <div>
+          <span class="text-black text-lg">SWIFT/BIC: </span>
+          <.click_to_copy class="text-black text-lg !inline" text_to_copy={swift_bic()}>
+            <span><%= swift_bic() %></span>
+          </.click_to_copy>
+        </div>
+        <div>
+          <span class="text-black text-lg">IBAN: </span>
+          <.click_to_copy class="text-black text-lg !inline" text_to_copy={iban()}>
+            <span><%= iban() %></span>
+          </.click_to_copy>
+        </div>
       </div>
     </div>
 
