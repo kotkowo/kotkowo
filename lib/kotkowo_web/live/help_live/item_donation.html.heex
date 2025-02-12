@@ -70,19 +70,46 @@
     </h3>
 
     <ul class="flex flex-col space-y-3 col-start-1 max-w-[698px]">
-      <%= for name <- [
-        "Kocie Cafe ul. Warszawska 30B, 15-077 Białystok, tel. 720 927 292 https://www.facebook.com/kociecafe", \
-        "Lecznica Zdrowet ul. Gródecka 15, 15-561 Białystok tel. 720 800 860", \
-        "Magazynek u p. Ani ul. Partyzantów 4, 15-127 Białystok tel. 608432868", \
-        "Dom tymczasowy p. Beaty tel. 501544167", \
-        "Dom tymczasowy „Na Boboli” tel. 693 828 965"] do %>
-        <li class="flex">
-          <.icon name="paw" class="w-3 h-3 mr-3 my-auto" />
-          <span class="my-auto xl:text-lg">
-            <%= name %>
-          </span>
-        </li>
-      <% end %>
+      <li class="flex">
+        <.icon name="paw" class="w-3 h-3 mr-3 my-auto" />
+        <span class="my-auto xl:text-lg">
+          Kocie Cafe ul. Warszawska 30B, 15-077 Białystok, tel.
+          <a href="tel:720927292">720 927 292</a> <br />
+          <a href="https://www.facebook.com/kociecafe" class="underline" target="_blank">
+            https://www.facebook.com/kociecafe
+          </a>
+        </span>
+      </li>
+
+      <li class="flex">
+        <.icon name="paw" class="w-3 h-3 mr-3 my-auto" />
+        <span class="my-auto xl:text-lg">
+          Lecznica Zdrowet ul. Gródecka 15, 15-561 Białystok tel.
+          <a href="tel:720800860">720 800 860</a>
+        </span>
+      </li>
+
+      <li class="flex">
+        <.icon name="paw" class="w-3 h-3 mr-3 my-auto" />
+        <span class="my-auto xl:text-lg">
+          Magazynek u p. Ani ul. Partyzantów 4, 15-127 Białystok tel.
+          <a href="tel:608432868">608 432 868</a>
+        </span>
+      </li>
+
+      <li class="flex">
+        <.icon name="paw" class="w-3 h-3 mr-3 my-auto" />
+        <span class="my-auto xl:text-lg">
+          Dom tymczasowy p. Beaty tel. <a href="tel:501544167">501 544 167</a>
+        </span>
+      </li>
+
+      <li class="flex">
+        <.icon name="paw" class="w-3 h-3 mr-3 my-auto" />
+        <span class="my-auto xl:text-lg">
+          Dom tymczasowy „Na Boboli” tel. <a href="tel:693828965">693 828 965</a>
+        </span>
+      </li>
     </ul>
   </div>
 </.section>
