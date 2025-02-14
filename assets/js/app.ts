@@ -56,7 +56,11 @@ Hooks.sanitize_article_html = {
 
   const elem = this.el;
   const content = elem.getAttribute("data-article-content");
-  elem.innerHTML = DOMPurify.sanitize(marked.parse(content));
+  const renderer = new marked.Renderer();
+  renderer.link = function(href, title, text) {
+    return `<a href="${href}" target="_blank" rel="noopener noreferrer">${text}</a>`;
+  };
+  elem.innerHTML = DOMPurify.sanitize(marked.parse(content, { renderer: renderer }), {ADD_ATTR: ['target']});
   }
 }
 Alpine.data('toast', toast)
