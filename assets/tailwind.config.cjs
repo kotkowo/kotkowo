@@ -13,6 +13,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            'p,li': {
+              "white-space": "pre-line",
+            }
+          }
+        },
+      },
       colors: {
         primary: '#116858',
         'primary-light': '#F3F8F6',
