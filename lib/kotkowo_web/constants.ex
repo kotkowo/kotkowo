@@ -21,10 +21,8 @@ defmodule KotkowoWeb.Constants do
   def kotkowo_url, do: "https://kotkowo.ravensiris.xyz"
   def kotkowo_facebook, do: "https://www.facebook.com/kotkowo"
   def kotkowo_zrzutka, do: "https://zrzutka.pl/sfmr6p"
-  def kotkowo_messenger, do: "#"
+  def kotkowo_messenger, do: "https://www.facebook.com/messages/t/100425863335655"
   def kotkowo_paypal, do: "https://www.paypal.com/donate/?hosted_button_id=QX8YAKQ4FFA5S"
-  def pre_adoption_form, do: "#"
-  def temporary_shelter_form, do: "#"
   def adoption_agreement, do: "/documents/umowa_adopcyjna_2023.pdf"
   def cookie_policy, do: "#"
   def rodo_policy, do: "#"
@@ -39,7 +37,7 @@ defmodule KotkowoWeb.Constants do
   def kotkowo_address, do: "al. Piłsudskiego 26/31"
   def postal_code, do: "15-446 Białystok"
   def opp_report_base, do: "https://sprawozdaniaopp.niw.gov.pl/"
-  def fundation_statute, do: "#"
+  def fundation_statute, do: "/documents/statut.pdf"
 
   def adoption_form,
     do: "https://docs.google.com/forms/d/e/1FAIpQLSfQBZ0CHZlXGSGv32HG0mYqQHCskryBlYKUKc3SiHk2cBY-Eg/viewform"
