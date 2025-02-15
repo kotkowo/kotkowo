@@ -101,6 +101,10 @@ window.addEventListener('scroll_prev_child', e => {
 
   
 })
+window.addEventListener("scroll_to_top", _ => {
+    window.scrollTo(0, 0);
+})
+
 
 window.addEventListener('share_modal', e => {
   const elem = e.target;

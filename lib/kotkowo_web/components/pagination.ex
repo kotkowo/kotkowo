@@ -20,7 +20,7 @@ defmodule KotkowoWeb.Components.Pagination do
     <div class="flex flex-row text-xl gap-x-4 text-lg">
       <button
         :if={@selected_page != @first_page}
-        phx-click={@callback}
+        phx-click={JS.dispatch("scroll_to_top") |> JS.push(@callback)}
         class="p-4"
         value={@selected_page - 1}
       >
@@ -31,7 +31,7 @@ defmodule KotkowoWeb.Components.Pagination do
         <button
           :if={@selected_page > 2}
           class="w-14 h-14 transition hover:text-primary"
-          phx-click={@callback}
+          phx-click={JS.dispatch("scroll_to_top") |> JS.push(@callback)}
           value={@first_page}
         >
           <%= @first_page %>
@@ -40,7 +40,7 @@ defmodule KotkowoWeb.Components.Pagination do
         <button
           :if={@selected_page != @first_page}
           class="w-14 h-14 transition hover:text-primary"
-          phx-click={@callback}
+          phx-click={JS.dispatch("scroll_to_top") |> JS.push(@callback)}
           value={@previous_page}
         >
           <%= @previous_page %>
@@ -51,7 +51,7 @@ defmodule KotkowoWeb.Components.Pagination do
         <button
           :if={@selected_page != @last_page}
           class="w-14 h-14 transition hover:text-primary"
-          phx-click={@callback}
+          phx-click={JS.dispatch("scroll_to_top") |> JS.push(@callback)}
           value={@next_page}
         >
           <%= @next_page %>
@@ -61,7 +61,7 @@ defmodule KotkowoWeb.Components.Pagination do
         <button
           :if={@selected_page < @last_page - 1}
           class="w-14 h-14 transition hover:text-primary"
-          phx-click={@callback}
+          phx-click={JS.dispatch("scroll_to_top") |> JS.push(@callback)}
           value={@last_page}
         >
           <%= @last_page %>
@@ -76,7 +76,7 @@ defmodule KotkowoWeb.Components.Pagination do
       <button
         :if={@selected_page != @last_page}
         class="p-4"
-        phx-click={@callback}
+        phx-click={JS.dispatch("scroll_to_top") |> JS.push(@callback)}
         value={@selected_page + 1}
       >
         <.icon class="rotate-90 brightness-0 hover:brightness-100 transition" name="chevron_up" />
