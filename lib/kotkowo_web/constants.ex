@@ -5,16 +5,6 @@ defmodule KotkowoWeb.Constants do
     "kotkowo_logo.svg"
   ]
 
-  ## @unused_addresses [
-  ##  "https://www.bolilapkabialystok.pl/",
-  ##  "https://centrumpupila.pl/",
-  ##  "https://www.e-pazur.com/",
-  ##  "https://weterynaria.bialystok.pl/",
-  ##  "https://www.przychodniazwierzat.pl/",
-  ##  "https://www.siepomaga.pl/",
-  ##  "https://zwierzak-wet.pl/"
-  ## ]
-
   def kotkowo_assets, do: @downloadable_assets
   def kotkowo_mail, do: "fundacja.kotkowo@gmail.com"
   def kotkowo_github, do: "https://github.com/kotkowo/kotkowo"
@@ -25,7 +15,7 @@ defmodule KotkowoWeb.Constants do
   def kotkowo_paypal, do: "https://www.paypal.com/donate/?hosted_button_id=QX8YAKQ4FFA5S"
   def adoption_agreement, do: "/documents/umowa_adopcyjna_2023.pdf"
   def cookie_policy, do: "#"
-  def rodo_policy, do: "#"
+  def rodo_policy, do: "/documents/rodo.pdf"
   def privacy_policy, do: "/documents/privacy_policy.pdf"
   def krs, do: "0000345319"
   def nip, do: "9662018446"
