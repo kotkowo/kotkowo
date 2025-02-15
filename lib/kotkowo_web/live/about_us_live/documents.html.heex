@@ -19,9 +19,7 @@
         </h3>
         <div>
           <span class="font-bold">E-mail:</span>
-          <.click_to_copy class="!inline" text_to_copy={kotkowo_mail()}>
-            <span><%= kotkowo_mail() %></span>
-          </.click_to_copy>
+          <a href={"mailto:#{kotkowo_mail()}"}><%= kotkowo_mail() %></a>
         </div>
       </div>
       <div class="flex flex-col gap-y-2 text-lg font-inter">
@@ -103,15 +101,15 @@
         Dokumenty do pobrania
       </h1>
       <div class="flex flex-col gap-y-5">
-        <.download_card href="#" title="Statut fundacji" />
-        <.download_card href="#" title="Polityka prywatności" />
-        <.download_card href="#" title="Ochrona danych osobowych" />
+        <.download_card href={fundation_statute()} title="Statut fundacji" />
+        <.download_card href={privacy_policy()} title="Polityka prywatności" />
+        <.download_card href={rodo_policy()} title="Ochrona danych osobowych" />
         <.download_card href={adoption_agreement()} title="Umowa adopcyjna" />
         <.download_card
           href={"/images/" <> (kotkowo_assets() |> Enum.at(1))}
           title="Logo fundacji"
         />
-        <.download_card href="#" external title="Sprawozdania finansowe" />
+        <.download_card href={opp_report_base()} external title="Sprawozdania finansowe" />
       </div>
     </div>
   </div>
