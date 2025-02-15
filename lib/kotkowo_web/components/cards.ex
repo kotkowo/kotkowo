@@ -217,7 +217,7 @@ defmodule KotkowoWeb.Components.Cards do
     ~H"""
     <span class={
       classes([
-        "border border-2 rounded-3xl text-gray-500 text-sm lg:text-base py-2 lg:py-3 px-3 lg:px-4",
+        "border border-2 rounded-3xl font-inter text-gray-500 text-sm lg:text-base py-2 lg:py-3 px-3 lg:px-4",
         @class
       ])
     }>
