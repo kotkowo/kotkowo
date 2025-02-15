@@ -8,6 +8,7 @@
 import Config
 
 # Configures the endpoint
+config :kotkowo, :virtual_adoption, config_env() != :prod
 config :kotkowo, KotkowoWeb.Endpoint,
   adapter: Bandit.PhoenixAdapter,
   url: [host: "localhost"],

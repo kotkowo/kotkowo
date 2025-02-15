@@ -18,7 +18,7 @@ defmodule KotkowoWeb.Layouts do
        [
          {"Szukają domu", ~p"/adopcja/szukaja-domu"},
          {"Zasady adopcji", ~p"/adopcja/zasady-adopcji"},
-         {"Adoptuj wirtualnie kota", ~p"/adopcja/adopcja-wirtualna"}
+        #{"Adoptuj wirtualnie kota", ~p"/adopcja/adopcja-wirtualna"}
        ], []},
       {"Zaginione/znalezione", ~p"/zaginione-znalezione",
        [

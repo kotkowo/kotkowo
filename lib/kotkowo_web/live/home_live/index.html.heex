@@ -62,7 +62,7 @@
   </div>
 </.section>
 
-<.section>
+<.section :if={Phoenix.Router.route_info(KotkowoWeb.Router, "GET", "/adopcja/adopcja-wirtualna", KotkowoWeb.Endpoint) != :error}>
   <div class="xl:flex mx-6 xl:mx-24 xl:justify-between xl:items-stretch">
     <div class="xl:flex xl:flex-col xl:w-3/5 xl:space-y-8 mb-6 xl:mb-0">
       <h2 class="mb-3 xl:mb-0 text-primary font-manrope font-bold xl:font-extrabold text-2xl xl:text-4xl">

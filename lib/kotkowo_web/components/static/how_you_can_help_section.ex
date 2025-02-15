@@ -63,12 +63,12 @@ defmodule KotkowoWeb.Components.Static.HowYouCanHelpSection do
         text: gettext("Stwórz dom tymczasowy"),
         href: ~p"/pomoc/stworz-dom-tymczasowy"
       },
-      %{
-        src: ~p"/images/adopt_virtual_kitty.jpg",
-        alt: gettext("Adoptuj wirtualnie"),
-        text: gettext("Adoptuj wirtualnie kota"),
-        href: ~p"/adopcja/adopcja-wirtualna"
-      }
+#     %{
+#       src: ~p"/images/adopt_virtual_kitty.jpg",
+#       alt: gettext("Adoptuj wirtualnie"),
+#       text: gettext("Adoptuj wirtualnie kota"),
+#       href: ~p"/adopcja/adopcja-wirtualna"
+#     }
     ]
   end
 
