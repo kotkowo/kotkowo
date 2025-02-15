@@ -17,8 +17,8 @@ defmodule KotkowoWeb.Layouts do
       {"Adopcja", ~p"/adopcja/szukaja-domu",
        [
          {"Szukają domu", ~p"/adopcja/szukaja-domu"},
-         {"Zasady adopcji", ~p"/adopcja/zasady-adopcji"},
-        #{"Adoptuj wirtualnie kota", ~p"/adopcja/adopcja-wirtualna"}
+         {"Zasady adopcji", ~p"/adopcja/zasady-adopcji"}
+         # {"Adoptuj wirtualnie kota", ~p"/adopcja/adopcja-wirtualna"}
        ], []},
       {"Zaginione/znalezione", ~p"/zaginione-znalezione",
        [
@@ -34,14 +34,14 @@ defmodule KotkowoWeb.Layouts do
          {"Załóż dom tymczasowy", ~p"/pomoc/stworz-dom-tymczasowy"},
          {"Zapisz się na wolontariat", ~p"/pomoc/zapisz-sie-na-wolontariat"}
        ], ["p-2", "bg-highlight"]},
-    # {"Porady", nil,
-    #  [
-    #    {"Czy to już czas na kota?", "#"},
-    #    {"Przygotuj dom na kota", "#"},
-    #    {"Jak opiekować się kotem?", "#"},
-    #    {"Co robić, gdy znajdę kota?", "#"},
-    #    {"Zachowanie kota", "#"}
-    #  ], []},
+      # {"Porady", nil,
+      #  [
+      #    {"Czy to już czas na kota?", "#"},
+      #    {"Przygotuj dom na kota", "#"},
+      #    {"Jak opiekować się kotem?", "#"},
+      #    {"Co robić, gdy znajdę kota?", "#"},
+      #    {"Zachowanie kota", "#"}
+      #  ], []},
       {"O nas", ~p"/o-nas/o-fundacji",
        [
          {"O fundacji", ~p"/o-nas/o-fundacji"},

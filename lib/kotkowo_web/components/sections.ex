@@ -237,7 +237,12 @@ defmodule KotkowoWeb.Components.Sections do
             <.footer_link target="_blank" rel="noopener noreferrer" href={rodo_policy()}>
               RODO
             </.footer_link>
-            <.footer_link target="_blank" rel="noopener noreferrer" :if={cookie_policy() != "#"} href={cookie_policy()}>
+            <.footer_link
+              :if={cookie_policy() != "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              href={cookie_policy()}
+            >
               Polityka cookies
             </.footer_link>
             <.footer_link target="_blank" rel="noopener noreferrer" href={adoption_form()}>
