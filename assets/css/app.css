@@ -10,6 +10,7 @@
 
 html {
   color: "#2C3535";
+  scroll-behavior: smooth;
 }
 
 dialog:modal {
