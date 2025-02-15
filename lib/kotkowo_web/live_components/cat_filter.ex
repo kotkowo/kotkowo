@@ -121,6 +121,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
     <div>
       <.drawer
         title="Filtruj według"
+        allow_unfolded={true}
         title_class="text-primary text-justify font-manrope text-2xl font-bold"
         class="xl:w-full block xl:hidden"
       >

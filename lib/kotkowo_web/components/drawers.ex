@@ -12,6 +12,7 @@ defmodule KotkowoWeb.Components.Drawers do
   attr :title, :string, required: true
   attr :class, :string, default: ""
   attr :folded, :boolean, default: true
+  attr :allow_unfolded, :boolean, default: false
   attr :class_when_hidden, :string, default: "hidden xl:block"
   attr :title_class, :string, default: "font-bold xl:text-xl"
   slot :inner_block, required: true, doc: "Content when unfolded"
@@ -19,13 +20,13 @@ defmodule KotkowoWeb.Components.Drawers do
   def drawer(assigns) do
     ~H"""
     <div
-      x-data={"{isXl: $isBreakpoint('lg+') == true, folded: #{@folded}}"}
-      x-on:resize.window="isXl = $isBreakpoint('lg+') == true"
+      x-data={"{isXl: $isBreakpoint('lg+') == true && #{@allow_unfolded}, folded: #{@folded}}"}
+      x-on:resize.window={"isXl = $isBreakpoint('lg+') == true && #{@allow_unfolded}"}
     >
       <template x-if="!isXl">
         <div class={
           classes([
-            "border rounded-xl xl:w-[757px] flex flex-col cursor-pointer select-none"
+            "border rounded-xl flex flex-col cursor-pointer select-none"
             # @class
           ])
         }>
