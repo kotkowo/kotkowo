@@ -44,7 +44,7 @@ defmodule KotkowoWeb.Components.Drawers do
             </template>
           </div>
           <div
-            class="pl-6 pr-12 pb-6 select-text cursor-text xl:text-lg"
+            class="pl-6 pr-12 pb-6 select-text cursor-text xl:text-lg font-inter text-secondary"
             x-show="!folded"
             x-transition
           >
@@ -54,7 +54,7 @@ defmodule KotkowoWeb.Components.Drawers do
       </template>
       <template
         x-if="isXl"
-        class={classes([@class_when_hidden, "text-xl font-manrope text-secondary"])}
+        class={classes([@class_when_hidden, "text-xl font-inter text-secondary"])}
       >
         <%= render_slot(@inner_block) %>
       </template>

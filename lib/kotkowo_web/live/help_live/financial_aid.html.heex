@@ -350,39 +350,39 @@
   </h1>
 
   <div class="flex flex-col gap-y-6">
-    <.drawer title="Czy mogę skorzystać z szybkich płatności?">
+    <.drawer title="Jakie są dane do przelewu fundacji Kotkowo?">
       <p>
-        Pusto (屮｀∀´)屮
+        Dane do przelewu tradycyjnego możesz sprawdzić <.link href={~p"/pomoc/wsparcie-finansowe#dane-do-przelewu"} class="font-bold text-primary hover:text-primary-lighter transition">tutaj</.link>
       </p>
     </.drawer>
 
-    <.drawer title="Czy mogę płacić BLIKIEM?">
+    <.drawer title="Czy przyjmujecie BLIK-a?">
       <p>
-        Pusto (屮｀∀´)屮
+        Na ten moment nie akceptujemy płatności BLIK-iem, ale mamy nadzieję, że to się wkrótce zmieni!
       </p>
     </.drawer>
 
-    <.drawer title="Czy mogę ustawić płatności cykliczne?">
+    <.drawer title="Czy mogę zapłacić szybkim przelewem?">
       <p>
-        Pusto (屮｀∀´)屮
+        Aktualnie nie obsługujemy szybkich przelewów.
       </p>
     </.drawer>
 
-    <.drawer title="Czy mogę ustawić płatności cykliczne?">
+    <.drawer title="Gdzie znajdę sprawozdania finansowe Kotkowa?">
+      <div>
+        <span>Wszystkie sprawozdania finansowe fundacji Kotkowo znajdziesz w <.link class="underline" target="_blank" rel="noopener noreferrer" href={opp_report_base()}>bazie sprawozdań OPP</.link>. Aby zapoznać się ze sprawozdaniem za dowolny rok, w wyszukiwarce wpisz numer KRS:</span><.click_to_copy class="!inline text-primary" text_to_copy={krs()}><%= krs() %></.click_to_copy><span> lub inne dane Kotkowa.</span>
+      </div>
+    </.drawer>
+
+    <.drawer title="Jak przekazać 1,5% podatku na rzecz Kotkowa?">
       <p>
-        Pusto (屮｀∀´)屮
+        Aby przekazać 1,5% podatku na rzecz Kotkowa, sprawdź <.link navigate={~p"/pomoc/przekaz-nam-podatek"} class="font-bold text-primary hover:text-primary-lighter transition">tutaj</.link>.
       </p>
     </.drawer>
 
-    <.drawer title="Na czym polega wirtualna adopcja?">
+    <.drawer title="Jak sprawdzić, na co Kotkowo wydaje dochody z 1,5% podatku?">
       <p>
-        Pusto (屮｀∀´)屮
-      </p>
-    </.drawer>
-
-    <.drawer title="Czy mogę samodzielnie zorganizować zbiórkę?">
-      <p>
-        Pusto (屮｀∀´)屮
+        Sprawozdania z wydatkowania 1,5% podatku zamieszczamy w <.link class="underline" target="_blank" rel="noopener noreferrer" href={opp_report_base()}>bazie sprawozdań OPP</.link>.
       </p>
     </.drawer>
   </div>
