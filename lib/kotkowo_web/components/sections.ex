@@ -148,11 +148,6 @@ defmodule KotkowoWeb.Components.Sections do
                 </div>
               </div>
             </div>
-
-            <input
-              placeholder={gettext("Szukaj...")}
-              class="w-48 px-3 py-1 inline border-2 rounded-full hidden xl:block"
-            />
           </div>
         </div>
       </div>
