@@ -47,8 +47,10 @@ defmodule KotkowoWeb.Router do
       live "/szukaja-domu/:slug", AdoptionLive.ViewLookingForHomeCat
       live "/szukaja-domu", AdoptionLive.LookingForNewHome
       live "/zasady-adopcji", AdoptionLive.AdoptionRules
-      live "/adopcja-wirtualna", AdoptionLive.VirtualAdoption
-      live "/adopcja-wirtualna/:slug", AdoptionLive.ViewVirtualCat
+      if Application.get_env(:kotkowo, :virtual_adoption, false) do 
+        live "/adopcja-wirtualna", AdoptionLive.VirtualAdoption
+        live "/adopcja-wirtualna/:slug", AdoptionLive.ViewVirtualCat
+      end
     end
 
     scope "/zaginione-znalezione" do
