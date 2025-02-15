@@ -2,6 +2,7 @@ defmodule KotkowoWeb.LostAndFoundLive.FoundLive.Index do
   @moduledoc false
   use KotkowoWeb, :live_view
 
+  import KotkowoWeb.Components.Pagination
   import KotkowoWeb.Components.Static.HowYouCanHelpSection
   import KotkowoWeb.Constants
   import KotkowoWeb.WebHelpers
@@ -10,6 +11,8 @@ defmodule KotkowoWeb.LostAndFoundLive.FoundLive.Index do
   alias Kotkowo.Client.Cat
   alias Kotkowo.Client.Image
   alias Kotkowo.Client.Paged
+
+  @first_page 1
 
   defp parse_int_param(nil), do: nil
   defp parse_int_param(page) when is_integer(page), do: page
@@ -24,21 +27,48 @@ defmodule KotkowoWeb.LostAndFoundLive.FoundLive.Index do
   @impl true
   def mount(params, _session, socket) do
     initial_filter = Cat.Filter.from_params(params["cat"])
-    socket = assign(socket, :initial_filter, initial_filter)
+    socket = socket |> assign(:filter, initial_filter) |> assign(:page, @first_page)
     {:ok, socket}
+  end
+
+  @impl true
+  def handle_event("items_amount", %{"items_per_page" => amount}, socket) do
+    limit = String.to_integer(amount)
+    params = %{limit: limit, page: socket.assigns.params.page}
+
+    socket =
+      push_patch(socket,
+        to: ~p"/zaginione-znalezione/znalezione?#{params}" <> "#{Cat.Filter.to_params(socket.assigns.filter)}",
+        replace: true
+      )
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("select_page", %{"value" => page}, socket) do
+    params = %{page: page, limit: socket.assigns.params.limit}
+
+    socket =
+      push_patch(socket,
+        to: ~p"/zaginione-znalezione/znalezione?#{params}" <> "#{Cat.Filter.to_params(socket.assigns.filter)}",
+        replace: true
+      )
+
+    {:noreply, socket}
   end
 
   @impl true
   def handle_params(params, _uri, socket) do
     filter = Cat.Filter.from_params(params["cat"])
 
-    page_size = params |> Map.get("page_size", "30") |> parse_int_param()
+    limit = params |> Map.get("limit", "30") |> parse_int_param()
     page = params |> Map.get("page") |> parse_int_param()
 
-    {:ok, %Paged{items: cats, page_count: page_count, page_size: page_size, page: page, total: total}} =
-      [page: page, page_size: page_size, filter: filter] |> Client.new() |> Client.list_found_cats()
+    {:ok, %Paged{items: cats, page_count: page_count, page_size: limit, page: page, total: total}} =
+      [page: page, page_size: limit, filter: filter] |> Client.new() |> Client.list_found_cats()
 
-    params = %{page: page, page_size: page_size}
+    params = %{page: page, limit: limit}
     page_count = max(1, page_count)
 
     socket =
@@ -48,8 +78,9 @@ defmodule KotkowoWeb.LostAndFoundLive.FoundLive.Index do
         |> assign(:cats_total, total)
         |> assign(:page_count, page_count)
         |> assign(:params, params)
+        |> assign(:filter, filter)
       else
-        push_navigate(socket, to: ~p"/zaginione-znalezione/znalezione")
+        push_navigate(socket, to: ~p"/zaginione-znalezione/znalezione?#{Cat.Filter.to_params(filter)}")
       end
 
     {:noreply, socket}
@@ -57,82 +88,16 @@ defmodule KotkowoWeb.LostAndFoundLive.FoundLive.Index do
 
   @impl true
   def handle_info({:filter_cat, %Cat.Filter{} = filter}, socket) do
-    {:noreply,
-     push_patch(socket, to: ~p"/zaginione-znalezione/znalezione" <> "?#{Cat.Filter.to_params(filter)}", replace: true)}
+    socket =
+      socket
+      |> assign(:filter, filter)
+      |> push_patch(
+        to: ~p"/zaginione-znalezione/znalezione?#{socket.assigns.params}" <> "#{Cat.Filter.to_params(filter)}",
+        replace: true
+      )
+
+    {:noreply, socket}
   end
 
   defp items_per_page, do: [30, 60, 90]
-
-  def pagination_bar(assigns) do
-    assigns =
-      assigns
-      |> assign(:previous_page, assigns.selected_page - 1)
-      |> assign(:next_page, assigns.selected_page + 1)
-      |> assign(:first_page, 1)
-
-    ~H"""
-    <div class="flex flex-row text-xl gap-x-4">
-      <button
-        :if={@selected_page != @first_page}
-        phx-click="select_page"
-        class="p-4"
-        value={@selected_page - 1}
-      >
-        <.icon class=" rotate-90 brightness-0" name="chevron_down" />
-      </button>
-
-      <.icon :if={@selected_page == @first_page} class="rotate-90 p-4 grayscale" name="chevron_down" />
-      <div class="self-center gap-4 hidden lg:inline">
-        <button :if={@selected_page > 2} class="w-14 h-14" phx-click="select_page" value={@first_page}>
-          <%= @first_page %>
-        </button>
-        <span :if={@selected_page > 2} class="w-14 h-14">...</span>
-        <button
-          :if={@selected_page != @first_page}
-          class="w-14 h-14"
-          phx-click="select_page"
-          value={@previous_page}
-        >
-          <%= @previous_page %>
-        </button>
-        <button class="font-bold w-14 h-14">
-          <%= @selected_page %>
-        </button>
-        <button
-          :if={@selected_page != @last_page}
-          class="w-14 h-14"
-          phx-click="select_page"
-          value={@next_page}
-        >
-          <%= @next_page %>
-        </button>
-        <span :if={@selected_page < @last_page - 1} class="w-14 h-14">...</span>
-
-        <button
-          :if={@selected_page < @last_page - 1}
-          class="w-14 h-14"
-          phx-click="select_page"
-          value={@last_page}
-        >
-          <%= @last_page %>
-        </button>
-      </div>
-      <div class="self-center flex flex-row lg:hidden gap-4">
-        <span><%= @selected_page %></span>
-        <span>z</span>
-        <span><%= @last_page %></span>
-      </div>
-      <.icon :if={@selected_page == @last_page} class="rotate-90 p-4 grayscale" name="chevron_up" />
-
-      <button
-        :if={@selected_page != @last_page}
-        class="p-4"
-        phx-click="select_page"
-        value={@selected_page + 1}
-      >
-        <.icon class="rotate-90 brightness-0" name="chevron_up" />
-      </button>
-    </div>
-    """
-  end
 end

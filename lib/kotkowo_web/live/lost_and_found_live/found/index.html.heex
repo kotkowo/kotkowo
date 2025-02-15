@@ -20,7 +20,7 @@
         <.live_component
           id="cat_filter"
           module={KotkowoWeb.LiveComponents.CatFilter}
-          initial_filter={@initial_filter}
+          initial_filter={@filter}
           chip={true}
           name={false}
           tag={false}
@@ -59,7 +59,7 @@
           <option
             :for={option <- items_per_page()}
             value={option}
-            selected={@params.page_size == option}
+            selected={@params.limit == option}
           >
             <%= option %>
           </option>

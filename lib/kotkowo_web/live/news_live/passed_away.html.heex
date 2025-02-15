@@ -21,10 +21,14 @@
         <.live_component
           id="cat_filter"
           module={KotkowoWeb.LiveComponents.CatFilter}
-          initial_filter={@initial_filter}
+          initial_filter={@filter}
         />
       </div>
-      <div class="gap-x-16 gap-y-10 flex flex-wrap lg:justify-start justify-center h-min">
+      <div
+        phx-update="stream"
+        id="cats-list"
+        class="gap-x-16 gap-y-10 flex flex-wrap lg:justify-start justify-center h-min"
+      >
         <.cat_card
           :for={{id, cat} <- @streams.cats}
           id={id}
