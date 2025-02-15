@@ -4,18 +4,19 @@ defmodule Kotkowo.Client.Article do
   alias Kotkowo.Client.Image
 
   @type tags() :: [String.t()]
-
   defstruct [
     :id,
     :introduction,
     :content,
-    :image
+    :image,
+    :tags
   ]
 
   @type t() :: %__MODULE__{
           id: String.t() | nil,
           introduction: String.t(),
           content: String.t(),
-          image: Image.t() | nil
+          image: Image.t() | nil,
+          tags: tags()
         }
 end

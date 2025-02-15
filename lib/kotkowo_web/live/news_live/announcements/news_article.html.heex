@@ -34,6 +34,12 @@
         src={@article.image.url}
         alt="article image"
       />
+      <div
+        :if={@article.tags != []}
+        class="lg:mt-3 overflow-y-hidden overflow-x-hidden flex spacing gap-2 whitespace-nowrap flex-wrap"
+      >
+        <.card_tag :for={tag <- @article.tags}><%= tag %></.card_tag>
+      </div>
       <span class="text-2xl font-semibold leading-10 mt-10"><%= @article.introduction %></span>
       <article
         :if={@article}

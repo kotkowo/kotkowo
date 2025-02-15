@@ -50,7 +50,6 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
     {:noreply, socket}
   end
 
-
   @impl true
   def handle_async(:load_cats, {:ok, cats}, socket) do
     socket =
@@ -92,8 +91,9 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
     page = params |> Map.get("page") |> parse_int_param()
 
     socket =
-      socket |> assign(:filter, filter) |>
-      start_async(:load_cats, fn ->
+      socket
+      |> assign(:filter, filter)
+      |> start_async(:load_cats, fn ->
         [page: page, page_size: page_size, filter: adopted_filter] |> Client.new() |> Client.list_adopted_cats()
       end)
 
@@ -102,7 +102,11 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
 
   @impl true
   def handle_info({:filter_cat, %Cat.Filter{} = filter}, socket) do
-    {:noreply, push_patch(socket, to: ~p"/aktualnosci/znalazly-dom?#{socket.assigns.params}" <> "#{Cat.Filter.to_params(filter)}", replace: true)}
+    {:noreply,
+     push_patch(socket,
+       to: ~p"/aktualnosci/znalazly-dom?#{socket.assigns.params}" <> "#{Cat.Filter.to_params(filter)}",
+       replace: true
+     )}
   end
 
   defp items_per_page, do: [30, 60, 90]

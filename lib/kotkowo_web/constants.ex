@@ -4,15 +4,16 @@ defmodule KotkowoWeb.Constants do
     "kotkowo_logo_black.svg",
     "kotkowo_logo.svg"
   ]
-  @unused_addresses [
-    "https://www.bolilapkabialystok.pl/",
-    "https://centrumpupila.pl/",
-    "https://www.e-pazur.com/",
-    "https://weterynaria.bialystok.pl/",
-    "https://www.przychodniazwierzat.pl/",
-    "https://www.siepomaga.pl/",
-    "https://zwierzak-wet.pl/"
-  ]
+
+  ## @unused_addresses [
+  ##  "https://www.bolilapkabialystok.pl/",
+  ##  "https://centrumpupila.pl/",
+  ##  "https://www.e-pazur.com/",
+  ##  "https://weterynaria.bialystok.pl/",
+  ##  "https://www.przychodniazwierzat.pl/",
+  ##  "https://www.siepomaga.pl/",
+  ##  "https://zwierzak-wet.pl/"
+  ## ]
 
   def kotkowo_assets, do: @downloadable_assets
   def kotkowo_mail, do: "fundacja.kotkowo@gmail.com"
