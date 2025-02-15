@@ -26,7 +26,7 @@ defmodule KotkowoWeb.Constants do
   def adoption_agreement, do: "/documents/umowa_adopcyjna_2023.pdf"
   def cookie_policy, do: "#"
   def rodo_policy, do: "#"
-  def privacy_policy, do: "#"
+  def privacy_policy, do: "/documents/privacy_policy.pdf"
   def krs, do: "0000345319"
   def nip, do: "9662018446"
   def regon, do: "20032337500000"
