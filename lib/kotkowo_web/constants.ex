@@ -39,6 +39,7 @@ defmodule KotkowoWeb.Constants do
   def kotkowo_address, do: "al. Piłsudskiego 26/31"
   def postal_code, do: "15-446 Białystok"
   def opp_report_base, do: "https://sprawozdaniaopp.niw.gov.pl/"
+  def fundation_statute, do: "#"
 
   def adoption_form,
     do: "https://docs.google.com/forms/d/e/1FAIpQLSfQBZ0CHZlXGSGv32HG0mYqQHCskryBlYKUKc3SiHk2cBY-Eg/viewform"
