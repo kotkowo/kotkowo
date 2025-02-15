@@ -93,7 +93,7 @@
           id="kotkowo_cat_filter"
           search_name={:filter_owned_cat}
           module={KotkowoWeb.LiveComponents.CatFilter}
-          initial_filter={@initial_owned_filter}
+          initial_filter={@owned_filter}
         />
       </div>
       <div
@@ -119,20 +119,24 @@
       </div>
     </div>
     <div
-      :if={@owned_params}
+      :if={@params && :owned_page in Map.keys(@params)}
       class="flex flex-col lg:flex-row justify-center items-center relative"
     >
       <div class="mt-10 lg:mt-0">
-        <.pagination_bar selected_page={@owned_params.page} last_page={@owned_page_count} />
+        <.pagination_bar
+          callback="select_owned_page"
+          selected_page={@params.owned_page}
+          last_page={@owned_page_count}
+        />
       </div>
       <div class="lg:absolute right-0 -order-1 self-center">
-        <form phx-change="items_amount">
+        <form phx-change="items_amount_owned">
           <label class="font-inter mr-5 text-md">Pokaż na stronie</label>
           <select name="items_per_page" class="rounded-lg">
             <option
               :for={option <- items_per_page()}
               value={option}
-              selected={@owned_params.page_size == option}
+              selected={@params.owned_limit == option}
             >
               <%= option %>
             </option>
@@ -156,7 +160,7 @@
           id="cat_filter"
           search_name={:filter_unowned_cat}
           module={KotkowoWeb.LiveComponents.CatFilter}
-          initial_filter={@initial_unowned_filter}
+          initial_filter={@unowned_filter}
         />
       </div>
       <div
@@ -182,20 +186,24 @@
       </div>
     </div>
     <div
-      :if={@unowned_params}
+      :if={@params && :unowned_page in Map.keys(@params)}
       class="flex flex-col lg:flex-row justify-center items-center relative"
     >
       <div class="mt-10 lg:mt-0">
-        <.pagination_bar selected_page={@unowned_params.page} last_page={@unowned_page_count} />
+        <.pagination_bar
+          callback="unowned_page"
+          selected_page={@params.unowned_page}
+          last_page={@unowned_page_count}
+        />
       </div>
       <div class="lg:absolute right-0 -order-1 self-center">
-        <form phx-change="items_amount">
+        <form phx-change="items_amount_unowned">
           <label class="font-inter mr-5 text-md">Pokaż na stronie</label>
           <select name="items_per_page" class="rounded-lg">
             <option
               :for={option <- items_per_page()}
               value={option}
-              selected={@unowned_params.page_size == option}
+              selected={@params.unowned_limit == option}
             >
               <%= option %>
             </option>
