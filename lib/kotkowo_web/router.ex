@@ -33,6 +33,7 @@ defmodule KotkowoWeb.Router do
       live "/o-fundacji", AboutUsLive.AboutFundation
       live "/historia-kotkowa", AboutUsLive.FundationHistory
       live "/partnerzy", AboutUsLive.OurPartnership
+      live "/faq", AboutUsLive.Faq
 
       scope "/media-o-nas", AboutUsLive.MediaAboutUsLive do
         live "/", Index

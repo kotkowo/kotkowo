@@ -203,9 +203,9 @@ defmodule KotkowoWeb.Components.Sections do
               <.icon name="city_scraper" class="w-5 h-5 inline mr-2" />
               <div class="flex flex-col space-y-2">
                 <span>Adres biura</span>
-                <.click_to_copy text_to_copy="al. J. Piłsudskiego 26/31\n15-446 Białystok">
-                  <span>al. J. Piłsudskiego 26/31</span>
-                  <span>15-446 Białystok</span>
+                <.click_to_copy text_to_copy={"#{kotkowo_address()}\\n#{postal_code()}"}>
+                  <span><%= kotkowo_address() %></span>
+                  <span><%= postal_code() %></span>
                 </.click_to_copy>
               </div>
             </div>
@@ -250,13 +250,13 @@ defmodule KotkowoWeb.Components.Sections do
 
           <.footer_section title="Dane fundacji">
             <dl class="grid grid-flow-row auto-rows-auto gap-4">
-              <.footer_definition term="KRS" description="0000345319" />
-              <.footer_definition term="NIP" description="9662018446" />
-              <.footer_definition term="REGON" description="20032337500000" />
+              <.footer_definition term="KRS" description={krs()} />
+              <.footer_definition term="NIP" description={nip()} />
+              <.footer_definition term="REGON" description={regon()} />
               <.footer_definition term="Bank" description={bank()} />
-              <.footer_definition term="Numer konta" description="87 1540 1216 2054 4458 2306 0001" />
-              <.footer_definition term="SWIFT/BIC" description="EBOSPLPWXXX" />
-              <.footer_definition term="IBAN" description="PL 87 1540 1216 2054 4458 2306 0001" />
+              <.footer_definition term="Numer konta" description={bank_account_number()} />
+              <.footer_definition term="SWIFT/BIC" description={swift_bic()} />
+              <.footer_definition term="IBAN" description={iban()} />
             </dl>
 
             <.button navigate={~p"/pomoc/wsparcie-finansowe"} type="secondary" class="!mt-8">
