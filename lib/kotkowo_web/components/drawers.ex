@@ -52,10 +52,7 @@ defmodule KotkowoWeb.Components.Drawers do
           </div>
         </div>
       </template>
-      <template
-        x-if="isXl"
-        class={classes([@class_when_hidden, "text-xl font-inter text-secondary"])}
-      >
+      <template x-if="isXl" class={classes([@class_when_hidden, "text-xl font-inter text-secondary"])}>
         <%= render_slot(@inner_block) %>
       </template>
     </div>
