@@ -1,13 +1,41 @@
 <.section class="mt-6 xl:mt-0 px-6 xl:px-0">
   <.breadcrumb>
-    <:crumb navigate={~p"/o-nas"}>
+    <:crumb navigate={~p"/o-nas/o-fundacji"}>
       O nas
     </:crumb>
     <:crumb navigate={~p"/o-nas/faq"} active>
       FAQ
     </:crumb>
   </.breadcrumb>
+
   <div class="flex flex-col gap-y-6">
+    <h1 class="text-primary text-center lg:text-justify lg:mt-0 mt-6 font-manrope font-extrabold xl:text-4xl text-3xl">
+      Często zadawane pytania
+    </h1>
+    <.drawer title="Jak przekazać 1,5% podatku na rzecz Kotkowa?">
+      <b>Przekazanie 1,5% podatku jest naprawdę proste!</b>
+      <br /> Wystarczy, że wypełnisz PIT za poprzedni rok i wskażesz Fundację Kotkowo.
+      <br />W tym celu wpisz w odpowiedniej rubryce zeznania podatkowego numer, pod jakim Fundacja Kotkowo widnieje w Krajowym Rejestrze Sądowym, czyli:
+      <div
+        class="font-bold underline cursor-pointer py-2"
+        x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
+        x-data
+      >
+        <%= krs() %>
+      </div>
+      Aby to zrobić, <b>uzupełnij część zeznania zatytułowaną "Wniosek o przekazanie 1,5% podatku należnego na rzecz organizacji pożytku publicznego OPP"</b>, znajdującą się na ostatniej stronie zeznania PIT.
+      W tej samej części zeznania wpisz także kwotę, którą chcesz przekazać dla OPP.
+      Pamiętaj, że nie może ona przekraczać 1,5% podatku należnego, wynikającego z zeznania podatkowego, po zaokrągleniu do pełnych dziesiątek groszy w dół.
+      <img class="w-full max-w-[864px] py-2" src={~p"/images/opp_form.jpg"} />
+      W swoim zeznaniu podatkowym możesz również podać dodatkowe informacje, które zostaną nam przesłane jako uszczegółowienie przekazanych kwot. Możesz także wyrazić zgodę na podanie nam swoich danych osobowych (imienia, nazwiska oraz adresu) - nie jest to jednak konieczne.
+      <br /> <b>Już teraz kotki serdecznie dziękują za każdą, nawet najmniejszą kwotę!</b>
+      <div class="pt-2">
+        <.link href={~p"/pomoc/przekaz-nam-podatek"} target="_blank">
+          Więcej informacji w artykule <u class="text-primary">tutaj</u>.
+        </.link>
+      </div>
+    </.drawer>
+
     <.drawer title="Jak adoptować kota z Kotkowa?">
       <div class="space-y-4">
         <p>
@@ -15,9 +43,22 @@
           Znajdują się pod opieką lekarza weterynarii.
         </p>
         <p>
-          Aby adoptować kota z fundacji, zadzwoń do nas lub napisz na:
-          <span class="text-primary font-medium">fundacja.kotkowo@gmail.com</span>
+          Przy oddawaniu kotka podpisujemy umowę adopcyjną. Zobacz wzór umowy adopcyjnej.
         </p>
+        <div>
+          Aby adoptować kota z fundacji, zadzwoń do nas lub napisz na:
+          <div>
+            <.link class="text-primary font-bold" href="mailto:fundacja.kotkowo@gmail.com">
+              <%= kotkowo_mail() %>
+            </.link>
+          </div>
+        </div>
+        <div>
+          Przy oddawaniu kotka podpisujemy umowę adopcyjną.
+          <.link class="text-primary font-bold" href="#" target="_blank">
+            Zobacz wzór umowy adopcyjnej.
+          </.link>
+        </div>
         <p>
           Adopcja kotów w Kotkowie jest bezpłatna – warunkiem podstawowym jest zapewnienie kotu godziwych
           warunków bytowych oraz podpisanie umowy adopcyjnej.
@@ -30,7 +71,40 @@
           którego pokochał. Nie bierz kotka dla zabawy, na święta, na prezent. Weź go tylko wtedy, jeśli
           będziesz go kochać przez następnych kilka – kilkanaście lat.
         </p>
+
+        <p>
+          Koty pozostające pod naszą opieką poszukują ciepłych, kochających, odpowiedzialnych opiekunów.
+        </p>
       </div>
+    </.drawer>
+
+    <.drawer title="Jakie są koszty wirtualnej adopcji?">
+      Obecnie to ok. 50 zł miesięcznie.
+    </.drawer>
+
+    <.drawer title="Czy adoptując wirtualnie kota, muszę wpłacać ustaloną kwotę do czasu znalezienia domu?">
+      Nie, wystarczy napisać do nas maila na
+      <.link class="text-primary font-bold" href="mailto:fundacja.kotkowo@gmail.com">
+        <%= kotkowo_mail() %>
+      </.link>
+      z informacją, że rezygnujesz z wirtualnej adopcji oraz nie wpłacać kolejnej kwoty. Można zrezygnować w każdej chwili, nie podając przyczyn. Oczywiście nie zwracamy wpłaconych wcześniej pieniędzy (zostaną już pewnie dawno „zjedzone” przez kicia).
+    </.drawer>
+
+    <.drawer title="Czy zwierzak adoptowany wirtualnie może zostać zaadoptowany?">
+      Tak. Jeśli znajdzie się człowiek o wielkim sercu, który nie będzie się obawiał adopcji „problematycznego” kotka, chętnie oddamy kicia  do prawdziwej adopcji. Z radością zaproponujemy kolejnego kicia do adopcji wirtualnej ;)
+    </.drawer>
+
+    <.drawer title="Kto może zostać wirtualnym opiekunem?">
+      <p>
+        Wirtualnym opiekunem może zostać osoba prywatna, organizacja, określona grupa ludzi (np. szkoła, klasa itp.) czy też firma.
+      </p>
+      <p>
+        Dla firm może to być dodatkowa forma reklamy. Przedsiębiorstwa mogą umieścić obok zdjęcia zwierzaka swoje logo, czy też odnośnik do strony internetowej.
+      </p>
+    </.drawer>
+
+    <.drawer title="Jak pomóc fundacji Kotkowo?">
+      Potrzebujemy m. in. solidnych klatek do kwarantanny kotów, klatki iniekcyjnej oraz funduszy na leczenie chorych, zaniedbanych, bezdomnych zwierząt. Każda wpłata się liczy. Poszukujemy także dobrych ludzi, którzy otworzą swoje serca (i domy) dla potrzebujących kiciów.
     </.drawer>
 
     <.drawer title="Na czym polega wirtualna adopcja?">
@@ -50,8 +124,261 @@
       </ol>
     </.drawer>
 
+    <.drawer title="Jak zostać wirtualnym opiekunem lub opiekunką kota?">
+      <p>
+        Wystarczy skontaktować się z nami mailowo, wpisując w treści maila swoje imię, nazwisko lub też nick, który będzie wyświetlany przy zdjęciu „zaadoptowanego” zwierzaka na stronie oraz wpłacać 50 zł miesięcznie na konto:
+      </p>
+      <div class="flex flex-col gap-y-2 py-2 font-bold">
+        <p>
+          Bank:
+          <span
+            class="underline cursor-pointer py-2"
+            x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
+            x-data
+          >
+            <%= bank() %>
+          </span>
+        </p>
+        <p>
+          Nr konta:
+          <span
+            class="underline cursor-pointer py-2"
+            x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
+            x-data
+          >
+            <%= bank_account_number() %>
+          </span>
+        </p>
+      </div>
+      <p>
+        w tytule przelewu prosimy podać: darowizna na utrzymanie (imię zwierza)
+      </p>
+    </.drawer>
+
+    <.drawer title="Jak sprawdzić, na co Kotkowo wydaje dochody z 1,5% podatku?">
+      <div class="font-bold">
+        Sprawozdania z wydatkowania 1,5% podatku zamieszczamy w <.link
+          class="text-primary underline"
+          href="https://niw.gov.pl/opp/sprawozdania-opp/"
+          target="_blank"
+        >bazie sprawozdań OPP</.link>.
+      </div>
+    </.drawer>
+
+    <.drawer title="Gdzie znajdę sprawozdania finansowe Kotkowa?">
+      <div class="font-bold">
+        Sprawozdania z wydatkowania 1,5% podatku zamieszczamy w <.link
+          class="text-primary underline"
+          href="https://sprawozdaniaopp.niw.gov.pl/"
+          target="_blank"
+        >bazie sprawozdań OPP</.link>.
+      </div>
+      <div>
+        Aby zapoznać się ze sprawozdaniem za dowolny rok, w wyszukiwarce wpisz numer KRS:
+        <span
+          class="underline cursor-pointer py-2"
+          x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
+          x-data
+        >
+          <%= krs() %>
+        </span>
+        lub inne dane Kotkowa.
+      </div>
+    </.drawer>
+    <.drawer title="Jakie są dane do przelewu fundacji Kotkowo?">
+      <p>Nasze dane to:</p>
+      <p
+        class="font-bold underline cursor-pointer"
+        x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
+        x-data
+      >
+        Fundacja Kotkowo
+      </p>
+      <p>
+        KRS:
+        <span
+          class="font-bold underline cursor-pointer"
+          x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
+          x-data
+        >
+          <%= krs() %>
+        </span>
+      </p>
+      <p>
+        NIP:
+        <span
+          class="font-bold underline cursor-pointer"
+          x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
+          x-data
+        >
+          <%= nip() %>
+        </span>
+      </p>
+      <p>
+        REGON:
+        <span
+          class="font-bold underline cursor-pointer"
+          x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
+          x-data
+        >
+          <%= regon() %>
+        </span>
+      </p>
+      <br />
+      <p>
+        Adres do korespondencji:
+      </p>
+      <p
+        class="font-bold underline cursor-pointer"
+        x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
+        x-data
+      >
+        <%= kotkowo_address() %>
+      </p>
+      <p
+        class="font-bold underline cursor-pointer"
+        x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
+        x-data
+      >
+        <%= postal_code() %>
+      </p>
+      <br />
+      <p>
+        Bank:
+        <span
+          class="font-bold underline cursor-pointer"
+          x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
+          x-data
+        >
+          <%= bank() %>
+        </span>
+      </p>
+      <p>
+        Nr konta:
+        <span
+          class="font-bold underline cursor-pointer"
+          x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
+          x-data
+        >
+          <%= bank_account_number() %>
+        </span>
+      </p>
+      <p>
+        w tytule przelewu prosimy podać:
+        <span
+          class="font-bold underline cursor-pointer"
+          x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
+          x-data
+        >
+          darowizna na cele statutowe
+        </span>
+      </p>
+      <br />
+      <p>
+        Dla przelewów zagranicznych SWIFT/BIC:
+        <span
+          class="font-bold underline cursor-pointer"
+          x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
+          x-data
+        >
+          <%= swift_bic() %>
+        </span>
+      </p>
+      <p>
+        IBAN:
+        <span
+          class="font-bold underline cursor-pointer"
+          x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
+          x-data
+        >
+          <%= iban() %>
+        </span>
+      </p>
+      <br />
+      <p>
+        Możesz też wpłacić darowiznę przez
+        <.link href={kotkowo_paypal()} target="_blank" class="text-primary font-bold underline">
+          PayPal
+        </.link>
+      </p>
+      <br />
+      <p>
+        UWAGA! Nie prowadzimy schroniska dla kotów!  Nasze koty przebywają w domach tymczasowych.
+      </p>
+      <br />
+      <div>
+        Kontakt e-mail:
+        <.link href={"mailto:#{kotkowo_mail()}"} class="text-primary font-bold underline">
+          <%= kotkowo_mail() %>
+        </.link>
+      </div>
+
+      <div>
+        <.link
+          class="text-primary font-bold underline"
+          href="/pomoc/wsparcie-finansowe#dane-do-przelewu"
+          target="_blank"
+        >
+          Więcej informacji tutaj.
+        </.link>
+      </div>
+    </.drawer>
+
+    <.drawer title="Gdzie w Białymstoku pójść do weterynarza?">
+      Polecane przez nas kliniki weterynaryjne to:
+      <ol class="list-decimal pl-5 space-y-2 mt-4">
+        <li>Zwierzak-Wet</li>
+        <li>Boliłapka</li>
+        <li>Gabinet weterynaryjny Małgorzaty Siwickiej</li>
+        <li>Centrum Pupila</li>
+        <li>Przychodnia Małych Zwierząt</li>
+      </ol>
+    </.drawer>
+
+    <.drawer title="Kupujesz – pomagasz. Na czym polega współpraca ze sklepem e-Pazur.com?">
+      <div>
+        Pod opieką Kotkowa stale pozostaje kilkadziesiąt kotów. Wszystkie poszukują kochających domów, ale potrzebują też karmy, żwirku, leków itp. Dlatego wspólnie ze sklepem zoologicznym
+        <.link href={epazur_store()} class="text-primary font-bold underline" target="_blank">
+          e-Pazur.com
+        </.link>
+        uruchomiliśmy program partnerski.
+        <b>Możesz wspomóc działalność Kotkowa bez wychodzenia z domu!</b>
+      </div>
+      <p>
+        Jak to działa?
+      </p>
+      <ol class="list-decimal pl-5 space-y-2 mt-4">
+        <li>
+          Każdy klient
+          <.link href={epazur_store()} class="text-primary font-bold underline" target="_blank">
+            e-Pazur.com
+          </.link>
+          , który wyrazi takie życzenie, może wspomóc Kotkowo artykułami z oferty sklepu. Wystarczy, że w uwagach do zamówienia podasz, <b>które pozycje przekazujesz dla Kotkowa</b>. Sklep
+          <.link href={epazur_store()} class="text-primary font-bold underline" target="_blank">
+            e-Pazur.com
+          </.link>
+          bezpłatnie nam je dostarczy.
+        </li>
+        <li>
+          Jeżeli mieszkasz na terenie Białegostoku lub okolic i nie masz konta w sklepie e-pazur.com, zarejestruj się i przy pierwszym zamówieniu podaj w uwagach <b>hasło „Miseczka dla biednego koteczka”</b>. Dzięki temu na potrzeby Kotkowa trafi 10% wartości Twoich zakupów.
+        </li>
+        <li>
+          Każde zamówienie (z dowolnej lokalizacji), przy którym zarejestrowany klient poda w uwagach hasło <b>„kupując pomagam” to 2 zł dla Kotkowa</b>. Otrzymane pieniądze wydamy na zakup artykułów, których potrzebują kotki pozostające pod naszą opieką.
+        </li>
+        <li>
+          Pozycja 2 i 3 nie sumują się – w przypadku nowego klienta obowiązuje „miseczka dla biednego koteczka”, a w przypadku zamówień klientów już zarejestrowanych (bądź kolejnych zamówień) obowiązuje „kupując pomagam”.
+        </li>
+      </ol>
+    </.drawer>
+
+    <.drawer title="Jak wygląda umowa adopcyjna z fundacją Kotkowo?">
+      <.link href={adoption_agreement()} class="text-primary font-bold underline" target="_blank">
+        Wzór umowy dostępny jest na naszej stronie.
+      </.link>
+    </.drawer>
+
     <.drawer title="Jakie są zasady Kotkowa?">
-      <p>Kotkowo.pl kieruje się kilkoma prostymi zasadami:</p>
+      <p><b>Kotkowo.pl kieruje się kilkoma prostymi zasadami:</b></p>
       <ol class="list-decimal pl-5 space-y-2 mt-4">
         <li>Nie handlujemy zwierzętami. Nie sprzedajemy kotów, ani ich nie kupujemy.</li>
         <li>
@@ -65,6 +392,13 @@
         </li>
         <li>
           Jeżeli pośredniczymy w adopcjach kotków - wymagamy podpisania umowy adopcyjnej ze zobowiązaniem do sterylizacji/kastracji zwierzaczka.
+          <.link
+            href={adoption_agreement()}
+            class="text-primary font-bold underline"
+            target="_blank"
+          >
+            Wzór umowy dostępny jest tutaj.
+          </.link>
         </li>
         <li>
           Nie wysyłamy kotów pocztą, kurierem itp. Jeżeli chcesz przygarnąć kotka - musimy spotkać się osobiście.
@@ -81,20 +415,56 @@
     <.drawer title="Na czym polega akcja Pełna Miska?">
       <div class="space-y-4">
         <p>
-          Pełna Miska to wielka zbiórka karmy, organizowana od 2009 r. w Białymstoku przez fundację Kotkowo.
+          <b>Pełna Miska</b>
+          to wielka zbiórka karmy, <b>organizowana od 2009 r. w Białymstoku przez fundację Kotkowo</b>.
           Przekazana nam karma zostanie w całości przeznaczona dla Domów Tymczasowych i na dokarmianie
           bezdomnych zwierząt: wolno żyjących kotów w Białymstoku i okolicach.
         </p>
-        <p class="font-medium">Jak możesz pomóc?</p>
+        <h3 class="font-medium text-lg">Jak możesz pomóc?</h3>
         <ol class="list-decimal pl-5 space-y-2">
           <li>
             Robiąc codzienne zakupy, pomyśl o losie bezdomnych kotków i piesków. Oprócz normalnych zakupów,
-            wrzuć do koszyka jedno lub kilka opakowań dowolnej karmy (suchej lub mokrej).
+            <b>wrzuć do koszyka jedno lub kilka opakowań dowolnej karmy</b>
+            (suchej lub mokrej).
           </li>
-          <li>Zakupioną karmę przynieś do domu.</li>
-          <li>O swoich zakupach powiadom Kotkowo.</li>
-          <li>My przyjedziemy do Ciebie i odbierzemy zakupioną karmę.</li>
+          <li><b>Zakupioną karmę przynieś do domu.</b></li>
+          <li>O swoich zakupach powiadom <b>Kotkowo</b>.</li>
+          <li><b>My przyjedziemy do Ciebie i odbierzemy zakupioną karmę</b>.</li>
+          <li>
+            Karmę możesz też zostawić w kilku zaprzyjaźnionych lecznicach lub wybranych sklepach zoologicznych.
+          </li>
         </ol>
+
+        <h3 class="font-medium text-lg">Jak powiadomić nas o zakupie karmy?</h3>
+        <p>O swoich zakupach możesz poinformować nas:</p>
+        <ul>
+          <li>
+            <b>e-mailem</b>, pisząc na adres:
+            <.link href={"mailto:#{kotkowo_mail()}"} class="text-primary font-bold underline">
+              <%= kotkowo_mail() %>
+            </.link>
+          </li>
+          <li>
+            <b>wysyłając SMS-a</b>
+            na numer
+            <.link href={"tel:#{kotkowo_phone(:short)}"} class="text-primary font-bold underline">
+              <%= kotkowo_phone() %>
+            </.link>
+          </li>
+        </ul>
+
+        <p>
+          <b>
+            Pisząc do nas, nie zapomnij podać swojego adresu oraz ilości i rodzaju zakupionej karmy.
+          </b>
+        </p>
+        <p>
+          Po otrzymaniu wiadomości <b>skontaktujemy się z Tobą</b>
+          i umówimy się na najdogodniejszy dla Ciebie termin, w którym przyjedziemy odebrać zakupioną karmę.
+        </p>
+        <p>
+          <b>Pamiętaj, liczy się każda, nawet najmniejsza ilość!</b>
+        </p>
       </div>
     </.drawer>
 
@@ -102,16 +472,17 @@
       <div class="space-y-4">
         <p>Fundacja Kotkowo działa od 2010 r. (choć nasi wolontariusze już od 2007).</p>
         <p>
-          Dzięki pomocy dobrych ludzi i ciężkiej pracy kilku wolontariuszy udało się nam między innymi:
+          Dzięki pomocy <b>dobrych ludzi</b>
+          i ciężkiej pracy kilku wolontariuszy udało się nam między innymi:
         </p>
         <ul class="list-disc pl-5 space-y-2">
-          <li>znaleźć domy dla ponad 5000 kotów</li>
-          <li>wysterylizować ok. 10 tys. kotek wolno żyjących</li>
-          <li>wykastrować kilkaset kocurków</li>
+          <li><b>znaleźć domy dla ponad 5000 kotów</b></li>
+          <li><b>wysterylizować ok. 10 tys. kotek wolno żyjących</b></li>
+          <li><b>wykastrować kilkaset kocurków</b></li>
           <li>
-            przeprowadzić kilkadziesiąt akcji edukacyjnych, spotkań w szkołach, przedszkolach i bibliotekach
+            <b>przeprowadzić kilkadziesiąt akcji edukacyjnych</b>, spotkań w szkołach, przedszkolach i bibliotekach
           </li>
-          <li>zorganizować kilka cyklicznych Akcji sterylizacja</li>
+          <li>zorganizować kilka cyklicznych <b>Akcji sterylizacja</b></li>
           <li>nawiązać współpracę z dobrymi lecznicami, promować zalety sterylizacji</li>
           <li>objąć patronatem kilka konkursów plastycznych o kociej tematyce</li>
           <li>znaleźć przy okazji domy kilkunastu bezdomnym psiakom</li>

@@ -28,6 +28,16 @@ defmodule KotkowoWeb.Constants do
   def postal_code, do: "15-446 Białystok"
   def opp_report_base, do: "https://sprawozdaniaopp.niw.gov.pl/"
   def fundation_statute, do: "/documents/statut.pdf"
+  def epazur_store, do: "https://www.e-pazur.com/"
+  def kotkowo_phone(format \\ :spaced)
+
+  def kotkowo_phone(:spaced) do
+    "600 275 507"
+  end
+
+  def kotkowo_phone(:short) do
+    String.replace(kotkowo_phone(), " ", "")
+  end
 
   def adoption_form,
     do: "https://docs.google.com/forms/d/e/1FAIpQLSfQBZ0CHZlXGSGv32HG0mYqQHCskryBlYKUKc3SiHk2cBY-Eg/viewform"
