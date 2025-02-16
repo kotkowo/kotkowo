@@ -6,6 +6,13 @@ defmodule KotkowoWeb.Layouts do
   import KotkowoWeb.Components.Sections
   import KotkowoWeb.Constants, only: [kotkowo_mail: 0]
 
+  alias Kotkowo.Client.Paged
+
+  defp advice_links do
+    {:ok, %Paged{items: items}} = GenServer.call(Kotkowo.AdviceHandler, :get_advice)
+    Enum.map(items, fn %Kotkowo.Client.Advice{title: title, id: id} -> {title, ~p"/porady/#{id}"} end)
+  end
+
   def links do
     [
       {"Aktualności", "/aktualnosci",
@@ -34,14 +41,7 @@ defmodule KotkowoWeb.Layouts do
          {"Załóż dom tymczasowy", ~p"/pomoc/stworz-dom-tymczasowy"},
          {"Zapisz się na wolontariat", ~p"/pomoc/zapisz-sie-na-wolontariat"}
        ], ["p-2", "bg-highlight"]},
-      # {"Porady", nil,
-      #  [
-      #    {"Czy to już czas na kota?", "#"},
-      #    {"Przygotuj dom na kota", "#"},
-      #    {"Jak opiekować się kotem?", "#"},
-      #    {"Co robić, gdy znajdę kota?", "#"},
-      #    {"Zachowanie kota", "#"}
-      #  ], []},
+      {"Porady", ~p"/porady", advice_links(), []},
       {"O nas", ~p"/o-nas/o-fundacji",
        [
          {"O fundacji", ~p"/o-nas/o-fundacji"},

@@ -408,6 +408,7 @@ defmodule KotkowoWeb.Components.Cards do
   attr :src, :string, required: true
   attr :title, :string, required: true
   attr :news_id, :string, required: true
+  attr :base_route, :string, default: "/aktualnosci/z-ostatniej-chwili"
 
   attr :tags, :list,
     default: [],
@@ -424,7 +425,7 @@ defmodule KotkowoWeb.Components.Cards do
       class={classes(["lg:min-w-[345px] min-w-[240px] w-[240px] only:mx-auto", @card_class])}
     >
       <:title class="lg:text-xl text-base grow line-clamp-3 !whitespace-normal">
-        <.link navigate={~p"/aktualnosci/z-ostatniej-chwili/#{assigns.news_id}"}>
+        <.link navigate={"/#{@base_route}/#{assigns.news_id}"}>
           <%= @title %>
         </.link>
       </:title>
@@ -465,13 +466,14 @@ defmodule KotkowoWeb.Components.Cards do
   attr :tags, :list, default: []
   attr :image, :string, required: true
   attr :news_id, :string, required: true
+  attr :base_route, :string, default: "aktualnosci/z-ostatniej-chwili"
 
   def header_news_card(assigns) do
     ~H"""
     <div class="lg:w-[1312px] flex flex-col lg:flex-row justify-between border border-1 rounded-2xl items-start h-full lg:h-[322px] pt-6 lg:pt-0">
       <div class="flex flex-col px-6 lg:py-6 max-w-xl h-full lg:gap-y-0 gap-y-4">
         <div class="text-2xl font-semibold leading-10 lg:line-clamp-2 line-clamp-5">
-          <.link navigate={~p"/aktualnosci/z-ostatniej-chwili/#{assigns.news_id}"}>
+          <.link navigate={~p"/#{@base_route}/#{assigns.news_id}"}>
             <%= @title %>
           </.link>
         </div>
@@ -487,7 +489,7 @@ defmodule KotkowoWeb.Components.Cards do
       </div>
       <.link
         class="h-full w-full lg:w-fit mt-10 lg:mt-0"
-        navigate={~p"/aktualnosci/z-ostatniej-chwili/#{assigns.news_id}"}
+        navigate={~p"/#{@base_route}/#{assigns.news_id}"}
       >
         <img
           class="w-full lg:w-[535px] h-[169px]  lg:h-full object-cover rounded-xl  lg:rounded-l-none lg:rounded-y-none"

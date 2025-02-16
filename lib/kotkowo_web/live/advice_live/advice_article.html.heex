@@ -1,0 +1,73 @@
+<.section>
+  <.breadcrumb>
+    <:crumb navigate={~p"/aktualnosci"}>
+      Aktualności
+    </:crumb>
+    <:crumb navigate={~p"/aktualnosci/z-ostatniej-chwili"}>
+      Z ostatniej chwili
+    </:crumb>
+    <:crumb navigate={~p"/aktualnosci/z-ostatniej-chwili/#{@article_id}"} active>
+      <span :if={@article}>
+        <%= @article.title %>
+      </span>
+      <span :if={@article == nil}>
+        <%= @article_id %>
+      </span>
+    </:crumb>
+  </.breadcrumb>
+  <div class="flex flex-col lg:flex-row justify-between px-5">
+    <div :if={!@article} class="flex gap-y-10 flex-col flex-wrap" }>
+      <div class="w-full lg:min-w-[832px] bg-gray-300 animate-pulse lg:h-12 h-16 mt-2 rounded">
+      </div>
+      <div class="h-[340px] bg-gray-300 animate-pulse rounded-2xl"></div>
+      <div class="flex flex-col gap-y-4">
+        <div class="bg-gray-300 animate-pulse w-2/3 h-8 rounded"></div>
+        <div :for={_ <- 0..3} class="bg-gray-300 animate-pulse even:w-4/5 h-6 rounded"></div>
+      </div>
+    </div>
+    <div :if={@article} class="flex flex-col flex-wrap w-full lg:w-[865px]">
+      <h1 class="w-full lg:w-[832px] text-primary text-center lg:text-justify lg:mt-0 font-manrope font-extrabold xl:text-4xl text-3xl mt-2 lg:mt-0">
+        <%= @article.title %>
+      </h1>
+      <img
+        class="w-full h-[340px] object-cover  rounded-2xl mt-10"
+        src={@article.image.url}
+        alt="article image"
+      />
+      <div
+        :if={@article.tags != []}
+        class="lg:mt-3 overflow-y-hidden overflow-x-hidden flex spacing gap-2 whitespace-nowrap flex-wrap"
+      >
+        <.card_tag :for={tag <- @article.tags}><%= tag %></.card_tag>
+      </div>
+      <span class="text-2xl font-semibold leading-10 mt-10"><%= @article.introduction %></span>
+      <article
+        :if={@article}
+        id="article-content"
+        phx-update="ignore"
+        class="w-full lg:w-[865px] overflow-auto font-inter prose text-xl mt-4"
+        data-article-content={@article.content}
+        phx-hook="sanitize_article_html"
+      >
+      </article>
+    </div>
+    <div class="flex flex-col lg:mt-0 mt-10 items-center font-manrope gap-y-6 text-[#2c3535] text-3xl">
+      <h2 class="font-extrabold self-start">Najczęściej czytane</h2>
+      <div :if={!@popular_advices} class="space-y-6">
+        <.news_card_loading :for={_ <- 1..3} />
+      </div>
+      <div :if={@popular_advices} class="space-y-6">
+        <.news_card
+          :for={advices <- @popular_advices}
+          card_class="lg:min-w-[320px] min-w-[280px]"
+          news_id={advices.id}
+          src={advices.image.url}
+          title={advices.title}
+          tags={advices.tags}
+          base_route="porady"
+        />
+      </div>
+    </div>
+  </div>
+</.section>
+<.how_you_can_help />

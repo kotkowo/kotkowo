@@ -2,8 +2,9 @@ defmodule Kotkowo.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
-
   use Application
+
+  alias Kotkowo.AdviceHandler
 
   @impl true
   def start(_type, _args) do
@@ -12,7 +13,8 @@ defmodule Kotkowo.Application do
       KotkowoWeb.Telemetry,
       {Phoenix.PubSub, name: Kotkowo.PubSub},
       KotkowoWeb.Endpoint,
-      Kotkowo.PromEx
+      Kotkowo.PromEx,
+      Supervisor.child_spec({AdviceHandler, nil}, id: AdviceHandler, restart: :permanent)
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

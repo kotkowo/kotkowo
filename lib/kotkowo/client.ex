@@ -20,8 +20,10 @@ defmodule Kotkowo.Client do
   def list_lost_cats(_options \\ %Opts{}), do: :erlang.nif_error(:nif_not_loaded)
   def list_found_cats(_options \\ %Opts{}), do: :erlang.nif_error(:nif_not_loaded)
   def list_announcements(_options \\ %Opts{}), do: :erlang.nif_error(:nif_not_loaded)
+  def list_advices(_options \\ %Opts{}), do: :erlang.nif_error(:nif_not_loaded)
   def list_external_media(_options \\ %Opts{}), do: :erlang.nif_error(:nif_not_loaded)
-  def get_article(_announcement_article), do: :erlang.nif_error(:nif_not_loaded)
+  def get_article(_announcement_id), do: :erlang.nif_error(:nif_not_loaded)
+  def get_advice_article(_advice_id), do: :erlang.nif_error(:nif_not_loaded)
 
   @doc """
   Creates a new client configuration with the specified options.

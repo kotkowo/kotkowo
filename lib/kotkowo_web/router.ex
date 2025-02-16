@@ -69,6 +69,12 @@ defmodule KotkowoWeb.Router do
       end
     end
 
+    scope "/porady" do
+      live "/", AdviceLive.Index
+      live "/wszystkie", AdviceLive.AllAdvices
+      live "/:advice_id", AdviceLive.AdviceArticle
+    end
+
     scope "/aktualnosci" do
       live "/", NewsLive.Index
       live "/znalazly-dom", NewsLive.FoundHome
