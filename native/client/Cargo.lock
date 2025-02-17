@@ -575,7 +575,7 @@ dependencies = [
 [[package]]
 name = "kotkowo-client"
 version = "0.2.3"
-source = "git+https://github.com/kotkowo/kotkowo-client?tag=v0.2.7#b65e9458e86918897477a195877e012233e5da86"
+source = "git+https://github.com/kotkowo/kotkowo-client?tag=v0.2.8#8b0ec984328b36f1942acb41b7b7bc05bab66370"
 dependencies = [
  "cynic",
  "cynic-codegen",
