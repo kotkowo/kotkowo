@@ -224,7 +224,7 @@ defmodule KotkowoWeb.Components.Sections do
             <.footer_link navigate={~p"/aktualnosci"}>Aktualności</.footer_link>
             <.footer_link navigate={~p"/adopcja/szukaja-domu"}>Adopcja</.footer_link>
             <.footer_link navigate={~p"/pomoc"}>Jak pomóc?</.footer_link>
-            <.footer_link navigate="#">Porady</.footer_link>
+            <.footer_link navigate={~p"/porady"}>Porady</.footer_link>
             <.footer_link navigate={~p"/o-nas/o-fundacji"}>O fundacji</.footer_link>
             <.footer_link navigate={~p"/zaginione-znalezione"}>Znalezione koty</.footer_link>
             <.footer_link navigate={~p"/o-nas/dokumenty"}>Kontakt</.footer_link>
@@ -250,6 +250,9 @@ defmodule KotkowoWeb.Components.Sections do
             </.footer_link>
             <.footer_link target="_blank" rel="noopener noreferrer" href={adoption_agreement()}>
               Umowa adopcyjna
+            </.footer_link>
+            <.footer_link navigate={~p"/o-nas/faq"}>
+              FAQ
             </.footer_link>
           </.footer_section>
 
