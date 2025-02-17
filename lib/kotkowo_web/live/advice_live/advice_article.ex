@@ -40,7 +40,7 @@ defmodule KotkowoWeb.AdviceLive.AdviceArticle do
          socket
          |> assign(:article, nil)
          |> put_flash(:error, "Nie znaleziono artykułu")
-         |> push_navigate(to: ~p"/aktualnosci/z-ostatniej-chwili", replace: true)}
+         |> push_navigate(to: ~p"/porady", replace: true)}
     end
   end
 

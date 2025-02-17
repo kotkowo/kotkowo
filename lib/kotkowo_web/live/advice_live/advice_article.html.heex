@@ -1,12 +1,9 @@
 <.section>
   <.breadcrumb>
-    <:crumb navigate={~p"/aktualnosci"}>
-      Aktualności
+    <:crumb navigate={~p"/porady"}>
+      Porady
     </:crumb>
-    <:crumb navigate={~p"/aktualnosci/z-ostatniej-chwili"}>
-      Z ostatniej chwili
-    </:crumb>
-    <:crumb navigate={~p"/aktualnosci/z-ostatniej-chwili/#{@article_id}"} active>
+    <:crumb navigate={~p"/porady/#{@article_id}"} active>
       <span :if={@article}>
         <%= @article.title %>
       </span>
@@ -64,7 +61,7 @@
           src={advices.image.url}
           title={advices.title}
           tags={advices.tags}
-          base_route="porady"
+          base_route={~p"/porady"}
         />
       </div>
     </div>

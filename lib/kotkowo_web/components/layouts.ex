@@ -8,9 +8,19 @@ defmodule KotkowoWeb.Layouts do
 
   alias Kotkowo.Client.Paged
 
-  defp advice_links do
-    {:ok, %Paged{items: items}} = GenServer.call(Kotkowo.AdviceHandler, :get_advice)
+  require Logger
+
+  defp advice_links({:ok, %Paged{items: items}}) do
     Enum.map(items, fn %Kotkowo.Client.Advice{title: title, id: id} -> {title, ~p"/porady/#{id}"} end)
+  end
+
+  defp advice_links({:error, err}) do
+    err |> inspect() |> Logger.error()
+    []
+  end
+
+  defp advice_links do
+    Kotkowo.AdviceHandler |> GenServer.call(:get_advice) |> advice_links()
   end
 
   def links do

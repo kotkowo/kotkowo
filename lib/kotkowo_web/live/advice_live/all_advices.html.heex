@@ -1,17 +1,14 @@
 <.section>
   <.breadcrumb>
-    <:crumb navigate={~p"/aktualnosci"}>
-      Aktualności
+    <:crumb navigate={~p"/porady"}>
+      Porady
     </:crumb>
-    <:crumb navigate={~p"/aktualnosci/z-ostatniej-chwili"}>
-      Z ostatniej chwili
-    </:crumb>
-    <:crumb navigate={~p"/aktualnosci/z-ostatniej-chwili/wszystkie"} active>
-      Z ostatniej chwili - wszystkie
+    <:crumb navigate={~p"/porady/wszystkie"} active>
+      wszystkie
     </:crumb>
   </.breadcrumb>
   <h1 class="text-primary tracking-wide text-center lg:text-justify lg:mt-0 my-6 font-manrope font-extrabold xl:text-4xl text-3xl">
-    Z ostatniej chwili
+    Porady
   </h1>
   <div
     :if={!@streams[:advices]}
@@ -30,7 +27,7 @@
       news_id={advice.id}
       tags={advice.tags}
       src={advice.image.url}
-      base_route="porady"
+      base_route={~p"/porady"}
     />
   </div>
   <div class="flex flex-col lg:flex-row justify-center relative">

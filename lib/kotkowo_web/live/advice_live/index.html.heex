@@ -1,14 +1,11 @@
 <.section>
   <.breadcrumb>
-    <:crumb navigate={~p"/aktualnosci"}>
-      Aktualności
-    </:crumb>
-    <:crumb navigate={~p"/aktualnosci/z-ostatniej-chwili"} active>
-      Z ostatniej chwili
+    <:crumb navigate={~p"/porady"} active>
+      Porady
     </:crumb>
   </.breadcrumb>
   <h1 class="text-primary text-center lg:text-justify lg:mt-0 mt-6 font-manrope font-extrabold xl:text-4xl text-3xl">
-    Z ostatniej chwili
+    Porady
   </h1>
   <div class="flex flex-col mx-4 lg:mt-6 mt-8 gap-y-10">
     <.header_news_card_loading :if={!@header_advice} />
@@ -31,7 +28,7 @@
       image={@header_advice.image.url}
       tags={@header_advice.tags}
       news_id={@header_advice.id}
-      base_route="porady"
+      base_route={~p"/porady"}
     >
       <:introduction :if={article = @article.ok? && @article.result}>
         <span :if={article != :error} }>
@@ -55,7 +52,7 @@
           title={popular_advice.title}
           tags={popular_advice.tags}
           src={popular_advice.image.url}
-          base_route="porady"
+          base_route={~p"/porady"}
         />
       </div>
       <div
@@ -69,7 +66,7 @@
         <.link
           :for={titles <- @popular_titles}
           :if={@header_advice != nil}
-          navigate={~p"/aktualnosci/z-ostatniej-chwili/#{titles.id}"}
+          navigate={~p"/porady/#{titles.id}"}
           class="text-2xl text-left line-clamp-2 font-manrope font-bold text-gray-800 pr-0 lg:pr-2"
         >
           <%= titles.title %>
@@ -86,7 +83,7 @@
         title={advice.title}
         news_id={advice.id}
         tags={advice.tags}
-        base_route="porady"
+        base_route={~p"/porady"}
         src={advice.image.url}
       />
     </div>
