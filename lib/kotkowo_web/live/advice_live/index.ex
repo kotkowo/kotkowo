@@ -42,7 +42,13 @@ defmodule KotkowoWeb.AdviceLive.Index do
 
         {:error, message} ->
           Logger.error(message)
+
           socket
+          |> assign(:advice, [])
+          |> assign(:header_advice, nil)
+          |> assign(:popular_advice, [])
+          |> assign(:popular_titles, [])
+          |> put_flash(:error, "Błąd podczas wczytywania porad.")
       end
 
     {:noreply, socket}

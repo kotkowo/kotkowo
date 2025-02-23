@@ -40,8 +40,12 @@ defmodule KotkowoWeb.NewsLive.Index do
   def handle_async(:load_passed_away, {:ok, passed_away}, socket) do
     socket =
       case passed_away do
-        {:ok, %Paged{items: cats}} -> assign(socket, :passed_away, cats)
-        {:error, msg} -> Logger.error(msg)
+        {:ok, %Paged{items: cats}} ->
+          assign(socket, :passed_away, cats)
+
+        {:error, msg} ->
+          Logger.error(msg)
+          put_flash(socket, :error, "Błąd podczas wczytywania aktualności")
       end
 
     {:noreply, socket}
@@ -51,8 +55,12 @@ defmodule KotkowoWeb.NewsLive.Index do
   def handle_async(:load_adopted_cats, {:ok, adopted_cats}, socket) do
     socket =
       case adopted_cats do
-        {:ok, %Paged{items: cats}} -> assign(socket, :found_home, cats)
-        {:error, msg} -> Logger.error(msg)
+        {:ok, %Paged{items: cats}} ->
+          assign(socket, :found_home, cats)
+
+        {:error, msg} ->
+          Logger.error(msg)
+          put_flash(socket, :error, "Błąd podczas wczytywania aktualności")
       end
 
     {:noreply, socket}
@@ -62,8 +70,12 @@ defmodule KotkowoWeb.NewsLive.Index do
   def handle_async(:load_announcements, {:ok, announcements}, socket) do
     socket =
       case announcements do
-        {:ok, %Paged{items: news}} -> assign(socket, :news, news)
-        {:error, msg} -> Logger.error(msg)
+        {:ok, %Paged{items: news}} ->
+          assign(socket, :news, news)
+
+        {:error, msg} ->
+          Logger.error(msg)
+          put_flash(socket, :error, "Błąd podczas wczytywania aktualności")
       end
 
     {:noreply, socket}

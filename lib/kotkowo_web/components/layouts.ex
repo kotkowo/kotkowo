@@ -6,21 +6,17 @@ defmodule KotkowoWeb.Layouts do
   import KotkowoWeb.Components.Sections
   import KotkowoWeb.Constants, only: [kotkowo_mail: 0]
 
-  alias Kotkowo.Client.Paged
-
   require Logger
 
-  defp advice_links({:ok, %Paged{items: items}}) do
-    Enum.map(items, fn %Kotkowo.Client.Advice{title: title, id: id} -> {title, ~p"/porady/#{id}"} end)
-  end
-
-  defp advice_links({:error, err}) do
-    err |> inspect() |> Logger.error()
-    []
-  end
-
   defp advice_links do
-    Kotkowo.AdviceHandler |> GenServer.call(:get_advice) |> advice_links()
+    Kotkowo.AdviceHandler
+    |> GenServer.call(:get_advice)
+    |> Enum.map(fn %Kotkowo.Client.Advice{id: id, title: title} ->
+      {
+        title,
+        ~p"/porady/#{id}"
+      }
+    end)
   end
 
   def links do

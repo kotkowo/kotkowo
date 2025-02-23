@@ -20,7 +20,11 @@ defmodule KotkowoWeb.LostAndFoundLive.FoundLive.Show do
 
       {:error, message} ->
         Logger.error(message)
-        {:noreply, socket}
+
+        {:noreply,
+         socket
+         |> put_flash(:error, "Nie znaleziono kota")
+         |> push_navigate(to: ~p"/zaginione-znalezione/znalezione", replace: true)}
     end
   end
 

@@ -79,7 +79,7 @@
     </div>
   </div>
 </.section>
-<.section parent_class="px-6 md:py-16 !py-8">
+<.section :if={@found_home != []} parent_class="px-6 md:py-16 !py-8">
   <div class="flex flex-col gap-y-10 items-center">
     <h1 class="text-primary text-center tracking-wide font-manrope font-bold md:font-extrabold xl:text-4xl text-2xl">
       Zobacz koty, które znalazły dom
@@ -100,9 +100,6 @@
         tags={cat.cat.tags}
         name={cat.cat.name}
       />
-    </div>
-    <div :if={!@found_home} class="flex flex-row gap-x-6">
-      <.card_loading :for={_ <- 1..3} />
     </div>
 
     <.button navigate={~p"/aktualnosci/znalazly-dom"} type="outline">

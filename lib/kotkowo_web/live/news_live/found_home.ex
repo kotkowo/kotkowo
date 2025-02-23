@@ -70,7 +70,8 @@ defmodule KotkowoWeb.NewsLive.FoundHome do
 
         {:error, msg} ->
           Logger.error(msg)
-          socket
+
+          put_flash(socket, :error, "Błąd poczas wczytywania kotów.")
       end
 
     {:noreply, socket}
