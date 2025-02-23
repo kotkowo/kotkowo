@@ -42,7 +42,7 @@ defmodule KotkowoWeb.AnnouncementsLive.LatestNews do
 
         {:error, message} ->
           Logger.error(message)
-          socket
+          put_flash(socket, :error, "Błąd podczas wczytywania aktualności")
       end
 
     {:noreply, socket}

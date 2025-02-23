@@ -43,7 +43,7 @@ defmodule KotkowoWeb.AdviceLive.AllAdvices do
 
         {:error, msg} ->
           Logger.error(msg)
-          socket
+          put_flash(socket, :error, "Błąd podczas wczytywania porad.")
       end
 
     {:noreply, socket}

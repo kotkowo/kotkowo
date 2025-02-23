@@ -28,7 +28,7 @@
   </div>
 </.section>
 
-<.section class="lg:max-w-none flex justify-center">
+<.section :if={@external_media != nil} class="lg:max-w-none flex justify-center">
   <div :if={!@external_media} class="md:grid flex flex-col grid-cols-4 gap-y-10 gap-x-5">
     <.news_card_loading :for={_ <- 0..3} />
   </div>

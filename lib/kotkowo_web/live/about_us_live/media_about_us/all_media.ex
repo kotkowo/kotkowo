@@ -18,6 +18,7 @@ defmodule KotkowoWeb.AboutUsLive.MediaAboutUsLive.AllMedia do
     socket =
       socket
       |> stream(:media, [])
+      |> assign(:media_loaded, false)
       |> assign(:max_page, @first_page)
       |> assign(:page, @first_page)
       |> assign(:limit, @default_limit)
@@ -43,10 +44,10 @@ defmodule KotkowoWeb.AboutUsLive.MediaAboutUsLive.AllMedia do
 
         {:error, msg} ->
           Logger.error(msg)
-          socket
+          put_flash(socket, :error, "Wystąpił błąd podczas wczytywania mediów. Spróbuj ponownie później.")
       end
 
-    {:noreply, socket}
+    {:noreply, assign(socket, :media_loaded, true)}
   end
 
   @impl true

@@ -22,7 +22,11 @@ defmodule KotkowoWeb.AdoptionLive.ViewLookingForHomeCat do
 
       {:error, message} ->
         Logger.error(message)
-        {:noreply, socket}
+
+        {:noreply,
+         socket
+         |> put_flash(:error, "Nie znaleziono kota")
+         |> push_navigate(to: ~p"/adopcja/szukaja-domu", replace: true)}
     end
   end
 

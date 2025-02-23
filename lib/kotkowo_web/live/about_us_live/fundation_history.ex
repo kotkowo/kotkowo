@@ -30,7 +30,7 @@ defmodule KotkowoWeb.AboutUsLive.FundationHistory do
 
     socket =
       socket
-      |> assign(:found_home, nil)
+      |> assign(:found_home, [])
       |> start_async(:load_found_home, fn ->
         [page: 0, page_size: 3, filter: adopted_cat_filter] |> Client.new() |> Client.list_adopted_cats()
       end)

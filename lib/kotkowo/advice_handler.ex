@@ -5,6 +5,8 @@ defmodule Kotkowo.AdviceHandler do
   alias Kotkowo.Client.Opts
   alias Kotkowo.Client.Pagination
 
+  require Logger
+
   def start_link(args) do
     GenServer.start_link(__MODULE__, args, name: __MODULE__)
   end
@@ -34,11 +36,16 @@ defmodule Kotkowo.AdviceHandler do
     {:noreply, advice}
   end
 
+  defp get_advice({:ok, %Kotkowo.Client.Paged{items: items}}), do: items
+
+  defp get_advice({:error, err}) do
+    err |> inspect() |> Logger.error()
+    []
+  end
+
   defp get_advice,
     do:
-      Kotkowo.Client.list_advices(%Opts{
-        filter: nil,
-        pagination: %Pagination{limit: 5, start: 0, page: nil, page_size: nil},
-        sort: ["updatedAt:desc"]
-      })
+      %Opts{filter: nil, pagination: %Pagination{limit: 5, start: 0, page: nil, page_size: nil}, sort: ["updatedAt:desc"]}
+      |> Kotkowo.Client.list_advices()
+      |> get_advice()
 end
