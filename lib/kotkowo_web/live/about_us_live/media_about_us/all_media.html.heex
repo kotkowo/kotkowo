@@ -14,7 +14,7 @@
     Media o nas - wszystkie
   </h1>
   <div
-    :if={!@streams[:media]}
+    :if={!@media_loaded}
     class="2xl:w-[1312px] lg:grid lg:grid-cols-4 mb-10 lg:mb-16 lg:grid-flow-row lg:gap-x-5 mx-5 lg:mx-0 flex max-sm:items-center flex-col gap-y-4 lg:gap-y-10"
   >
     <.news_card_loading :for={_ <- 1..@limit} />

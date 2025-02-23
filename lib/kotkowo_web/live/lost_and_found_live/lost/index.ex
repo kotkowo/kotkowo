@@ -12,6 +12,8 @@ defmodule KotkowoWeb.LostAndFoundLive.LostLive.Index do
   alias Kotkowo.Client.Image
   alias Kotkowo.Client.Paged
 
+  require Logger
+
   @first_page 1
 
   defp parse_int_param(nil), do: nil
@@ -27,7 +29,14 @@ defmodule KotkowoWeb.LostAndFoundLive.LostLive.Index do
   @impl true
   def mount(params, _session, socket) do
     initial_filter = Cat.Filter.from_params(params["cat"])
-    socket = socket |> assign(:filter, initial_filter) |> assign(:page, @first_page)
+
+    socket =
+      socket
+      |> assign(:filter, initial_filter)
+      |> assign(:page, @first_page)
+      |> assign(:page_count, @first_page)
+      |> stream(:cats, [])
+
     {:ok, socket}
   end
 
@@ -59,29 +68,47 @@ defmodule KotkowoWeb.LostAndFoundLive.LostLive.Index do
   end
 
   @impl true
+  def handle_async(:load_cats, {:ok, cats}, socket) do
+    socket =
+      case cats do
+        {:ok, %Paged{items: cats, page_count: page_count, page_size: limit, page: page, total: total}} ->
+          params = %{page: page, limit: limit}
+          page_count = max(1, page_count)
+
+          if page <= page_count do
+            socket
+            |> stream(:cats, cats, reset: true)
+            |> assign(:cats_total, total)
+            |> assign(:page_count, page_count)
+            |> assign(:params, params)
+          else
+            push_navigate(socket, to: ~p"/zaginione-znalezione/zaginione?#{Cat.Filter.to_params(socket.assigns.filter)}")
+          end
+
+        {:error, error} ->
+          Logger.error(inspect(error))
+          put_flash(socket, :error, "Błąd podczas wczytywania zaginionych kotów.")
+      end
+
+    {:noreply, socket}
+  end
+
+  @impl true
   def handle_params(params, _uri, socket) do
     filter = Cat.Filter.from_params(params["cat"])
 
     limit = params |> Map.get("limit", "30") |> parse_int_param()
-    page = params |> Map.get("page") |> parse_int_param()
-
-    {:ok, %Paged{items: cats, page_count: page_count, page_size: limit, page: page, total: total}} =
-      [page: page, page_size: limit, filter: filter] |> Client.new() |> Client.list_lost_cats()
+    page = params |> Map.get("page", "1") |> parse_int_param()
 
     params = %{page: page, limit: limit}
-    page_count = max(1, page_count)
 
     socket =
-      if page <= page_count do
-        socket
-        |> stream(:cats, cats, reset: true)
-        |> assign(:cats_total, total)
-        |> assign(:page_count, page_count)
-        |> assign(:params, params)
-        |> assign(:filter, filter)
-      else
-        push_navigate(socket, to: ~p"/zaginione-znalezione/zaginione?#{Cat.Filter.to_params(filter)}")
-      end
+      socket
+      |> assign(:params, params)
+      |> assign(:filter, filter)
+      |> start_async(:load_cats, fn ->
+        [page: page, page_size: limit, filter: filter] |> Client.new() |> Client.list_lost_cats()
+      end)
 
     {:noreply, socket}
   end
