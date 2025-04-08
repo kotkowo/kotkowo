@@ -64,5 +64,9 @@ defmodule KotkowoWeb.Layouts do
     ]
   end
 
+  def plausible_script_endpoint do
+    Application.get_env(:kotkowo, :plausible)[:script_endpoint]
+  end
+
   embed_templates "layouts/*"
 end

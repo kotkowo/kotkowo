@@ -6,7 +6,10 @@ strapi_endpoint =
     environment variable STRAPI_ENDPOINT is missing.
     """
 
+plausible_script_endpoint = System.get_env("PLAUSIBLE_SCRIPT_ENDPOINT")
+
 config :kotkowo, :strapi, endpoint: strapi_endpoint
+config :kotkowo, :plausible, script_endpoint: plausible_script_endpoint
 
 if System.get_env("PHX_SERVER") do
   config :kotkowo, KotkowoWeb.Endpoint, server: true
