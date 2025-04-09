@@ -7,8 +7,8 @@ defmodule KotkowoWeb.Components.Steps do
 
   attr :class, :string, default: ""
 
-  slot :inner_block, default: []
-  slot :actions, default: []
+  slot :inner_block, required: false
+  slot :actions, required: false
 
   def step(assigns) do
     ~H"""
