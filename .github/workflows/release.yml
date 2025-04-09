@@ -1,0 +1,19 @@
+name: Release
+
+on:
+  release:
+    types: [released]
+
+jobs:
+  update-prod:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: update docker image and reload the server
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          port: ${{ secrets.PORT }}
+          user: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }
+          script: podman pull ghcr.io/kotkowo/kotkowo:latest && systemctl restart podman-kotkowo
