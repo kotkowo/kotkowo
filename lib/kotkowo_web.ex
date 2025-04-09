@@ -69,6 +69,8 @@ defmodule KotkowoWeb do
       import KotkowoWeb.Components.Icons
       import KotkowoWeb.Components.Sections
 
+      on_mount KotkowoWeb.Hooks.TitleHook
+
       unquote(html_helpers())
     end
   end
