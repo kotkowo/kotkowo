@@ -4,8 +4,10 @@
   config,
   inputs,
   ...
-}: {
-  packages = with pkgs;
+}:
+{
+  packages =
+    with pkgs;
     [
       erlang_26
       nodejs_20
@@ -15,9 +17,9 @@
       openssl
       graphql-client
       nodePackages."@tailwindcss/language-server"
-      nodePackages.vscode-html-languageserver-bin
+      nodePackages.vscode-langservers-extracted
     ]
-    ++ lib.optionals pkgs.stdenv.isLinux (with pkgs; [inotify-tools]);
+    ++ lib.optionals pkgs.stdenv.isLinux (with pkgs; [ inotify-tools ]);
 
   env.LANG = "en_US.UTF-8";
   env.ERL_AFLAGS = "-kernel shell_history enabled";

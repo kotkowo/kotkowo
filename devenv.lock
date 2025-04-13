@@ -3,11 +3,10 @@
     "devenv": {
       "locked": {
         "dir": "src/modules",
-        "lastModified": 1718618529,
+        "lastModified": 1744394889,
         "owner": "cachix",
         "repo": "devenv",
-        "rev": "0dac15d6f859d6c3f3580a0da0c8cf19720ed9e8",
-        "treeHash": "6f0d53ca9892735b9cadb965fbbad71cfc7c7035",
+        "rev": "45ae910e145829df787050560621b94551d7edd7",
         "type": "github"
       },
       "original": {
@@ -25,11 +24,10 @@
         "rust-analyzer-src": "rust-analyzer-src"
       },
       "locked": {
-        "lastModified": 1717827974,
+        "lastModified": 1744231114,
         "owner": "nix-community",
         "repo": "fenix",
-        "rev": "ab655c627777ab5f9964652fe23bbb1dfbd687a8",
-        "treeHash": "a558435d5e7684dcdaf311568caba126c935252a",
+        "rev": "0ccfe532b1433da8e5a23cd513ff6847e0f6a8c2",
         "type": "github"
       },
       "original": {
@@ -96,11 +94,10 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1716977621,
+        "lastModified": 1733477122,
         "owner": "cachix",
         "repo": "devenv-nixpkgs",
-        "rev": "4267e705586473d3e5c8d50299e71503f16a6fb6",
-        "treeHash": "6d9f1f7ca0faf1bc2eeb397c78a49623260d3412",
+        "rev": "7bd9e84d0452f6d2e63b6e6da29fe73fac951857",
         "type": "github"
       },
       "original": {
@@ -124,11 +121,10 @@
     "rust-analyzer-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1718346026,
+        "lastModified": 1744391836,
         "owner": "rust-lang",
         "repo": "rust-analyzer",
-        "rev": "6b8b8ff4c56118ddee6c531cde06add1aad4a6af",
-        "treeHash": "4cb8c54df2dbf6e0cb3188d04153a4343f7f1de2",
+        "rev": "afc367b96c093b410c8852e583ba467a196b58c8",
         "type": "github"
       },
       "original": {
