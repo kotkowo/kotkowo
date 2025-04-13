@@ -6,7 +6,8 @@ defmodule Kotkowo.Client.Advice do
     :id,
     :title,
     :image,
-    :tags
+    :tags,
+    :views
   ]
 
   @type tags() :: [String.t()]
@@ -14,6 +15,7 @@ defmodule Kotkowo.Client.Advice do
           id: String.t(),
           title: String.t(),
           image: Image.t(),
-          tags: tags()
+          tags: tags(),
+          views: integer()
         }
 end

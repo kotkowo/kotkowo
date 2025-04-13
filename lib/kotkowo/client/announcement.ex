@@ -9,13 +9,15 @@ defmodule Kotkowo.Client.Announcement do
     :id,
     :title,
     :tags,
-    :image
+    :image,
+    :views
   ]
 
   @type t() :: %__MODULE__{
           id: String.t() | nil,
           tags: tags(),
           title: String.t(),
-          image: Image.t() | nil
+          image: Image.t() | nil,
+          views: integer()
         }
 end
