@@ -16,8 +16,8 @@ defmodule Kotkowo.Application do
           {Phoenix.PubSub, name: Kotkowo.PubSub},
           KotkowoWeb.Endpoint,
           Kotkowo.PromEx,
-          maybe_view_puller(),
-          maybe_advice_handler()
+          Supervisor.child_spec({AdviceHandler, nil}, id: AdviceHandler, restart: :permanent),
+          maybe_view_puller()
         ],
         & &1
       )
@@ -36,12 +36,6 @@ defmodule Kotkowo.Application do
   def config_change(changed, _new, removed) do
     KotkowoWeb.Endpoint.config_change(changed, removed)
     :ok
-  end
-
-  defp maybe_advice_handler do
-    if Application.get_env(:kotkowo, :enable_advice_handler, false) do
-      Supervisor.child_spec({AdviceHandler, nil}, id: AdviceHandler, restart: :permanent)
-    end
   end
 
   defp maybe_view_puller do
