@@ -9,6 +9,7 @@ import Config
 
 # Configures the endpoint
 config :kotkowo, :virtual_adoption, config_env() != :prod
+config :elixir, :time_zone_database, Tz.TimeZoneDatabase
 
 config :kotkowo, KotkowoWeb.Endpoint,
   adapter: Bandit.PhoenixAdapter,
