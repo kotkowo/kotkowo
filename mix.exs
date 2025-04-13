@@ -46,7 +46,7 @@ defmodule Kotkowo.MixProject do
       {:phoenix_live_view, "~> 1.0"},
       {:phoenix_live_dashboard, "~> 0.8"},
       {:rustler, "~> 0.32.1"},
-      {:httpoison, "~> 2.0"},
+      {:req, "~> 0.5.10"},
       {:earmark, "~> 1.4"},
       {:tz, "~> 0.28.1"},
       {:html_sanitize_ex, "~> 1.4"},
