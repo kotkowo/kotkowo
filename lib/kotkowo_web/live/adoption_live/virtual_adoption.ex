@@ -22,7 +22,7 @@ defmodule KotkowoWeb.AdoptionLive.VirtualAdoption do
       />
 
       <h2 class="font-manrope line-clamp-1 text-center mt-4 font-bold text-lg lg:text-2xl mb-4">
-        <%= @portait_name %>
+        {@portait_name}
       </h2>
     </div>
     """

@@ -3,10 +3,10 @@ defmodule KotkowoWeb.Components.Static.HowYouCanHelpSection do
 
   use Phoenix.Component
   use KotkowoWeb, :verified_routes
+  use Gettext, backend: KotkowoWeb.Gettext
 
   import KotkowoWeb.Components.Cards
   import KotkowoWeb.Components.Sections
-  import KotkowoWeb.Gettext
 
   attr :fold, :boolean,
     default: true,
@@ -23,14 +23,14 @@ defmodule KotkowoWeb.Components.Static.HowYouCanHelpSection do
           x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"
         >
           <div class="flex flex-row space-x-4 xl:space-x-7 m-auto">
-            <%= render_slot(@inner_block) %>
+            {render_slot(@inner_block)}
           </div>
         </div>
       </div>
     <% else %>
       <div class="flex w-full">
         <div class="flex flex-col xl:flex-row xl:space-x-5 mx-auto gap-y-5 xl:gap-y-0">
-          <%= render_slot(@inner_block) %>
+          {render_slot(@inner_block)}
         </div>
       </div>
     <% end %>
@@ -110,7 +110,7 @@ defmodule KotkowoWeb.Components.Static.HowYouCanHelpSection do
       <.container fold={@fold}>
         <%= for card <- help_cards() do %>
           <.help_card img_class="object-cover" navigate={card.href} src={card.src} alt={card.alt}>
-            <%= card.text %>
+            {card.text}
           </.help_card>
         <% end %>
       </.container>

@@ -34,7 +34,7 @@ defmodule KotkowoWeb.Hooks.TitleHook do
   end
 
   def find_closest_to_segments(links, [segment | segments], default) when is_list(links) do
-    case Enum.find(links, &(String.starts_with?(elem(&1, 1), segment))) do
+    case Enum.find(links, &String.starts_with?(elem(&1, 1), segment)) do
       {title, _matched_segment, _links, _css_classes} when segments == [] ->
         title
 

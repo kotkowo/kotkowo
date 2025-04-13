@@ -22,9 +22,9 @@ defmodule KotkowoWeb.Components.Steps do
       :if={@inner_block != []}
       class="xl:row-start-2 text-center xl:text-lg px-6 xl:px-0 tracking-wider lg:tracking-normal"
     >
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </span>
-    <span :if={@actions != []} class="xl:row-start-3 mx-auto"><%= render_slot(@actions) %></span>
+    <span :if={@actions != []} class="xl:row-start-3 mx-auto">{render_slot(@actions)}</span>
     """
   end
 
@@ -35,7 +35,7 @@ defmodule KotkowoWeb.Components.Steps do
   def steps(assigns) do
     ~H"""
     <div class={["grid xl:grid-flow-col auto-cols-fr gap-x-4 gap-y-10 counter-reset", @class]}>
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </div>
     """
   end

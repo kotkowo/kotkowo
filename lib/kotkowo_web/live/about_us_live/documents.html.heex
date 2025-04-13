@@ -19,7 +19,7 @@
         </h3>
         <div>
           <span class="font-bold">E-mail:</span>
-          <a href={"mailto:#{kotkowo_mail()}"}><%= kotkowo_mail() %></a>
+          <a href={"mailto:#{kotkowo_mail()}"}>{kotkowo_mail()}</a>
         </div>
       </div>
       <div class="flex flex-col gap-y-2 text-lg font-inter">
@@ -28,15 +28,15 @@
         </h3>
 
         <.click_to_copy text_to_copy={"#{kotkowo_address()}\\n#{postal_code()}"}>
-          <span><%= kotkowo_address() %></span>
-          <span><%= postal_code() %></span>
+          <span>{kotkowo_address()}</span>
+          <span>{postal_code()}</span>
         </.click_to_copy>
       </div>
       <span class="text-2xl font-bold font-manrope">
         <div>
           <span>Nr konta:</span>
           <.click_to_copy class="!inline" text_to_copy={bank_account_number()}>
-            <%= bank_account_number() %>
+            {bank_account_number()}
           </.click_to_copy>
         </div>
       </span>
@@ -45,7 +45,7 @@
           <div>
             <span class="font-bold">Bank:</span>
             <.click_to_copy class="!inline" text_to_copy={bank()}>
-              <%= bank() %>
+              {bank()}
             </.click_to_copy>
           </div>
         </div>
@@ -62,19 +62,19 @@
         <div>
           <span class="font-bold">KRS:</span>
           <.click_to_copy class="!inline" text_to_copy={krs()}>
-            <%= krs() %>
+            {krs()}
           </.click_to_copy>
         </div>
         <div>
           <span class="font-bold">NIP:</span>
           <.click_to_copy class="!inline" text_to_copy={nip()}>
-            <%= nip() %>
+            {nip()}
           </.click_to_copy>
         </div>
         <div>
           <span class="font-bold">REGON:</span>
           <.click_to_copy class="!inline" text_to_copy={regon()}>
-            <%= regon() %>
+            {regon()}
           </.click_to_copy>
         </div>
       </div>
@@ -85,13 +85,13 @@
         <div>
           <span class="font-bold">SWIFT/BIC:</span>
           <.click_to_copy class="!inline" text_to_copy={swift_bic()}>
-            <%= swift_bic() %>
+            {swift_bic()}
           </.click_to_copy>
         </div>
         <div>
           <span class="font-bold">IBAN:</span>
           <.click_to_copy class="!inline" text_to_copy={iban()}>
-            <%= iban() %>
+            {iban()}
           </.click_to_copy>
         </div>
       </div>

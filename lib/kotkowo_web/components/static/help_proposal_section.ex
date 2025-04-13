@@ -31,7 +31,7 @@ defmodule KotkowoWeb.Components.Static.HelpProposalSection do
         <a href={"mailto:#{kotkowo_mail()}"} class="flex">
           <.icon name="envelope2" class="w-6 h-6 my-auto mr-2 inline invert" />
           <span class="underline">
-            <%= kotkowo_mail() %>
+            {kotkowo_mail()}
           </span>
         </a>
 

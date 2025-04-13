@@ -34,7 +34,7 @@
     >
       <:introduction :if={article = @article.ok? && @article.result}>
         <span :if={article != :error} }>
-          <%= article.introduction %>
+          {article.introduction}
         </span>
         <span :if={article == :error} class="italic">Nie udało się wczytać artykułu</span>
       </:introduction>
@@ -70,7 +70,7 @@
           navigate={~p"/aktualnosci/z-ostatniej-chwili/#{titles.id}"}
           class="text-2xl text-left line-clamp-2 font-manrope font-bold text-gray-800 pr-0 lg:pr-2"
         >
-          <%= titles.title %>
+          {titles.title}
         </.link>
       </div>
     </div>

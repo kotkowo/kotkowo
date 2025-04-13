@@ -41,7 +41,7 @@
         <label class="font-inter mr-5 text-md">Pokaż na stronie</label>
         <select name="items_per_page" class="rounded-lg">
           <option :for={option <- items_per_page()} value={option} selected={@limit == option}>
-            <%= option %>
+            {option}
           </option>
         </select>
       </form>

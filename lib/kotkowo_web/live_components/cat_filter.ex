@@ -180,7 +180,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
                   value="male"
                   checked={@raw_filter.sex != nil and :male == @raw_filter.sex}
                 />
-                <%= Sex.to_string(:male) %>
+                {Sex.to_string(:male)}
               </label>
             </form>
 
@@ -194,7 +194,7 @@ defmodule KotkowoWeb.LiveComponents.CatFilter do
                   value="female"
                   checked={@raw_filter.sex != nil and :female == @raw_filter.sex}
                 />
-                <%= Sex.to_string(:female) %>
+                {Sex.to_string(:female)}
               </label>
             </form>
           </div>

@@ -34,7 +34,7 @@ defmodule KotkowoWeb.Components.Pagination do
           phx-click={JS.dispatch("scroll_to_top") |> JS.push(@callback)}
           value={@first_page}
         >
-          <%= @first_page %>
+          {@first_page}
         </button>
         <span :if={@selected_page > 2} class="w-14 h-14">...</span>
         <button
@@ -43,10 +43,10 @@ defmodule KotkowoWeb.Components.Pagination do
           phx-click={JS.dispatch("scroll_to_top") |> JS.push(@callback)}
           value={@previous_page}
         >
-          <%= @previous_page %>
+          {@previous_page}
         </button>
         <button class="font-bold w-14 h-14">
-          <%= @selected_page %>
+          {@selected_page}
         </button>
         <button
           :if={@selected_page != @last_page}
@@ -54,7 +54,7 @@ defmodule KotkowoWeb.Components.Pagination do
           phx-click={JS.dispatch("scroll_to_top") |> JS.push(@callback)}
           value={@next_page}
         >
-          <%= @next_page %>
+          {@next_page}
         </button>
         <span :if={@selected_page < @last_page - 1} class="w-14 h-14">...</span>
 
@@ -64,13 +64,13 @@ defmodule KotkowoWeb.Components.Pagination do
           phx-click={JS.dispatch("scroll_to_top") |> JS.push(@callback)}
           value={@last_page}
         >
-          <%= @last_page %>
+          {@last_page}
         </button>
       </div>
       <div class="self-center flex flex-row lg:hidden gap-4">
-        <span><%= @selected_page %></span>
+        <span>{@selected_page}</span>
         <span>z</span>
-        <span><%= @last_page %></span>
+        <span>{@last_page}</span>
       </div>
 
       <button

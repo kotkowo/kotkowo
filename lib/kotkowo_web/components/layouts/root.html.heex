@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
     <.live_title suffix=" · Kotkowo">
-      <%= assigns[:page_title] || "Kotkowo" %>
+      {assigns[:page_title] || "Kotkowo"}
     </.live_title>
     <link rel="icon" href={~p"/images/kotkowo_logo.svg"} sizes="any" type="image/svg+xml" />
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
@@ -26,6 +26,6 @@
     />
   </head>
   <body class="bg-white antialiased">
-    <%= @inner_content %>
+    {@inner_content}
   </body>
 </html>

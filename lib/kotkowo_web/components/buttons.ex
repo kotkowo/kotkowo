@@ -25,7 +25,7 @@ defmodule KotkowoWeb.Components.Buttons do
       x-on:click="navigator.clipboard.writeText(to_copy); $dispatch('toast', {message: 'Skopiowane', icon: '📋'})"
       value={@text_to_copy}
     >
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </div>
     """
   end
@@ -58,7 +58,7 @@ defmodule KotkowoWeb.Components.Buttons do
       ]}
       {@rest}
     >
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </.link>
     """
   end
@@ -77,7 +77,7 @@ defmodule KotkowoWeb.Components.Buttons do
 
     ~H"""
     <div class="flex flex-col space-y-4">
-      <h3 class="font-bold text-primary text-sm"><%= @label %></h3>
+      <h3 class="font-bold text-primary text-sm">{@label}</h3>
       <input type="hidden" name={@name} value="" />
       <div class="flex flex-col space-y-6 lowercase">
         <div :for={{label, value} <- @options}>
@@ -91,7 +91,7 @@ defmodule KotkowoWeb.Components.Buttons do
               class="mr-3.5 border-gray rounded"
               {@rest}
             />
-            <%= label %>
+            {label}
           </label>
         </div>
       </div>

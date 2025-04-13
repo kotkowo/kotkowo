@@ -5,10 +5,10 @@ defmodule KotkowoWeb.Components.Cards do
 
   use KotkowoWeb, :verified_routes
   use Phoenix.Component
+  use Gettext, backend: KotkowoWeb.Gettext
 
   import KotkowoWeb.Components.Buttons
   import KotkowoWeb.Components.Icons
-  import KotkowoWeb.Gettext
   import KotkowoWeb.WebHelpers, only: [beautify_phone_number: 1]
   import Tails
 
@@ -105,7 +105,7 @@ defmodule KotkowoWeb.Components.Cards do
             "lg:font-manrope whitespace-nowrap font-semibold lg:font-bold text-lg lg:text-2xl overflow-x-auto",
             Map.get(title, :class)
           ]}>
-            <%= render_slot(title) %>
+            {render_slot(title)}
           </h3>
           <.icon
             :if={Map.has_key?(title, :icon)}
@@ -114,16 +114,16 @@ defmodule KotkowoWeb.Components.Cards do
           />
         </div>
 
-        <%= render_slot(@attributes) %>
+        {render_slot(@attributes)}
 
         <div
           :if={@tags != []}
           class="lg:mt-3 overflow-y-hidden overflow-x-hidden flex spacing space-x-1 whitespace-nowrap"
         >
-          <.card_tag :for={tag <- @tags}><%= tag %></.card_tag>
+          <.card_tag :for={tag <- @tags}>{tag}</.card_tag>
         </div>
 
-        <%= render_slot(@actions) %>
+        {render_slot(@actions)}
       </div>
     </div>
     """
@@ -175,18 +175,18 @@ defmodule KotkowoWeb.Components.Cards do
       {@rest}
     >
       <:title icon={to_string(@sex)}>
-        <.link :if={@cat_url} navigate={@cat_url}><%= @name %></.link>
-        <p :if={!@cat_url}><%= @name %></p>
+        <.link :if={@cat_url} navigate={@cat_url}>{@name}</.link>
+        <p :if={!@cat_url}>{@name}</p>
       </:title>
       <:attributes>
         <.card_attribute :if={@seniority != nil} icon="paw">
-          <%= Age.to_string(@seniority) %>
+          {Age.to_string(@seniority)}
         </.card_attribute>
         <.card_attribute :if={@health_status != nil} icon="sthetoscope">
-          <%= MedicalStatus.to_string(@health_status) %>
+          {MedicalStatus.to_string(@health_status)}
         </.card_attribute>
         <.card_attribute :if={@castrated != nil} icon="scissors">
-          <%= (@castrated && gettext("Po kastracji")) || gettext("Przed kastracją") %>
+          {(@castrated && gettext("Po kastracji")) || gettext("Przed kastracją")}
         </.card_attribute>
       </:attributes>
     </.card>
@@ -204,7 +204,7 @@ defmodule KotkowoWeb.Components.Cards do
     <div {@rest}>
       <.icon :if={@icon != nil} name={@icon} class="inline mr-1 lg:mr-3 w-4 lg:w-5 h-4 lg:h-5" />
       <span class="text-sm lg:text-base">
-        <%= render_slot(@inner_block) %>
+        {render_slot(@inner_block)}
       </span>
     </div>
     """
@@ -221,7 +221,7 @@ defmodule KotkowoWeb.Components.Cards do
         @class
       ])
     }>
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </span>
     """
   end
@@ -248,11 +248,11 @@ defmodule KotkowoWeb.Components.Cards do
       class="lg:w-[345px] lg:min-w-[345px] w-[240px]"
     >
       <:title icon={to_string(@sex)}>
-        <%= @name %>
+        {@name}
       </:title>
       <:actions>
         <.button class="xl:!px-6 xl:!text-base" navigate={@action_href}>
-          <%= gettext("Adoptuj wirtualnie") %>
+          {gettext("Adoptuj wirtualnie")}
         </.button>
       </:actions>
     </.card>
@@ -283,7 +283,7 @@ defmodule KotkowoWeb.Components.Cards do
         />
 
         <p class="flex py-5 px-6 text-center border rounded-b-2xl font-manrope font-bold grow justify-center items-center">
-          <span><%= render_slot(@inner_block) %></span>
+          <span>{render_slot(@inner_block)}</span>
         </p>
       </div>
     </.link>
@@ -314,8 +314,8 @@ defmodule KotkowoWeb.Components.Cards do
       {@rest}
     >
       <:title class="!whitespace-normal lg:text-xl text-sm font-manrope font-bold tracking-wider text-left h-fit line-clamp-3">
-        <.link :if={@cat_url} navigate={@cat_url}><%= @title %></.link>
-        <p :if={!@cat_url}><%= @title %></p>
+        <.link :if={@cat_url} navigate={@cat_url}>{@title}</.link>
+        <p :if={!@cat_url}>{@title}</p>
       </:title>
       <:attributes>
         <.card_attribute>
@@ -328,7 +328,7 @@ defmodule KotkowoWeb.Components.Cards do
               <a class="flex flex-row" href={"tel:+48#{phone_number}"}>
                 <Heroicons.phone solid class="w-4 text-primary lg:mr-1" />
                 <span class="font-inter text-xs lg:text-sm tracking-tighter lg:tracking-tight">
-                  <%= phone_number |> beautify_phone_number() %>
+                  {phone_number |> beautify_phone_number()}
                 </span>
               </a>
             </div>
@@ -339,7 +339,7 @@ defmodule KotkowoWeb.Components.Cards do
           <div class="flex flex-row gap-x-1 overflow-x-auto">
             <div class="flex flex-row rounded-3xl border border-gray py-2 px-1 lg:px-3">
               <span class="font-inter text-xs lg:text-sm tracking-tight">
-                <%= @chip_number || "Brak" %>
+                {@chip_number || "Brak"}
               </span>
             </div>
           </div>
@@ -396,7 +396,7 @@ defmodule KotkowoWeb.Components.Cards do
     >
       <:title class="lg:text-xl text-base grow line-clamp-3 !whitespace-normal">
         <.link href={@media_url} rel="noopener noreferrer" target="_blank">
-          <%= @title %>
+          {@title}
         </.link>
       </:title>
     </.card>
@@ -426,7 +426,7 @@ defmodule KotkowoWeb.Components.Cards do
     >
       <:title class="lg:text-xl text-base grow line-clamp-3 !whitespace-normal">
         <.link navigate={"#{@base_route}/#{assigns.news_id}"}>
-          <%= @title %>
+          {@title}
         </.link>
       </:title>
     </.card>
@@ -474,17 +474,17 @@ defmodule KotkowoWeb.Components.Cards do
       <div class="flex flex-col px-6 lg:py-6 max-w-xl h-full lg:gap-y-0 gap-y-4">
         <div class="text-2xl font-semibold leading-10 lg:line-clamp-2 line-clamp-5">
           <.link navigate={"#{@base_route}/#{@news_id}"}>
-            <%= @title %>
+            {@title}
           </.link>
         </div>
         <p class="text-lg h-32 leading-10 line-clamp-6 lg:line-clamp-3 lg:px-0">
-          <%= render_slot(@introduction) %>
+          {render_slot(@introduction)}
         </p>
         <div
           :if={@tags != []}
           class="lg:mt-3 overflow-y-auto flex spacing space-x-1 whitespace-nowrap"
         >
-          <.card_tag :for={tag <- @tags}><%= tag %></.card_tag>
+          <.card_tag :for={tag <- @tags}>{tag}</.card_tag>
         </div>
       </div>
       <.link
@@ -564,7 +564,7 @@ defmodule KotkowoWeb.Components.Cards do
         <img class="w-full h-full object-fit" src={~p"/images/#{@asset}"} alt={@asset} />
       </div>
       <div class="px-4 items-center flex flex-row justify-between bg-white h-[60px] border-b-2 border-x-2 border-gray-200 rounded-b-2xl rounded-x-2xl w-full">
-        <span><%= @asset %></span>
+        <span>{@asset}</span>
         <a download href={~p"/images/#{@asset}"} target="_blank" rel="noopener noreferrer">
           <.icon name="download" class="w-4 text-black" />
         </a>
@@ -581,7 +581,7 @@ defmodule KotkowoWeb.Components.Cards do
   def download_card(%{external: _} = assigns) do
     ~H"""
     <div class="flex flex-row items-center justify-between border h-14 w-[313px] border-gray-300 p-4 rounded-2xl">
-      <span class="font-manrope font-bold"><%= @title %></span>
+      <span class="font-manrope font-bold">{@title}</span>
       <a target="_blank" rel="noopener noreferrer" href={@href}>
         <.icon name="external_link" class="text-black h-3 w-3" />
       </a>
@@ -592,7 +592,7 @@ defmodule KotkowoWeb.Components.Cards do
   def download_card(assigns) do
     ~H"""
     <div class="flex flex-row items-center justify-between border h-14 w-[313px] border-gray-300 p-4 rounded-2xl">
-      <span class="font-manrope font-bold"><%= @title %></span>
+      <span class="font-manrope font-bold">{@title}</span>
       <a href={@href} download><.icon name="download" class="text-black h-4 w-4" /></a>
     </div>
     """

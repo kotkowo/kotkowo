@@ -27,15 +27,15 @@ defmodule KotkowoWeb.Components.CatViewUtils do
     ~H"""
     <div class="flex flex-col gap-y-4 px-4 xl:px-0 xl:mt-0 mt-4">
       <h2 class="font-manrope font-bold text-xl xl:text-2xl">
-        <%= @heading %>
+        {@heading}
       </h2>
-      <%= render_slot(@subtitle) %>
+      {render_slot(@subtitle)}
       <div :if={@caretaker != false}>
         <p :if={!@caretaker} class="xl:text-lg">
           Kotem opiekuje się <b>Nikt</b>
         </p>
         <p :if={@caretaker} class="xl:text-lg">
-          Kotem opiekuje się <b><%= @caretaker.first_name %></b>
+          Kotem opiekuje się <b>{@caretaker.first_name}</b>
         </p>
       </div>
       <h4 class="text-primary font-bold xl:text-lg">Telefon do opiekuna</h4>
@@ -50,7 +50,7 @@ defmodule KotkowoWeb.Components.CatViewUtils do
           <.icon name="telephone" />
 
           <span class="w-full">
-            <%= beautify_phone_number(@caretaker.phone_number) %>
+            {beautify_phone_number(@caretaker.phone_number)}
           </span>
         </.button>
         <span :if={@contact_informations == []} class="font-semibold">
@@ -64,7 +64,7 @@ defmodule KotkowoWeb.Components.CatViewUtils do
           >
             <.icon name="telephone" />
             <span class="w-full">
-              <%= beautify_phone_number(contact_info.phone_number) %>
+              {beautify_phone_number(contact_info.phone_number)}
             </span>
           </.button>
         <% end %>
@@ -95,39 +95,39 @@ defmodule KotkowoWeb.Components.CatViewUtils do
         ])
       }>
         <%= for field <- @extra_field do %>
-          <%= render_slot(field) %>
+          {render_slot(field)}
         <% end %>
         <li :if={:sex in @cat_fields && @cat.sex} class="flex align-center gap-x-4">
-          <.icon name="gender" class="w-5" /><%= Cat.Sex.to_string(@cat.sex) %>
+          <.icon name="gender" class="w-5" />{Cat.Sex.to_string(@cat.sex)}
         </li>
         <li :if={:age in @cat_fields && @cat.age} class="flex align-center gap-x-4">
-          <.icon name="paw" class="w-5" /><%= Cat.Age.to_string(@cat.age) %>
+          <.icon name="paw" class="w-5" />{Cat.Age.to_string(@cat.age)}
         </li>
         <li
           :if={:medical_status in @cat_fields && @cat.medical_status}
           class="flex align-center gap-x-4"
         >
           <.icon name="sthetoscope" class="w-5" />
-          <%= Cat.MedicalStatus.to_string(@cat.medical_status) %>
+          {Cat.MedicalStatus.to_string(@cat.medical_status)}
         </li>
         <li :if={:castrated in @cat_fields && @cat.castrated} class="flex align-center gap-x-4">
           <.icon name="scissors" class="w-5" />
-          <%= Cat.Castrated.to_string(@cat.castrated) %>
+          {Cat.Castrated.to_string(@cat.castrated)}
         </li>
         <li :if={:healthy in @cat_fields && @cat.healthy} class="flex align-center gap-x-4">
           <.icon name="ekg" class="w-5" />
-          <%= Cat.Healthy.to_string(@cat.healthy) %>
+          {Cat.Healthy.to_string(@cat.healthy)}
         </li>
         <li :if={:fiv_felv in @cat_fields && @cat.fiv_felv} class="flex align-center gap-x-4">
           <.icon name="medicine" class="w-3 mx-1" />
-          <%= Cat.FivFelv.to_string(@cat.fiv_felv) %>
+          {Cat.FivFelv.to_string(@cat.fiv_felv)}
         </li>
       </ul>
 
       <div :if={:tag in @cat_fields} class="flex flex-row flex-wrap gap-x-2 gap-y-8">
         <%= for text <- @cat.tags do %>
           <div class="w-auto h-auto">
-            <.card_tag><%= text %></.card_tag>
+            <.card_tag>{text}</.card_tag>
           </div>
         <% end %>
       </div>

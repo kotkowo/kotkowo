@@ -10,12 +10,12 @@
       Znalezione
     </:crumb>
     <:crumb active>
-      <%= @slug %>
+      {@slug}
     </:crumb>
   </.breadcrumb>
 
   <h1 class="mx-4 pb-6 xl:pb-12 mt-4 xl:mt-0 font-manrope font-extrabold text-3xl xl:text-4xl text-primary line-clamp-2 max-w-[868px]">
-    <%= @cat.discovery_circumstances %>
+    {@cat.discovery_circumstances}
   </h1>
 
   <div class="flex flex-col justify-center xl:grid xl:grid-cols-none xl:grid-rows-2 xl:grid-flow-col xl:auto-cols-auto xl:gap-x-32 xl:gap-y-12">
@@ -33,7 +33,7 @@
       </h2>
 
       <div class="xl:text-lg">
-        <%= Phoenix.HTML.Format.text_to_html(@cat.discovery_circumstances) %>
+        {Phoenix.HTML.Format.text_to_html(@cat.discovery_circumstances)}
       </div>
     </div>
     <.cat_info
@@ -50,38 +50,38 @@
           </div>
 
           <.card_tag class="font-inter font-normal text-sm w-fit lg:px-4 lg:py-2">
-            <%= @cat.found_location %>
+            {@cat.found_location}
           </.card_tag>
         </li>
       </:extra_field>
 
       <:extra_field>
         <li class="flex align-center gap-x-4">
-          <.icon name="barcode" class="w-5" />Nr. chipa: <%= @cat.cat.chip_number %>
+          <.icon name="barcode" class="w-5" />Nr. chipa: {@cat.cat.chip_number}
         </li>
       </:extra_field>
       <:extra_field>
         <li class="flex align-center gap-x-4">
-          <.icon name="droplet" class="w-5" />Kolor: <%= Cat.Color.to_string(@cat.cat.color) %>
+          <.icon name="droplet" class="w-5" />Kolor: {Cat.Color.to_string(@cat.cat.color)}
         </li>
       </:extra_field>
 
       <:extra_field>
         <li class="flex align-center gap-x-4">
-          <.icon name="star" class="w-5" />Znaki szczególne: <%= @cat.special_signs || "brak" %>
+          <.icon name="star" class="w-5" />Znaki szczególne: {@cat.special_signs || "brak"}
         </li>
       </:extra_field>
       <:extra_field>
         <li class="flex align-center gap-x-4">
-          <.icon name="calendar" class="w-5" />Data znalezienia: <%= Kotkowo.Client.DateTime.format_date(
+          <.icon name="calendar" class="w-5" />Data znalezienia: {Kotkowo.Client.DateTime.format_date(
             @cat.found_datetime,
             "%Y-%m-%d %H:%M"
-          ) %>
+          )}
         </li>
       </:extra_field>
       <:extra_field>
         <li class="flex align-center gap-x-4">
-          <.icon name="nametag" class="w-5" />Imię: <%= @cat.cat.name || "nieznane" %>
+          <.icon name="nametag" class="w-5" />Imię: {@cat.cat.name || "nieznane"}
         </li>
       </:extra_field>
     </.cat_info>

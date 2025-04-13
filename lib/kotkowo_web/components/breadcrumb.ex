@@ -25,7 +25,7 @@ defmodule KotkowoWeb.Components.Breadcrumb do
             crumb[:disabled] && "pointer-events-none"
           ]}
         >
-          <%= render_slot(crumb) %>
+          {render_slot(crumb)}
         </.link>
       </div>
     </div>

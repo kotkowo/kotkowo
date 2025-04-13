@@ -43,7 +43,8 @@ defmodule KotkowoWeb do
         formats: [:html, :json],
         layouts: [html: KotkowoWeb.Layouts]
 
-      import KotkowoWeb.Gettext
+      use Gettext, backend: KotkowoWeb.Gettext
+
       import Plug.Conn
 
       unquote(verified_routes())
@@ -98,7 +99,8 @@ defmodule KotkowoWeb do
 
   defp html_helpers do
     quote do
-      import KotkowoWeb.Gettext
+      use Gettext, backend: KotkowoWeb.Gettext
+
       import Phoenix.HTML
 
       alias Phoenix.LiveView.JS

@@ -51,11 +51,11 @@ defmodule KotkowoWeb.AboutUsLive.FundationHistory do
           <div :if={@line} class="w-0.5 h-full bg-primary-lighter self-center"></div>
         </div>
         <h3 class="-mt-1 text-2xl md:text-4xl font-inter text-secondary font-bold self-start md:w-24 w-12">
-          <%= @year %>
+          {@year}
         </h3>
       </div>
       <p class="font-inter md:w-[649px] text-lg tracking-wide">
-        <%= @body %>
+        {@body}
       </p>
     </div>
     """

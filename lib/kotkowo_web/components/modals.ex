@@ -3,9 +3,9 @@ defmodule KotkowoWeb.Components.Modals do
     Provides Modal UI components
   """
   use Phoenix.Component, global_prefixes: ~w(x-)
+  use Gettext, backend: KotkowoWeb.Gettext
 
   import KotkowoWeb.Components.Icons
-  import KotkowoWeb.Gettext
 
   def share_modal(assigns) do
     ~H"""
@@ -17,10 +17,10 @@ defmodule KotkowoWeb.Components.Modals do
         id="share-content"
         class="flex flex-col gap-y-4 sm:gap-y-6 w-72 sm:w-96 left-1/2 top-1/2 p-4 -translate-x-1/2 -translate-y-2/3 border-gray border rounded-2xl bg-white shadow-xl fixed z-20"
       >
-        <span class="font-bold text-xl sm:text-2xl"><%= gettext("Udostępnij") %></span>
+        <span class="font-bold text-xl sm:text-2xl">{gettext("Udostępnij")}</span>
 
         <div>
-          <span><%= gettext("Udostępnij ten link przez") %>:</span>
+          <span>{gettext("Udostępnij ten link przez")}:</span>
           <div class="flex flex-row justify-evenly mt-2">
             <a
               id="share-facebook"
@@ -42,7 +42,7 @@ defmodule KotkowoWeb.Components.Modals do
         </div>
 
         <div class="flex flex-col gap-y-2" x-data={~c"{copied: false}"}>
-          <span><%= gettext("Kliknij, aby skopiować link") %></span>
+          <span>{gettext("Kliknij, aby skopiować link")}</span>
 
           <input
             id="share-copy"

@@ -31,7 +31,7 @@
           <li class="flex">
             <.icon name="paw" class="w-3 h-3 mr-3 my-auto" />
             <span class="my-auto xl:text-lg">
-              <%= sentence %>
+              {sentence}
             </span>
           </li>
         <% end %>
@@ -151,7 +151,7 @@
         <div>
           <span>Bank:</span>
           <.click_to_copy class="text-black !inline" text_to_copy={bank()}>
-            <%= bank() %>
+            {bank()}
           </.click_to_copy>
         </div>
         <div>
@@ -160,7 +160,7 @@
             class="text-black xl:text-2xl font-bold !inline"
             text_to_copy={bank_account_number()}
           >
-            <%= bank_account_number() %>
+            {bank_account_number()}
           </.click_to_copy>
         </div>
         <div class="flex flex-col xl:flex-row xl:space-x-2">
@@ -177,19 +177,19 @@
         <div>
           <span>KRS: </span>
           <.click_to_copy class="text-black text-lg !inline" text_to_copy={krs()}>
-            <span><%= krs() %></span>
+            <span>{krs()}</span>
           </.click_to_copy>
         </div>
         <div>
           <span>NIP: </span>
           <.click_to_copy class="text-black text-lg !inline" text_to_copy={nip()}>
-            <span><%= nip() %></span>
+            <span>{nip()}</span>
           </.click_to_copy>
         </div>
         <div>
           <span>REGON: </span>
           <.click_to_copy class="text-black text-lg !inline" text_to_copy={regon()}>
-            <span><%= regon() %></span>
+            <span>{regon()}</span>
           </.click_to_copy>
         </div>
 
@@ -199,8 +199,8 @@
           class="text-black text-lg"
           text_to_copy={"#{kotkowo_address()}\\n#{postal_code()}"}
         >
-          <span><%= kotkowo_address() %></span>
-          <span><%= postal_code() %></span>
+          <span>{kotkowo_address()}</span>
+          <span>{postal_code()}</span>
         </.click_to_copy>
 
         <h3 class="text-primary font-bold text-lg">
@@ -210,13 +210,13 @@
         <div>
           <span class="text-black text-lg">SWIFT/BIC: </span>
           <.click_to_copy class="text-black text-lg !inline" text_to_copy={swift_bic()}>
-            <span><%= swift_bic() %></span>
+            <span>{swift_bic()}</span>
           </.click_to_copy>
         </div>
         <div>
           <span class="text-black text-lg">IBAN: </span>
           <.click_to_copy class="text-black text-lg !inline" text_to_copy={iban()}>
-            <span><%= iban() %></span>
+            <span>{iban()}</span>
           </.click_to_copy>
         </div>
       </div>
@@ -336,7 +336,7 @@
         <li class="flex">
           <.icon name="paw" class="w-3 h-3 mr-3 my-auto" />
           <span class="my-auto xl:text-lg">
-            <%= text %>
+            {text}
           </span>
         </li>
       <% end %>
@@ -385,7 +385,7 @@
           >bazie sprawozdań OPP</.link>. Aby zapoznać się ze sprawozdaniem za dowolny rok, w wyszukiwarce wpisz numer KRS:
         </span>
         <.click_to_copy class="!inline text-primary" text_to_copy={krs()}>
-          <%= krs() %>
+          {krs()}
         </.click_to_copy>
         <span> lub inne dane Kotkowa.</span>
       </div>

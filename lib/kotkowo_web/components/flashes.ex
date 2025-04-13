@@ -3,8 +3,7 @@ defmodule KotkowoWeb.Components.Flashes do
   Provides Phoenix flash UI components.
   """
   use Phoenix.Component
-
-  import KotkowoWeb.Gettext
+  use Gettext, backend: KotkowoWeb.Gettext
 
   alias Phoenix.LiveView.JS
 
@@ -44,9 +43,9 @@ defmodule KotkowoWeb.Components.Flashes do
       <p :if={@title} class="flex items-center gap-1.5 text-[0.8125rem] font-semibold leading-6">
         <Heroicons.information_circle :if={@kind == :info} mini class="h-4 w-4" />
         <Heroicons.exclamation_circle :if={@kind == :error} mini class="h-4 w-4" />
-        <%= @title %>
+        {@title}
       </p>
-      <p class="mt-2 text-[0.8125rem] leading-5"><%= msg %></p>
+      <p class="mt-2 text-[0.8125rem] leading-5">{msg}</p>
       <button
         :if={@close}
         type="button"
@@ -68,7 +67,7 @@ defmodule KotkowoWeb.Components.Flashes do
     ~H"""
     <p class="phx-no-feedback:hidden mt-3 flex gap-3 text-sm leading-6 text-rose-600">
       <Heroicons.exclamation_circle mini class="mt-0.5 h-5 w-5 flex-none fill-rose-500" />
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </p>
     """
   end

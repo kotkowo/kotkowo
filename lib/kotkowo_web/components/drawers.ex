@@ -35,7 +35,7 @@ defmodule KotkowoWeb.Components.Drawers do
             x-bind:class="!folded && 'pb-3'"
             x-on:click="folded = !folded"
           >
-            <span class={@title_class}><%= @title %></span>
+            <span class={@title_class}>{@title}</span>
             <template x-if="folded">
               <.icon name="chevron_down" class="w-4 xl:w-5 h-3 xl:h-4 my-auto" />
             </template>
@@ -48,12 +48,12 @@ defmodule KotkowoWeb.Components.Drawers do
             x-show="!folded"
             x-transition
           >
-            <%= render_slot(@inner_block) %>
+            {render_slot(@inner_block)}
           </div>
         </div>
       </template>
       <template x-if="isXl" class={classes([@class_when_hidden, "text-xl font-inter text-secondary"])}>
-        <%= render_slot(@inner_block) %>
+        {render_slot(@inner_block)}
       </template>
     </div>
     """

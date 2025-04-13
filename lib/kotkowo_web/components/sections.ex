@@ -5,11 +5,11 @@ defmodule KotkowoWeb.Components.Sections do
 
   use KotkowoWeb, :verified_routes
   use Phoenix.Component, global_prefixes: ~w(x-)
+  use Gettext, backend: KotkowoWeb.Gettext
 
   import KotkowoWeb.Components.Buttons
   import KotkowoWeb.Components.Icons
   import KotkowoWeb.Constants
-  import KotkowoWeb.Gettext
   import Tails
 
   @type nested_link :: {String.t(), String.t()}
@@ -56,7 +56,7 @@ defmodule KotkowoWeb.Components.Sections do
         <div class="my-auto">
           <a href={"mailto:#{@contact_email}"} class="hover:text-white">
             <.icon name="envelope" class="mb-0.5 w-4 inline" />
-            <span class="underline font-bold"><%= @contact_email %></span>
+            <span class="underline font-bold">{@contact_email}</span>
           </a>
         </div>
       </div>
@@ -72,7 +72,7 @@ defmodule KotkowoWeb.Components.Sections do
               class="ml-4 xl:font-manrope font-bold text-primary text-lg xl:text-2xl xl:text-black xl:mr-12"
               navigate={~p"/"}
             >
-              <%= render_slot(@inner_block) %>
+              {render_slot(@inner_block)}
             </.link>
             <.icon
               name="bars"
@@ -98,7 +98,7 @@ defmodule KotkowoWeb.Components.Sections do
                   "text-lg static cursor-pointer py-4 border-b-2 border-primary",
                   "flex xl:block flex-row w-full xl:w-auto items-center justify-between xl:py-0 xl:border-none"
                 ]}>
-                  <.link navigate={href} class={text_classes}><%= title %></.link>
+                  <.link navigate={href} class={text_classes}>{title}</.link>
 
                   <%= if nested_links != [] do %>
                     <.icon name="chevron_down" class="w-5 inline xl:hidden" x-show="!expanded" />
@@ -114,7 +114,7 @@ defmodule KotkowoWeb.Components.Sections do
                         navigate={href}
                         class="py-3 px-5 text-lg hover:bg-primary-light hover:text-primary"
                       >
-                        <%= title %>
+                        {title}
                       </.link>
                     <% end %>
                   </div>
@@ -125,7 +125,7 @@ defmodule KotkowoWeb.Components.Sections do
                   class="space-y-4 mt-4 xl:hidden pb-4 border-b-2 border-primary"
                 >
                   <%= for {title, href} <- nested_links do %>
-                    <li><.link navigate={href}><%= title %></.link></li>
+                    <li><.link navigate={href}>{title}</.link></li>
                   <% end %>
                 </ul>
               </div>
@@ -133,10 +133,10 @@ defmodule KotkowoWeb.Components.Sections do
 
             <div class="mt-5 border-b-2 border-primary pb-6 xl:hidden">
               <div class="text-black flex flex-col space-y-4 mx-4">
-                <h4 class="text-lg"><%= gettext("Kontakt:") %></h4>
+                <h4 class="text-lg">{gettext("Kontakt:")}</h4>
                 <a href={"mailto:#{@contact_email}"} class="hover:text-black">
                   <.icon name="envelope" class="mb-0.5 w-5 h-5 inline invert" />
-                  <%= @contact_email %>
+                  {@contact_email}
                 </a>
                 <div class="flex space-x-6">
                   <a href={kotkowo_facebook()} target="_blank" rel="noopener noreferrer">
@@ -169,7 +169,7 @@ defmodule KotkowoWeb.Components.Sections do
     ~H"""
     <div class={classes(["w-full even:bg-primary-light first:pt-0 py-10 xl:py-16", @parent_class])}>
       <section class={classes(["mx-auto max-w-3xl md:max-w-5xl lg:max-w-7xl", @class])} {@rest}>
-        <%= render_slot(@inner_block) %>
+        {render_slot(@inner_block)}
       </section>
     </div>
     """
@@ -196,7 +196,7 @@ defmodule KotkowoWeb.Components.Sections do
 
             <.footer_link href={"mailto:#{kotkowo_mail()}"} class="flex">
               <.icon name="envelope2" class="w-5 h-5 inline my-auto mr-2" />
-              <span class="my-auto"><%= kotkowo_mail() %></span>
+              <span class="my-auto">{kotkowo_mail()}</span>
             </.footer_link>
 
             <div class="flex">
@@ -204,8 +204,8 @@ defmodule KotkowoWeb.Components.Sections do
               <div class="flex flex-col space-y-2">
                 <span>Adres biura</span>
                 <.click_to_copy text_to_copy={"#{kotkowo_address()}\\n#{postal_code()}"}>
-                  <span><%= kotkowo_address() %></span>
-                  <span><%= postal_code() %></span>
+                  <span>{kotkowo_address()}</span>
+                  <span>{postal_code()}</span>
                 </.click_to_copy>
               </div>
             </div>
@@ -284,7 +284,7 @@ defmodule KotkowoWeb.Components.Sections do
   defp footer_link(assigns) do
     ~H"""
     <.link class={["hover:text-primary-lighter transition", @class]} {@rest}>
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </.link>
     """
   end
@@ -296,8 +296,8 @@ defmodule KotkowoWeb.Components.Sections do
     ~H"""
     <section class="flex">
       <div class="flex flex-col space-y-4 xl:mx-auto">
-        <h3 :if={@title != nil} class="text-xl xl:text-2xl font-bold font-manrope"><%= @title %></h3>
-        <%= render_slot(@inner_block) %>
+        <h3 :if={@title != nil} class="text-xl xl:text-2xl font-bold font-manrope">{@title}</h3>
+        {render_slot(@inner_block)}
       </div>
     </section>
     """
@@ -309,9 +309,9 @@ defmodule KotkowoWeb.Components.Sections do
   defp footer_definition(assigns) do
     ~H"""
     <div class="xl:grid grid-flow-col auto-cols-max gap-3">
-      <dt class="font-bold"><%= @term %></dt>
+      <dt class="font-bold">{@term}</dt>
       <.click_to_copy text_to_copy={@description}>
-        <dd><%= @description %></dd>
+        <dd>{@description}</dd>
       </.click_to_copy>
     </div>
     """
@@ -324,8 +324,8 @@ defmodule KotkowoWeb.Components.Sections do
   def text_article(assigns) do
     ~H"""
     <article class="flex flex-col space-y-3">
-      <h4 class="text-base xl:text-lg text-primary font-bold"><%= @title %></h4>
-      <p class="text-sm xl:text-lg"><%= render_slot(@inner_block) %></p>
+      <h4 class="text-base xl:text-lg text-primary font-bold">{@title}</h4>
+      <p class="text-sm xl:text-lg">{render_slot(@inner_block)}</p>
     </article>
     """
   end

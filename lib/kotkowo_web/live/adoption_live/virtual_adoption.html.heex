@@ -24,7 +24,7 @@
           <li class="flex">
             <.icon name="paw" class="w-[13px] h-[25px] mr-3" />
             <span class="my-auto xl:text-lg text-xl">
-              <%= text %>
+              {text}
             </span>
           </li>
         <% end %>
@@ -85,7 +85,7 @@
         <a href={"mailto:#{kotkowo_mail()}"}>
           <.icon name="envelope" class="mb-0.5 lg:w-6 w-7 inline invert" />
           <span class="underline font-bold lg:text-base text-lg">
-            <%= kotkowo_mail() %>
+            {kotkowo_mail()}
           </span>
         </a>
         <a target="_blank" rel="noopener noreferrer" href={kotkowo_facebook()}>

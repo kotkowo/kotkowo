@@ -21,7 +21,7 @@
         x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
         x-data
       >
-        <%= krs() %>
+        {krs()}
       </div>
       Aby to zrobić, <b>uzupełnij część zeznania zatytułowaną "Wniosek o przekazanie 1,5% podatku należnego na rzecz organizacji pożytku publicznego OPP"</b>, znajdującą się na ostatniej stronie zeznania PIT.
       W tej samej części zeznania wpisz także kwotę, którą chcesz przekazać dla OPP.
@@ -49,7 +49,7 @@
           Aby adoptować kota z fundacji, zadzwoń do nas lub napisz na:
           <div>
             <.link class="text-primary font-bold" href="mailto:fundacja.kotkowo@gmail.com">
-              <%= kotkowo_mail() %>
+              {kotkowo_mail()}
             </.link>
           </div>
         </div>
@@ -85,7 +85,7 @@
     <.drawer title="Czy adoptując wirtualnie kota, muszę wpłacać ustaloną kwotę do czasu znalezienia domu?">
       Nie, wystarczy napisać do nas maila na
       <.link class="text-primary font-bold" href="mailto:fundacja.kotkowo@gmail.com">
-        <%= kotkowo_mail() %>
+        {kotkowo_mail()}
       </.link>
       z informacją, że rezygnujesz z wirtualnej adopcji oraz nie wpłacać kolejnej kwoty. Można zrezygnować w każdej chwili, nie podając przyczyn. Oczywiście nie zwracamy wpłaconych wcześniej pieniędzy (zostaną już pewnie dawno „zjedzone” przez kicia).
     </.drawer>
@@ -136,7 +136,7 @@
             x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
             x-data
           >
-            <%= bank() %>
+            {bank()}
           </span>
         </p>
         <p>
@@ -146,7 +146,7 @@
             x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
             x-data
           >
-            <%= bank_account_number() %>
+            {bank_account_number()}
           </span>
         </p>
       </div>
@@ -180,7 +180,7 @@
           x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
           x-data
         >
-          <%= krs() %>
+          {krs()}
         </span>
         lub inne dane Kotkowa.
       </div>
@@ -201,7 +201,7 @@
           x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
           x-data
         >
-          <%= krs() %>
+          {krs()}
         </span>
       </p>
       <p>
@@ -211,7 +211,7 @@
           x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
           x-data
         >
-          <%= nip() %>
+          {nip()}
         </span>
       </p>
       <p>
@@ -221,7 +221,7 @@
           x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
           x-data
         >
-          <%= regon() %>
+          {regon()}
         </span>
       </p>
       <br />
@@ -233,14 +233,14 @@
         x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
         x-data
       >
-        <%= kotkowo_address() %>
+        {kotkowo_address()}
       </p>
       <p
         class="font-bold underline cursor-pointer"
         x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
         x-data
       >
-        <%= postal_code() %>
+        {postal_code()}
       </p>
       <br />
       <p>
@@ -250,7 +250,7 @@
           x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
           x-data
         >
-          <%= bank() %>
+          {bank()}
         </span>
       </p>
       <p>
@@ -260,7 +260,7 @@
           x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
           x-data
         >
-          <%= bank_account_number() %>
+          {bank_account_number()}
         </span>
       </p>
       <p>
@@ -281,7 +281,7 @@
           x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
           x-data
         >
-          <%= swift_bic() %>
+          {swift_bic()}
         </span>
       </p>
       <p>
@@ -291,7 +291,7 @@
           x-on:click="navigator.clipboard.writeText($el.innerText); $dispatch('toast', {message: 'Skopiowane', icon: '📋'});"
           x-data
         >
-          <%= iban() %>
+          {iban()}
         </span>
       </p>
       <br />
@@ -309,7 +309,7 @@
       <div>
         Kontakt e-mail:
         <.link href={"mailto:#{kotkowo_mail()}"} class="text-primary font-bold underline">
-          <%= kotkowo_mail() %>
+          {kotkowo_mail()}
         </.link>
       </div>
 
@@ -441,14 +441,14 @@
           <li>
             <b>e-mailem</b>, pisząc na adres:
             <.link href={"mailto:#{kotkowo_mail()}"} class="text-primary font-bold underline">
-              <%= kotkowo_mail() %>
+              {kotkowo_mail()}
             </.link>
           </li>
           <li>
             <b>wysyłając SMS-a</b>
             na numer
             <.link href={"tel:#{kotkowo_phone(:short)}"} class="text-primary font-bold underline">
-              <%= kotkowo_phone() %>
+              {kotkowo_phone()}
             </.link>
           </li>
         </ul>
