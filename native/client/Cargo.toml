@@ -12,6 +12,6 @@ crate-type = ["cdylib"]
 [dependencies]
 rustler = "0.32.1"
 serde = { version = "1.0.183", features = ["derive"] }
-kotkowo-client = { git = "https://github.com/kotkowo/kotkowo-client", features = ["elixir_support"], tag = "v0.2.8" }
+kotkowo-client = { git = "https://github.com/kotkowo/kotkowo-client", features = ["elixir_support"], tag = "v0.3.0" }
 #kotkowo-client = { path="../../../kotkowo-client", features = ["elixir_support"] }
 
