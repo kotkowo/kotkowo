@@ -7,9 +7,15 @@ strapi_endpoint =
     """
 
 plausible_script_endpoint = System.get_env("PLAUSIBLE_SCRIPT_ENDPOINT")
+plausible_key = System.get_env("PLAUSIBLE_KEY")
+plausible_url = System.get_env("PLAUSIBLE_URL")
 
 config :kotkowo, :strapi, endpoint: strapi_endpoint
-config :kotkowo, :plausible, script_endpoint: plausible_script_endpoint
+
+config :kotkowo, :plausible,
+  script_endpoint: plausible_script_endpoint,
+  url: plausible_url,
+  key: plausible_key
 
 if System.get_env("PHX_SERVER") do
   config :kotkowo, KotkowoWeb.Endpoint, server: true

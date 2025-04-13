@@ -51,6 +51,8 @@ defmodule Kotkowo.Client.ViewUpdate do
 
   defp extract_id_from_endpoint(endpoint) do
     endpoint
+    |> URI.parse()
+    |> Map.get(:path)
     |> String.split("/", trim: true)
     |> List.last()
     |> Integer.parse()

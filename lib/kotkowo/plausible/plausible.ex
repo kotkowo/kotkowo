@@ -4,17 +4,6 @@ defmodule Kotkowo.Plausible do
 
   require Logger
 
-  @plausible_key System.fetch_env!("PLAUSIBLE_KEY")
-  @plausible_url System.fetch_env!("PLAUSIBLE_URL")
-  @kotkowo_domain System.fetch_env!("PHX_HOST")
-  @api_endpoint "#{@plausible_url}/api/v2/query"
-
-  @headers [
-    {"Authorization", "Bearer #{@plausible_key}"},
-    {"Content-Type", "application/json"},
-    {"Accept", "application/json"}
-  ]
-
   def update_article_views do
     update_article_views(Kotkowo.Client.get_last_view_pull_utc())
   end
@@ -22,31 +11,50 @@ defmodule Kotkowo.Plausible do
   def update_article_views({:error, _err} = res), do: res
 
   def update_article_views({:ok, last_pull}) do
+    [url: plausible_url, key: plausible_key] = Application.get_env(:kotkowo, :plausible)
+    kotkowo_domain = Application.get_env(:kotkowo, KotkowoWeb.Endpoint)[:url][:host]
+    api_endpoint = "#{plausible_url}/api/v2/query"
+
+    headers = [
+      {"Authorization", "Bearer #{plausible_key}"},
+      {"Content-Type", "application/json"},
+      {"Accept", "application/json"}
+    ]
+
     now =
       "Europe/Warsaw"
       |> DateTime.now!()
       |> DateTime.to_iso8601()
 
-    query =
-      Jason.encode!(%{
-        site_id: @kotkowo_domain,
-        metrics: ["visitors"],
-        dimensions: ["event:page"],
-        date_range: [last_pull, now],
-        pagination: %{limit: 1000},
-        filters: [
+    query = %{
+      site_id: kotkowo_domain,
+      metrics: ["visitors"],
+      dimensions: ["event:page"],
+      date_range: [last_pull, now],
+      pagination: %{limit: 1000},
+      filters: [
+        [
+          "or",
           [
-            "or",
-            [["contains", "event:page", ["/aktualnosci/z-ostatniej-chwili/"]], ["contains", "event:page", ["/porady/"]]]
-          ],
-          ["not", ["contains", "event:page", ["wszystkie"]]]
-        ]
-      })
+            ["contains", "event:page", ["/aktualnosci/z-ostatniej-chwili/"]],
+            ["contains", "event:page", ["/porady/"]]
+          ]
+        ],
+        ["not", ["contains", "event:page", ["wszystkie"]]]
+      ]
+    }
 
-    case HTTPoison.post(@api_endpoint, query, @headers) do
-      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+    response =
+      Req.post!(
+        url: api_endpoint,
+        headers: headers,
+        json: query
+      )
+
+    case response.status do
+      200 ->
         updates =
-          body
+          response.body
           |> Jason.decode!()
           |> Map.get("results")
           |> Enum.map(fn %{"metrics" => [views], "dimensions" => [url]} ->
@@ -57,11 +65,8 @@ defmodule Kotkowo.Plausible do
 
         Kotkowo.Client.update_views(now, updates)
 
-      {:ok, %HTTPoison.Response{status_code: code}} ->
+      code ->
         {:error, "Request failed with status: #{code}"}
-
-      {:error, _reason} = err ->
-        err
     end
   end
 end
