@@ -5,6 +5,7 @@ defmodule Kotkowo.Application do
   use Application
 
   alias Kotkowo.AdviceHandler
+  alias Kotkowo.Plausible.ViewPuller
 
   @impl true
   def start(_type, _args) do
@@ -14,7 +15,8 @@ defmodule Kotkowo.Application do
       {Phoenix.PubSub, name: Kotkowo.PubSub},
       KotkowoWeb.Endpoint,
       Kotkowo.PromEx,
-      Supervisor.child_spec({AdviceHandler, nil}, id: AdviceHandler, restart: :permanent)
+      Supervisor.child_spec({AdviceHandler, nil}, id: AdviceHandler, restart: :permanent),
+      Supervisor.child_spec({ViewPuller, [interval: 5 * 60 * 1000]}, id: ViewPuller, restart: :permanent)
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
