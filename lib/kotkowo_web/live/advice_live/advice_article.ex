@@ -56,7 +56,7 @@ defmodule KotkowoWeb.AdviceLive.AdviceArticle do
         Client.get_advice_article(advice_id)
       end)
       |> start_async(:load_popular_advices, fn ->
-        [page: 0, page_size: 3] |> Client.new() |> Client.list_advices()
+        [page: 0, page_size: 3, sort: "updatedAt:desc", sort: "views:desc"] |> Client.new() |> Client.list_advices()
       end)
 
     {:ok, socket}

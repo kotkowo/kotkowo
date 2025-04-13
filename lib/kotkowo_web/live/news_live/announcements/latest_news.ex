@@ -37,12 +37,26 @@ defmodule KotkowoWeb.AnnouncementsLive.LatestNews do
           |> assign(:news, news)
           |> assign(:header_news, header_news)
           |> assign(:popular_news, popular_news)
-          |> assign(:popular_titles, [header_news | popular_news])
           |> assign_async(:article, fn -> {:ok, %{article: get_article(header_news)}} end)
 
         {:error, message} ->
           Logger.error(message)
           put_flash(socket, :error, "Błąd podczas wczytywania aktualności")
+      end
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_async(:load_popular_titles, {:ok, titles}, socket) do
+    socket =
+      case titles do
+        {:ok, %Paged{items: popular_titles}} ->
+          assign(socket, :popular_titles, popular_titles)
+
+        {:error, message} ->
+          Logger.error(message)
+          put_flash(socket, :error, "Błąd podczas wczytywania najczęściej czytanych artykułów")
       end
 
     {:noreply, socket}
@@ -58,7 +72,12 @@ defmodule KotkowoWeb.AnnouncementsLive.LatestNews do
       |> assign(:news, nil)
       |> assign(:article, nil)
       |> start_async(:load_announcements, fn ->
-        [page: 0, page_size: 7] |> Client.new() |> Client.list_announcements()
+        [page: 0, page_size: 7, sort: "updatedAt:desc"] |> Client.new() |> Client.list_announcements()
+      end)
+      |> start_async(:load_popular_titles, fn ->
+        [page: 0, page_size: 3, sort: "updatedAt:desc", sort: "views:desc"]
+        |> Client.new()
+        |> Client.list_announcements()
       end)
 
     {:ok, socket}

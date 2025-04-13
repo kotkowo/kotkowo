@@ -56,7 +56,7 @@ defmodule KotkowoWeb.AnnouncementsLive.NewsArticle do
         Client.get_article(announcement_id)
       end)
       |> start_async(:load_popular_announcements, fn ->
-        [page: 0, page_size: 3] |> Client.new() |> Client.list_announcements()
+        [page: 0, page_size: 3, sort: "updatedAt:desc", sort: "views:desc"] |> Client.new() |> Client.list_announcements()
       end)
 
     {:ok, socket}
