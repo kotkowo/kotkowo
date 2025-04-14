@@ -12,9 +12,9 @@ import Config
 config :kotkowo, KotkowoWeb.Endpoint,
   cache_static_manifest: "priv/static/cache_manifest.json",
   url: [host: System.get_env("HOSTNAME"), port: 80],
-  secret_key_base: System.get_env("SECRET_KEY_BASE"),
-  enable_view_puller: true,
-  enable_advice_handler: true
+  secret_key_base: System.get_env("SECRET_KEY_BASE")
+
+config :kotkowo, :services, enable_view_puller: true
 
 # Do not print debug messages in production
 config :logger, level: :info
