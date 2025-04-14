@@ -24,26 +24,26 @@ defmodule Kotkowo.Client.ViewUpdate do
   def from_url_views({endpoint, views}) do
     @view_groups_mapping
     |> Map.to_list()
-    |> Enum.reduce_while(nil, fn {group_name, api_mapping}, _acc ->
-      if String.contains?(endpoint, group_name) do
-        case extract_id_from_endpoint(endpoint) do
-          nil ->
-            {:cont, nil}
-
-          id ->
-            update = %ViewUpdate{
-              content_type: api_mapping,
-              id: id,
-              amount: views,
-              field: "views"
-            }
-
-            {:halt, update}
-        end
-      else
-        {:cont, nil}
-      end
+    |> Enum.find_value(fn {group_name, api_mapping} ->
+      match_view_update(endpoint, group_name, api_mapping, views)
     end)
+  end
+
+  defp match_view_update(endpoint, group_name, api_mapping, views) do
+    if String.contains?(endpoint, group_name) do
+      case extract_id_from_endpoint(endpoint) do
+        nil ->
+          nil
+
+        id ->
+          %ViewUpdate{
+            content_type: api_mapping,
+            id: id,
+            amount: views,
+            field: "views"
+          }
+      end
+    end
   end
 
   defp extract_id_from_endpoint({id, _rest}), do: to_string(id)

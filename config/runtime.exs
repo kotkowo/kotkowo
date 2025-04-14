@@ -9,13 +9,15 @@ strapi_endpoint =
 plausible_script_endpoint = System.get_env("PLAUSIBLE_SCRIPT_ENDPOINT")
 plausible_key = System.get_env("PLAUSIBLE_KEY")
 plausible_url = System.get_env("PLAUSIBLE_URL")
+host = System.get_env("PHX_HOST") || "example.com"
 
 config :kotkowo, :strapi, endpoint: strapi_endpoint
 
 config :kotkowo, :plausible,
   script_endpoint: plausible_script_endpoint,
   url: plausible_url,
-  key: plausible_key
+  key: plausible_key,
+  domain: host
 
 if System.get_env("PHX_SERVER") do
   config :kotkowo, KotkowoWeb.Endpoint, server: true
@@ -29,7 +31,6 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
-  host = System.get_env("PHX_HOST") || "example.com"
   port = String.to_integer(System.get_env("PORT") || "4000")
 
   config :kotkowo, KotkowoWeb.Endpoint,

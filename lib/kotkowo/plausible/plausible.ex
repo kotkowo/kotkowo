@@ -11,15 +11,17 @@ defmodule Kotkowo.Plausible do
   def update_article_views({:error, _err} = res), do: res
 
   def update_article_views({:ok, last_pull}) do
-    [url: plausible_url, key: plausible_key] = Application.get_env(:kotkowo, :plausible)
-    kotkowo_domain = Application.get_env(:kotkowo, KotkowoWeb.Endpoint)[:url][:host]
+    plausible_config = Application.get_env(:kotkowo, :plausible)
+    plausible_url = Keyword.get(plausible_config, :url)
+    plausible_key = Keyword.get(plausible_config, :key)
+    kotkowo_domain = Keyword.get(plausible_config, :domain)
     api_endpoint = "#{plausible_url}/api/v2/query"
 
-    headers = [
-      {"Authorization", "Bearer #{plausible_key}"},
-      {"Content-Type", "application/json"},
-      {"Accept", "application/json"}
-    ]
+    headers = %{
+      "Authorization" => "Bearer #{plausible_key}",
+      "Content-Type" => "application/json",
+      "Accept" => "application/json"
+    }
 
     now =
       "Europe/Warsaw"
@@ -31,7 +33,7 @@ defmodule Kotkowo.Plausible do
       metrics: ["visitors"],
       dimensions: ["event:page"],
       date_range: [last_pull, now],
-      pagination: %{limit: 1000},
+      pagination: %{"limit" => 1000},
       filters: [
         [
           "or",
@@ -45,17 +47,12 @@ defmodule Kotkowo.Plausible do
     }
 
     response =
-      Req.post!(
-        url: api_endpoint,
-        headers: headers,
-        json: query
-      )
+      [headers: headers, url: api_endpoint] |> Req.new() |> Req.post!(json: query)
 
     case response.status do
       200 ->
         updates =
           response.body
-          |> Jason.decode!()
           |> Map.get("results")
           |> Enum.map(fn %{"metrics" => [views], "dimensions" => [url]} ->
             {url, views}
@@ -65,8 +62,8 @@ defmodule Kotkowo.Plausible do
 
         Kotkowo.Client.update_views(now, updates)
 
-      code ->
-        {:error, "Request failed with status: #{code}"}
+      _code ->
+        {:error, "Request failed with status: #{inspect(response)}"}
     end
   end
 end
