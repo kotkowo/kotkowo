@@ -9,6 +9,8 @@ defmodule Kotkowo.Application do
 
   @impl true
   def start(_type, _args) do
+    internal_services = Application.get_env(:kotkowo, :services, Keyword.new())
+
     children =
       [
         KotkowoWeb.Telemetry,
@@ -16,7 +18,7 @@ defmodule Kotkowo.Application do
         KotkowoWeb.Endpoint,
         Kotkowo.PromEx,
         Supervisor.child_spec({AdviceHandler, nil}, id: AdviceHandler, restart: :permanent)
-      ] ++ maybe_view_puller()
+      ] ++ maybe_view_puller(internal_services)
 
     # Start the Telemetry supervisor
 
@@ -34,9 +36,9 @@ defmodule Kotkowo.Application do
     :ok
   end
 
-  defp maybe_view_puller do
-    if Application.get_env(:kotkowo, :enable_view_puller, false) do
-      Supervisor.child_spec({ViewPuller, [interval: 5 * 60 * 1000]}, id: ViewPuller, restart: :permanent)
+  defp maybe_view_puller(services) do
+    if services[:enable_view_puller] do
+      [Supervisor.child_spec({ViewPuller, [interval: 5 * 60 * 1000]}, id: ViewPuller, restart: :permanent)]
     else
       []
     end
