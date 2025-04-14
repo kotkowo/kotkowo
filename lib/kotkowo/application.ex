@@ -10,17 +10,13 @@ defmodule Kotkowo.Application do
   @impl true
   def start(_type, _args) do
     children =
-      Enum.filter(
-        [
-          KotkowoWeb.Telemetry,
-          {Phoenix.PubSub, name: Kotkowo.PubSub},
-          KotkowoWeb.Endpoint,
-          Kotkowo.PromEx,
-          Supervisor.child_spec({AdviceHandler, nil}, id: AdviceHandler, restart: :permanent),
-          maybe_view_puller()
-        ],
-        & &1
-      )
+      [
+        KotkowoWeb.Telemetry,
+        {Phoenix.PubSub, name: Kotkowo.PubSub},
+        KotkowoWeb.Endpoint,
+        Kotkowo.PromEx,
+        Supervisor.child_spec({AdviceHandler, nil}, id: AdviceHandler, restart: :permanent)
+      ] ++ maybe_view_puller()
 
     # Start the Telemetry supervisor
 
@@ -41,6 +37,8 @@ defmodule Kotkowo.Application do
   defp maybe_view_puller do
     if Application.get_env(:kotkowo, :enable_view_puller, false) do
       Supervisor.child_spec({ViewPuller, [interval: 5 * 60 * 1000]}, id: ViewPuller, restart: :permanent)
+    else
+      []
     end
   end
 end

@@ -17,12 +17,6 @@ defmodule Kotkowo.Plausible do
     kotkowo_domain = Keyword.get(plausible_config, :domain)
     api_endpoint = "#{plausible_url}/api/v2/query"
 
-    headers = %{
-      "Authorization" => "Bearer #{plausible_key}",
-      "Content-Type" => "application/json",
-      "Accept" => "application/json"
-    }
-
     now =
       "Europe/Warsaw"
       |> DateTime.now!()
@@ -47,7 +41,7 @@ defmodule Kotkowo.Plausible do
     }
 
     response =
-      [headers: headers, url: api_endpoint] |> Req.new() |> Req.post!(json: query)
+      Req.post!(json: query, auth: {:bearer, plausible_key}, url: api_endpoint)
 
     case response.status do
       200 ->

@@ -9,7 +9,7 @@ strapi_endpoint =
 plausible_script_endpoint = System.get_env("PLAUSIBLE_SCRIPT_ENDPOINT")
 plausible_key = System.get_env("PLAUSIBLE_KEY")
 plausible_url = System.get_env("PLAUSIBLE_URL")
-host = System.get_env("PHX_HOST") || "example.com"
+host = System.get_env("PHX_HOST")
 
 config :kotkowo, :strapi, endpoint: strapi_endpoint
 
@@ -24,6 +24,8 @@ if System.get_env("PHX_SERVER") do
 end
 
 if config_env() == :prod do
+  if is_nil(host), do: raise("PHX_HOST is missing")
+
   secret_key_base =
     System.get_env("SECRET_KEY_BASE") ||
       raise """

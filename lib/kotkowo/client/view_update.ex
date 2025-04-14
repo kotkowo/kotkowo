@@ -31,17 +31,15 @@ defmodule Kotkowo.Client.ViewUpdate do
 
   defp match_view_update(endpoint, group_name, api_mapping, views) do
     if String.contains?(endpoint, group_name) do
-      case extract_id_from_endpoint(endpoint) do
-        nil ->
-          nil
+      id = extract_id_from_endpoint(endpoint)
 
-        id ->
-          %ViewUpdate{
-            content_type: api_mapping,
-            id: id,
-            amount: views,
-            field: "views"
-          }
+      unless is_nil(id) do
+        %ViewUpdate{
+          content_type: api_mapping,
+          id: id,
+          amount: views,
+          field: "views"
+        }
       end
     end
   end
