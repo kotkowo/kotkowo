@@ -16,4 +16,4 @@ jobs:
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          script: podman pull ghcr.io/kotkowo/kotkowo:latest && systemctl restart podman-kotkowo
+          script: podman pull ghcr.io/kotkowo/kotkowo:latest-arm64 && systemctl restart podman-kotkowo
