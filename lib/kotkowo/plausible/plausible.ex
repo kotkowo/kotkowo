@@ -18,9 +18,7 @@ defmodule Kotkowo.Plausible do
     api_endpoint = "#{plausible_url}/api/v2/query"
 
     now =
-      "Europe/Warsaw"
-      |> DateTime.now!()
-      |> DateTime.to_iso8601()
+      DateTime.to_iso8601(DateTime.utc_now())
 
     query = %{
       site_id: kotkowo_domain,
