@@ -16,7 +16,7 @@ defmodule KotkowoWeb.Components.Images do
       <img
         class={
           classes([
-            "w-[868px] h-[485px] max-w-[868px] max-h-[485px] min-w-[868px] min-h-[485px] object-cover",
+            "lg:w-[868px] lg:h-[485px] lg:max-w-[868px] lg:max-h-[485px] lg:min-w-[868px] lg:min-h-[485px] object-cover",
             @class
           ])
         }
@@ -29,7 +29,7 @@ defmodule KotkowoWeb.Components.Images do
 
   def gallery_empty(assigns) do
     ~H"""
-    <div class="flex w-[868px] h-[485px] object-cover bg-gray-200">
+    <div class="flex lg:w-[868px] lg:h-[485px] w-[340px] h-[225px] object-cover bg-gray-200">
       <Heroicons.x_mark class="w-32 h-32 m-auto" />
     </div>
     """

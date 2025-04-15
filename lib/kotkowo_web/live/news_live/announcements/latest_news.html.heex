@@ -11,22 +11,25 @@
     Z ostatniej chwili
   </h1>
   <div class="flex flex-col mx-4 lg:mt-6 mt-8 gap-y-10">
-    <.header_news_card_loading :if={!@header_news} />
-    <div :if={!@popular_news || !@popular_titles} class="grid grid-cols-5">
-      <div class="col-span-3 flex flex-row gap-x-5">
+    <.header_news_card_loading :if={@header_news == :loading} />
+    <div
+      :if={!@popular_news || !@popular_titles}
+      class="lg:grid flex flex-col-reverse lg:gap-y-0 gap-y-5 grid-cols-5"
+    >
+      <div class="col-span-3 flex flex-col lg:flex-row gap-5">
         <.news_card_loading :for={_ <- 1..2} />
       </div>
-      <div class="col-span-2 flex-col flex gap-y-5">
-        <div class="h-16 rounded bg-gray-300"></div>
-        <div :for={_ <- 1..4} class="h-8 even:w-2/3 bg-gray-300"></div>
+      <div class="col-span-2 flex-col flex gap-y-2 lg:gap-y-5">
+        <div class="h-12 lg:h-16 rounded bg-gray-300"></div>
+        <div :for={_ <- 1..3} class="h-8 w-3/4 lg:even:w-2/3 bg-gray-300"></div>
       </div>
     </div>
-    <div :if={!@news} class="flex flex-row gap-x-5">
+    <div :if={!@news} class="flex flex-col lg:flex-row gap-5">
       <.news_card_loading :for={_ <- 1..3} />
     </div>
 
     <.header_news_card
-      :if={@header_news}
+      :if={@header_news not in [:loading, nil]}
       title={@header_news.title}
       image={@header_news.image.url}
       tags={@header_news.tags}
@@ -49,7 +52,7 @@
       >
         <.news_card
           :for={popular_news <- @popular_news}
-          card_class="lg:min-w-[313px] max-w-[313px] mx-none"
+          card_class="lg:min-w-[313px] lg:max-w-[313px] w-full mx-none"
           news_id={popular_news.id}
           title={popular_news.title}
           tags={popular_news.tags}

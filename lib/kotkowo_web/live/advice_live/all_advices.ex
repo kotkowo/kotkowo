@@ -52,7 +52,7 @@ defmodule KotkowoWeb.AdviceLive.AllAdvices do
   @impl true
   def handle_params(params, _uri, socket) do
     limit = params |> Map.get("limit", Integer.to_string(@default_limit)) |> String.to_integer()
-    page = params |> Map.get("page", Integer.to_string(@first_page)) |> String.to_integer()
+    page = params |> Map.get("page", Integer.to_string(@first_page)) |> String.to_integer() |> max(@first_page)
 
     socket =
       start_async(socket, :load_advices, fn ->

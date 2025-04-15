@@ -36,7 +36,7 @@ defmodule KotkowoWeb.Components.CatGallery do
   def render(assigns) do
     ~H"""
     <div>
-      <div class="xl:hidden">
+      <div class="xl:hidden lg:block flex justify-center">
         <%= if @images != [] do %>
           <div
             x-init="$el.scrollLeft = ($el.scrollWidth - $el.clientWidth) / 2;"

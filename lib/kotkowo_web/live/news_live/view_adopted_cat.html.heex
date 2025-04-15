@@ -31,7 +31,7 @@
       </h2>
 
       <div class="text-lg">
-        {Phoenix.HTML.Format.text_to_html(@cat.description)}
+        <%= Phoenix.HTML.Format.text_to_html(@cat.description || "") %>
       </div>
     </div>
   </div>

@@ -30,15 +30,24 @@ defmodule KotkowoWeb.AnnouncementsLive.AllNews do
     socket =
       case announcements do
         {:ok, %Paged{items: news, page_count: page_count, page_size: limit}} ->
-          if page > page_count do
-            params = %{limit: limit, page: page_count}
-            push_patch(socket, to: ~p"/aktualnosci/z-ostatniej-chwili/wszystkie?#{params}", replace: true)
-          else
-            socket
-            |> stream(:news, news)
-            |> assign(:page, page)
-            |> assign(:limit, limit)
-            |> assign(:max_page, page_count)
+          cond do
+            page_count == 0 ->
+              socket
+              |> stream(:news, news)
+              |> assign(:page, @first_page)
+              |> assign(:limit, limit)
+              |> assign(:max_page, @first_page)
+
+            page > page_count ->
+              params = %{limit: limit, page: page_count}
+              push_patch(socket, to: ~p"/aktualnosci/z-ostatniej-chwili/wszystkie?#{params}", replace: true)
+
+            true ->
+              socket
+              |> stream(:news, news)
+              |> assign(:page, page)
+              |> assign(:limit, limit)
+              |> assign(:max_page, page_count)
           end
 
         {:error, msg} ->
@@ -52,7 +61,7 @@ defmodule KotkowoWeb.AnnouncementsLive.AllNews do
   @impl true
   def handle_params(params, _uri, socket) do
     limit = params |> Map.get("limit", Integer.to_string(@default_limit)) |> String.to_integer()
-    page = params |> Map.get("page", Integer.to_string(@first_page)) |> String.to_integer()
+    page = params |> Map.get("page", Integer.to_string(@first_page)) |> String.to_integer() |> max(@first_page)
 
     socket =
       start_async(socket, :load_announcements, fn ->

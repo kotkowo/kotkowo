@@ -67,7 +67,7 @@
           src={Image.first_url(cat.cat.images)}
           sex={cat.cat.sex}
           tags={cat.cat.tags}
-          card_class="mx-auto"
+          card_class="mx-auto max-w-[240px]"
           name={cat.cat.name}
         />
       </div>
@@ -93,7 +93,7 @@
         <.cat_card
           :for={cat <- @passed_away}
           name={cat.name}
-          card_class="mx-auto"
+          card_class="mx-auto max-w-[240px]"
           dead={cat.is_dead}
           src={Image.first_url(cat.images)}
           sex={cat.sex}

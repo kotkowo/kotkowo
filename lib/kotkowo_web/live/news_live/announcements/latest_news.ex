@@ -66,7 +66,7 @@ defmodule KotkowoWeb.AnnouncementsLive.LatestNews do
   def mount(_params, _session, socket) do
     socket =
       socket
-      |> assign(:header_news, nil)
+      |> assign(:header_news, :loading)
       |> assign(:popular_news, nil)
       |> assign(:popular_titles, nil)
       |> assign(:news, nil)

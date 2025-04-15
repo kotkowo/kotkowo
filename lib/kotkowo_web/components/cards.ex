@@ -96,7 +96,7 @@ defmodule KotkowoWeb.Components.Cards do
       <div class={
         classes([
           "bg-white rounded-3xl w-auto px-3 lg:px-5 py-2 lg:py-3 flex flex-col",
-          "justify-between gap-y-3 pb-3 lg:pb-6 relative -mt-5 border border-1",
+          "justify-between gap-y-3 pb-3 lg:pb-6 relative -mt-5 border border-1 lg:min-h-[143px] min-h-[100px]",
           @body_class
         ])
       }>
@@ -163,7 +163,7 @@ defmodule KotkowoWeb.Components.Cards do
       body_class="grow"
       class={
         classes([
-          "only:mx-auto max-w-[240px] lg:max-w-none",
+          "only:mx-auto lg:max-w-none",
           @card_class
         ])
       }
@@ -446,15 +446,17 @@ defmodule KotkowoWeb.Components.Cards do
 
   def header_news_card_loading(assigns) do
     ~H"""
-    <div class="lg:w-[1312px] flex flex-col lg:flex-row border border-1 rounded-2xl items-start h-full lg:h-[322px] pt-6 lg:pt-0">
+    <div class="lg:w-[1312px] w-full flex flex-col lg:flex-row border border-1 rounded-2xl items-start h-full lg:h-[322px]  lg:pt-0">
       <div class="flex flex-col w-full">
         <div
           :for={_ <- 1..6}
-          class="mt-2 max-w-xl even:max-w-lg first:mt-6 first:mb-4 mx-6 h-6 first:h-8 bg-gray-300 animate-pulse w-full rounded"
+          class="mt-2 lg:max-w-xl lg:even:max-w-lg lg:w-full first:mt-6 first:mb-4 mx-6 h-6 first:h-8 bg-gray-300 animate-pulse rounded"
         >
         </div>
       </div>
       <div class="bg-gray-300 animate-pulse w-full lg:max-w-[535px] lg:h-full rounded-xl lg:rounded-l-none lg:rounded-y-none">
+      </div>
+      <div class="lg:hidden mt-2 h-[169px] bg-gray-300 animate-pulse  w-full rounded-xl lg:rounded-l-none lg:rounded-y-none">
       </div>
     </div>
     """

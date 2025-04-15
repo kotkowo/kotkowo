@@ -72,7 +72,7 @@ defmodule KotkowoWeb.AdviceLive.Index do
   def mount(_params, _session, socket) do
     socket =
       socket
-      |> assign(:header_advice, nil)
+      |> assign(:header_advice, :loading)
       |> assign(:popular_advice, nil)
       |> assign(:popular_titles, nil)
       |> assign(:advice, nil)

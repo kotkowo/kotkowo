@@ -50,7 +50,7 @@ defmodule KotkowoWeb.Hooks.TitleHook do
   end
 
   def assign_title(_params, uri, socket) do
-    uri = URI.new!(uri)
+    uri = URI.parse(uri)
     title = find_title_by_path(uri.path)
 
     {:cont, assign(socket, :page_title, title)}
