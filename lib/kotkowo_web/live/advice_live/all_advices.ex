@@ -30,15 +30,24 @@ defmodule KotkowoWeb.AdviceLive.AllAdvices do
     socket =
       case advices do
         {:ok, %Paged{items: advices, page_count: page_count, page_size: limit}} ->
-          if page > page_count do
-            params = %{limit: limit, page: page_count}
-            push_patch(socket, to: ~p"/porady/wszystkie?#{params}", replace: true)
-          else
-            socket
-            |> stream(:advices, advices)
-            |> assign(:page, page)
-            |> assign(:limit, limit)
-            |> assign(:max_page, page_count)
+          cond do
+            page_count == 0 ->
+              socket
+              |> stream(:advices, advices)
+              |> assign(:page, @first_page)
+              |> assign(:limit, limit)
+              |> assign(:max_page, @first_page)
+
+            page > page_count ->
+              params = %{limit: limit, page: page_count}
+              push_patch(socket, to: ~p"/porady/wszystkie?#{params}", replace: true)
+
+            true ->
+              socket
+              |> stream(:advices, advices)
+              |> assign(:page, page)
+              |> assign(:limit, limit)
+              |> assign(:max_page, page_count)
           end
 
         {:error, msg} ->
