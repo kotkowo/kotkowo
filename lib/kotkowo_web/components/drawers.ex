@@ -7,6 +7,7 @@ defmodule KotkowoWeb.Components.Drawers do
   use Phoenix.Component
 
   import KotkowoWeb.Components.Icons
+  import KotkowoWeb.WebHelpers
   import Tails
 
   attr :title, :string, required: true
@@ -18,9 +19,12 @@ defmodule KotkowoWeb.Components.Drawers do
   slot :inner_block, required: true, doc: "Content when unfolded"
 
   def drawer(assigns) do
+    assigns = assign(assigns, :anchor, sanitize_to_anchor(assigns.title))
+
     ~H"""
     <div
-      x-data={"{isXl: $isBreakpoint('lg+') == true && #{@allow_unfolded}, folded: #{@folded}}"}
+      id={@anchor}
+      x-data={"{isXl: $isBreakpoint('lg+') == true && #{@allow_unfolded}, folded: #{@folded} && !(window.location.hash === '##{@anchor}')}"}
       x-on:resize.window={"isXl = $isBreakpoint('lg+') == true && #{@allow_unfolded}"}
     >
       <template x-if="!isXl">
